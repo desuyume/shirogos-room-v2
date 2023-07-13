@@ -1,8 +1,11 @@
+import { BrowserRouter } from 'react-router-dom'
+import AppRouter from './components/AppRouter'
+
 function App() {
   return (
-    <>
-      <p className='text-5xl text-green-600'>12312</p>
-    </>
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
   )
 }
 

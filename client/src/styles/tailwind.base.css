@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+	font-family: "Days One";
+	font-style: normal;
+	font-weight: 400;
+	src: url("../../public/fonts/DaysOne/DaysOne-Regular.ttf")
+}
+
+@layer base {
+  html {
+    font-family: Days One, sans-serif;
+		background-color: #181818;
+		color: #C34375;
+  }
+}

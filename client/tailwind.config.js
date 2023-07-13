@@ -5,7 +5,19 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      'primary': ['"Days One"', 'sans-serif'],
+      'secondary': ['"Open Sans"', 'sans-serif']
+    },
+    extend: {
+      colors: {
+        primary: '#C34375',
+				primaryHover: '#FF75AB',
+				secondary: '#242424',
+				secondaryHover: '#323232',
+				tertiary: '#181818',
+      }
+    },
   },
   plugins: [],
 }
