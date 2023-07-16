@@ -6,7 +6,7 @@
 	font-family: "Days One";
 	font-style: normal;
 	font-weight: 400;
-	src: url("../../public/fonts/DaysOne/DaysOne-Regular.ttf")
+	src: url("/fonts/DaysOne/DaysOne-Regular.ttf")
 }
 
 @layer base {

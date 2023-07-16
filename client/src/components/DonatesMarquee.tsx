@@ -4,7 +4,7 @@ import { IDonate } from '../types/types'
 import DonateItemMarquee from './DonateItemMarquee'
 
 const DonatesMarquee: FC = () => {
-	const [donates, setDonates] = useState<IDonate[] | null>([
+	const [donates, _] = useState<IDonate[] | null>([
 		{ nickname: 'Mode_Of_God', amount: '15.810' },
 		{
 			nickname: 'Metalfol',
