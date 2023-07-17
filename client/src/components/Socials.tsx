@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 
 const Socials: FC = () => {
 	return (
-		<div className='flex flex-col justify-center h-full absolute translate-x-[-50%] [&>a]:mb-[3.3vh] [&>a:last-child]:mb-0 [&>a:hover]:translate-x-[1.2vw] [&>a:hover]:transition-transform'>
+		<div className='flex flex-col justify-center h-full absolute translate-x-[-50%] [&>a]:mb-[3.3vh] [&>a:last-child]:mb-0 [&>a:hover]:translate-x-[1.2vw] [&>a:hover]:transition-transform z-20'>
 			<a href='https://t.me/shironel' target='_blank'><img className='h-[7.8vh]' src={telegramIcon} alt='telegram-icon' /></a>
 			<a href='https://vk.com/godofdango' target='_blank'><img className='h-[7.8vh]' src={vkIcon} alt='vk-icon' /></a>
 			<Link to='/youtubes'><img className='h-[7.8vh]' src={youtubeIcon} alt='youtube-icon' /></Link>
