@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import bgVideo from '../assets/shirogo.mp4'
 import Almanac from './Almanac'
+import { Link } from 'react-router-dom'
 
 const SecondScreen: FC = () => {
 	return (
@@ -12,6 +13,7 @@ const SecondScreen: FC = () => {
 				loop
 				muted
 			/>
+			<Link to='/chronicles' className='bg-primary text-center rounded-[56px] w-[161px] h-[28px] absolute top-4 left-[-20px] text-[#DEDEDE] text-xl hover:bg-primaryHover hover:w-[251px] hover:left-[-40px] transition-all'>Хроники</Link>
 			<Almanac />
 		</div>
 	);
