@@ -12,6 +12,7 @@ const FirstScreen: FC = () => {
 		<div className='bg-[#DEDEDE] h-screen relative overflow-hidden'>
 			<Socials />
 			<MouseParallaxContainer
+				containerStyle={{overflow: 'visible'}}
 				className='absolute left-[22%] h-full select-none'
 				globalFactorX={0.2}
 				globalFactorY={0}
