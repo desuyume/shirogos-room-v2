@@ -64,7 +64,7 @@ const Almanac: FC = () => {
 						{currentDate.getDate()}{' '}
 						{months[currentDate.getMonth() as keyof typeof months]}
 					</p>
-					<p className='text-[#DEDEDE] text-[2.5rem] leading-none'>Альманах</p>
+					<p className='text-primaryText text-[2.5rem] leading-none'>Альманах</p>
 				</div>
 				<div className='flex justify-center items-center overflow-y-auto'>
 					{nicknames ? (
@@ -72,7 +72,7 @@ const Almanac: FC = () => {
 							<img src={cakeImg} alt='cake-img' className='mr-5' />
 							<p className='text-[#EBE984] text-[1.0625rem] font-bold font-secondary text-center w-[50%] pt-2.5'>
 								С Днем Рождения
-								<span className='text-[#DEDEDE]'>
+								<span className='text-primaryText'>
 									,<br />
 									{nicknames?.join(', ')}!
 								</span>
@@ -81,7 +81,7 @@ const Almanac: FC = () => {
 					) : (
 						<>
 							<img src={noBirthdayCakeImg} alt='cake-img' className='mr-5' />
-							<p className='text-[1.0625rem] text-[#DEDEDE] text-center w-[45%] leading-none pt-2.5'>
+							<p className='text-[1.0625rem] text-primaryText text-center w-[45%] leading-none pt-2.5'>
 								Сегодня нет
 								<span className='text-[#EBE984] inline-block'>Дней Рождений</span>!
 								<span className='text-[0.625rem] inline-block leading-normal'>

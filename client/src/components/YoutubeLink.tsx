@@ -16,7 +16,7 @@ const YoutubeLink: FC<IYoutubeLink> = ({ title, imgPath, desc, link, isMiniTitle
 			<img src={youtubeIcon} alt='yt-icon' />
 			<p className={(isMiniTitle ? 'text-[1.75rem] ' : 'text-[2.125rem] ') + 'text-[#FFF] text-center leading-[95.295%] w-[20vw]'}>{parse(title)}</p>
 			<img src={"/images/" + imgPath + '.png'} alt='yt-img' />
-			<p className='text-[1.0625rem] text-[#DEDEDE] leading-none w-[18vw]'>{parse(desc)}</p>
+			<p className='text-[1.0625rem] text-primaryText leading-none w-[18vw]'>{parse(desc)}</p>
 		</a>
 	);
 };

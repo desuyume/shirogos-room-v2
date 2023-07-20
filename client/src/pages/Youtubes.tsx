@@ -21,7 +21,7 @@ const Youtubes: FC = () => {
 						alt='back-arrow'
 					/>
 					<p 
-						className={(isBackBttnHovered ? 'text-[#FFFFFF]' : 'text-[#DEDEDE]')}
+						className={(isBackBttnHovered ? 'text-[#FFFFFF]' : 'text-primaryText')}
 					>
 							НА САЙТ</p>
 				</Link>

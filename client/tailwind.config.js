@@ -16,6 +16,7 @@ export default {
 				secondary: '#242424',
 				secondaryHover: '#323232',
 				tertiary: '#181818',
+        primaryText: '#DEDEDE'
       }
     },
   },

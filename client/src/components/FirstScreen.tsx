@@ -21,7 +21,7 @@ const FirstScreen: FC<IFirstScreen> = ({ setAuthVisible }) => {
 	}
 
 	return (
-		<div className='bg-[#DEDEDE] h-[729px] relative overflow-hidden'>
+		<div className='bg-primaryText h-[729px] relative overflow-hidden'>
 			<Socials />
 			<h1 className='font-secondary text-[6.25rem] font-bold leading-[95.5%] absolute top-[159px] left-[50%] tracking-[-0.375rem]'>
 				КОМНАТА <br />

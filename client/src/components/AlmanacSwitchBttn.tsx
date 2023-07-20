@@ -13,7 +13,7 @@ const AlmanacSwitchBttn: FC<IAlmanacSwitchBttn> = ({
 }) => {
 	return (
 		<button
-			className='text-[#DEDEDE] bg-secondary h-full min-w-[50px] rounded-[24px] hover:bg-secondaryHover hover:text-[#FFF] transition-colors'
+			className='text-primaryText bg-secondary h-full min-w-[50px] rounded-[24px] hover:bg-secondaryHover hover:text-[#FFF] transition-colors'
 			onClick={onClick}
 		>
 			<p className='text-3xl leading-none'>{date}</p>
