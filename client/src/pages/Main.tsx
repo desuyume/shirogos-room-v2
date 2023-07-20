@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import FirstScreen from '../components/FirstScreen'
 import PagesLinks from '../components/PageLinks'
 import DonatesMarquee from '../components/DonatesMarquee'
