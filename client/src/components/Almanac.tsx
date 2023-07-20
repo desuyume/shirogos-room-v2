@@ -15,7 +15,7 @@ const Almanac: FC = () => {
 		setNextDate,
 	} = useDate(new Date())
 	//const [nicknames, setNicknames] = useState<string[] | null>(null)
-	const [nicknames, setNicknames] = useState<string[] | null>([
+	const [nicknames, _] = useState<string[] | null>([
 		'mercenaryJulian',
 		'Kurogo_',
 		'Shirogo_',
