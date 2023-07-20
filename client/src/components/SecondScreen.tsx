@@ -1,9 +1,10 @@
 import { FC } from 'react'
 import bgVideo from '../assets/shirogo.mp4'
+import Almanac from './Almanac'
 
 const SecondScreen: FC = () => {
 	return (
-		<div className='h-screen'>
+		<div className='h-screen relative'>
 			<video 
 				className='w-full h-full object-cover'
 				src={bgVideo}
@@ -11,6 +12,7 @@ const SecondScreen: FC = () => {
 				loop
 				muted
 			/>
+			<Almanac />
 		</div>
 	);
 };
