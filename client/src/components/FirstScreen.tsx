@@ -14,9 +14,15 @@ const FirstScreen: FC = () => {
 	return (
 		<div className='bg-[#DEDEDE] h-[729px] relative overflow-hidden'>
 			<Socials />
+			<h1 className='font-secondary text-[6.25rem] font-bold leading-[95.5%] absolute top-[159px] left-[50%] tracking-[-0.375rem]'>
+				КОМНАТА <br />
+				<span className='leading-none text-[8.125rem] tracking-[-0.4875rem]'>
+					ШИРОГО
+				</span>
+			</h1>
 			<MouseParallaxContainer
 				containerStyle={{ overflow: 'visible' }}
-				className='absolute left-[22%] h-full select-none'
+				className='flex justify-center w-screen h-full select-none'
 				globalFactorX={0.2}
 				globalFactorY={0}
 			>
@@ -27,23 +33,9 @@ const FirstScreen: FC = () => {
 				>
 					<img src={shirogoImg} />
 				</MouseParallaxChild>
-				<MouseParallaxChild
-					factorX={0.3}
-					factorY={0.3}
-					className='absolute left-[30%] top-[23%]'
-				>
-					<h1 className='font-secondary text-[6.25rem] font-bold leading-[95.5%] tracking-[-0.375rem]'>
-						КОМНАТА <br />
-						<span className='leading-none text-[8.125rem] tracking-[-0.4875rem]'>
-							ШИРОГО
-						</span>
-					</h1>
-				</MouseParallaxChild>
 			</MouseParallaxContainer>
 
-			<button
-				className='bg-primary px-9 py-5 rounded-[37px] absolute right-5 top-3 text-white text-4xl hover:bg-primaryHover transition-colors'
-			>
+			<button className='bg-primary px-9 py-5 rounded-[37px] absolute right-5 top-3 text-white text-4xl hover:bg-primaryHover transition-colors z-30'>
 				Вход
 			</button>
 			<a
