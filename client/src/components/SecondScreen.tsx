@@ -4,7 +4,7 @@ import Almanac from './Almanac'
 
 const SecondScreen: FC = () => {
 	return (
-		<div className='h-screen relative'>
+		<div className='h-[1041px] relative'>
 			<video 
 				className='w-full h-full object-cover'
 				src={bgVideo}

@@ -7,19 +7,25 @@ import twitchIcon from '../assets/socials/twitch.png'
 import vkplayIcon from '../assets/socials/vk-play.png'
 import vkIcon from '../assets/socials/vk.png'
 import youtubeIcon from '../assets/socials/youtube.png'
-import { Link } from 'react-router-dom'
+import SocialItem from './SocialItem'
 
 const Socials: FC = () => {
+	const socials = [
+		{ isPageLink: false, link: "https://t.me/shironel", icon: telegramIcon },
+		{ isPageLink: false, link: "https://vk.com/godofdango", icon: vkIcon },
+		{ isPageLink: true, link: "/youtubes", icon: youtubeIcon },
+		{ isPageLink: false, link: "https://www.instagram.com/evgendango/", icon: instagramIcon },
+		{ isPageLink: false, link: "https://www.tiktok.com/@evgendango", icon: tiktokIcon },
+		{ isPageLink: false, link: "https://discord.gg/4Ha6EchcaP", icon: discordIcon },
+		{ isPageLink: false, link: "https://www.twitch.tv/godofdango'", icon: twitchIcon },
+		{ isPageLink: false, link: "https://vkplay.live/godofdango", icon: vkplayIcon },
+	]
+
 	return (
-		<div className='flex flex-col justify-center h-full absolute translate-x-[-50%] [&>a]:mb-[3.3vh] [&>a:last-child]:mb-0 [&>a:hover]:translate-x-[1.2vw] [&>a:hover]:transition-transform z-20'>
-			<a href='https://t.me/shironel' target='_blank'><img className='h-[7.8vh]' src={telegramIcon} alt='telegram-icon' /></a>
-			<a href='https://vk.com/godofdango' target='_blank'><img className='h-[7.8vh]' src={vkIcon} alt='vk-icon' /></a>
-			<Link to='/youtubes'><img className='h-[7.8vh]' src={youtubeIcon} alt='youtube-icon' /></Link>
-			<a href='https://www.instagram.com/evgendango/' target='_blank'><img className='h-[7.8vh]' src={instagramIcon} alt='telegram-icon' /></a>
-			<a href='https://www.tiktok.com/@evgendango' target='_blank'><img className='h-[7.8vh]' src={tiktokIcon} alt='telegram-icon' /></a>
-			<a href='https://discord.gg/4Ha6EchcaP' target='_blank'><img className='h-[7.8vh]' src={discordIcon} alt='telegram-icon' /></a>
-			<a href='https://www.twitch.tv/godofdango' target='_blank'><img className='h-[7.8vh]' src={twitchIcon} alt='telegram-icon' /></a>
-			<a href='https://vkplay.live/godofdango' target='_blank'><img className='h-[7.8vh]' src={vkplayIcon} alt='telegram-icon' /></a>
+		<div className='flex flex-col justify-center h-full absolute translate-x-[-50%] [&>a]:mb-[24px] [&>a:last-child]:mb-0 [&>a:hover]:translate-x-[23px] [&>a:hover]:transition-transform z-20'>
+			{socials.map(social =>
+				<SocialItem key={social.link} isPageLink={social.isPageLink} icon={social.icon} link={social.link} />	
+			)}
 		</div>
 	)
 }

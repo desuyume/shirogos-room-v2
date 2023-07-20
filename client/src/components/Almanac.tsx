@@ -47,7 +47,7 @@ const Almanac: FC = () => {
 
 	return (
 		<div
-			className='w-[510px] h-[275px] absolute rounded-[37px] left-6 bottom-12 flex justify-between items-center py-3.5 px-3'
+			className='w-[510px] h-[275px] absolute rounded-[37px] left-7 bottom-16 flex justify-between items-center py-3.5 px-3'
 			style={{
 				background:
 					'linear-gradient(137deg, rgba(23, 23, 23, 0.20) 0%, rgba(36, 36, 36, 0.20) 46.88%), rgba(24, 24, 24, 0.40)',
