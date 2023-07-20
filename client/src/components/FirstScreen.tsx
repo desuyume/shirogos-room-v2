@@ -8,8 +8,17 @@ import {
 	MouseParallaxContainer,
 } from 'react-parallax-mouse'
 
-const FirstScreen: FC = () => {
+interface IFirstScreen { 
+	setAuthVisible: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const FirstScreen: FC<IFirstScreen> = ({ setAuthVisible }) => {
 	const [isDocsHover, setIsDocsHover] = useState<boolean>(false)
+
+	const openModal = () => {
+		setAuthVisible(true)
+		document.body.style.overflowY = 'hidden'
+	}
 
 	return (
 		<div className='bg-[#DEDEDE] h-[729px] relative overflow-hidden'>
@@ -35,7 +44,10 @@ const FirstScreen: FC = () => {
 				</MouseParallaxChild>
 			</MouseParallaxContainer>
 
-			<button className='bg-primary px-9 py-5 rounded-[37px] absolute right-5 top-3 text-white text-4xl hover:bg-primaryHover transition-colors z-30'>
+			<button 
+				className='bg-primary px-9 py-5 rounded-[37px] absolute right-5 top-3 text-white text-4xl hover:bg-primaryHover transition-colors z-30'
+				onClick={openModal}
+			>
 				Вход
 			</button>
 			<a
