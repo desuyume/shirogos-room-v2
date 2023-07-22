@@ -57,7 +57,6 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 				slideSize="33.333333%"
 				align='start'
 				draggable={false}
-				loop
 				styles={{
 					root: {
 						height: '100%'
@@ -71,8 +70,9 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 						padding: '0'
 					},
 					control: {
-						'&:first-of-type': {
-							visibility: 'hidden'
+						'&[data-inactive]': {
+							opacity: 0,
+							cursor: 'default',
 						},
 						'&:hover': {
 							backgroundColor: '#FF75AB !important'
