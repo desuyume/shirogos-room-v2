@@ -10,14 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mantine/carousel": "^6.0.17",
     "html-react-parser": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-fast-marquee": "^1.6.0",
     "react-parallax-mouse": "^2.0.1",
-    "react-router-dom": "^6.14.1",
-    "react-slick": "^0.29.0",
-    "slick-carousel": "^1.8.1"
+    "react-router-dom": "^6.14.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
