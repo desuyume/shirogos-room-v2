@@ -19,7 +19,7 @@ export default {
         primaryText: '#DEDEDE'
       },
       backgroundImage: {
-        'orders-hint-bg': "url('./src/assets/orders-about-bg.svg')" 
+        'orders-hint-bg': "url('/images/orders-about-bg.svg')" 
       }
     },
   },
