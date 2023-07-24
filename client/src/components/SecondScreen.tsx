@@ -4,6 +4,7 @@ import Almanac from './Almanac'
 import { Link } from 'react-router-dom'
 import OnlineUser from './OnlineUser'
 import News from './News'
+import Orders from './Orders'
 
 const SecondScreen: FC = () => {
 	return (
@@ -19,6 +20,7 @@ const SecondScreen: FC = () => {
 			<Almanac />
 			<OnlineUser />
 			<News />
+			<Orders />
 		</div>
 	);
 };

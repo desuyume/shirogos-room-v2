@@ -17,6 +17,9 @@ export default {
 				secondaryHover: '#323232',
 				tertiary: '#181818',
         primaryText: '#DEDEDE'
+      },
+      backgroundImage: {
+        'orders-hint-bg': "url('./src/assets/orders-about-bg.svg')" 
       }
     },
   },
