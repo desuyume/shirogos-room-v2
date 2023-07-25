@@ -51,7 +51,7 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 	]
 
 	return (
-		<div className='flex w-full h-[27rem] '>
+		<div className='flex w-full h-[25.6rem] '>
 			<Carousel
 				className='w-full pt-[1.3rem]'
 				slideSize="33.333333%"
@@ -75,12 +75,13 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 							visibility: 'hidden'
 						},
 						'&:hover': {
-							backgroundColor: '#FF75AB !important'
+							backgroundColor: type === 'manga' ? '#323232 !important' : '#FF75AB !important'
 						},
 						transition: 'background-color 150ms cubic-bezier(0.4, 0, 0.2, 1)',
 						border: 'none',
+						borderTop: '1px solid #181818',
 						color: '#FFF',
-						backgroundColor: '#C34375 !important',
+						backgroundColor: type === 'manga' ?  '#242424 !important' : '#C34375 !important',
 						height: '100%',
 						borderRadius: '0',
 						width: '3.1875rem',
