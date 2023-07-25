@@ -1,12 +1,15 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import bgVideo from '../assets/shirogo.mp4'
 import Almanac from './Almanac'
 import { Link } from 'react-router-dom'
 import OnlineUser from './OnlineUser'
 import News from './News'
 import Orders from './Orders'
+import PastOrders from './PastOrders'
 
 const SecondScreen: FC = () => {
+	const [isPastOrders, setIsPastOrders] = useState<boolean>(false)
+
 	return (
 		<div className='h-[1041px] relative overflow-hidden'>
 			<video 
@@ -20,7 +23,8 @@ const SecondScreen: FC = () => {
 			<Almanac />
 			<OnlineUser />
 			<News />
-			<Orders />
+			<Orders isPastOrders={isPastOrders} setIsPastOrders={setIsPastOrders} />
+			<PastOrders isPastOrders={isPastOrders} setIsPastOrders={setIsPastOrders} />
 		</div>
 	);
 };

@@ -3,8 +3,17 @@ import OrderItem from './OrderItem'
 import { Carousel } from '@mantine/carousel'
 import slideBttn from '../assets/orders-slide-bttn.svg'
 
-const OrdersList: FC = () => {
+interface IOrdersList {
+	isPastOrders: boolean
+}
+
+const OrdersList: FC<IOrdersList> = ({ isPastOrders }) => {
 	const orders = [
+		{
+			order: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
+			nickname: 'mercenaryJulian',
+			time: '3 часа',
+		},
 		{
 			order: 'Total War: Warhammer 40000 Riptide',
 			nickname: 'mercenaryJulian',
@@ -52,6 +61,39 @@ const OrdersList: FC = () => {
 		},
 	]
 
+	const pastOrders = [
+		{
+			order: 'Total War: Warhammer 40000 RiptideTotal War: Warhammer 40000 Riptide',
+			nickname: 'mercenaryJulian',
+			time: '3 часа',
+		},
+		{
+			order: 'Total War: Warhammer 40000 Riptide',
+			nickname: 'mercenaryJulian',
+			time: '3 часа',
+		},
+		{
+			order: 'Total War: Warhammer 40000 Riptide',
+			nickname: 'mercenaryJulian',
+			time: '3 часа',
+		},
+		{
+			order: 'Total War: Warhammer 40000 Riptide',
+			nickname: 'mercenaryJulian',
+			time: '3 часа',
+		},
+		{
+			order: 'Total War: Warhammer 40000 Riptide',
+			nickname: 'mercenaryJulian',
+			time: '3 часа',
+		},
+		{
+			order: 'Total War: Warhammer 40000 Riptide',
+			nickname: 'mercenaryJulian',
+			time: '3 часа',
+		},
+	]
+
 	return (
 		<div className='bg-secondary bg-opacity-70 '>
 			<Carousel
@@ -61,7 +103,7 @@ const OrdersList: FC = () => {
 				draggable={false}
 				styles={{
 					controls: {
-						width: "100%",
+						width: '100%',
 						position: 'absolute',
 						bottom: 0,
 						left: 0,
@@ -83,20 +125,35 @@ const OrdersList: FC = () => {
 						borderBottomLeftRadius: '2.3125rem',
 						borderBottomRightRadius: '2.3125rem',
 						position: 'absolute',
-						bottom: '-2.25rem'
+						bottom: '-2.25rem',
 					},
 				}}
 				nextControlIcon={<img src={slideBttn} alt='slide-bttn' />}
 			>
-				{orders.map((order, index) => (
-					<OrderItem
-						key={index}
-						index={index+1}
-						nickname={order.nickname}
-						order={order.order}
-						time={order.time}
-					/>
-				))}
+				{isPastOrders
+					?
+					pastOrders.map((order, index) => (
+						<OrderItem
+							key={index} // TODO: change key from index to smth else
+							index={index + 1}
+							nickname={order.nickname}
+							order={order.order}
+							time={order.time}
+							isPastOrders={isPastOrders}
+						/>
+					))
+					:
+					orders.map((order, index) => (
+						<OrderItem
+							key={index} // TODO: change key from index to smth else
+							index={index + 1}
+							nickname={order.nickname}
+							order={order.order}
+							time={order.time}
+							isPastOrders={isPastOrders}
+						/>
+					))
+				}
 			</Carousel>
 		</div>
 	)
