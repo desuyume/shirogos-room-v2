@@ -43,7 +43,7 @@ const AuthModal: FC<IAuthModal> = ({ visible, setVisible }) => {
 				onClick={e => e.stopPropagation()} 
 				className='bg-secondary text-center pt-16 pb-12 px-[3.6rem] rounded-[37px] bg-opacity-90'
 			>
-				<p className='text-[3.75rem] text-[#FFFFFF] font-bold leading-none'>Вход</p>
+				<p className='text-[3.75rem] text-[#FFFFFF] leading-none'>Вход</p>
 				<p className='text-[2.1875rem] font-bold font-secondary leading-none mb-5 -mt-3'><span className='text-[#FFFFFF]'>в</span> комнату:</p>
 				<div className='flex justify-between items-center flex-wrap max-w-[230px]'>
 					{authBttns.map(bttn => 
