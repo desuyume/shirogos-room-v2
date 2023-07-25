@@ -17,7 +17,7 @@ const Socials: FC = () => {
 		{ isPageLink: false, link: "https://www.instagram.com/evgendango/", icon: instagramIcon },
 		{ isPageLink: false, link: "https://www.tiktok.com/@evgendango", icon: tiktokIcon },
 		{ isPageLink: false, link: "https://discord.gg/4Ha6EchcaP", icon: discordIcon },
-		{ isPageLink: false, link: "https://www.twitch.tv/godofdango'", icon: twitchIcon },
+		{ isPageLink: false, link: "https://www.twitch.tv/godofdango", icon: twitchIcon },
 		{ isPageLink: false, link: "https://vkplay.live/godofdango", icon: vkplayIcon },
 	]
 
