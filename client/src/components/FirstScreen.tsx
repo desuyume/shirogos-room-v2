@@ -17,7 +17,7 @@ const FirstScreen: FC = () => {
 	return (
 		<div className='bg-primaryText h-[729px] relative overflow-hidden'>
 			<AuthModal visible={isModalVisible} setVisible={setIsModalVisible} />
-			<img className={(isModalVisible ? 'visible opacity-100' : 'invisible opacity-0') + ' w-[24.616rem] h-[24.616rem] absolute -top-1 left-[50%] translate-x-[-135%] rotate-[-120deg] z-30 transition-all'} src={closeImg} alt='close-img' />
+			<img className={(isModalVisible ? 'visible opacity-100' : 'invisible opacity-0') + ' w-[24.616rem] h-[24.616rem] absolute -top-[1.08875rem] left-[17.37vw] rotate-[-121.245deg] z-30 transition-all'} src={closeImg} alt='close-img' />
 			<Socials />
 			<h1 className='font-secondary text-[6.25rem] font-bold leading-[95.5%] absolute top-[159px] left-[50%] tracking-[-0.375rem]'>
 				КОМНАТА <br />
