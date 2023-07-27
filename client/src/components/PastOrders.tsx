@@ -9,7 +9,7 @@ interface IPastOrders {
 const PastOrders: FC<IPastOrders> = ({ isPastOrders, setIsPastOrders }) => {
 	return (
 		<div className={(isPastOrders ? 'visible opacity-100' : 'invisible opacity-0') + ' w-[38.8125rem] h-[18.375rem] absolute top-[11.40rem] right-6 transition-all'}>
-			<div className='bg-tertiary bg-opacity-80 h-[4.3125rem] flex justify-center items-center rounded-t-[2.3125rem]'>
+			<div className='bg-tertiary bg-opacity-80 h-[4.3125rem] flex justify-center items-center relative rounded-t-[2.3125rem]'>
 				<svg
 					className='absolute right-5 cursor-pointer'
 					xmlns='http://www.w3.org/2000/svg'

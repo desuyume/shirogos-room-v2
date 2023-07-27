@@ -18,17 +18,17 @@ const Orders: FC<IOrders> = ({ isPastOrders, setIsPastOrders }) => {
 					<span className='text-[1.25rem] inline-block'>(личная комната)</span>.
 				</p>
 			</div>
-			<div className='bg-tertiary bg-opacity-80 h-[4.3125rem] flex justify-between items-center px-5 rounded-t-[2.3125rem]'>
+			<div className='bg-tertiary bg-opacity-80 h-[4.3125rem] flex justify-center items-center relative rounded-t-[2.3125rem]'>
 				<img
 					onMouseOver={() => setIsHintVisible(true)}
 					onMouseLeave={() => setIsHintVisible(false)}
-					className='cursor-pointer'
+					className='cursor-pointer absolute left-5'
 					src={gamepadImg}
 					alt='gamepad-img'
 				/>
-				<h3 className='text-[#EBE984] text-[1.875rem] pr-4'>Текущие заказы</h3>
+				<h3 className='text-[#EBE984] text-[1.875rem]'>Текущие заказы</h3>
 				<svg
-					className='cursor-pointer'
+					className='cursor-pointer absolute right-5'
 					width='16'
 					height='16'
 					viewBox='0 0 16 16'

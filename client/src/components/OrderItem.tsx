@@ -26,7 +26,11 @@ const renderLink = ({
 		)
 	}
 
-	return <a href={href} {...props}>{content}</a>
+	return (
+		<a href={href} {...props}>
+			{content}
+		</a>
+	)
 }
 
 const OrderItem: FC<IOrderItem> = ({
@@ -48,19 +52,14 @@ const OrderItem: FC<IOrderItem> = ({
 			<p
 				className={
 					(isPastOrders
-						? 'text-[#A6A6A6] text-xl w-[10%]'
-						: 'text-primaryText text-[1.5625rem] w-[15%]') +
-					' text-center font-secondary  font-bold'
+						? 'text-[#A6A6A6] text-xl'
+						: 'text-primaryText text-[1.5625rem]') +
+					' text-center font-secondary w-[15%] font-bold'
 				}
 			>
 				{index}
 			</p>
-			<div
-				className={
-					(isPastOrders ? 'max-w-[70%]' : 'max-w-[65%]') +
-					' flex flex-col items-center justify-center pt-1.5 truncate'
-				}
-			>
+			<div className='max-w-[65%] flex flex-col items-center justify-center pt-1.5 truncate'>
 				<Linkify options={{ target: '_blank', render: renderLink }}>
 					<p
 						className={
