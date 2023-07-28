@@ -11,18 +11,21 @@ interface IDangotekaSectionList {
 const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 	const mangas = [
 		{
+			mangaId: 'forlowers',
 			img: mangaImg,
 			title: 'FOR:LOWERS Для низших уровней',
 			description:
 				'Авантюристы прибывают в Ди-Таун. Однако действия загадочной девушки приводят к тому, что те сваливаются в подземелье, где не менее загадочный мужик говорит им проходить испытание. Внушительно. Особенно когда тот на глазах убивает нескольких из них. ',
 		},
 		{
+			mangaId: 'forlowers',
 			img: mangaImg,
 			title: 'FOR:LOWERS Для низших уровней',
 			description:
 				'Авантюристы прибывают в Ди-Таун. Однако действия загадочной девушки приводят к тому, что те сваливаются в подземелье, где не менее загадочный мужик говорит им проходить испытание. Внушительно. Особенно когда тот на глазах убивает нескольких из них. ',
 		},
 		{
+			mangaId: 'forlowers',
 			img: mangaImg,
 			title: 'FOR:LOWERS Для низших уровней',
 			description:
@@ -31,18 +34,21 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 	]
 	const stories = [
 		{
+			storyId: 'flame',
 			img: storyImg,
 			title: 'Ледяное пламя',
 			description:
 				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
 		},
 		{
+			storyId: 'flame',
 			img: storyImg,
 			title: 'Ледяное пламя',
 			description:
 				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
 		},
 		{
+			storyId: 'flame',
 			img: storyImg,
 			title: 'Ледяное пламя',
 			description:
@@ -103,6 +109,8 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 							<Carousel.Slide>
 								<DangotekaSectionItem
 									key={manga.title}
+									type="manga"
+									itemId={manga.mangaId}
 									img={manga.img}
 									title={manga.title}
 									description={manga.description}
@@ -113,6 +121,8 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 							<Carousel.Slide>
 								<DangotekaSectionItem
 									key={story.title}
+									type="story"
+									itemId={story.storyId}
 									img={story.img}
 									title={story.title}
 									description={story.description}

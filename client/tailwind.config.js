@@ -7,7 +7,8 @@ export default {
   theme: {
     fontFamily: {
       'primary': ['"Days One"', 'sans-serif'],
-      'secondary': ['"Open Sans"', 'sans-serif']
+      'secondary': ['"Open Sans"', 'sans-serif'],
+      'tertiary': ['"Russo One"', 'sans-serif']
     },
     extend: {
       colors: {
