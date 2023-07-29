@@ -1,0 +1,49 @@
+.ScrollbarsCustom {
+	& > .ScrollbarsCustom-Wrapper {
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+
+		& > .ScrollbarsCustom-Scroller {
+			& > .ScrollbarsCustom-Content {
+				display: table-cell;
+				padding: 0.05px;
+			}
+		}
+	}
+
+	.ScrollbarsCustom-Track {
+		position: absolute;
+		border-radius: 1.5625rem;
+	}
+
+	.ScrollbarsCustom-Thumb {
+		background: #EBE984;
+		border-radius: 1.5625rem;
+	}
+
+	.ScrollbarsCustom-ThumbY {
+		width: 100%;
+	}
+
+	.ScrollbarsCustom-ThumbX {
+		height: 100%;
+	}
+
+	.ScrollbarsCustom-TrackY {
+		width: 0.1875rem;
+		height: 100%;
+		top: 0;
+		right: -0.5575rem;
+		background: transparent;
+	}
+
+	.ScrollbarsCustom-TrackX {
+		height: 0.1875rem;
+		width: 100%;
+		bottom: -0.5575rem;
+		left: 0;
+		background: transparent;
+	}
+}

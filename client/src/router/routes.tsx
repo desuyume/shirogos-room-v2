@@ -1,4 +1,3 @@
-import Chronicles from '../pages/Chronicles'
 import Dangoteka from '../pages/Dangoteka'
 import Main from '../pages/Main';
 import Manga from '../pages/Manga'
@@ -14,7 +13,6 @@ export const routes: IRoute[] = [
 	{ path: '/wiki', element: <Wiki /> },
 	{ path: '/dangoteka', element: <Dangoteka /> },
 	{ path: '/youtubes', element: <Youtubes /> },
-	{ path: '/chronicles', element: <Chronicles /> },
 	{ path: '/manga/:id/:chapter?', element: <Manga /> },
 	{ path: '/story/:id/:chapter?', element: <Story /> },
 ]
