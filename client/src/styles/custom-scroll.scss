@@ -4,13 +4,6 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
-
-		& > .ScrollbarsCustom-Scroller {
-			& > .ScrollbarsCustom-Content {
-				display: table-cell;
-				padding: 0.05px;
-			}
-		}
 	}
 
 	.ScrollbarsCustom-Track {
@@ -19,8 +12,13 @@
 	}
 
 	.ScrollbarsCustom-Thumb {
-		background: #EBE984;
+		background: #ebe984;
 		border-radius: 1.5625rem;
+
+		&:hover,
+		&.dragging {
+			background: #FFFEC5;
+		}
 	}
 
 	.ScrollbarsCustom-ThumbY {
