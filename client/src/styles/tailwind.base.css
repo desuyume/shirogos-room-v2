@@ -15,4 +15,8 @@
 		background-color: #181818;
 		color: #C34375;
   }
+
+	body {
+		overflow-x: hidden;
+	}
 }

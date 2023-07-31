@@ -8,7 +8,8 @@ export default {
     fontFamily: {
       'primary': ['"Days One"', 'sans-serif'],
       'secondary': ['"Open Sans"', 'sans-serif'],
-      'tertiary': ['"Russo One"', 'sans-serif']
+      'tertiary': ['"Russo One"', 'sans-serif'],
+      'quaternary': ['"Handjet"', 'cursive']
     },
     extend: {
       colors: {

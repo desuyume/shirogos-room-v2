@@ -1,3 +1,4 @@
+import CreateRoom from '../pages/CreateRoom'
 import Dangoteka from '../pages/Dangoteka'
 import Main from '../pages/Main';
 import Manga from '../pages/Manga'
@@ -15,4 +16,5 @@ export const routes: IRoute[] = [
 	{ path: '/youtubes', element: <Youtubes /> },
 	{ path: '/manga/:id/:chapter?', element: <Manga /> },
 	{ path: '/story/:id/:chapter?', element: <Story /> },
+	{ path: '/room/create', element: <CreateRoom /> },
 ]
