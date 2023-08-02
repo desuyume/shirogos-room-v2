@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import twitchHoveredIcon from '../assets/auth/twitch-hover.png'
+import twitchHoveredIcon from '@/assets/auth/twitch-hover.png'
 
 interface IAuthBttn {
 	service: string

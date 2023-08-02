@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import youtubeIcon from '../assets/youtubes/yt-icon.png'
+import youtubeIcon from '@/assets/youtubes/yt-icon.png'
 import parse from 'html-react-parser'
 
 interface IYoutubeLink { 

@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import chronicsImg from '../assets/chronics-test.png'
+import chronicsImg from '@/assets/chronics-test.png'
 import ChroniclesItem from './ChroniclesItem'
 import { Scrollbar } from 'react-scrollbars-custom'
-import '../styles/custom-scroll.scss'
+import '@/styles/custom-scroll.scss'
 
 const ChroniclesList: FC = () => {
 	const chronics = [

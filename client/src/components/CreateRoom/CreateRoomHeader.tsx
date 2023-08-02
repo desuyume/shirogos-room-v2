@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
-import logo from '../assets/logo.png'
-import logoHover from '../assets/logo-hover.png'
+import logo from '@/assets/logo.png'
+import logoHover from '@/assets/logo-hover.png'
 
 const CreateRoomHeader: FC = () => {
 	const [isLogoHover, setIsLogoHover] = useState<boolean>(false)

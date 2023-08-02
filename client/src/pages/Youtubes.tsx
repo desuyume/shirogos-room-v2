@@ -1,8 +1,8 @@
 import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
-import backArrow from '../assets/youtubes/back-arrow.svg'
-import backArrowHover from '../assets/youtubes/back-arrow-hover.svg'
-import YoutubeLink from '../components/YoutubeLink'
+import backArrow from '@/assets/youtubes/back-arrow.svg'
+import backArrowHover from '@/assets/youtubes/back-arrow-hover.svg'
+import YoutubeLink from '@/components/Socials/YoutubeLink'
 
 const Youtubes: FC = () => {
 	const [isBackBttnHovered, setIsBackBttnHovered] = useState(false)

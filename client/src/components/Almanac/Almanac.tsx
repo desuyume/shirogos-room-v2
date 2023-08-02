@@ -1,8 +1,8 @@
 import { FC, useState } from 'react'
-import { abbrMonths, months } from '../consts/months.ts'
-import cakeImg from '../assets/cake.png'
-import noBirthdayCakeImg from '../assets/black-gray-cake.png'
-import useDate from '../hooks/useDate'
+import { abbrMonths, months } from '@/consts/months.ts'
+import cakeImg from '@/assets/cake.png'
+import noBirthdayCakeImg from '@/assets/black-gray-cake.png'
+import useDate from '@/hooks/useDate.js'
 import AlmanacSwitchBttn from './AlmanacSwitchBttn.tsx'
 
 const Almanac: FC = () => {

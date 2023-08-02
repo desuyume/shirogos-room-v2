@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import Marquee from 'react-fast-marquee'
-import { IDonate } from '../types/types'
+import { IDonate } from '@/types/types'
 import DonateItemMarquee from './DonateItemMarquee'
 
 const DonatesMarquee: FC = () => {

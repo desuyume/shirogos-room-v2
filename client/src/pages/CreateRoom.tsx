@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
-import CreateRoomHeader from '../components/CreateRoomHeader'
-import CreateRoomForm from '../components/CreateRoomForm'
-import shirogoImg from '../assets/create-room-img.png'
+import CreateRoomHeader from '@/components/CreateRoom/CreateRoomHeader'
+import CreateRoomForm from '@/components/CreateRoom/CreateRoomForm'
+import shirogoImg from '@/assets/create-room-img.png'
 
 const CreateRoom: FC = () => {
 	const twitchNickname = 'mercenaryJulian'

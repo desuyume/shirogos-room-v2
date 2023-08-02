@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import gamepadImg from '../assets/gamepad.png'
+import gamepadImg from '@/assets/gamepad.png'
 import OrdersList from './OrdersList'
 
 interface IOrders { 

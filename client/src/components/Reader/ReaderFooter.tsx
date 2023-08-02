@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import zoomIcon from '../assets/dangoteka/zoom.png'
+import zoomIcon from '@/assets/dangoteka/zoom.png'
 
 interface IReaderFooter {
 	offset: number | undefined

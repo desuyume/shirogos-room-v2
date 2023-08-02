@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import heartIcon from '../assets/heart-icon.svg'
+import heartIcon from '@/assets/heart-icon.svg'
 
 interface IDonateItemMarquee {
 	nickname: string

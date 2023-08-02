@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
-import Header from '../components/Header'
-import DangotekaSection from '../components/DangotekaSection'
+import Header from '@/layout/Header/Header'
+import DangotekaSection from '@/components/Dangoteka/DangotekaSection'
 import { useLocation } from 'react-router-dom'
 
 const Dangoteka: FC = () => {

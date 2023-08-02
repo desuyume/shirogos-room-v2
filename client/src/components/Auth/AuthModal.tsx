@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import discordIcon from '../assets/auth/discord.png'
-import twitchIcon from '../assets/auth/twitch.png'
-import vkIcon from '../assets/auth/vk.png'
-import tgIcon from '../assets/auth/telegram.png'
+import discordIcon from '@/assets/auth/discord.png'
+import twitchIcon from '@/assets/auth/twitch.png'
+import vkIcon from '@/assets/auth/vk.png'
+import tgIcon from '@/assets/auth/telegram.png'
 import AuthBttn from './AuthBttn'
 
 interface IAuthModal { 

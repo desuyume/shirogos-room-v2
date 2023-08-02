@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
-import logo from '../assets/logo.png'
-import logoHover from '../assets/logo-hover.png'
+import logo from '@/assets/logo.png'
+import logoHover from '@/assets/logo-hover.png'
 import { Link } from 'react-router-dom'
 import HeaderBttn from './HeaderBttn'
 

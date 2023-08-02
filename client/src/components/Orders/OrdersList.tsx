@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import OrderItem from './OrderItem'
 import { Carousel } from '@mantine/carousel'
-import slideBttn from '../assets/orders-slide-bttn.svg'
+import slideBttn from '@/assets/orders-slide-bttn.svg'
 
 interface IOrdersList {
 	isPastOrders: boolean

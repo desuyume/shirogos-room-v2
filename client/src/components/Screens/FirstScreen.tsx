@@ -1,14 +1,14 @@
 import { FC, useState } from 'react'
-import docsIcon from '../assets/docs.png'
-import docsIconHover from '../assets/docs-hover.png'
-import shirogoImg from '../assets/shirogo-first-screen.png'
-import Socials from '../components/Socials'
+import docsIcon from '@/assets/docs.png'
+import docsIconHover from '@/assets/docs-hover.png'
+import shirogoImg from '@/assets/shirogo-first-screen.png'
+import Socials from '@/components/Socials/Socials'
 import {
 	MouseParallaxChild,
 	MouseParallaxContainer,
 } from 'react-parallax-mouse'
-import AuthModal from './AuthModal'
-import closeImg from '../assets/auth/close-bttn.gif'
+import AuthModal from '@/components/Auth/AuthModal'
+import closeImg from '@/assets/auth/close-bttn.gif'
 
 const FirstScreen: FC = () => {
 	const [isDocsHover, setIsDocsHover] = useState<boolean>(false)

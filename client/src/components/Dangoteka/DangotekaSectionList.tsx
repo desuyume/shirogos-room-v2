@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import mangaImg from '../assets/manga.png'
-import storyImg from '../assets/story.png'
+import mangaImg from '@/assets/manga.png'
+import storyImg from '@/assets/story.png'
 import DangotekaSectionItem from './DangotekaSectionItem'
 import { Carousel } from '@mantine/carousel'
 

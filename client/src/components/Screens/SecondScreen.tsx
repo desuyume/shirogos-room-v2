@@ -1,11 +1,11 @@
 import { FC, useState } from 'react'
-import bgVideo from '../assets/shirogo.mp4'
-import Almanac from './Almanac'
-import OnlineUser from './OnlineUser'
-import News from './News'
-import Orders from './Orders'
-import PastOrders from './PastOrders'
-import Chronicles from './Chronicles'
+import bgVideo from '@/assets/shirogo.mp4'
+import Almanac from '@/components/Almanac/Almanac'
+import OnlineUser from '@/components/OnlineUser/OnlineUser'
+import News from '@/components/News/News'
+import Orders from '@/components/Orders/Orders'
+import PastOrders from '@/components/Orders/PastOrders'
+import Chronicles from '@/components/Chronicles/Chronicles'
 
 const SecondScreen: FC = () => {
 	const [isPastOrders, setIsPastOrders] = useState<boolean>(false)

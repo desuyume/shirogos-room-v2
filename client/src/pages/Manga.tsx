@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from 'react'
-import ReaderHeader from '../components/ReaderHeader'
-import mangaImg from '../assets/dangoteka/manga.png'
-import ReaderFooter from '../components/ReaderFooter'
+import ReaderHeader from '@/components/Reader/ReaderHeader'
+import mangaImg from '@/assets/dangoteka/manga.png'
+import ReaderFooter from '@/components/Reader/ReaderFooter'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 const Manga: FC = () => {

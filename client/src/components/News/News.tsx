@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import newsImg from '../assets/news.png'
+import newsImg from '@/assets/news.png'
 
 const News: FC = () => {
 	const [isNextBttnHovered, setIsNextBttnHovered] = useState<boolean>(false)

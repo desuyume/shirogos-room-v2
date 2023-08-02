@@ -21,7 +21,8 @@ export default {
         primaryText: '#DEDEDE'
       },
       backgroundImage: {
-        'orders-hint-bg': "url('/images/orders-about-bg.svg')" 
+        'orders-hint-bg': "url('/images/orders-about-bg.svg')",
+        'wiki': "linear-gradient(to right, #323232 43.23%, #181818 100%);" 
       }
     },
   },
