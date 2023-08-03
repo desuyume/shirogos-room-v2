@@ -9,7 +9,7 @@ export interface IDonate {
 	gifts?: string
 }
 
-export interface IWikiCharater {
+export interface IWikiCharacter {
 	id: number,
 	name: string,
 	img: string,

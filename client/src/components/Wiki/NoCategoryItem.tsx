@@ -11,7 +11,7 @@ const NoCategoryItem: FC<INoCategoryItem> = ({ name, img }) => {
 
 	return (
 		<Link
-			to='/wiki'
+			to='/wiki/sam-avrorus'
 			onMouseOver={() => setIsItemHovered(true)}
 			onMouseLeave={() => setIsItemHovered(false)}
 			className='justify-self-center w-[11.1875rem] flex flex-col items-center relative cursor-pointer'

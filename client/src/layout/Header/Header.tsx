@@ -4,7 +4,12 @@ import logoHover from '@/assets/logo-hover.png'
 import { Link } from 'react-router-dom'
 import HeaderBttn from './HeaderBttn'
 
-const Header: FC = () => {
+interface IHeader {
+	withLine: boolean
+	isFixed: boolean
+}
+
+const Header: FC<IHeader> = ({ withLine, isFixed }) => {
 	const [isLogoHover, setIsLogoHover] = useState<boolean>(false)
 	const links = [
 		{ path: '/wiki', title: 'Википедия' },
@@ -12,7 +17,12 @@ const Header: FC = () => {
 	]
 
 	return (
-		<div className='bg-tertiary h-[84px] flex justify-center items-center'>
+		<div
+			className={
+				(isFixed ? 'fixed top-0 w-full' : '') +
+				' bg-tertiary h-[5.25rem] flex justify-center items-center'
+			}
+		>
 			<Link
 				className='absolute left-4'
 				to='/'
@@ -26,6 +36,7 @@ const Header: FC = () => {
 					<HeaderBttn key={link.path} path={link.path} title={link.title} />
 				))}
 			</nav>
+			{withLine && <hr className='border-primary w-full absolute top-[5.25rem]' />}
 		</div>
 	)
 }

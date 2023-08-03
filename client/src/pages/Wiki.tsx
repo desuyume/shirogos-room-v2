@@ -14,7 +14,7 @@ const Wiki = () => {
 
 	return (
 		<div className='bg-wiki min-h-screen pb-[10rem]'>
-			<Header />
+			<Header isFixed={false} withLine={false} />
 			<div className='flex items-center relative'>
 				<div className='bg-tertiary w-[17.8125rem] h-[9.5rem] flex justify-center items-center mt-[0.81rem] relative'>
 					<p className='text-primary text-[1.875rem] text-center leading-tight'>Легендарная Википедия Персонажей</p>

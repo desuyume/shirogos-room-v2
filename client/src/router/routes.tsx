@@ -5,6 +5,7 @@ import Manga from '@/pages/Manga'
 import Room from '@/pages/Room'
 import Story from '@/pages/Story'
 import Wiki from '@/pages/Wiki'
+import WikiReader from '@/pages/WikiReader'
 import Youtubes from '@/pages/Youtubes'
 import { IRoute } from '@/types/types'
 
@@ -17,4 +18,5 @@ export const routes: IRoute[] = [
 	{ path: '/manga/:id/:chapter?', element: <Manga /> },
 	{ path: '/story/:id/:chapter?', element: <Story /> },
 	{ path: '/room/create', element: <CreateRoom /> },
+	{ path: '/wiki/:id', element: <WikiReader /> },
 ]

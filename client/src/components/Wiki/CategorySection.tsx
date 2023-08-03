@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import characterImg from '@/assets/wiki-test-img.png'
-import { IWikiCharater } from '@/types/types'
+import { IWikiCharacter } from '@/types/types'
 import CategorySectionList from './CategorySectionList'
 
 interface ICategorySection {
@@ -8,7 +8,7 @@ interface ICategorySection {
 }
 
 const CategorySection: FC<ICategorySection> = ({ section }) => {
-	const [sectionItems, setSectionItems] = useState<IWikiCharater[] | null>(null)
+	const [sectionItems, setSectionItems] = useState<IWikiCharacter[] | null>(null)
 	const items = [
 		{ id: 1, name: 'Сэм Аврорус', img: characterImg, section: 'Орудия Смерти' },
 		{ id: 2, name: 'Сэм Аврорус', img: characterImg, section: 'Орудия Смерти' },
@@ -31,7 +31,7 @@ const CategorySection: FC<ICategorySection> = ({ section }) => {
 	}, [])
 
 	if (!sectionItems?.length || !sectionItems) {
-		return
+		return <></>
 	}
 
 	return (

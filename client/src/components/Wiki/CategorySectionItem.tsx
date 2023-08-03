@@ -11,7 +11,7 @@ const CategorySectionItem: FC<ICategorySectionItem> = ({ name, img }) => {
 
 	return (
 		<Link
-			to='/wiki'
+			to='/wiki/sam-avrorus'
 			onMouseOver={() => setIsItemHovered(true)}
 			onMouseLeave={() => setIsItemHovered(false)}
 			className='justify-self-center w-[8.5625rem] flex flex-col items-center cursor-pointer'

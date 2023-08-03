@@ -1,10 +1,10 @@
-import { IWikiCharater } from '@/types/types'
+import { IWikiCharacter } from '@/types/types'
 import { Carousel } from '@mantine/carousel'
 import { FC } from 'react'
 import CategorySectionItem from './CategorySectionItem'
 
 interface ICategorySectionList {
-	items: IWikiCharater[]
+	items: IWikiCharacter[]
 }
 
 const CategorySectionList: FC<ICategorySectionList> = ({ items }) => {
