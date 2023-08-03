@@ -8,3 +8,10 @@ export interface IDonate {
 	amount?: string,
 	gifts?: string
 }
+
+export interface IWikiCharater {
+	id: number,
+	name: string,
+	img: string,
+	section: string
+}

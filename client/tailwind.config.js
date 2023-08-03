@@ -12,6 +12,16 @@ export default {
       'quaternary': ['"Handjet"', 'cursive']
     },
     extend: {
+      screens: {
+        '4k': '4000px',
+        '2k': '2100px',
+        'fullhd': '1800px',
+        'medium-desktop': '1500px',
+        'min-desktop': '1280px',
+        'laptop': '1024px',
+        'medium-tablet': '800px',
+        'tablet': '640px'
+      },
       colors: {
         primary: '#C34375',
 				primaryHover: '#FF75AB',
