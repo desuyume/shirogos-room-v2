@@ -8,6 +8,8 @@ import Wiki from '@/pages/Wiki'
 import WikiReader from '@/pages/WikiReader'
 import Youtubes from '@/pages/Youtubes'
 import { IRoute } from '@/types/types'
+import { adminRoutes } from './adminRoutes'
+import Admin from '@/pages/Admin/Admin'
 
 export const routes: IRoute[] = [
 	{ path: '/', element: <Main /> },
@@ -19,4 +21,9 @@ export const routes: IRoute[] = [
 	{ path: '/story/:id/:chapter?', element: <Story /> },
 	{ path: '/room/create', element: <CreateRoom /> },
 	{ path: '/wiki/:id', element: <WikiReader /> },
+	{ path: '/admin', element: <Admin /> },
 ]
+
+for (const route of adminRoutes) {
+	routes.push({ path: `/admin${route.path}`, element: route.element })
+}
