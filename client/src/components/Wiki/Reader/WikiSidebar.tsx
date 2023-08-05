@@ -22,7 +22,7 @@ const WikiSidebar: FC<IWikiSidebar> = ({
 			onMouseLeave={() => setIsOpen(false)}
 			className={
 				(isOpen ? 'w-[9.6vw]' : 'w-[3.8vw]') +
-				' h-[calc(100%-5.25rem-1px)] fixed left-0 bottom-0 bg-tertiary transition-all duration-1000 ease-out z-30'
+				' h-[calc(100%-5.25rem)] fixed left-0 bottom-0 bg-tertiary transition-all duration-1000 ease-out z-40'
 			}
 		>
 			<WikiSidebarInfo isSidebarOpen={isOpen} type='Пол' value={gender} />

@@ -32,7 +32,7 @@ export default {
       },
       backgroundImage: {
         'orders-hint-bg': "url('/images/orders-about-bg.svg')",
-        'wiki': "linear-gradient(to right, #323232 43.23%, #181818 100%);",
+        'wiki': "linear-gradient(to right, #323232 43.23%, #181818 100%)",
         'wiki-character-gradient': "linear-gradient(rgba(255, 255, 255, 1), rgba(0, 0, 0, 0))",
         'wiki-character-gradient-second': "linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, 1))"
       }

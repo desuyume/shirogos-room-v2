@@ -41,12 +41,34 @@ const WikiReader: FC = () => {
 			/>
 			<div
 				style={{
-					backgroundImage: `linear-gradient(180deg, rgba(50, 50, 50, 0.25), rgba(24, 24, 24, 0.25)),  url(${characterImg})`,
+					backgroundImage: `linear-gradient(to right, #323232 43.23%, #181818 100%),  url(${characterImg})`,
 				}}
-				className='min-h-screen bg-no-repeat bg-cover flex justify-center pt-[9.7rem] pb-[4.7rem]'
+				className='min-h-screen bg-no-repeat bg-cover flex justify-center relative mt-[5.25rem] pt-[4.45rem] pb-[4.7rem]'
 			>
-				<WikiCard name={info.name} img={info.img} subsubtitle={info.subsubtitle} subtitle={info.subtitle} isSidebarOpen={isSidebarOpen} />
-				<WikiInfoList abilities={info.abilities} dossier={info.dossier} relations={info.relations} isSidebarOpen={isSidebarOpen} />
+				<WikiCard
+					name={info.name}
+					img={info.img}
+					subsubtitle={info.subsubtitle}
+					subtitle={info.subtitle}
+					isSidebarOpen={isSidebarOpen}
+				/>
+				<WikiInfoList
+					abilities={info.abilities}
+					dossier={info.dossier}
+					relations={info.relations}
+				/>
+				<div
+					style={{
+						backgroundImage: `url(${characterImg})`,
+					}}
+					className='w-full h-full absolute bg-no-repeat bg-cover bg-[3.8vw_35%] opacity-25 inset-0'
+				/>
+				<div
+					className={
+						(isSidebarOpen ? 'visible opacity-100' : 'invisible opacity-0') +
+						' w-full h-full bg-tertiary bg-opacity-50 absolute inset-0 transition-all duration-1000 ease-out z-20'
+					}
+				/>
 			</div>
 		</>
 	)

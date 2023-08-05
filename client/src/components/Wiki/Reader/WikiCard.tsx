@@ -16,7 +16,7 @@ const WikiCard: FC<IWikiCard> = ({
 	isSidebarOpen,
 }) => {
 	return (
-		<div className='flex flex-col items-end'>
+		<div className='flex flex-col items-end z-30'>
 			<div className='bg-primary bg-opacity-80 flex justify-center items-center w-[24.8125rem] h-[3.75rem] mb-3'>
 				<p className='font-secondary font-bold text-[#FFF] text-[2.1875rem] text-center'>
 					{name}

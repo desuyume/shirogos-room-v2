@@ -20,7 +20,7 @@ const Header: FC<IHeader> = ({ withLine, isFixed }) => {
 		<div
 			className={
 				(isFixed ? 'fixed top-0 w-full' : '') +
-				' bg-tertiary h-[5.25rem] flex justify-center items-center'
+				' bg-tertiary h-[5.25rem] flex justify-center items-center z-50'
 			}
 		>
 			<Link
@@ -36,7 +36,7 @@ const Header: FC<IHeader> = ({ withLine, isFixed }) => {
 					<HeaderBttn key={link.path} path={link.path} title={link.title} />
 				))}
 			</nav>
-			{withLine && <hr className='border-primary w-full absolute top-[5.25rem]' />}
+			{withLine && <hr className='border-primary w-full absolute top-[calc(5.25rem-1px)]' />}
 		</div>
 	)
 }
