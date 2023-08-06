@@ -23,7 +23,7 @@ const CreateRoomForm: FC<ICreateRoomForm> = ({ nickname, setNickname }) => {
 					Название комнаты:
 				</label>
 				<input
-					className='w-[27rem] h-[2.75rem] outline-none text-tertiary text-[2.1875rem] font-quaternary leading-[100%] text-center mb-[0.31rem]'
+					className='w-[27rem] h-[2.75rem] outline-none text-tertiary bg-[#D9D9D9] text-[2.1875rem] font-quaternary leading-[100%] text-center mb-[0.31rem]'
 					id='room-name'
 				/>
 				<p className='text-[#D9D9D9] text-[0.9375rem] font-secondary font-bold leading-[103.5%] w-[18.5rem] text-center tracking-[-0.05625rem]'>
@@ -40,7 +40,7 @@ const CreateRoomForm: FC<ICreateRoomForm> = ({ nickname, setNickname }) => {
 				<input
 					value={nickname}
 					onChange={e => setNickname(e.target.value)}
-					className='w-[27rem] h-[2.75rem] outline-none text-tertiary text-[2.1875rem] font-quaternary leading-[100%] text-center mb-[0.31rem]'
+					className='w-[27rem] h-[2.75rem] outline-none text-tertiary bg-[#D9D9D9] text-[2.1875rem] font-quaternary leading-[100%] text-center mb-[0.31rem]'
 					id='nickname'
 				/>
 			</div>

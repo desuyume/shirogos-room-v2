@@ -8,7 +8,7 @@ const CreateRoom: FC = () => {
 	const [nickname, setNickname] = useState<string>(twitchNickname)
 
 	return (
-		<div className='bg-[#DEDEDE]'>
+		<>
 			<CreateRoomHeader />
 			<p className='text-[#D9D9D9] text-[3.125rem] font-secondary font-bold text-center absolute top-[2.62rem] left-[50%] translate-x-[-50%] z-20 tracking-[-0.1875rem] leading-[95.5%]'>
 				Привет, <br />
@@ -25,7 +25,7 @@ const CreateRoom: FC = () => {
 				src={shirogoImg}
 				alt='shirogo-img'
 			/>
-		</div>
+		</>
 	)
 }
 
