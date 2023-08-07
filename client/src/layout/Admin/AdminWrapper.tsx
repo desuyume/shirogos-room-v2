@@ -3,12 +3,10 @@ import AdminHeader from './Header/AdminHeader'
 
 const AdminWrapper: FC<PropsWithChildren> = ({ children }) => {
 	return (
-		<>
+		<div className='bg-secondaryHover min-h-screen'>
 			<AdminHeader />
-			<div className='bg-secondaryHover min-h-[calc(100vh-5.25rem)]'>
-				{children}
-			</div>
-		</>
+			{children}
+		</div>
 	)
 }
 
