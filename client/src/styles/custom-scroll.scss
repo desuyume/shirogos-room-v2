@@ -19,7 +19,7 @@
 		&:hover,
 		&.dragging {
 			width: 0.3125rem;
-			background: #FFFEC5;
+			background: #fffec5;
 		}
 	}
 
@@ -50,5 +50,25 @@
 		bottom: -0.5575rem;
 		left: 0;
 		background: transparent;
+	}
+}
+
+.room {
+	.ScrollbarsCustom-TrackY {
+		right: 0.25rem;
+	
+		&:hover,
+		&.dragging {
+			width: 0.1875rem;
+			right: 0.25rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #fffec5;
+		}
 	}
 }
