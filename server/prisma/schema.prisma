@@ -6,3 +6,12 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Donate {
+  id       Int     @id @default(autoincrement())
+  username String
+  amount   Int
+  gifts    String?
+
+  @@map("donates")
+}

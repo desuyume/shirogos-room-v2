@@ -1,9 +1,8 @@
 import { Router } from 'express'
+import donateRouter from './donateRouter.js'
 
 const router = Router();
 
-router.get('/', (req, res) => {
-	return res.json({ message: "Hello" })
-})
+router.use('/donate', donateRouter)
 
 export default router
