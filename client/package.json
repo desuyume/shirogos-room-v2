@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@mantine/carousel": "^6.0.17",
+    "@tanstack/react-query": "^4.32.6",
+    "axios": "^1.4.0",
     "html-react-parser": "^4.0.0",
     "linkify-react": "^4.1.1",
     "linkifyjs": "^4.1.1",

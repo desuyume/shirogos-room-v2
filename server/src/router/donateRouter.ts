@@ -3,10 +3,10 @@ import donateController from '../controllers/DonateController.js';
 
 const donateRouter = Router();
 
-donateRouter.get('/getAll', donateController.getAll);
-donateRouter.post('/add', donateController.addDonate);
+donateRouter.get('/', donateController.getAll);
+donateRouter.post('/', donateController.add);
 donateRouter.patch('/updateAmount/:id', donateController.updateAmount);
 donateRouter.patch('/updateGifts/:id', donateController.updateGifts);
-donateRouter.delete('/delete/:id', donateController.delete);
+donateRouter.delete('/:id', donateController.delete);
 
 export default donateRouter;

@@ -1,31 +1,37 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import Marquee from 'react-fast-marquee'
-import { IDonate } from '@/types/types'
 import DonateItemMarquee from './DonateItemMarquee'
+import { useDonates } from '@/hooks/useDonates'
 
 const DonatesMarquee: FC = () => {
-	const [donates, _] = useState<IDonate[] | null>([
-		{ nickname: 'Mode_Of_God', amount: '15.810' },
-		{
-			nickname: 'Metalfol',
-			amount: '13.770',
-			gifts: 'Absolver + Tales of Zestiria',
-		},
-		{ nickname: 'WaterYay', amount: '6.811,32' },
-		{ nickname: 'Des', gifts: 'Pudge Arcane' },
-	])
+	const { isLoading, data: donates, isError } = useDonates()
 
-	return (
+	return isLoading ? (
+		<div className='h-[3.25rem] flex justify-center items-center bg-secondary'>
+			Загрузка...
+		</div>
+	) : isError ? (
+		<div className='h-[3.25rem] flex justify-center items-center bg-secondary'>
+			<p>Что-то пошло не так 0_0</p>
+		</div>
+	) : donates.length ? (
 		<Marquee className='bg-secondary py-3' autoFill={true} pauseOnHover={true}>
-			{donates?.map(donate => (
-				<DonateItemMarquee
-					key={donate.nickname}
-					nickname={donate.nickname}
-					amount={donate.amount}
-					gifts={donate.gifts}
-				/>
-			))}
+			{donates?.map(
+				donate =>
+					(!!donate.amount || !!donate.gifts) && (
+						<DonateItemMarquee
+							key={donate.id}
+							username={donate.username}
+							amount={donate.amount}
+							gifts={donate.gifts}
+						/>
+					)
+			)}
 		</Marquee>
+	) : (
+		<div className='h-[3.25rem] flex justify-center items-center bg-secondary'>
+			<p>Донатов нет :(</p>
+		</div>
 	)
 }
 

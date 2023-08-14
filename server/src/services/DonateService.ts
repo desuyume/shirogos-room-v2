@@ -4,7 +4,13 @@ const prisma = new PrismaClient();
 
 class DonateService {
 	async getAll() {
-		const donates = await prisma.donate.findMany();
+		const donates = await prisma.donate.findMany({
+			orderBy: [
+				{
+					username: 'asc'
+				}
+			]
+		});
 		return donates;
 	}
 

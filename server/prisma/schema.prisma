@@ -10,8 +10,8 @@ datasource db {
 model Donate {
   id       Int     @id @default(autoincrement())
   username String
-  amount   Int
-  gifts    String?
+  amount   Float?    @default(0)
+  gifts    String? @default("")
 
   @@map("donates")
 }

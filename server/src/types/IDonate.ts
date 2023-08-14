@@ -1,5 +1,5 @@
 export interface IDonate {
 	username: string
-	amount: number
+	amount?: string
 	gifts?: string
 }
