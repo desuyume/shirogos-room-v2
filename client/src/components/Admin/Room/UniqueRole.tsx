@@ -12,8 +12,8 @@ const UniqueRole: FC<IUniqueRole> = ({ type, title }) => {
 		<div className='w-1/2 bg-secondary'>
 			<p className='text-[#FFF] font-secondary font-bold text-xl text-center py-[0.26rem]'>{title}</p>
 			<hr className={(type === 'adjectives' ? 'ml-auto' : 'mr-auto') + ' border-primary border-t-2 w-[95%]'} />
-			<RolesList />
-			<AddRole />
+			<RolesList type={type} />
+			<AddRole type={type} />
 		</div>
 	)
 }

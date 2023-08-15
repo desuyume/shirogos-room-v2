@@ -1,4 +1,4 @@
-import { DONATE_KEY } from '@/consts/queryKeys'
+import { DONATES_KEY } from '@/consts/queryKeys'
 import { useCreateDonate } from '@/hooks/useCreateDonate'
 import { isNumber } from '@/utils/isNumber'
 import { useQueryClient } from '@tanstack/react-query'
@@ -25,7 +25,7 @@ const AddDonater: FC = () => {
 
 	useEffect(() => {
 		if (isSuccess) {
-			queryCluent.invalidateQueries([DONATE_KEY])
+			queryCluent.invalidateQueries([DONATES_KEY])
 			setUsername('')
 			setAmount('')
 			setGifts('')

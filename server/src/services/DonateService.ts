@@ -61,5 +61,4 @@ class DonateService {
 	}
 }
 
-const donateService = new DonateService();
-export default donateService;
+export default new DonateService();

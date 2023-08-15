@@ -1,16 +1,35 @@
-import { FC, useState } from 'react'
+import { useCreateRole } from '@/hooks/useCreateRole'
+import { FC, useEffect, useState } from 'react'
 
-const AddRole: FC = () => {
-	const [role, setRole] = useState<string>('')
+interface IAddRole {
+	type: string
+}
+
+const AddRole: FC<IAddRole> = ({ type }) => {
+	const { mutate, data, isSuccess } = useCreateRole(type)
+	const [title, setTitle] = useState<string>('')
+
+	useEffect(() => {
+		if (isSuccess) {
+			setTitle('')
+		}
+	}, [data])
+
+	const addRoleHandler = () => {
+		mutate({ title, type })
+	}
 
 	return (
 		<div className='flex h-5'>
 			<input
-				value={role}
-				onChange={e => setRole(e.target.value)}
+				value={title}
+				onChange={e => setTitle(e.target.value)}
 				className='bg-tertiary text-[#FFF] text-[0.625rem] outline-none text-center w-[70%] h-full'
 			/>
-			<button className='bg-primary hover:bg-primaryHover transition-all text-[#FFF] w-[30%] h-full text-[0.625rem]'>
+			<button
+				onClick={addRoleHandler}
+				className='bg-primary hover:bg-primaryHover transition-all text-[#FFF] w-[30%] h-full text-[0.625rem]'
+			>
 				Добавить
 			</button>
 		</div>

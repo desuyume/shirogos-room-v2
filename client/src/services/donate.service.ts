@@ -6,7 +6,7 @@ import {
 } from '@/types/donate.interface'
 import axios from 'axios'
 
-class TodoService {
+class DonateService {
 	private URL = `${import.meta.env.VITE_API_URL}/donate`
 
 	async getAll() {
@@ -38,4 +38,4 @@ class TodoService {
 	}
 }
 
-export default new TodoService()
+export default new DonateService()

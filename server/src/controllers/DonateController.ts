@@ -9,7 +9,7 @@ class DonateController {
 			const donates = await donateService.getAll();
 			return res.json(donates);
 		} catch (e) {
-			return res.status(400).json({ message: 'error' });
+			return res.status(500).json({ message: 'internal error' });
 		}
 	}
 
@@ -35,7 +35,7 @@ class DonateController {
 			);
 			return res.json(donate);
 		} catch (e) {
-			return res.status(400).json({ message: 'error' });
+			return res.status(500).json({ message: 'internal error' });
 		}
 	}
 
@@ -58,7 +58,7 @@ class DonateController {
 			const updatedDonate = await donateService.updateAmount(+id, +addAmount);
 			return res.json(updatedDonate);
 		} catch (e) {
-			return res.status(400).json({ message: 'error' });
+			return res.status(500).json({ message: 'internal error' });
 		}
 	}
 
@@ -70,7 +70,7 @@ class DonateController {
 			const updatedDonate = await donateService.updateGifts(+id, gifts);
 			return res.json(updatedDonate);
 		} catch (e) {
-			return res.status(400).json({ message: 'error' });
+			return res.status(500).json({ message: 'internal error' });
 		}
 	}
 
@@ -80,10 +80,9 @@ class DonateController {
 			const deletedDonate = await donateService.delete(+id);
 			return res.json(deletedDonate);
 		} catch (e) {
-			return res.status(400).json({ message: 'error' });
+			return res.status(500).json({ message: 'internal error' });
 		}
 	}
 }
 
-const donateController = new DonateController();
-export default donateController;
+export default new DonateController();
