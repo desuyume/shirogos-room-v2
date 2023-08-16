@@ -8,7 +8,7 @@ const Room: FC = () => {
 		<AdminWrapper>
 			<div className='flex justify-center mt-7 room'>
 				<RoomContent title='Паноптикум' type='panopticon' />
-				<RoomContent title='Фоны' type='backgrounds' />
+				<RoomContent title='Фоны' type='background' />
 				<UniqueRoles />
 			</div>
 		</AdminWrapper>

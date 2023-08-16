@@ -28,3 +28,19 @@ enum UniqueRoleType {
   ADJECTIVES
   NOUNS
 }
+
+model Panopticon {
+  id   Int    @id @default(autoincrement())
+  cost Int    @default(0)
+  img  String
+
+  @@map("panopticons")
+}
+
+model RoomBackground {
+  id   Int    @id @default(autoincrement())
+  cost Int    @default(0)
+  img  String
+
+  @@map("room_backgrounds")
+}
