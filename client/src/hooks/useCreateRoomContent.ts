@@ -1,5 +1,4 @@
-import { ROOM_CONTENT_KEY } from './../consts/queryKeys';
-import { ROOM_CONTENT_KEY } from '@/consts/queryKeys'
+import { ROOM_CONTENT_KEY } from '@/consts/queryKeys';
 import roomContentService from '@/services/room-content.service'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
