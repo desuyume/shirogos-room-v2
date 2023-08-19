@@ -8,7 +8,7 @@ import path from 'path';
 import { getDirname } from './utils/getDirname.js';
 import session from 'express-session';
 import passport from 'passport';
-import authRouter from './router/authRouter.js'
+import authRouter from './router/authRouter.js';
 import InitPassport from './passport.js';
 
 const app = express();
@@ -23,15 +23,16 @@ app.use(
 app.use(express.json());
 app.use(express.static(path.resolve(getDirname(), '..', 'static')));
 app.use(fileUpload({}));
+app.set('trust proxy', 1);
 app.use(
 	session({
 		secret: process.env.SESSION_SECRET,
 		resave: true,
 		saveUninitialized: true,
 		cookie: {
-			//secure: true,
+			secure: true,
 			maxAge: 1000 * 60 * 60 * 24,
-			sameSite: false
+			sameSite: 'none'
 		}
 	})
 );
