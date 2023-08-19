@@ -44,3 +44,75 @@ model RoomBackground {
 
   @@map("room_backgrounds")
 }
+
+model User {
+  id          Int              @id @default(autoincrement())
+  username    String
+  email       String
+  profile_img String?
+  role        String           @default("user")
+  room        Room?            @relation(fields: [roomId], references: [id])
+  roomId      Int?             @unique
+  twitch      TwitchProfile    @relation(fields: [twitchId], references: [id])
+  twitchId    Int              @unique
+  discord     DiscordProfile?  @relation(fields: [discordId], references: [id])
+  discordId   Int?             @unique
+  vk          VkProfile?       @relation(fields: [vkId], references: [id])
+  vkId        Int?             @unique
+  telegram    TelegramProfile? @relation(fields: [telegramId], references: [id])
+  telegramId  Int?             @unique
+
+  @@map("users")
+}
+
+model Room {
+  id   Int    @id @default(autoincrement())
+  name String
+  User User?
+
+  @@map("rooms")
+}
+
+model TwitchProfile {
+  id          Int     @id
+  login       String
+  displayName String
+  email       String
+  profile_img String?
+  User        User?
+
+  @@map("twitch_profiles")
+}
+
+model DiscordProfile {
+  id          Int     @id
+  login       String
+  displayName String
+  email       String
+  profile_img String?
+  User        User?
+
+  @@map("discord_profiles")
+}
+
+model VkProfile {
+  id          Int     @id
+  login       String
+  displayName String
+  email       String
+  profile_img String?
+  User        User?
+
+  @@map("vk_profiles")
+}
+
+model TelegramProfile {
+  id          Int     @id
+  login       String
+  displayName String
+  email       String
+  profile_img String?
+  User        User?
+
+  @@map("telegram_profiles")
+}

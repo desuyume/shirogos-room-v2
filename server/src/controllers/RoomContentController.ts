@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import PanopticonService from '../services/RoomContentService.js'
 import { UploadedFile } from 'express-fileupload'
 import RoomContentService from '../services/RoomContentService.js'
 
