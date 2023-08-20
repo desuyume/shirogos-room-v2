@@ -9,3 +9,9 @@ export interface IUser {
 	vkId?: number
 	telegramId?: number
 }
+
+export interface IUserPayload {
+	id: number
+	email: string
+	role: string
+}

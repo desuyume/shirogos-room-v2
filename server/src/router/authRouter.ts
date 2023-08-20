@@ -8,9 +8,9 @@ authRouter.get('/twitch', passport.authenticate('twitch'));
 authRouter.get(
 	'/twitch/callback',
 	passport.authenticate('twitch', {
-		failureRedirect: `${process.env.CLIENT_URL}`
+		session: false,
 	}),
-	authController.authTwitchCallback
+	authController.handleSuccessfulLogin
 );
 
 export default authRouter;

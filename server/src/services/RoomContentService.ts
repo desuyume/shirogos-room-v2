@@ -5,6 +5,7 @@ import { getDirname } from '../utils/getDirname.js';
 import { v4 } from 'uuid';
 import fs from 'fs';
 import { createFoldersIfNotExists } from '../utils/createFoldersIfNotExists.js';
+import ApiError from '../exceptions/ApiError.js'
 
 const prisma = new PrismaClient();
 
@@ -19,7 +20,7 @@ class RoomContentService {
 				items = await prisma.roomBackground.findMany();
 				break;
 			default:
-				throw new Error('wrong type');
+				throw ApiError.BadRequest(`Wrong content type`);
 		}
 		return items;
 	}
@@ -56,7 +57,7 @@ class RoomContentService {
 				});
 				break;
 			default:
-				throw new Error('wrong type');
+				throw ApiError.BadRequest(`Wrong content type`);
 		}
 
 		return item;
@@ -100,7 +101,7 @@ class RoomContentService {
 				}
 				break;
 			default:
-				throw new Error('wrong type');
+				throw ApiError.BadRequest(`Wrong content type`);
 		}
 
 		return item;

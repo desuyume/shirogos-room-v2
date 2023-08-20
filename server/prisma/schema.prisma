@@ -46,23 +46,36 @@ model RoomBackground {
 }
 
 model User {
-  id          Int              @id @default(autoincrement())
-  username    String
-  email       String
-  profile_img String?
-  role        String           @default("user")
-  room        Room?            @relation(fields: [roomId], references: [id])
-  roomId      Int?             @unique
-  twitch      TwitchProfile    @relation(fields: [twitchId], references: [id])
-  twitchId    Int              @unique
-  discord     DiscordProfile?  @relation(fields: [discordId], references: [id])
-  discordId   Int?             @unique
-  vk          VkProfile?       @relation(fields: [vkId], references: [id])
-  vkId        Int?             @unique
-  telegram    TelegramProfile? @relation(fields: [telegramId], references: [id])
-  telegramId  Int?             @unique
+  id            Int              @id @default(autoincrement())
+  username      String
+  email         String
+  profile_img   String?
+  role          String           @default("user")
+  access_token  String?
+  refresh_token String?
+  room          Room?            @relation(fields: [roomId], references: [id])
+  roomId        Int?             @unique
+  twitch        TwitchProfile    @relation(fields: [twitchId], references: [id])
+  twitchId      Int              @unique
+  discord       DiscordProfile?  @relation(fields: [discordId], references: [id])
+  discordId     Int?             @unique
+  vk            VkProfile?       @relation(fields: [vkId], references: [id])
+  vkId          Int?             @unique
+  telegram      TelegramProfile? @relation(fields: [telegramId], references: [id])
+  telegramId    Int?             @unique
+  Token         Token?
 
   @@map("users")
+}
+
+model Token {
+  id           Int    @id @default(autoincrement())
+  accessToken  String @unique
+  refreshToken String @unique
+  user         User   @relation(fields: [userId], references: [id])
+  userId       Int    @unique
+
+  @@map("tokens")
 }
 
 model Room {

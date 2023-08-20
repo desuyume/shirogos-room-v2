@@ -22,7 +22,10 @@ const FirstScreen: FC = () => {
 			.get(`${import.meta.env.VITE_API_URL}/user/logout`, {
 				withCredentials: true,
 			})
-			.then(() => context?.setUser(null))
+			.then(() => {
+				context?.setUser(null)
+				localStorage.removeItem('token')
+			})
 			.catch(e => console.log(e))
 	}
 
@@ -74,7 +77,7 @@ const FirstScreen: FC = () => {
 					Вход
 				</button>
 			)}
-
+			
 			<a
 				onMouseOver={() => setIsDocsHover(true)}
 				onMouseLeave={() => setIsDocsHover(false)}

@@ -5,20 +5,6 @@ import passport from 'passport';
 const prisma = new PrismaClient();
 
 const InitPassport = () => {
-	passport.serializeUser((id: number, done) => {
-		return done(null, id);
-	});
-
-	passport.deserializeUser(async (id: number, done) => {
-		const user = await prisma.user.findUnique({
-			where: {
-				id
-			}
-		});
-
-		return done(null, user);
-	});
-
 	passport.use(
 		new Strategy(
 			{
@@ -54,7 +40,7 @@ const InitPassport = () => {
 					}
 				});
 
-				done(null, user.id);
+				done(null, {id: user.id, email: user.email, role: user.role});
 			}
 		)
 	);

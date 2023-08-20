@@ -1,31 +1,28 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import donateService from '../services/DonateService.js';
 import { IDonate } from '../types/IDonate.js';
 import { isNumber } from '../utils/isNumber.js'
+import ApiError from '../exceptions/ApiError.js'
 
 class DonateController {
-	async getAll(req: Request, res: Response) {
+	async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
 			const donates = await donateService.getAll();
 			return res.json(donates);
 		} catch (e) {
-			return res.status(500).json({ message: 'internal error' });
+			next(e);
 		}
 	}
 
-	async add(req: Request, res: Response) {
+	async add(req: Request, res: Response, next: NextFunction) {
 		try {
 			const donateBody: IDonate = req.body;
 
 			if (!donateBody.username) {
-				return res
-					.status(400)
-					.json({ error: true, message: 'username is required' });
+				throw ApiError.BadRequest('username is required');
 			}
 			if (donateBody.amount && !isNumber(donateBody.amount)) {
-				return res
-					.status(400)
-					.json({ error: true, message: 'amount must be a number' });
+				throw ApiError.BadRequest('amount must be a number');
 			}
 
 			const donate = await donateService.addDonate(
@@ -35,34 +32,30 @@ class DonateController {
 			);
 			return res.json(donate);
 		} catch (e) {
-			return res.status(500).json({ message: 'internal error' });
+			next(e);
 		}
 	}
 
-	async updateAmount(req: Request<{ id: number }>, res: Response) {
+	async updateAmount(req: Request<{ id: number }>, res: Response, next: NextFunction) {
 		try {
 			const { id } = req.params;
 			const { addAmount }: { addAmount: string } = req.body;
 
 			if (!addAmount) {
-				return res
-					.status(400)
-					.json({ error: true, message: 'addAmount is required' });
+				throw ApiError.BadRequest('addAmount is required');
 			}
 			if (!isNumber(addAmount)) {
-				return res
-					.status(400)
-					.json({ error: true, message: 'addAmount must be a number' });
+				throw ApiError.BadRequest('addAmount must be a number');
 			}
 
 			const updatedDonate = await donateService.updateAmount(+id, +addAmount);
 			return res.json(updatedDonate);
 		} catch (e) {
-			return res.status(500).json({ message: 'internal error' });
+			next(e);
 		}
 	}
 
-	async updateGifts(req: Request<{ id: number }>, res: Response) {
+	async updateGifts(req: Request<{ id: number }>, res: Response, next: NextFunction) {
 		try {
 			const { id } = req.params;
 			const { gifts }: { gifts: string } = req.body;
@@ -70,17 +63,17 @@ class DonateController {
 			const updatedDonate = await donateService.updateGifts(+id, gifts);
 			return res.json(updatedDonate);
 		} catch (e) {
-			return res.status(500).json({ message: 'internal error' });
+			next(e);
 		}
 	}
 
-	async delete(req: Request<{ id: number }>, res: Response) {
+	async delete(req: Request<{ id: number }>, res: Response, next: NextFunction) {
 		try {
 			const { id } = req.params;
 			const deletedDonate = await donateService.delete(+id);
 			return res.json(deletedDonate);
 		} catch (e) {
-			return res.status(500).json({ message: 'internal error' });
+			next(e);
 		}
 	}
 }

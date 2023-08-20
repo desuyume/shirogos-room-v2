@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import {
 	FC,
 	PropsWithChildren,
@@ -6,7 +6,7 @@ import {
 	useEffect,
 	useState,
 } from 'react'
-import { IUser } from './types/user.interface'
+import { IUser, IUserTokens } from './types/user.interface'
 
 interface IContext {
 	user: IUser | null
@@ -20,10 +20,14 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 
 	const getUser = async () => {
 		await axios
-			.get(`${import.meta.env.VITE_API_URL}/user`, { withCredentials: true })
-			.then((res: AxiosResponse) => {
-				if (res.data) {
-					setUser(res.data)
+			.get<IUserTokens | undefined>(`${import.meta.env.VITE_API_URL}/user`, {
+				withCredentials: true,
+			})
+			.then(res => res.data)
+			.then(data => {
+				if (data && data.isAuth) {
+					localStorage.setItem('token', data.accessToken);
+					setUser({ id: data.user.id, email: data.user.email, role: data.user.role })
 				}
 			})
 	}
