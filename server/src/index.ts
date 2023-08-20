@@ -15,16 +15,6 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(
-	cors({
-		origin: process.env.CLIENT_URL,
-		credentials: true
-	})
-);
-app.use(express.json());
-app.use(express.static(path.resolve(getDirname(), '..', 'static')));
-app.use(fileUpload({}));
-app.set('trust proxy', 1);
-app.use(
 	session({
 		secret: process.env.SESSION_SECRET,
 		resave: true,
@@ -37,6 +27,16 @@ app.use(
 		}
 	})
 );
+app.enable('trust proxy');
+app.use(
+	cors({
+		origin: process.env.CLIENT_URL,
+		credentials: true
+	})
+);
+app.use(express.json());
+app.use(express.static(path.resolve(getDirname(), '..', 'static')));
+app.use(fileUpload({}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api', router);
