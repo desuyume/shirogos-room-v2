@@ -30,9 +30,10 @@ app.use(
 		resave: true,
 		saveUninitialized: true,
 		cookie: {
-			secure: true,
+			secure: process.env.NODE_ENV === 'development' ? false : true,
+			httpOnly: process.env.NODE_ENV === 'development' ? false : true,
+			sameSite: process.env.NODE_ENV === 'development' ? false : 'none',
 			maxAge: 1000 * 60 * 60 * 24,
-			sameSite: 'none'
 		}
 	})
 );
