@@ -15,6 +15,7 @@ import errorMiddleware from './middlewares/ErrorMiddleware.js';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.enable("trust proxy");
 app.use(express.json());
 app.use(express.static(path.resolve(getDirname(), '..', 'static')));
 app.use(fileUpload({}));
