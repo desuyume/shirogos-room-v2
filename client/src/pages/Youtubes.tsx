@@ -60,12 +60,6 @@ const Youtubes: FC = () => {
 					desc='Прохождения игр.'
 					link='https://www.youtube.com/@dango_igrok'
 				/>
-				<YoutubeLink
-					title='GOROD KRIPOV'
-					imgPath='crypto'
-					desc='Крипто-игры, нейросети.'
-					link='https://www.youtube.com/channel/UCgOf2Bj8lfryM5yU2lqmXQA'
-				/>
 			</div>
 		</div>
 	)
