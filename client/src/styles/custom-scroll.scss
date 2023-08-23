@@ -72,3 +72,72 @@
 		}
 	}
 }
+
+.select-character {
+	.ScrollbarsCustom-TrackY {
+		width: 0.5625rem;
+		right: 0;
+	
+		&:hover,
+		&.dragging {
+			width: 0.5625rem;
+			right: 0;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		background-color: #C34375;
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #FF75AB;
+		}
+	}
+}
+
+.select-color, .select-bg {
+	.ScrollbarsCustom-Scroller {
+		display: flex;
+		align-items: center;
+	}
+
+	.ScrollbarsCustom-TrackX {
+		height: 0.2rem;
+		bottom: 0;
+	
+		&:hover,
+		&.dragging {
+			height: 0.2rem;
+			bottom: 0;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		background-color: #EBE984;
+		&:hover,
+		&.dragging {
+			height: 0.2rem;
+			background: #fffec5;
+		}
+	}
+}
+
+.select-bg {
+	.ScrollbarsCustom-TrackX {
+		height: 0.5rem;
+		padding-right: 1rem;
+	
+		&:hover,
+		&.dragging {
+			height: 0.5rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		
+		&:hover,
+		&.dragging {
+			height: 0.5rem;
+		}
+	}
+}

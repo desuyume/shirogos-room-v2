@@ -14,6 +14,7 @@ import Admin from '@/pages/Admin/Admin'
 export const routes: IRoute[] = [
 	{ path: '/', element: <Main /> },
 	{ path: '/room', element: <Room /> },
+	{ path: '/room/:section', element: <Room /> },
 	{ path: '/wiki', element: <Wiki /> },
 	{ path: '/dangoteka', element: <Dangoteka /> },
 	{ path: '/youtubes', element: <Youtubes /> },
