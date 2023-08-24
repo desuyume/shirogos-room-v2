@@ -8,7 +8,7 @@ interface IRoomNavBttn {
 
 const RoomNavBttn: FC<IRoomNavBttn> = ({ title, path }) => {
 	const location = useLocation()
-	const isActive = location.pathname === path
+	const isActive = location.pathname === path || location.pathname === path + '/'
 
 	return (
 		<Link
