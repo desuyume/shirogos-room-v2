@@ -7,7 +7,7 @@ import SelectBackground from '../Customization/SelectBackground'
 
 const RoomCustimization: FC = () => {
 	const location = useLocation()
-	const isActive = location.pathname === '/room/customization'
+	const isActive = location.pathname === '/room/customization' || location.pathname === '/room/customization/'
 
 	return (
 		<div
