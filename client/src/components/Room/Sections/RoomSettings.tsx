@@ -7,9 +7,8 @@ import Connections from '../Settings/Connections'
 
 const RoomSettings: FC = () => {
 	const location = useLocation()
-	const isActive =
-		location.pathname === '/room/settings' ||
-		location.pathname === '/room/settings/'
+	const isActive = location.pathname.includes('/room/settings')
+
 	const user = {
 		img: profileImg,
 		username: 'mercenaryJulian',

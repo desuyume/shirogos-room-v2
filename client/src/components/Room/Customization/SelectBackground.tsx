@@ -22,6 +22,7 @@ const SelectBackground: FC = () => {
 				<div className='flex items-center'>
 					{backgrounds.map((bg, index) => (
 						<div
+							key={bg.title + index}
 							onClick={() => setSelectedBg(index)}
 							className='mr-3 flex flex-col items-center relative mb-2 cursor-pointer'
 						>

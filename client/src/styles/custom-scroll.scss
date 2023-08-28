@@ -53,7 +53,7 @@
 	}
 }
 
-.room, .donates {
+.room, .donates, .room-tasks {
 	.ScrollbarsCustom-TrackY {
 		right: 0.25rem;
 	
@@ -138,6 +138,28 @@
 		&:hover,
 		&.dragging {
 			height: 0.5rem;
+		}
+	}
+}
+
+.room-tasks {
+	.ScrollbarsCustom-TrackY {
+		width: 1%;
+		right: -2%;
+	
+		&:hover,
+		&.dragging {
+			width: 1%;
+			right: -2%;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		background: #DEDEDE;
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #FFF;
 		}
 	}
 }

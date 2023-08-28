@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import lockImg from '@/assets/room/lock.png'
 import { Scrollbar } from 'react-scrollbars-custom'
+import { roomColors } from '@/consts/roomColors'
 
 interface ISelectColor {
 	type: string
@@ -10,20 +11,6 @@ interface ISelectColor {
 
 const SelectColor: FC<ISelectColor> = ({ type, title, className }) => {
 	const [selectedColor, setSelectedColor] = useState<string>('#C34375')
-	const allColors = [
-		{ hex: '#C34375' },
-		{ hex: '#C34343' },
-		{ hex: '#C37143' },
-		{ hex: '#4367C3' },
-		{ hex: '#C343B6' },
-		{ hex: '#717171' },
-		{ hex: '#4A9648' },
-		{ hex: '#BE9C25' },
-		{ hex: '#34A3AA' },
-		{ hex: '#A80000' },
-		{ hex: '#00A880' },
-		{ hex: '#A4114A' },
-	]
 	const availableColors = [
 		{ hex: '#C34375' },
 		{ hex: '#4367C3' },
@@ -56,7 +43,7 @@ const SelectColor: FC<ISelectColor> = ({ type, title, className }) => {
 			</div>
 			<Scrollbar noDefaultStyles className='flex-1 flex items-center'>
 				<div className='flex items-center'>
-					{allColors.map(color => (
+					{roomColors.map(color => (
 						<div
 							key={color.hex}
 							onClick={() => chooseColor(color)}
