@@ -1,21 +1,9 @@
+import { useInputLimit } from '@/hooks/useInputLimit'
 import { FC, useState } from 'react'
 
 const ChangeRoomName: FC = () => {
 	const [roomName, setRoomName] = useState<string>('')
-	const [limit, setLimit] = useState<number>(34)
-
-	const changeNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (limit > 0) {
-			setRoomName(e.target.value)
-			setLimit(34 - e.target.value.length)
-		}
-	}
-
-	const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.code === "Backspace" && limit < 34) {
-			setLimit(prev => prev + 1)
-		}
-	}
+	const { limit, changeNameHandler, keyDownHandler } = useInputLimit(setRoomName)
 
 	return (
 		<div className='w-full h-[5.75rem] bg-tertiary rounded-[1.5625rem] flex justify-center items-center'>
