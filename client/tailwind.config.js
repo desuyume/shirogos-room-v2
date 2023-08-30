@@ -37,6 +37,8 @@ export default {
 				'room-default-bg': "url('/images/room-default-bg.png')",
 				'room-gradient':
 					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(195, 67, 117, 0.50) 100%)',
+				'room-gameOrder-bg': 'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(36, 36, 36, 0.50) 100%)',
+				'room-orderDone-bg': 'linear-gradient(180deg, rgba(24, 24, 24, 0.90) 0%, rgba(36, 36, 36, 0.90) 100%)'
 			},
 		},
 	},
