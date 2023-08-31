@@ -163,3 +163,25 @@
 		}
 	}
 }
+
+.panopticons {
+	.ScrollbarsCustom-TrackY {
+		width: 0.38675rem;
+		right: -0.8rem;
+	
+		&:hover,
+		&.dragging {
+			width: 0.38675rem;
+			right: -0.8rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		background: #DEDEDE;
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #FFF;
+		}
+	}
+}
