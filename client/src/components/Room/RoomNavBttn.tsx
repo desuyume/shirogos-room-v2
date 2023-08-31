@@ -17,7 +17,7 @@ const RoomNavBttn: FC<IRoomNavBttn> = ({ title, path }) => {
 		<Link
 			className={
 				(isActive ? 'bg-secondary' : 'bg-primary hover:bg-primaryHover') +
-				' flex-1 w-[15rem] h-[2.52rem]  transition-all text-primaryText text-xl flex justify-center items-center rounded-[2.3125rem]'
+				' flex-1 w-[15rem] min-w-[11.25rem] h-[2.52rem]  transition-all text-primaryText text-xl flex justify-center items-center rounded-[2.3125rem]'
 			}
 			to={path}
 		>
