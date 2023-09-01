@@ -185,3 +185,49 @@
 		}
 	}
 }
+
+.badges {
+	.ScrollbarsCustom-TrackY {
+		width: 0.1875rem;
+		right: 0.12rem;
+		padding-bottom: 0.1rem;
+	
+		&:hover,
+		&.dragging {
+			width: 0.1875rem;
+			right: 0.12rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		background: #C34375;
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #FF75AB;
+		}
+	}
+}
+
+.backgrounds {
+	.ScrollbarsCustom-TrackY {
+		width: 0.9375rem;
+		right: 1rem;
+		padding-bottom: 0.1rem;
+	
+		&:hover,
+		&.dragging {
+			width: 0.9375rem;
+			right: 1rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		background: #C34375;
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #FF75AB;
+		}
+	}
+}
