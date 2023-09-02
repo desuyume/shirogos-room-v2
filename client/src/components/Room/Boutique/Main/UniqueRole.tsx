@@ -11,7 +11,7 @@ interface IUniqueRole {
 
 const UniqueRole: FC<IUniqueRole> = ({ visibleRole, type, title, cost }) => {
 	return (
-		<div className={(visibleRole === type ? 'visible opacity-100 ': 'invisible opacity-0 ') + 'w-[34rem] h-full z-10 flex justify-center absolute fullhd:relative fullhd:visible fullhd:opacity-100 transition-all'}>
+		<div className={(visibleRole === type ? 'visible opacity-100 ': 'invisible opacity-0 ') + 'w-[34rem] h-full z-10 flex justify-center absolute fullhd:relative fullhd:visible fullhd:opacity-100'}>
 			<div className='w-0 h-0 border-[17rem] border-transparent border-t-0 border-b-[27.5rem] border-b-tertiary absolute bottom-0 -z-10 hidden medium-tablet:block' />
 			<img
 				className='absolute top-[1.96rem] -left-[3.5rem] pointer-events-none hidden medium-tablet:block'

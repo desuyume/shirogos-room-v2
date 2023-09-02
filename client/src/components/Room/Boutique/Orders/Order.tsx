@@ -50,7 +50,7 @@ const Order: FC<OrderProps> = ({ finalPrice, setFinalPrice, isOrdered, clickBuy,
 	return (
 		<div className='flex-1 flex flex-col items-center justify-between pt-[0.69rem] transition-all'>
 			<h2 className='text-primaryText text-[2.1875rem] leading-[97.795%]'>
-				Заказ игры
+				{type === 'game' ? "Заказ игры" : "Заказ просмотра"}
 			</h2>
 			<div className='w-[78.9%]'>
 				<OrderInput isOrdered={isOrdered} type={type === 'game' ? orderTypes['1h'].type : orderTypes.xVideo.type} time={type === 'game' ? orderTypes['1h'].text : orderTypes.xVideo.text} price={type === 'game' ? orderTypes['1h'].price : orderTypes.xVideo.price} setFinalPrice={setFinalPrice} orders={orders} setOrders={setOrders} />
