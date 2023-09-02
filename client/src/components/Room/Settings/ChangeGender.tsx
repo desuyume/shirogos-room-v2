@@ -15,14 +15,14 @@ const ChangeGender: FC<IChangeGender> = ({ gender, setGender }) => {
 				<button
 					onClick={() => setGender('male')}
 					disabled={gender === 'male'}
-					className='w-[20.8%] h-[2.4375rem] bg-primary hover:bg-primaryHover transition-all text-[#FFF] text-xl disabled:bg-transparent'
+					className='w-[20.8%] h-[2.4375rem] bg-transparent hover:bg-secondaryHover text-[#FFF] text-xl disabled:bg-primary transition-all'
 				>
 					Мужской
 				</button>
 				<button
 					onClick={() => setGender('female')}
 					disabled={gender === 'female'}
-					className='w-[20.8%] h-[2.4375rem] bg-primary hover:bg-primaryHover transition-all text-[#FFF] text-xl disabled:bg-transparent'
+					className='w-[20.8%] h-[2.4375rem] bg-transparent hover:bg-secondaryHover text-[#FFF] text-xl disabled:bg-primary transition-all'
 				>
 					Женский
 				</button>
