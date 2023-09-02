@@ -35,14 +35,14 @@ const BuyColor: FC<IBuyColor> = ({ type }) => {
 					{type === 'account' ? 'Цветовая тема аккаунта' : 'Цвет никнейма'}
 				</p>
 			</div>
-			<div className='laptop:h-[40%] min-desktop:h-[44%] medium-desktop:h-[52%] fullhd:h-[60%] 2k:h-[30%] flex justify-center items-center flex-wrap gap-[3%]'>
+			<div className='laptop:h-[40%] min-desktop:h-[44%] medium-desktop:h-[52%] fullhd:h-[57.5%] 2k:h-[30%] flex justify-center items-center flex-wrap gap-[3%]'>
 				{roomColors.map(color => (
 					<div
 						key={color.hex}
 						style={{ backgroundColor: color.hex }}
 						className={
 							(selectedColor === color.hex
-								? 'border-2 border-[#F8FEFA] '
+								? 'border-2 border-[#F8FEFA] scale-[107%] transition-transform '
 								: '') +
 							'min-h-[30%] max-h-[30%] 2k:min-h-[40%] 2k:max-h-[40%] rounded-[1.125rem] aspect-square flex justify-center items-center cursor-pointer'
 						}

@@ -31,7 +31,7 @@ const SelectColor: FC<ISelectColor> = ({ type, title, className }) => {
 		<div
 			className={`w-full bg-room-gradient h-[6.625rem] rounded-[1.5625rem] py-[0.56rem] px-[0.56rem] select-color flex ${className}`}
 		>
-			<div className='bg-tertiary w-[10.1875rem] h-full rounded-[1.0625rem] flex justify-center items-center mr-[1.44rem]'>
+			<div className='bg-tertiary w-[10.1875rem] h-full rounded-[1.0625rem] flex justify-center items-center mr-[1.2rem]'>
 				<p
 					className={
 						(type === 'account' ? 'w-[60%]' : 'w-full') +
@@ -42,7 +42,7 @@ const SelectColor: FC<ISelectColor> = ({ type, title, className }) => {
 				</p>
 			</div>
 			<Scrollbar noDefaultStyles className='flex-1 flex items-center'>
-				<div className='flex items-center'>
+				<div className='flex items-center pl-1'>
 					{roomColors.map(color => (
 						<div
 							key={color.hex}
@@ -50,12 +50,12 @@ const SelectColor: FC<ISelectColor> = ({ type, title, className }) => {
 							style={{ backgroundColor: color.hex }}
 							className={
 								(selectedColor === color.hex
-									? 'border-2 border-[#F8FEFA] '
+									? 'border-2 border-[#F8FEFA] scale-105 '
 									: '') +
 								(checkColor(color)
 									? 'cursor-pointer '
 									: 'cursor-not-allowed ') +
-								`box-content h-[3.25rem] min-w-[3.6875rem] max-w-[3.6875rem] rounded-[1.125rem] mr-[0.56rem] last-of-type:mr-0 flex justify-center items-center`
+								`h-[3.25rem] min-w-[3.6875rem] max-w-[3.6875rem] rounded-[1.125rem] mr-[0.56rem] last-of-type:mr-0 flex justify-center items-center`
 							}
 						>
 							{!checkColor(color) && (

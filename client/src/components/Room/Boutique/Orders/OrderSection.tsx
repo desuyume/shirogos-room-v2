@@ -37,7 +37,7 @@ const OrderSection: FC<IOrderSection> = ({ type }) => {
 			}
 		>
 			<div className={(isOrdered ? 'opacity-0 invisible ' : 'opacity-100 visible ') + 'w-full h-full flex transition-all'}>
-				<OrderRules type='game' isRulesOpened={isRulesOpened} setIsRulesOpened={setIsRulesOpened} />
+				<OrderRules type={type} isRulesOpened={isRulesOpened} setIsRulesOpened={setIsRulesOpened} />
 				<Order
 					finalPrice={finalPrice}
 					setFinalPrice={setFinalPrice}
@@ -45,7 +45,7 @@ const OrderSection: FC<IOrderSection> = ({ type }) => {
 					isOrdered={isOrdered}
 					orders={orders}
 					setOrders={setOrders}
-					type='game'
+					type={type}
 				/>
 			</div>
 			<OrderDone

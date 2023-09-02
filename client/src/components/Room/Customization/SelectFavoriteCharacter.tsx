@@ -27,8 +27,9 @@ const SelectFavoriteCharacter: FC = () => {
 					Любимый персонаж
 				</p>
 			</div>
-			<Scrollbar noDefaultStyles style={{ height: "7.1rem" }}>
-					{characters.map((character, index) => (
+			<Scrollbar noDefaultStyles style={{ height: '7.1rem' }}>
+				{characters.map((character, index) => (
+					<div className='w-full flex justify-center first-of-type:pt-1 last-of-type:pb-1 '>
 						<p
 							key={index}
 							onClick={() => setSelectedCharacter(index)}
@@ -36,12 +37,13 @@ const SelectFavoriteCharacter: FC = () => {
 								(selectedCharacter === index
 									? 'text-[#EBE984] '
 									: 'text-primaryText ') +
-								'text-xs text-center cursor-pointer hover:text-[#EBE984] transition-colors first-of-type:pt-1 last-of-type:pb-1'
+								'text-xs text-center cursor-pointer hover:text-[#EBE984] transition-colors'
 							}
 						>
 							{character}
 						</p>
-					))}
+					</div>
+				))}
 			</Scrollbar>
 		</div>
 	)
