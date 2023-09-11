@@ -14,3 +14,8 @@ export interface IUserTokens {
 	}
 	isAuth: boolean
 }
+
+export interface IFindUser {
+	id: number
+	username: string
+}
