@@ -231,3 +231,43 @@
 		}
 	}
 }
+
+.orders-admin {
+	.ScrollbarsCustom-TrackY {
+		right: -0.5rem;
+	
+		&:hover,
+		&.dragging {
+			width: 0.1875rem;
+			right: -0.5rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #fffec5;
+		}
+	}
+}
+
+.find-user {
+	.ScrollbarsCustom-TrackY {
+		right: 0.1875rem;
+	
+		&:hover,
+		&.dragging {
+			width: 0.1875rem;
+			right: 0.1875rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #fffec5;
+		}
+	}
+}
