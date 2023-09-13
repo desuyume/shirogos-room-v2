@@ -271,3 +271,24 @@
 		}
 	}
 }
+
+.users-list {
+	.ScrollbarsCustom-TrackY {
+		width: 0.5rem;
+		right: 0.35rem;
+	
+		&:hover,
+		&.dragging {
+			width: 0.5rem;
+			right: 0.35rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #fffec5;
+		}
+	}
+}
