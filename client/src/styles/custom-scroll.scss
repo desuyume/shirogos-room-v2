@@ -252,14 +252,15 @@
 	}
 }
 
-.find-user {
+.users-list {
 	.ScrollbarsCustom-TrackY {
-		right: 0.1875rem;
+		width: 0.5rem;
+		right: 0.35rem;
 	
 		&:hover,
 		&.dragging {
-			width: 0.1875rem;
-			right: 0.1875rem;
+			width: 0.5rem;
+			right: 0.35rem;
 		}
 	}
 
@@ -272,15 +273,14 @@
 	}
 }
 
-.users-list {
+.find-user {
 	.ScrollbarsCustom-TrackY {
-		width: 0.5rem;
-		right: 0.35rem;
+		right: 0.1875rem;
 	
 		&:hover,
 		&.dragging {
-			width: 0.5rem;
-			right: 0.35rem;
+			width: 0.1875rem;
+			right: 0.1875rem;
 		}
 	}
 
