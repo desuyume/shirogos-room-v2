@@ -51,7 +51,7 @@ const FindUser: FC<FindUserProps> = ({
 		<div
 			className={
 				(isVisible ? 'opacity-100 visible ' : 'opacity-0 invisible ') +
-				'w-[11.375rem] h-[9.6875rem] bg-secondary pt-[0.19rem] flex flex-col items-center translate-y-[100%] bottom-0 transition-all find-user absolute' +
+				'w-[11.375rem] h-[9.6875rem] bg-secondary pt-[0.19rem] flex flex-col items-center translate-y-[100%] bottom-0 transition-all find-user absolute z-40' +
 				(!!className ? ` ${className}` : '')
 			}
 		>
