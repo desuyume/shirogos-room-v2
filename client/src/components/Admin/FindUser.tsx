@@ -51,11 +51,11 @@ const FindUser: FC<FindUserProps> = ({
 		<div
 			className={
 				(isVisible ? 'opacity-100 visible ' : 'opacity-0 invisible ') +
-				'w-[11.375rem] h-[9.6875rem] bg-secondary pt-[0.19rem] flex flex-col items-center translate-y-[100%] bottom-0 transition-all find-user absolute z-40' +
+				'w-[11.375rem] h-[9.6875rem] bg-secondary pt-[0.19rem] flex flex-col items-center transition-all find-user z-40' +
 				(!!className ? ` ${className}` : '')
 			}
 		>
-			<div className='w-[11rem] min-h-[2rem] bg-tertiary flex items-center relative mb-2'>
+			<div className='w-[96.7%] min-h-[2rem] bg-tertiary flex items-center relative mb-2'>
 				<img className='w-[1.125rem] ml-3' src={searchIcon} alt='search-icon' />
 				<input
 					className='w-full h-full absolute inset-0 bg-transparent outline-none pl-[2.56rem] pr-1 text-[0.9375rem] text-[#FFF] font-secondary font-normal'
@@ -65,9 +65,9 @@ const FindUser: FC<FindUserProps> = ({
 			</div>
 			<Scrollbar
 				noDefaultStyles
-				style={{ width: '11rem', height: '100%', marginBottom: '0.44rem' }}
+				style={{ width: '96.7%', height: '100%', marginBottom: '0.44rem' }}
 			>
-				<div className='w-[11rem] flex flex-col'>
+				<div className='w-[96.7%] flex flex-col'>
 					{users
 						.filter(donate =>
 							donate.username.toLowerCase().includes(searchQuery.toLowerCase())

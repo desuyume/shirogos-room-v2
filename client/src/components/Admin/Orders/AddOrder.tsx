@@ -35,7 +35,7 @@ const AddOrder: FC<IAddOrder> = ({ index }) => {
 					<button onClick={() => setIsChooseUserVisible(!isChooseUserVisible)} className='w-full h-full hover:bg-secondary transition-all overflow-hidden'>
 						{selectedUsers.length > 0 ? selectedUsers.join(', ') : 'выбрать никнейм'}
 					</button>
-					<FindUser isVisible={isChooseUserVisible} className='-bottom-[0.42rem]' selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} />
+					<FindUser isVisible={isChooseUserVisible} className='absolute translate-y-[100%] -bottom-[0.42rem]' selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} />
 				</div>
 				<div className='flex-1 relative flex items-center'>
 					<input
