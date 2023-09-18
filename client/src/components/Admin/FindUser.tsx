@@ -19,7 +19,6 @@ const FindUser: FC<FindUserProps> = ({
 	setSelectedUsers,
 }) => {
 	const [searchQuery, setSearchQuery] = useState<string>('')
-
 	const users: IFindUser[] = [
 		{ id: 1, username: 'mercenaryJulian' },
 		{ id: 2, username: 'Mode_Of_God' },
@@ -51,13 +50,7 @@ const FindUser: FC<FindUserProps> = ({
 		<div
 			className={
 				(isVisible ? 'opacity-100 visible ' : 'opacity-0 invisible ') +
-<<<<<<< HEAD
 				'w-[11.375rem] h-[9.6875rem] bg-secondary pt-[0.19rem] flex flex-col items-center transition-all find-user z-40' +
-||||||| 7f6b62e
-				'w-[11.375rem] h-[9.6875rem] bg-secondary pt-[0.19rem] flex flex-col items-center translate-y-[100%] bottom-0 transition-all find-user absolute' +
-=======
-				'w-[11.375rem] h-[9.6875rem] bg-secondary pt-[0.19rem] flex flex-col items-center translate-y-[100%] bottom-0 transition-all find-user absolute z-40' +
->>>>>>> master
 				(!!className ? ` ${className}` : '')
 			}
 		>
