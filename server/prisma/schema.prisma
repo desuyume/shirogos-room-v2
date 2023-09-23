@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Donate {
+  id       Int     @id @default(autoincrement())
+  username String
+  amount   Float?  @default(0)
+  gifts    String? @default("")
+
+  @@map("donates")
+}
+
+model UniqueRole {
+  id    Int            @id @default(autoincrement())
+  title String         @unique
+  type  UniqueRoleType
+
+  @@map("unique_roles")
+}
+
+enum UniqueRoleType {
+  ADJECTIVES
+  NOUNS
+}
+
+model Panopticon {
+  id   Int    @id @default(autoincrement())
+  cost Int    @default(0)
+  img  String
+
+  @@map("panopticons")
+}
+
+model RoomBackground {
+  id   Int    @id @default(autoincrement())
+  cost Int    @default(0)
+  img  String
+
+  @@map("room_backgrounds")
+}
+
+model User {
+  id            Int              @id @default(autoincrement())
+  username      String
+  email         String
+  profile_img   String?
+  role          String           @default("user")
+  access_token  String?
+  refresh_token String?
+  room          Room?            @relation(fields: [roomId], references: [id])
+  roomId        Int?             @unique
+  twitch        TwitchProfile    @relation(fields: [twitchId], references: [id])
+  twitchId      Int              @unique
+  discord       DiscordProfile?  @relation(fields: [discordId], references: [id])
+  discordId     Int?             @unique
+  vk            VkProfile?       @relation(fields: [vkId], references: [id])
+  vkId          Int?             @unique
+  telegram      TelegramProfile? @relation(fields: [telegramId], references: [id])
+  telegramId    Int?             @unique
+  Token         Token?
+
+  @@map("users")
+}
+
+model Token {
+  id           Int    @id @default(autoincrement())
+  accessToken  String @unique
+  refreshToken String @unique
+  user         User   @relation(fields: [userId], references: [id])
+  userId       Int    @unique
+
+  @@map("tokens")
+}
+
+model Room {
+  id   Int    @id @default(autoincrement())
+  name String
+  User User?
+
+  @@map("rooms")
+}
+
+model TwitchProfile {
+  id          Int     @id
+  login       String
+  displayName String
+  email       String
+  profile_img String?
+  User        User?
+
+  @@map("twitch_profiles")
+}
+
+model DiscordProfile {
+  id          Int     @id
+  login       String
+  displayName String
+  email       String
+  profile_img String?
+  User        User?
+
+  @@map("discord_profiles")
+}
+
+model VkProfile {
+  id          Int     @id
+  login       String
+  displayName String
+  email       String
+  profile_img String?
+  User        User?
+
+  @@map("vk_profiles")
+}
+
+model TelegramProfile {
+  id          Int     @id
+  login       String
+  displayName String
+  email       String
+  profile_img String?
+  User        User?
+
+  @@map("telegram_profiles")
+}
