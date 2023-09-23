@@ -33,3 +33,9 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Migrations
+/prisma/migrations
+
+# Keep environment variables out of version control
+.env
