@@ -16,7 +16,7 @@ const AuthModal: FC<IAuthModal> = ({ visible, setVisible }) => {
 	}
 
 	const clickAuthTwitch = () => {
-		window.open(`${import.meta.env.VITE_SERVER_URL}/auth/twitch`, '_self')
+		window.open(`${import.meta.env.VITE_API_URL}/auth/twitch`, '_self')
 	}
 
 	const clickAuthVk = () => {
