@@ -175,7 +175,7 @@ const AddAchievement: FC = () => {
 				</button>
 				<FindUser
 					isVisible={isChooseUserVisible}
-					className='-bottom-[0.42rem]'
+					className='absolute translate-y-[100%] bottom-8'
 					selectedUsers={selectedUsers}
 					setSelectedUsers={setSelectedUsers}
 					multiple
