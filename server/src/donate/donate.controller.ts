@@ -1,6 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { DonateService } from './donate.service';
 import { DonateDto } from './dto/donate.dto';
+import { UpdateAmountDonateDto, UpdateGiftsDonateDto } from './dto/update-donate.dto'
 
 @Controller('donate')
 export class DonateController {
@@ -8,16 +17,34 @@ export class DonateController {
 
   @Post()
   create(@Body() createDonateDto: DonateDto) {
-    return this.donateService.create(createDonateDto);
+    try {
+      return this.donateService.create(createDonateDto);
+    } catch (e) {
+      throw e;
+    }
   }
 
   @Get()
-  findAll() {
-    return this.donateService.findAll();
+  getAll() {
+    try {
+      return this.donateService.getAll();
+    } catch (e) {
+      throw e;
+    }
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.donateService.findOne(+id);
+  @Patch('updateAmount/:id')
+  updateAmount(@Param('id') id: string, @Body() dto: UpdateAmountDonateDto) {
+    return this.donateService.updateAmount(+id, dto);
+  }
+
+  @Patch('updateGifts/:id')
+  updateGifts(@Param('id') id: string, @Body() dto: UpdateGiftsDonateDto) {
+    return this.donateService.updateGifts(+id, dto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.donateService.delete(+id);
   }
 }

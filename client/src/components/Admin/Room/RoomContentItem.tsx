@@ -24,7 +24,7 @@ const RoomContentItem: FC<IRoomContentItem> = ({ id, cost, img, type }) => {
 				{img ? (
 					<img
 						className='w-[7.25rem] h-[4.75rem]'
-						src={`${import.meta.env.VITE_SERVER_URL}/${type}s/${img}`}
+						src={`${import.meta.env.VITE_SERVER_URL}/${img}`}
 						alt='panopticon-img'
 					/>
 				) : (

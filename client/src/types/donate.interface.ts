@@ -1,7 +1,7 @@
 export interface IDonate { 
 	id: number,
 	username: string,
-	amount?: string,
+	amount?: number,
 	gifts?: string
 }
 

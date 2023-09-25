@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { CreateDonateDto } from './dto/donate.dto';
-import { UpdateDonateDto } from './dto/update-donate.dto';
+import { DonateDto } from './dto/donate.dto';
 import { PrismaService } from 'src/prisma.service';
+import {
+  UpdateAmountDonateDto,
+  UpdateGiftsDonateDto,
+} from './dto/update-donate.dto';
 
 @Injectable()
 export class DonateService {
   constructor(private prisma: PrismaService) {}
 
-  async create(dto: CreateDonateDto) {
+  async create(dto: DonateDto) {
     const { username, amount, gifts } = dto;
     const donate = await this.prisma.donate.create({
       data: {
@@ -19,7 +22,7 @@ export class DonateService {
     return donate;
   }
 
-  async findAll() {
+  async getAll() {
     return await this.prisma.donate.findMany({
       orderBy: [
         {
@@ -29,15 +32,35 @@ export class DonateService {
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} donate`;
+  async updateAmount(id: number, dto: UpdateAmountDonateDto) {
+    return await this.prisma.donate.update({
+      where: {
+        id,
+      },
+      data: {
+        amount: {
+          increment: dto.addAmount,
+        },
+      },
+    });
   }
 
-  update(id: number, updateDonateDto: UpdateDonateDto) {
-    return `This action updates a #${id} donate`;
+  async updateGifts(id: number, dto: UpdateGiftsDonateDto) {
+    return await this.prisma.donate.update({
+      where: {
+        id,
+      },
+      data: {
+        gifts: dto.gifts,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} donate`;
+  async delete(id: number) {
+    return await this.prisma.donate.delete({
+      where: {
+        id,
+      },
+    });
   }
 }

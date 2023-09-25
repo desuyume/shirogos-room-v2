@@ -19,7 +19,12 @@ const AddDonater: FC = () => {
 		} else if (username === '') {
 			console.log('username field can not be blank')
 		} else {
-			mutate({ username, amount, gifts })
+			const donate = {
+				username,
+				amount: +amount,
+				gifts
+			}
+			mutate(donate)
 		}
 	}
 
