@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import heartIcon from '@/assets/heart-icon.svg'
+import { formatMoney } from '@/utils/formatMoney'
 
 interface IDonateItemMarquee {
 	username: string
@@ -19,7 +20,7 @@ const DonateItemMarquee: FC<IDonateItemMarquee> = ({
 				<span className='text-[#EBE984] text-xl'>{username}</span>
 				<span className='text-xl text-[#D9D9D9]'>
 					{' '}
-					- {!!amount && <>{amount}р</>}
+					- {!!amount && <>{formatMoney(amount)}р</>}
 					{!amount && !!gifts && <>{gifts}</>}{' '}
 					{!!gifts && !!amount && <> + {gifts}</>}
 				</span>

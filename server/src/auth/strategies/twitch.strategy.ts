@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy } from 'passport-twitch';
+import { Strategy } from 'passport-twitch-strategy';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
