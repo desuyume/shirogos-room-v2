@@ -3,7 +3,7 @@ import heartIcon from '@/assets/heart-icon.svg'
 
 interface IDonateItemMarquee {
 	username: string
-	amount?: string
+	amount?: number
 	gifts?: string
 }
 
