@@ -1,8 +1,9 @@
-import { FC } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import mangaImg from '@/assets/manga.png'
 import storyImg from '@/assets/story.png'
 import DangotekaSectionItem from './DangotekaSectionItem'
 import { Carousel } from '@mantine/carousel'
+import { useWindowSize } from 'usehooks-ts'
 
 interface IDangotekaSectionList {
 	type: string
@@ -54,81 +55,101 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 			description:
 				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
 		},
+		{
+			storyId: 'flame',
+			img: storyImg,
+			title: 'Ледяное пламя',
+			description:
+				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
+		},
+		{
+			storyId: 'flame',
+			img: storyImg,
+			title: 'Ледяное пламя',
+			description:
+				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
+		},
 	]
+	const [items, _] = useState<any[]>(type === 'manga' ? mangas : stories)
+	const { width } = useWindowSize()
+	const [isWithControls, setIsWithControls] = useState<boolean>(true)
+	const carouselRef = useRef<HTMLDivElement | null>(null)
+
+	useEffect(() => {
+		console.log(carouselRef.current);
+		
+		if ((items.length * 666.7) <= width) {
+			setIsWithControls(false)
+		} else {
+			setIsWithControls(true)
+		}
+	}, [width, items])
 
 	return (
-		<div className='flex w-full h-[25.6rem] '>
+		<div className='flex w-full h-[25.6rem]'>
 			<Carousel
+				ref={carouselRef}
 				className='w-full pt-[1.3rem]'
-				slideSize="33.333333%"
 				align='start'
 				draggable={false}
 				loop
+				initialSlide={0}
+				slideGap={0}
+				withControls={isWithControls}
 				styles={{
 					root: {
-						height: '100%'
+						height: '100%',
 					},
 					controls: {
-						height: "100%",
-						display: "flex",
-					  position: 'absolute',
+						height: '100%',
+						display: 'flex',
+						position: 'absolute',
 						top: 0,
 						border: 'none',
-						padding: '0'
+						padding: '0',
 					},
 					control: {
-						'&:first-of-type': {
-							visibility: 'hidden'
-						},
 						'&:hover': {
-							backgroundColor: type === 'manga' ? '#323232 !important' : '#FF75AB !important'
+							backgroundColor:
+								type === 'manga' ? '#323232 !important' : '#FF75AB !important',
 						},
 						transition: 'background-color 150ms cubic-bezier(0.4, 0, 0.2, 1)',
 						border: 'none',
 						borderTop: '1px solid #181818',
 						color: '#FFF',
-						backgroundColor: type === 'manga' ?  '#242424 !important' : '#C34375 !important',
+						backgroundColor:
+							type === 'manga' ? '#242424 !important' : '#C34375 !important',
 						height: '100%',
 						borderRadius: '0',
 						width: '3.1875rem',
 						fontSize: '2.1875rem',
 						fontFamily: 'Days One',
 						opacity: '100',
-						right: '0'
-					}
+						right: '0',
+					},
 				}}
 				nextControlIcon={<p>{'>'}</p>}
 				previousControlIcon={<p>{'<'}</p>}
 				breakpoints={[
-					{ maxWidth: '1800', slideSize: '50%', slideGap: '0' },
-					{ maxWidth: '1300', slideSize: '100%', slideGap: '0' },
+					{ minWidth: '3500', slideSize: '20%' },
+					{ minWidth: '2800', slideSize: '25%' },
+					{ minWidth: '2100', slideSize: '33.34%' },
+					{ minWidth: '1350', slideSize: '50%' },
+					{ minWidth: '800', slideSize: '100%' },
 				]}
 			>
-				{type === 'manga'
-					? mangas.map(manga => (
-							<Carousel.Slide>
-								<DangotekaSectionItem
-									key={manga.title}
-									type="manga"
-									itemId={manga.mangaId}
-									img={manga.img}
-									title={manga.title}
-									description={manga.description}
-								/>
-							</Carousel.Slide>
-					  ))
-					: stories.map(story => (
-							<Carousel.Slide>
-								<DangotekaSectionItem
-									key={story.title}
-									type="story"
-									itemId={story.storyId}
-									img={story.img}
-									title={story.title}
-									description={story.description}
-								/>
-							</Carousel.Slide>
-					  ))}
+				{items.map(manga => (
+					<Carousel.Slide>
+						<DangotekaSectionItem
+							key={manga.title}
+							type='manga'
+							itemId={manga.mangaId}
+							img={manga.img}
+							title={manga.title}
+							description={manga.description}
+						/>
+					</Carousel.Slide>
+				))}
 			</Carousel>
 		</div>
 	)
