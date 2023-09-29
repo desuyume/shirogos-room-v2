@@ -172,3 +172,10 @@ model OrderPrice {
 
   @@map("order_prices")
 }
+
+model OnlineOption {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  @@map("online_options")
+}
