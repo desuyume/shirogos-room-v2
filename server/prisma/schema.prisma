@@ -49,6 +49,7 @@ model User {
   id            Int              @id @default(autoincrement())
   username      String
   email         String
+  dangos        Int              @default(0)
   profile_img   String?
   role          String           @default("user")
   access_token  String?
@@ -64,6 +65,7 @@ model User {
   telegram      TelegramProfile? @relation(fields: [telegramId], references: [id])
   telegramId    Int?             @unique
   Token         Token?
+  Order         Order[]
 
   @@map("users")
 }
@@ -87,7 +89,7 @@ model Room {
 }
 
 model TwitchProfile {
-  id          Int     @id
+  id          Int     @id @default(autoincrement())
   login       String
   displayName String
   email       String
@@ -98,7 +100,7 @@ model TwitchProfile {
 }
 
 model DiscordProfile {
-  id          Int     @id
+  id          Int     @id @default(autoincrement())
   login       String
   displayName String
   email       String
@@ -109,7 +111,7 @@ model DiscordProfile {
 }
 
 model VkProfile {
-  id          Int     @id
+  id          Int     @id @default(autoincrement())
   login       String
   displayName String
   email       String
@@ -120,7 +122,7 @@ model VkProfile {
 }
 
 model TelegramProfile {
-  id          Int     @id
+  id          Int     @id @default(autoincrement())
   login       String
   displayName String
   email       String
@@ -128,4 +130,45 @@ model TelegramProfile {
   User        User?
 
   @@map("telegram_profiles")
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  REJECTED
+}
+
+model Order {
+  id           Int         @id @default(autoincrement())
+  user         User        @relation(fields: [userId], references: [id])
+  orderType    OrderType   @relation(fields: [orderTypeId], references: [id])
+  orderPrice   OrderPrice  @relation(fields: [orderPriceId], references: [id])
+  userId       Int
+  orderTypeId  Int
+  orderText    String
+  status       OrderStatus @default(value: PENDING)
+  orderPriceId Int
+
+  @@map("orders")
+}
+
+model OrderType {
+  id          Int          @id @default(autoincrement())
+  type        String       @unique
+  orderRules  String?
+  orderPrices OrderPrice[]
+  Order       Order[]
+
+  @@map("order_types")
+}
+
+model OrderPrice {
+  id          Int       @id @default(autoincrement())
+  order       OrderType @relation(fields: [orderTypeId], references: [id])
+  orderTypeId Int
+  cost        Int
+  text        String
+  Order       Order[]
+
+  @@map("order_prices")
 }

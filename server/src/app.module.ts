@@ -11,6 +11,7 @@ import { RoomContentModule } from './room-content/room-content.module'
 import { TokenModule } from './token/token.module'
 import { UniqueRoleModule } from './unique-role/unique-role.module'
 import { UserModule } from './user/user.module'
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { UserModule } from './user/user.module'
     RoomContentModule,
     TokenModule,
     UniqueRoleModule,
-    UserModule
+    UserModule,
+    OrderModule
   ],
   controllers: [AppController],
   providers: [AppService],
