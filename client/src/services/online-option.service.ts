@@ -2,7 +2,7 @@ import { ICreateOnlineOption, IOnlineOption } from '@/types/online-option.interf
 import axios from 'axios'
 
 class OnlineUserService {
-	private URL = `${import.meta.env.VITE_API_URL}/onlineVariation`
+	private URL = `${import.meta.env.VITE_API_URL}/onlineOption`
 
 	async getAll() {
 		return axios.get<IOnlineOption[]>(this.URL)

@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { OnlineOptionService } from './online_option.service';
 import { CreateOnlineOptionDto } from './dto/create-online_option.dto'
 
-@Controller('onlineVariation')
+@Controller('onlineOption')
 export class OnlineOptionController {
   constructor(private readonly onlineOptionService: OnlineOptionService) {}
 
