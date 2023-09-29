@@ -12,6 +12,7 @@ import { TokenModule } from './token/token.module'
 import { UniqueRoleModule } from './unique-role/unique-role.module'
 import { UserModule } from './user/user.module'
 import { OrderModule } from './order/order.module';
+import { OnlineOptionModule } from './online_option/online_option.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { OrderModule } from './order/order.module';
     TokenModule,
     UniqueRoleModule,
     UserModule,
-    OrderModule
+    OrderModule,
+    OnlineOptionModule
   ],
   controllers: [AppController],
   providers: [AppService],
