@@ -39,3 +39,6 @@ lerna-debug.log*
 
 # Keep environment variables out of version control
 .env
+
+# Static
+/static
