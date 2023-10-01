@@ -1,4 +1,4 @@
-import { useCreateOnlineOption } from '@/hooks/useCreateOnlineOption'
+import { useCreateOnlineOption } from '@/api/useCreateOnlineOption'
 import { FC, useEffect, useState } from 'react'
 
 const AddOnlineOption: FC = () => {

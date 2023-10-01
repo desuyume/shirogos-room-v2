@@ -1,4 +1,4 @@
-import { useDeleteOnlineOption } from '@/hooks/useDeleteOnlineOption'
+import { useDeleteOnlineOption } from '@/api/useDeleteOnlineOption'
 import { FC } from 'react'
 
 interface IOnlineOption {

@@ -1,4 +1,4 @@
-import { useOnlineOption } from '@/hooks/useOnlineOption'
+import { useOnlineOption } from '@/api/useOnlineOption'
 import { FC } from 'react'
 import { Scrollbar } from 'react-scrollbars-custom'
 import OnlineOption from './OnlineOption'

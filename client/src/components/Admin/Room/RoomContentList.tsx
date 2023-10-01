@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import RoomContentItem from './RoomContentItem'
 import { Scrollbar } from 'react-scrollbars-custom'
-import { useRoomContents } from '@/hooks/useRoomContents'
+import { useRoomContents } from '@/api/useRoomContents'
 
 interface IRoomContentList {
 	type: string

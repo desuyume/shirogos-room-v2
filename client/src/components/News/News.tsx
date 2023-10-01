@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
-import { useNews } from '@/hooks/useNews'
+import { useNews } from '@/api/useNews'
 import { formatDate } from '@/utils/formatDate'
-import { useNewsCount } from '@/hooks/useNewsCount'
+import { useNewsCount } from '@/api/useNewsCount'
 
 const News: FC = () => {
 	const [skip, setSkip] = useState<number>(0)

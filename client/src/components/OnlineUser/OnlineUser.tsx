@@ -1,4 +1,4 @@
-import { useRandomOnlineOption } from '@/hooks/useRandomOnlineOption'
+import { useRandomOnlineOption } from '@/api/useRandomOnlineOption'
 import { FC } from 'react'
 
 const OnlineUser: FC = () => {

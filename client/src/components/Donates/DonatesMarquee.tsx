@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import Marquee from 'react-fast-marquee'
 import DonateItemMarquee from './DonateItemMarquee'
-import { useDonates } from '@/hooks/useDonates'
+import { useDonates } from '@/api/useDonates'
 
 const DonatesMarquee: FC = () => {
 	const { isLoading, data: donates, isError } = useDonates()
