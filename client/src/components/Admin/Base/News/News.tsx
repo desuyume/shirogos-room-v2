@@ -1,4 +1,4 @@
-import { useCreateNews } from '@/hooks/useCreateNews'
+import { useCreateNews } from '@/api/useCreateNews'
 import previewUploadedImg from '@/utils/previewUploadedImg'
 import { FC, useEffect, useRef, useState } from 'react'
 

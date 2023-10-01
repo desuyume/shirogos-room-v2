@@ -1,4 +1,4 @@
-import { useCreateRoomContent } from '@/hooks/useCreateRoomContent'
+import { useCreateRoomContent } from '@/api/useCreateRoomContent'
 import previewUploadedImg from '@/utils/previewUploadedImg'
 import { FC, useEffect, useRef, useState } from 'react'
 

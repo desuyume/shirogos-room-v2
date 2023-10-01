@@ -1,4 +1,4 @@
-import { useCreateRole } from '@/hooks/useCreateRole'
+import { useCreateRole } from '@/api/useCreateRole'
 import { FC, useEffect, useState } from 'react'
 
 interface IAddRole {

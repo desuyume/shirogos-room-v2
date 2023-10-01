@@ -1,4 +1,4 @@
-import { useUniqueRoles } from '@/hooks/useUniqueRoles'
+import { useUniqueRoles } from '@/api/useUniqueRoles'
 import { FC } from 'react'
 import { Scrollbar } from 'react-scrollbars-custom'
 import RolesItem from './RolesItem'

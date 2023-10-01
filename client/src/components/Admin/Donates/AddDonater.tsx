@@ -1,5 +1,5 @@
 import { DONATES_KEY } from '@/consts/queryKeys'
-import { useCreateDonate } from '@/hooks/useCreateDonate'
+import { useCreateDonate } from '@/api/useCreateDonate'
 import { isNumber } from '@/utils/isNumber'
 import { useQueryClient } from '@tanstack/react-query'
 import { FC, SyntheticEvent, useEffect, useState } from 'react'

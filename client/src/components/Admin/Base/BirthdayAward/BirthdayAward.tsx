@@ -1,5 +1,5 @@
-import { useBirthdayAward } from '@/hooks/useBirthdayAward'
-import { useUpdateBirthdayAward } from '@/hooks/useUpdateBirthdayAward'
+import { useBirthdayAward } from '@/api/useBirthdayAward'
+import { useUpdateBirthdayAward } from '@/api/useUpdateBirthdayAward'
 import { isNumber } from '@/utils/isNumber'
 import { FC, useEffect, useState } from 'react'
 

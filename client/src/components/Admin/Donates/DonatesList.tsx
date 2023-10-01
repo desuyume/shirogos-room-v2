@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import DonateItem from './DonateItem'
-import { useDonates } from '@/hooks/useDonates'
+import { useDonates } from '@/api/useDonates'
 import { Scrollbar } from 'react-scrollbars-custom'
 
 interface IDonatesList {

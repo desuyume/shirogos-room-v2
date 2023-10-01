@@ -1,4 +1,4 @@
-import { useDeleteUniqueRole } from '@/hooks/useDeleteUniqueRole'
+import { useDeleteUniqueRole } from '@/api/useDeleteUniqueRole'
 import { FC } from 'react'
 
 interface IRolesItem {

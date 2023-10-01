@@ -1,4 +1,4 @@
-import { useDeleteRoomContent } from '@/hooks/useDeleteRoomContent'
+import { useDeleteRoomContent } from '@/api/useDeleteRoomContent'
 import { FC } from 'react'
 
 interface IRoomContentItem {
