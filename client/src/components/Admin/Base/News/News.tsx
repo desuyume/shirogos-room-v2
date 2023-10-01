@@ -1,3 +1,4 @@
+import { useCreateNews } from '@/hooks/useCreateNews'
 import previewUploadedImg from '@/utils/previewUploadedImg'
 import { FC, useEffect, useRef, useState } from 'react'
 
@@ -7,6 +8,7 @@ const News: FC = () => {
 	const [img, setImg] = useState<File | null>(null)
 	const inputRef = useRef<HTMLInputElement | null>(null)
 	const imgRef = useRef<HTMLImageElement | null>(null)
+	const { mutate, isSuccess } = useCreateNews()
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files) {
@@ -15,12 +17,27 @@ const News: FC = () => {
 	}
 
 	const clickAdd = () => {
-		console.log(img, text);
+		if (img) {
+			const contentData = new FormData()
+			contentData.append('text', text)
+			contentData.append('img', img)
+			mutate(contentData)
+		} else {
+			console.log('img is required')
+		}
 	}
 
 	useEffect(() => {
 		previewUploadedImg(inputRef, imgRef, setIsImgUploaded)
 	}, [])
+
+	useEffect(() => {
+		if (isSuccess) {
+			setImg(null)
+			setText('')
+			setIsImgUploaded(false)
+		}
+	}, [isSuccess])
 
 	return (
 		<div className='w-[24.56%] h-full flex flex-col'>
@@ -54,7 +71,10 @@ const News: FC = () => {
 					className='flex-1 h-[5.5rem] py-[0.31rem] bg-transparent outline-none text-[#FFF] font-secondary font-semibold text-[0.9375rem] resize-none'
 				/>
 			</div>
-			<button onClick={clickAdd} className='w-full h-[2.0625rem] bg-primary hover:bg-primaryHover transition-all text-[#FFF] text-center text-[0.9375rem]'>
+			<button
+				onClick={clickAdd}
+				className='w-full h-[2.0625rem] bg-primary hover:bg-primaryHover transition-all text-[#FFF] text-center text-[0.9375rem]'
+			>
 				Отправить
 			</button>
 		</div>

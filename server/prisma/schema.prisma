@@ -186,3 +186,12 @@ model BirthdayAward {
 
   @@map("birthday_awards")
 }
+
+model News {
+  id         Int      @id @default(autoincrement())
+  text       String
+  news_img   String
+  created_at DateTime @default(now())
+
+  @@map("news")
+}
