@@ -14,6 +14,7 @@ import { UserModule } from './user/user.module'
 import { OrderModule } from './order/order.module';
 import { OnlineOptionModule } from './online_option/online_option.module';
 import { BirthdayAwardModule } from './birthday_award/birthday_award.module';
+import { NewsModule } from './news/news.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { BirthdayAwardModule } from './birthday_award/birthday_award.module';
     UserModule,
     OrderModule,
     OnlineOptionModule,
-    BirthdayAwardModule
+    BirthdayAwardModule,
+    NewsModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -38,7 +38,6 @@ export class RoomContentService {
             img: img.filename,
           },
         });
-        break;
       default:
         throw new BadRequestException(`Wrong content type`);
     }
