@@ -13,6 +13,7 @@ import { UniqueRoleModule } from './unique-role/unique-role.module'
 import { UserModule } from './user/user.module'
 import { OrderModule } from './order/order.module';
 import { OnlineOptionModule } from './online_option/online_option.module';
+import { BirthdayAwardModule } from './birthday_award/birthday_award.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { OnlineOptionModule } from './online_option/online_option.module';
     UniqueRoleModule,
     UserModule,
     OrderModule,
-    OnlineOptionModule
+    OnlineOptionModule,
+    BirthdayAwardModule
   ],
   controllers: [AppController],
   providers: [AppService],

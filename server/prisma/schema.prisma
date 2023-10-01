@@ -179,3 +179,10 @@ model OnlineOption {
 
   @@map("online_options")
 }
+
+model BirthdayAward {
+  id    Int @id @default(autoincrement())
+  award Int
+
+  @@map("birthday_awards")
+}

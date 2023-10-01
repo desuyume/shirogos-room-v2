@@ -1,10 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 import { OrderSeed } from './seeds/order-seed';
+import { BirthdayAwardSeed } from './seeds/birthday-award-seed'
 
 const prisma = new PrismaClient();
 
 async function main() {
   await OrderSeed();
+  await BirthdayAwardSeed();
 }
 
 main()

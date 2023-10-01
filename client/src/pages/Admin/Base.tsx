@@ -1,5 +1,5 @@
+import BirthdayAward from '@/components/Admin/Base/BirthdayAward/BirthdayAward'
 import Chronicles from '@/components/Admin/Base/Chronicles/Chronicles'
-import HbReward from '@/components/Admin/Base/HbReward/HbReward'
 import News from '@/components/Admin/Base/News/News'
 import Notification from '@/components/Admin/Base/Notification/Notification'
 import OnlineOptions from '@/components/Admin/Base/OnlineOptions/OnlineOptions'
@@ -17,7 +17,7 @@ const Base: FC = () => {
 				<div className='w-[73.59375vw] h-[11.75rem] flex justify-between'>
 					<Notification />
 					<News />
-					<HbReward />
+					<BirthdayAward />
 				</div>
 			</div>
 		</AdminWrapper>
