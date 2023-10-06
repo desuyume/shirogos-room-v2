@@ -1,96 +1,56 @@
-import previewUploadedImg from '@/utils/previewUploadedImg'
-import { FC, useEffect, useRef, useState } from 'react'
+import { useCreateChronicle } from '@/api/useCreateChronicle'
+import { chronicleMonths } from '@/consts/months'
+import { isNumber } from '@/utils/isNumber'
+import { FC, useEffect, useState } from 'react'
 
-interface IAddChronicle {
-	visible: boolean
-	setVisible: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-const AddChronicle: FC<IAddChronicle> = ({ visible, setVisible }) => {
-	const [day, setDay] = useState<string>('')
-	const [text, setText] = useState<string>('')
-	const [isImgUploaded, setIsImgUploaded] = useState<boolean>(false)
-	const [img, setImg] = useState<File | null>(null)
-	const inputRef = useRef<HTMLInputElement | null>(null)
-	const imgRef = useRef<HTMLImageElement | null>(null)
+const AddChronicle: FC = () => {
+	const { mutate, isSuccess } = useCreateChronicle()
+	const [date, setDate] = useState<string>('')
 
 	const clickAdd = () => {
-		console.log(day, text, img)
-		setVisible(false)
-	}
-
-	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.files) {
-			setImg(e.target.files[0])
+		let [monthStr, year] = date.split(' ')
+		monthStr = monthStr.slice(0, 1).toUpperCase() + monthStr.slice(1)
+		if (!Object.values(chronicleMonths).includes(monthStr)) {
+			console.log('invalid date')
+			return
 		}
+
+		if (!isNumber(year)) {
+			console.log('invalid date')
+			return
+		}
+
+		const month = Object.keys(chronicleMonths).find(
+			key => chronicleMonths[key] === monthStr
+		)
+
+		if (!month) {
+			console.log('invalid date')
+			return
+		}
+
+		mutate({ month: +month, year: +year })
 	}
 
 	useEffect(() => {
-		previewUploadedImg(inputRef, imgRef, setIsImgUploaded)
-	}, [])
+		if (isSuccess) {
+			setDate('')
+		}
+	}, [isSuccess])
 
 	return (
-		<div
-			className={
-				'bg-secondary bg-opacity-70 w-screen h-screen fixed inset-0 flex justify-center items-center z-50 transition-all ' +
-				(visible ? 'visible opacity-100' : 'invisible opacity-0')
-			}
-			onClick={() => setVisible(false)}
-		>
-			<div
-				onClick={e => e.stopPropagation()}
-				className='bg-secondary text-center pt-16 pb-12 px-[3.6rem] rounded-[37px] bg-opacity-90 flex flex-col items-center'
+		<div className='w-full h-[3.375rem] flex'>
+			<input
+				value={date}
+				onChange={e => setDate(e.target.value)}
+				className='w-[67%] h-full bg-tertiary outline-none text-[#FFF] text-xl text-center'
+			/>
+			<button
+				onClick={clickAdd}
+				className='w-[33%] h-full bg-primary hover:bg-primaryHover transition-all text-[#FFF] text-[0.9375rem]'
 			>
-				<div className='w-[30rem] h-[2.875rem] flex mb-10'>
-					<div className='w-[10%] h-full flex justify-center items-center'>
-						<input
-							value={day}
-							onChange={e => setDay(e.target.value)}
-							className='text-[#FFF] text-[0.9375rem] w-full h-full outline-none bg-transparent border-[1px] border-primary text-center placeholder:text-primaryText'
-						/>
-					</div>
-					<div className='flex-1 h-full mx-8 flex justify-center items-center'>
-						<input
-							value={text}
-							onChange={e => setText(e.target.value)}
-							className='text-[#FFF] text-[0.9375rem] w-full h-full outline-none bg-transparent border-[1px] border-primary text-center placeholder:text-primaryText'
-						/>
-					</div>
-					<div className='w-[2.875rem] h-full border-[1px] border-[#FFF] bg-primaryText bg-opacity-10 relative'>
-						<input
-							ref={inputRef}
-							className='absolute inset-0 z-10 bg-transparent w-full h-full opacity-0'
-							accept='image/*'
-							type='file'
-							onChange={e => handleFileChange(e)}
-						/>
-						<img
-							ref={imgRef}
-							className={
-								(isImgUploaded
-									? 'visible opacity-100'
-									: 'invisible opacity-0') + ' absolute w-full h-full inset-0'
-							}
-							src='#'
-							alt='panopticon-img'
-						/>
-					</div>
-				</div>
-				<div className='w-full h-[2.5rem] flex justify-center items-center'>
-					<button
-						onClick={() => setVisible(false)}
-						className='w-[12rem] h-full bg-tertiary hover:bg-opacity-80 transition-all text-[#FFf] text-xl mr-4'
-					>
-						Отмена
-					</button>
-					<button
-						onClick={clickAdd}
-						className='w-[12rem] h-full bg-primary hover:bg-primaryHover text-[#FFF] text-xl transition-all'
-					>
-						Добавить
-					</button>
-				</div>
-			</div>
+				Добавить
+			</button>
 		</div>
 	)
 }

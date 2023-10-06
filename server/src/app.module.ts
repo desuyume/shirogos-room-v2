@@ -15,6 +15,7 @@ import { OrderModule } from './order/order.module';
 import { OnlineOptionModule } from './online_option/online_option.module';
 import { BirthdayAwardModule } from './birthday_award/birthday_award.module';
 import { NewsModule } from './news/news.module';
+import { ChronicleModule } from './chronicle/chronicle.module';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { NewsModule } from './news/news.module';
     OrderModule,
     OnlineOptionModule,
     BirthdayAwardModule,
-    NewsModule
+    NewsModule,
+    ChronicleModule
   ],
   controllers: [AppController],
   providers: [AppService],
