@@ -1,23 +1,48 @@
+import { useDeleteChronicle } from '@/api/useDeleteChronicle'
+import { chronicleMonths } from '@/consts/months'
 import { FC } from 'react'
 
-interface IChroniclesItem { 
-	day: string
-	text: string
-	img: string | null
+interface IChroniclesItem {
+	id: number
+	month: number
+	year: number
+	selectedChronicle: number | null
+	setSelectedChronicle: React.Dispatch<React.SetStateAction<number | null>>
 }
 
-const ChroniclesItem: FC<IChroniclesItem> = ({ day, text, img }) => {
+const ChroniclesItem: FC<IChroniclesItem> = ({
+	id,
+	month,
+	year,
+	selectedChronicle,
+	setSelectedChronicle,
+}) => {
+	const { mutate } = useDeleteChronicle(id)
+
+	const clickDelete = () => {
+		mutate()
+	}
+
 	return (
-		<div className='w-full min-h-[2.875rem] pl-[0.8rem] pr-[0.87rem] flex items-center mb-[0.7rem] last-of-type:mb-0'>
-			<div className='w-[12%] h-full flex justify-center items-center'>
-				<p className='text-[#FFF] text-[0.9375rem]'>{day}</p>
-			</div>
-			<div className='flex-1 h-full flex justify-center items-center'>
-				<p className='text-[#FFF] text-center text-[0.9375rem]'>{text}</p>
-			</div>
-			<div className='w-[2.875rem] h-[2.875rem] border-[1px] border-[#FFF] bg-primaryText bg-opacity-10'>
-				{img && <img src={img} alt='chronicles-img' className='w-full h-full' />}
-			</div>
+		<div className='w-full h-[1.9375rem] flex items-center z-10'>
+			<button
+				onClick={clickDelete}
+				className='px-2 h-full transition-all text-center text-[#FFF] hover:bg-primary'
+			>
+				-
+			</button>
+			<button
+				key={id}
+				onClick={() => setSelectedChronicle(id)}
+				className={
+					(selectedChronicle === id
+						? 'bg-primary '
+						: 'hover:bg-primaryHover ') +
+					'w-full h-full transition-all text-center text-[#FFF] text-xl'
+				}
+			>
+				{chronicleMonths[month]} {year}
+			</button>
 		</div>
 	)
 }

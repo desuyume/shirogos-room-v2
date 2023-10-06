@@ -195,3 +195,23 @@ model News {
 
   @@map("news")
 }
+
+model Chronicle {
+  id     Int              @id @default(autoincrement())
+  year   Int
+  month  Int
+  events ChronicleEvent[]
+
+  @@map("chronicles")
+}
+
+model ChronicleEvent {
+  id          Int        @id @default(autoincrement())
+  day         String
+  text        String?
+  img         String?
+  Chronicle   Chronicle? @relation(fields: [chronicleId], references: [id])
+  chronicleId Int?
+
+  @@map("chronicle_events")
+}

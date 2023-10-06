@@ -1,50 +1,39 @@
 import { FC } from 'react'
-import chronicsImg from '@/assets/chronics-test.png'
 import ChroniclesItem from './ChroniclesItem'
 import { Scrollbar } from 'react-scrollbars-custom'
+import { chronicleMonths } from '@/consts/months'
+import { IChronicleWithEvents } from '@/types/chronicle.interface'
 
-const ChroniclesList: FC = () => {
-	const chronics = [
-		{ date: 'Октябрь 2018', day: '1', text: 'ДР Канала 1', img: [] },
-		{ date: 'Октябрь 2018', day: '-12', text: 'Турнир Фракций 1', img: [] },
-		{ date: 'Октябрь 2018', day: '21', text: '', img: [chronicsImg] },
-		{ date: 'Октябрь 2018', day: '24', text: 'Кулинарный Стрим 2', img: [] },
-		{
-			date: 'Октябрь 2018',
-			day: '24',
-			text: 'ДР Канала 1',
-			img: [chronicsImg],
-		},
-		{
-			date: 'Октябрь 2018',
-			day: '24',
-			text: 'Аврорус: Легендарная Лотерея #3',
-			img: [],
-		},
-		{
-			date: 'Октябрь 2018',
-			day: '24',
-			text: 'Пиксель Баттл: Во Славу Широго!',
-			img: [],
-		},
-		{
-			date: 'Октябрь 2018',
-			day: '24',
-			text: '',
-			img: [chronicsImg, chronicsImg, chronicsImg, chronicsImg],
-		},
-	]
+interface IChroniclesList {
+	chronicle: IChronicleWithEvents | null
+	isLoading: boolean
+	isError: boolean
+}
+
+const ChroniclesList: FC<IChroniclesList> = ({ chronicle, isError, isLoading }) => {
 	return (
 		<Scrollbar noDefaultStyles style={{ height: 184 }}>
-			{chronics.map(chronic => (
-				<ChroniclesItem
-					key={chronic.date + chronic.day + chronic.text}
-					date={chronic.date}
-					day={chronic.day}
-					text={chronic.text}
-					imgs={chronic.img}
-				/>
-			))}
+			{isLoading ? (
+				<div className='w-full h-[184px] bg-secondary flex justify-center items-center'>
+					<p className='text-primaryText text-center'>Загрузка...</p>
+				</div>
+			) : isError ? (
+				<div className='w-full h-[184px] bg-secondary flex justify-center items-center'>
+					<p className='text-primaryText text-center'>
+						Произошла ошибка
+					</p>
+				</div>
+			) : (
+				chronicle?.events.map(event => (
+					<ChroniclesItem
+						key={event.id}
+						date={chronicleMonths[chronicle.month] + ' ' + event.day}
+						day={event.day}
+						text={event.text}
+						img={event.img}
+					/>
+				))
+			)}
 		</Scrollbar>
 	)
 }
