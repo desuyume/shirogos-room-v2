@@ -14,11 +14,11 @@ const ChroniclesList: FC<IChroniclesList> = ({ chronicle, isError, isLoading }) 
 	return (
 		<Scrollbar noDefaultStyles style={{ height: 184 }}>
 			{isLoading ? (
-				<div className='w-full h-[184px] bg-secondary flex justify-center items-center'>
+				<div className='w-full h-[184px] flex justify-center items-center'>
 					<p className='text-primaryText text-center'>Загрузка...</p>
 				</div>
 			) : isError ? (
-				<div className='w-full h-[184px] bg-secondary flex justify-center items-center'>
+				<div className='w-full h-[184px] flex justify-center items-center'>
 					<p className='text-primaryText text-center'>
 						Произошла ошибка
 					</p>
