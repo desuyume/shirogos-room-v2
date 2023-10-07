@@ -33,7 +33,7 @@ const BuyPanopticon: FC<IBuyPanopticon> = ({
 			<div className='w-[12.8125rem] h-[10.82213rem] border-4 border-[#EBE984] rounded-[1.5625rem] bg-tertiary relative flex items-center justify-center mb-4'>
 				<img
 					className='w-full h-full rounded-[1.5625rem] opacity-10 blur-[2px]'
-					src={panopticon?.img}
+					src={panopticon?.miniatureImg}
 					alt='panopticon-img'
 				/>
 				<p className='text-[#EBE984] text-xl leading-[97.795%] text-center absolute'>
