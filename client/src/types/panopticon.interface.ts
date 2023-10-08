@@ -1,5 +1,9 @@
 export interface IPanopticon {
 	id: number
-	img: string
+	originalImg: string
+	miniatureImg: string
+	title: string
+	description: string
 	cost: number
+	bought_date: string
 }
