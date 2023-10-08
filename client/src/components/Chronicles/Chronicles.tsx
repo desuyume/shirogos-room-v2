@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import ChroniclesList from './ChroniclesList'
 import { chronicleMonths } from '@/consts/months'
 import { useChronicle } from '@/api/useChronicle'
@@ -25,12 +25,6 @@ const Chronicles: FC<IChronicles> = ({ isActive }) => {
 		}
 	}
 
-	useEffect(() => {
-		if (!isLoading) {
-			console.log(chronicle)
-		}
-	}, [isLoading])
-
 	return (
 		<div
 			className={
@@ -38,27 +32,35 @@ const Chronicles: FC<IChronicles> = ({ isActive }) => {
 				' bg-tertiary bg-opacity-40 w-[13.1875rem] absolute left-0 top-[5.38rem] pt-[1.25rem] pb-[0.63rem] pl-[0.4rem] pr-[0.94rem] transition-all'
 			}
 		>
-			<>
-				<div className='w-[11.9375rem] h-[1.875rem] flex justify-center items-center bg-secondaryHover px-[0.19rem] relative mb-[0.62rem]'>
-					<button
-						onClick={clickPrev}
-						className='bg-primary w-[4.7%] h-[77%] hover:bg-primaryHover absolute left-[0.19rem] hover:w-[0.8125rem] transition-all'
-					/>
-					{!isLoading && !isError ? (
-						<p className='text-primaryText text-[0.9375rem]'>
-							{chronicleMonths[chronicle.month]} {chronicle.year}
-						</p>
-					) : (
-						<p className='text-primaryText text-[0.9375rem]'>Загрузка</p>
-					)}
+			{count && count?.count <= 0 ? (
+				<p className='text-primaryText text-center text-[0.9375rem]'>Хроники не найдены</p>
+			) : (
+				<>
+					<div className='w-[11.9375rem] h-[1.875rem] flex justify-center items-center bg-secondaryHover px-[0.19rem] relative mb-[0.62rem]'>
+						<button
+							onClick={clickPrev}
+							className='bg-primary w-[4.7%] h-[77%] hover:bg-primaryHover absolute left-[0.19rem] hover:w-[0.8125rem] transition-all'
+						/>
+						{!isLoading && !isError ? (
+							<p className='text-primaryText text-[0.9375rem]'>
+								{chronicleMonths[chronicle.month]} {chronicle.year}
+							</p>
+						) : (
+							<p className='text-primaryText text-[0.9375rem]'>Загрузка</p>
+						)}
 
-					<button
-						onClick={clickNext}
-						className='bg-primary w-[4.7%] h-[77%] hover:bg-primaryHover absolute right-[0.19rem] hover:w-[0.8125rem] transition-all'
+						<button
+							onClick={clickNext}
+							className='bg-primary w-[4.7%] h-[77%] hover:bg-primaryHover absolute right-[0.19rem] hover:w-[0.8125rem] transition-all'
+						/>
+					</div>
+					<ChroniclesList
+						chronicle={chronicle ?? null}
+						isLoading={isLoading}
+						isError={isError}
 					/>
-				</div>
-				<ChroniclesList chronicle={chronicle ?? null} isLoading={isLoading} isError={isError} />
-			</>
+				</>
+			)}
 		</div>
 	)
 }

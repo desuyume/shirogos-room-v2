@@ -48,7 +48,7 @@ export class ChronicleService {
 
   async getCount() {
     const count = await this.prisma.chronicle.count();
-		return { count };
+    return { count };
   }
 
   async create(dto: CreateChronicleDto) {
@@ -72,6 +72,11 @@ export class ChronicleService {
   }
 
   async delete(id: number) {
+    await this.prisma.chronicleEvent.deleteMany({
+      where: {
+        chronicleId: id,
+      },
+    });
     return await this.prisma.chronicle.delete({
       where: {
         id,

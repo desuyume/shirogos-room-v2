@@ -21,6 +21,9 @@ const ChroniclesItem: FC<IChroniclesItem> = ({
 
 	const clickDelete = () => {
 		mutate()
+		if (id === selectedChronicle) {
+			setSelectedChronicle(null)
+		}
 	}
 
 	return (
