@@ -180,7 +180,7 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 				</button>
 				<FindUser
 					isVisible={isChooseUserVisible}
-					className='absolute translate-y-[100%] -bottom-[0.42rem]'
+					className='absolute translate-y-[100%] bottom-8'
 					selectedUsers={selectedUsers}
 					setSelectedUsers={setSelectedUsers}
 					multiple
