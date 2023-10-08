@@ -72,11 +72,29 @@ export class ChronicleService {
   }
 
   async delete(id: number) {
-    await this.prisma.chronicleEvent.deleteMany({
+    const events = await this.prisma.chronicleEvent.findMany({
       where: {
         chronicleId: id,
       },
     });
+
+    for (const event of events) {
+      if (event.img) {
+        if (
+          fs.existsSync(path.join(__dirname, '..', '..', 'static', event.img))
+        ) {
+          fs.unlinkSync(
+            path.resolve(__dirname, '..', '..', 'static', event.img),
+          );
+        }
+      }
+      await this.prisma.chronicleEvent.delete({
+        where: {
+          id: event.id,
+        },
+      });
+    }
+
     return await this.prisma.chronicle.delete({
       where: {
         id,
@@ -128,6 +146,17 @@ export class ChronicleService {
     });
 
     if (event) {
+      if (img) {
+        if (
+          fs.existsSync(
+            path.join(__dirname, '..', '..', 'static', img.filename),
+          )
+        ) {
+          fs.unlinkSync(
+            path.resolve(__dirname, '..', '..', 'static', img.filename),
+          );
+        }
+      }
       throw new BadRequestException('event already exists');
     }
 
