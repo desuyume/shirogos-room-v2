@@ -207,7 +207,8 @@ model Chronicle {
 
 model ChronicleEvent {
   id          Int        @id @default(autoincrement())
-  day         String
+  day         Int
+  prefix      String?
   text        String?
   img         String?
   Chronicle   Chronicle? @relation(fields: [chronicleId], references: [id])

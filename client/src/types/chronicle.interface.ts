@@ -8,7 +8,8 @@ export interface ICreateChronicle extends Omit<IChronicle, 'id'> {}
 
 interface IChronicleEvent {
 	id: number
-	day: string
+	day: number
+	prefix: string
 	text?: string
 	img?: string
 	chroniclesId: number
@@ -19,7 +20,8 @@ export interface IChronicleWithEvents extends IChronicle {
 }
 
 export interface ICreateChronicleEvent {
-	day: string
+	day: number
+	prefix: string
 	text?: string
 	img?: string
 }

@@ -1,12 +1,24 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ChronicleService } from './chronicle.service';
-import { CreateChronicleDto } from './dto/create-chronicle.dto'
-import { isMonth } from 'src/utils/isMonth'
-import { CreateChronicleEventDto } from './dto/create-chronicle-event.dto'
-import { FileInterceptor } from '@nestjs/platform-express'
-import { diskStorage } from 'multer'
-import { extname } from 'path'
+import { CreateChronicleDto } from './dto/create-chronicle.dto';
+import { isMonth } from 'src/utils/isMonth';
+import { CreateChronicleEventDto } from './dto/create-chronicle-event.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 import { v4 } from 'uuid';
+import { isNumber } from 'src/utils/isNumber';
 
 @Controller('chronicle')
 export class ChronicleController {
@@ -30,7 +42,7 @@ export class ChronicleController {
   @Post('')
   async create(@Body() dto: CreateChronicleDto) {
     if (!isMonth(dto.month)) {
-      throw new BadRequestException('invalid month')
+      throw new BadRequestException('invalid month');
     }
 
     return await this.chronicleService.create(dto);
@@ -59,9 +71,17 @@ export class ChronicleController {
       }),
     }),
   )
-  async createEvent(@Body() dto: CreateChronicleEventDto, @UploadedFile() img: Express.Multer.File, @Param('id') id: string) {
+  async createEvent(
+    @Body() dto: CreateChronicleEventDto,
+    @UploadedFile() img: Express.Multer.File,
+    @Param('id') id: string,
+  ) {
     if (!dto.text && !img) {
-      throw new BadRequestException('text or img is required')
+      throw new BadRequestException('text or img is required');
+    }
+
+    if (!isNumber(dto.day)) {
+      throw new BadRequestException('day must be number');
     }
 
     return await this.chronicleService.createEvent(+id, dto, img);

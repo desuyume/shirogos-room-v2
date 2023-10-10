@@ -34,7 +34,17 @@ const AddChronicleEvent: FC<IAddChronicleEvent> = ({
 		}
 
 		const eventData = new FormData()
-		eventData.append('day', day)
+
+		if (day.includes('-')) {
+			eventData.append('prefix', '-')
+		}
+
+		const dayData = day.replace('-', '')
+		if (Number.parseInt(dayData)) {
+			eventData.append('day', dayData)
+		} else {
+			console.log('invalid day')
+		}
 
 		if (text) {
 			eventData.append('text', text)

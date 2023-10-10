@@ -27,7 +27,11 @@ export class ChronicleService {
       skip,
       take: 1,
       include: {
-        events: true,
+        events: {
+          orderBy: {
+            day: 'asc',
+          }
+        }
       },
       orderBy: [
         {
@@ -118,7 +122,11 @@ export class ChronicleService {
         id,
       },
       include: {
-        events: true,
+        events: {
+          orderBy: {
+            day: 'asc',
+          },
+        }
       },
     });
   }
@@ -141,7 +149,8 @@ export class ChronicleService {
     const event = await this.prisma.chronicleEvent.findFirst({
       where: {
         chronicleId: id,
-        day: dto.day,
+        day: +dto.day,
+        prefix: dto.prefix,
       },
     });
 
@@ -163,7 +172,8 @@ export class ChronicleService {
     return await this.prisma.chronicleEvent.create({
       data: {
         chronicleId: id,
-        day: dto.day,
+        day: +dto.day,
+        prefix: dto.prefix,
         text: dto.text,
         img: img ? img.filename : null,
       },

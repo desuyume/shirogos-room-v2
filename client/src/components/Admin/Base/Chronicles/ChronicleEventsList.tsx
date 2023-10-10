@@ -48,6 +48,7 @@ const ChronicleEventsList: FC<IChronicleEventsList> = ({ chronicleId }) => {
 							id={event.id}
 							chronicleId={chronicleId}
 							day={event.day}
+							prefix={event.prefix}
 							text={event.text}
 							img={event.img}
 						/>

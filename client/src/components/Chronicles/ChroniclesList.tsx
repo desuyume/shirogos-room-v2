@@ -29,6 +29,7 @@ const ChroniclesList: FC<IChroniclesList> = ({ chronicle, isError, isLoading }) 
 						key={event.id}
 						date={chronicleMonths[chronicle.month] + ' ' + event.day}
 						day={event.day}
+						prefix={event.prefix}
 						text={event.text}
 						img={event.img}
 					/>

@@ -4,7 +4,8 @@ import { FC } from 'react'
 interface IChronicleEventsItem {
 	id: number
 	chronicleId: number
-	day: string
+	day: number
+	prefix: string
 	text?: string
 	img?: string
 }
@@ -13,6 +14,7 @@ const ChronicleEventsItem: FC<IChronicleEventsItem> = ({
 	id,
 	chronicleId,
 	day,
+	prefix,
 	text,
 	img,
 }) => {
@@ -25,7 +27,10 @@ const ChronicleEventsItem: FC<IChronicleEventsItem> = ({
 	return (
 		<div className='w-full min-h-[2.875rem] flex items-center mb-[0.7rem] last-of-type:mb-0 relative'>
 			<div className='w-[12%] h-full flex justify-center items-center'>
-				<p className='text-[#FFF] text-[0.9375rem]'>{day}</p>
+				<p className='text-[#FFF] text-[0.9375rem]'>
+					{!!prefix && prefix}
+					{day}
+				</p>
 			</div>
 			<div className='flex-1 h-full flex justify-center items-center px-2'>
 				<p className='text-[#FFF] text-center text-[0.9375rem]'>{text}</p>
