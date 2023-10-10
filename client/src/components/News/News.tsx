@@ -5,7 +5,7 @@ import { useNewsCount } from '@/api/useNewsCount'
 
 const News: FC = () => {
 	const [skip, setSkip] = useState<number>(0)
-	const { isFetching, isError, data: news, refetch } = useNews(skip)
+	const { isLoading, isFetching, isError, data: news, refetch } = useNews(skip)
 	const { data: newsCount } = useNewsCount()
 	const [isNextBttnHovered, setIsNextBttnHovered] = useState<boolean>(false)
 
@@ -16,7 +16,7 @@ const News: FC = () => {
 
 	return (
 		<div className='w-[66rem] h-[9.375rem] bg-tertiary bg-opacity-40 absolute top-4 right-6 rounded-[2.3125rem] flex justify-between items-center pr-[0.94rem] transition-all news'>
-			{isFetching ? (
+			{(isLoading || isFetching) ? (
 				<p className='w-full h-full flex justify-center items-center text-xl text-primaryText'>
 					Загрузка...
 				</p>
@@ -24,7 +24,7 @@ const News: FC = () => {
 				<p className='w-full h-full flex justify-center items-center text-xl text-primaryText'>
 					Ошибка 0_0
 				</p>
-			) : !news ? (
+			) : !news || (newsCount && newsCount?.count <= 0) ? (
 				<p className='w-full h-full flex justify-center items-center text-xl text-primaryText'>
 					Новостей нет :/
 				</p>
