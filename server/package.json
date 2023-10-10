@@ -6,15 +6,15 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "npx prisma generate && npm run prisma:migrate && npx prisma migrate deploy && nest build",
+    "build": "npx prisma generate && npx prisma migrate deploy && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "prisma": "npx prisma migrate dev && npm run seed",
+    "prisma": "npm run prisma:migrate && npm run seed",
     "prisma:migrate": "npx prisma migrate dev",
-    "seed": "ts-node src/seed.ts"
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
