@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import { UserPayloadDto } from 'src/user/dto/user-payload.dto';
 
 @Injectable()

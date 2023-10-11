@@ -14,7 +14,7 @@ export class TwitchStrategy extends PassportStrategy(Strategy, 'twitch') {
     });
   }
 
-  async validate(_accessToken, _refreshToken, profile, done) {
+  async validate(accessToken, refreshToken, profile, done) {
     const twitchProfile = await this.prisma.twitchProfile.upsert({
       where: {
         id: +profile.id,

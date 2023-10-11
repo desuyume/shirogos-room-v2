@@ -52,8 +52,6 @@ model User {
   dangos        Int              @default(0)
   profile_img   String?
   role          String           @default("user")
-  access_token  String?
-  refresh_token String?
   room          Room?            @relation(fields: [roomId], references: [id])
   roomId        Int?             @unique
   twitch        TwitchProfile    @relation(fields: [twitchId], references: [id])
