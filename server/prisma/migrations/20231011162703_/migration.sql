@@ -49,8 +49,6 @@ CREATE TABLE "users" (
     "dangos" INTEGER NOT NULL DEFAULT 0,
     "profile_img" TEXT,
     "role" TEXT NOT NULL DEFAULT 'user',
-    "access_token" TEXT,
-    "refresh_token" TEXT,
     "roomId" INTEGER,
     "twitchId" INTEGER NOT NULL,
     "discordId" INTEGER,
