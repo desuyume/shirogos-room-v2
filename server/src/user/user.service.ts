@@ -34,29 +34,8 @@ export class UserService {
   }
 
   async logout(refreshToken: string) {
-    if (!refreshToken) {
-      throw new UnauthorizedException();
-    }
-    const userData = this.tokenService.validateRefreshToken(refreshToken);
-    const tokenFromDb = await this.tokenService.findToken(refreshToken);
-    if (!userData || !tokenFromDb) {
-      throw new UnauthorizedException();
-    }
-
-    const user = await this.prisma.user.findUnique({
-      where: {
-        id: userData.id,
-      },
-    });
-    const userDto = new UserDto(user);
-    const tokens = this.tokenService.generateTokens({ ...userDto });
-
-    await this.tokenService.saveToken(
-      userDto.id,
-      tokens.refreshToken,
-      tokens.accessToken,
-    );
-    return { user: userDto, ...tokens };
+    const token = await this.tokenService.removeToken(refreshToken);
+    return token;
   }
 
   async refresh(refreshToken: string | null | undefined) {

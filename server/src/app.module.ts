@@ -16,6 +16,7 @@ import { OnlineOptionModule } from './online_option/online_option.module';
 import { BirthdayAwardModule } from './birthday_award/birthday_award.module';
 import { NewsModule } from './news/news.module';
 import { ChronicleModule } from './chronicle/chronicle.module';
+import { TwitchStrategy } from './auth/strategies/twitch.strategy'
 
 @Module({
   imports: [

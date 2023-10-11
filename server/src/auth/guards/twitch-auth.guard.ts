@@ -1,5 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config'
 import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
-export class TwitchAuthGuard extends AuthGuard('twitch') {}
+export class TwitchAuthGuard extends AuthGuard('twitch') {
+	constructor(private configService: ConfigService) {
+		super({
+			accessType: 'offline',
+		})
+	}
+}
