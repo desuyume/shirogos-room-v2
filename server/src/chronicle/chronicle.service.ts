@@ -150,7 +150,7 @@ export class ChronicleService {
       where: {
         chronicleId: id,
         day: +dto.day,
-        prefix: dto.prefix,
+        prefix: dto.prefix ? dto.prefix : null,
       },
     });
 

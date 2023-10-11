@@ -1,6 +1,6 @@
 export class CreateChronicleEventDto {
 	id: number;
 	day: string;
-	prefix: string;
+	prefix?: string;
 	text?: string;
 }
