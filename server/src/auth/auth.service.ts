@@ -10,6 +10,7 @@ export class AuthService {
   async twitchAuth(user: UserPayloadDto) {
     const tokens = this.tokenService.generateTokens({ ...user });
 
+    await this.tokenService.removeTokenByUserId(user.id);
     await this.tokenService.saveToken(
       user.id,
       tokens.refreshToken,

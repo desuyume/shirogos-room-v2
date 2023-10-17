@@ -15,7 +15,7 @@ const AppRouter: FC = () => {
 				<Route key={route.path} path={route.path} element={route.element} />
 			))}
 
-			{userContext.user &&
+			{!!userContext.user &&
 				privateRouter.map(route => (
 					<Route key={route.path} path={route.path} element={route.element} />
 				))}
