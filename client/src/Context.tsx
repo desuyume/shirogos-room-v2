@@ -11,12 +11,15 @@ import { IUser, IUserTokens } from './types/user.interface'
 interface IContext {
 	user: IUser | null
 	setUser: React.Dispatch<React.SetStateAction<IUser | null>>
+	isFetched: boolean
+	setIsFetched: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const UserContext = createContext<IContext | null>(null)
 
 const Context: FC<PropsWithChildren> = ({ children }) => {
 	const [user, setUser] = useState<IUser | null>(null)
+	const [isFetched, setIsFetched] = useState<boolean>(false)
 
 	const getUser = async () => {
 		await axios
@@ -26,10 +29,16 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 			.then(res => res.data)
 			.then(data => {
 				if (data && data.isAuth) {
-					localStorage.setItem('token', data.accessToken);
-					setUser({ id: data.user.id, email: data.user.email, role: data.user.role })
+					localStorage.setItem('token', data.accessToken)
+
+					setUser({
+						id: data.user.id,
+						username: data.user.username,
+						role: data.user.role,
+					})
 				}
 			})
+			.finally(() => setIsFetched(true))
 	}
 
 	useEffect(() => {
@@ -37,7 +46,7 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 	}, [])
 
 	return (
-		<UserContext.Provider value={{ user, setUser }}>
+		<UserContext.Provider value={{ user, setUser, isFetched, setIsFetched }}>
 			{children}
 		</UserContext.Provider>
 	)

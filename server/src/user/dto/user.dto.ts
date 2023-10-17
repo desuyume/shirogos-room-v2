@@ -12,7 +12,7 @@ export class UserDto {
 	
 	constructor(model: UserDto) {
 		this.id = model.id;
-		this.email = model.email;
+		this.username = model.username;
 		this.role = model.role;
 	}
 }

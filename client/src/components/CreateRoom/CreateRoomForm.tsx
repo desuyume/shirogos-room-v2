@@ -2,11 +2,20 @@ import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 interface ICreateRoomForm {
-	nickname: string
-	setNickname: React.Dispatch<React.SetStateAction<string>>
+	username: string
+	setUsername: React.Dispatch<React.SetStateAction<string>>
+	roomName: string
+	setRoomName: React.Dispatch<React.SetStateAction<string>>
+	createRoom: () => void
 }
 
-const CreateRoomForm: FC<ICreateRoomForm> = ({ nickname, setNickname }) => {
+const CreateRoomForm: FC<ICreateRoomForm> = ({
+	username,
+	setUsername,
+	roomName,
+	setRoomName,
+	createRoom,
+}) => {
 	const navigate = useNavigate()
 
 	const cancel = () => {
@@ -25,6 +34,8 @@ const CreateRoomForm: FC<ICreateRoomForm> = ({ nickname, setNickname }) => {
 				<input
 					className='w-[27rem] h-[2.75rem] outline-none text-tertiary bg-[#D9D9D9] text-[2.1875rem] font-quaternary leading-[100%] text-center mb-[0.31rem]'
 					id='room-name'
+					value={roomName}
+					onChange={e => setRoomName(e.target.value)}
 				/>
 				<p className='text-[#D9D9D9] text-[0.9375rem] font-secondary font-bold leading-[103.5%] w-[18.5rem] text-center tracking-[-0.05625rem]'>
 					Так будет называться твоя комната. Можно будет изменить.
@@ -38,13 +49,16 @@ const CreateRoomForm: FC<ICreateRoomForm> = ({ nickname, setNickname }) => {
 					Никнейм:
 				</label>
 				<input
-					value={nickname}
-					onChange={e => setNickname(e.target.value)}
+					value={username}
+					onChange={e => setUsername(e.target.value)}
 					className='w-[27rem] h-[2.75rem] outline-none text-tertiary bg-[#D9D9D9] text-[2.1875rem] font-quaternary leading-[100%] text-center mb-[0.31rem]'
 					id='nickname'
 				/>
 			</div>
-			<button className='bg-primary hover:bg-primaryHover flex justify-center items-center w-[23.5rem] h-[5rem] text-[#D9D9D9] font-secondary font-bold text-[2.1875rem] transition-all tracking-[-0.13125rem] ml-7'>
+			<button
+				onClick={createRoom}
+				className='bg-primary hover:bg-primaryHover flex justify-center items-center w-[23.5rem] h-[5rem] text-[#D9D9D9] font-secondary font-bold text-[2.1875rem] transition-all tracking-[-0.13125rem] ml-7'
+			>
 				Принять
 			</button>
 			<button

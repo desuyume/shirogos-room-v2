@@ -28,6 +28,10 @@ export class AuthController {
       sameSite: 'none',
     });
 
+    if (userData.isRoomCreated) {
+      return res.redirect(`${process.env.CLIENT_URL}/room`);
+    }
+
     return res.redirect(`${process.env.CLIENT_URL}/room/create`);
   }
 }

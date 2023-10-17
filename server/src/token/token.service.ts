@@ -22,7 +22,9 @@ export class TokenService {
 
   validateAccessToken(token: string) {
     try {
-      return jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+      const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+      const payload = new UserPayloadDto(userData);
+      return { ...payload };
     } catch (e) {
       return null;
     }
@@ -44,6 +46,7 @@ export class TokenService {
       },
       update: {
         refreshToken,
+        accessToken
       },
       create: {
         userId,

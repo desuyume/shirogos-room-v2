@@ -1,6 +1,6 @@
 export interface IUser {
 	id: number
-	email: string
+	username: string
 	role: string
 }
 
@@ -9,7 +9,7 @@ export interface IUserTokens {
 	refreshToken: string
 	user: {
 		id: number
-		email: string
+		username: string
 		role: string
 	}
 	isAuth: boolean
