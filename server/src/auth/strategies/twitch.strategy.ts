@@ -43,7 +43,7 @@ export class TwitchStrategy extends PassportStrategy(Strategy, 'twitch') {
 
     const user = {
       id: userFromDb.id,
-      email: userFromDb.email,
+      username: userFromDb.username,
       role: userFromDb.role,
     };
 

@@ -11,6 +11,7 @@ import AuthModal from '@/components/Auth/AuthModal'
 import closeImg from '@/assets/auth/close-bttn.gif'
 import { UserContext } from '@/Context'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const FirstScreen: FC = () => {
 	const [isDocsHover, setIsDocsHover] = useState<boolean>(false)
@@ -63,21 +64,37 @@ const FirstScreen: FC = () => {
 			</MouseParallaxContainer>
 
 			{context?.user ? (
-				<button
-					className='bg-primary px-9 py-5 rounded-[37px] absolute right-5 top-3 text-white text-4xl hover:bg-primaryHover transition-colors z-30'
-					onClick={logout}
-				>
-					Выход
-				</button>
+				<div className='flex flex-col absolute right-5 top-3'>
+					<Link
+						to='/room'
+						className='bg-primary px-9 py-5 rounded-[37px] mb-4 text-white text-4xl hover:bg-primaryHover transition-colors z-30'
+					>
+						Комната
+					</Link>
+					<button
+						className='bg-primary px-9 py-5 rounded-[37px] text-white text-4xl hover:bg-primaryHover transition-colors z-30'
+						onClick={logout}
+					>
+						Выйти
+					</button>
+				</div>
 			) : (
-				<button
-					className='bg-primary px-9 py-5 rounded-[37px] absolute right-5 top-3 text-white text-4xl hover:bg-primaryHover transition-colors z-30'
+				<div className='flex flex-col absolute right-5 top-3'>
+					<Link
+						to='/room'
+						className='bg-primary px-9 py-5 rounded-[37px] mb-4 text-white text-4xl hover:bg-primaryHover transition-colors z-30'
+					>
+						Комната
+					</Link>
+					<button
+					className='bg-primary px-9 py-5 rounded-[37px] text-white text-4xl hover:bg-primaryHover transition-colors z-30'
 					onClick={() => setIsModalVisible(true)}
 				>
 					Вход
 				</button>
+				</div>
 			)}
-			
+
 			<a
 				onMouseOver={() => setIsDocsHover(true)}
 				onMouseLeave={() => setIsDocsHover(false)}
