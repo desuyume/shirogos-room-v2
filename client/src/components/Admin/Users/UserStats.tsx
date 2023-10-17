@@ -14,6 +14,12 @@ const UserStats: FC<IUserStats> = ({ selectedUser }) => {
 		panopticons: 3,
 		gameOrdered: 3,
 		viewingOrdered: 3,
+		do: 0,
+		level: 0,
+		exp: 0,
+		clips: 0,
+		exams: 0,
+		fractions: 0
 	}
 
 	return (
@@ -36,14 +42,14 @@ const UserStats: FC<IUserStats> = ({ selectedUser }) => {
 				/>
 			</div>
 			<div className='w-full flex justify-between mb-[0.69rem]'>
-				<UserStatsItem statTitle='ДО' />
-				<UserStatsItem statTitle='Уровень' />
-				<UserStatsItem statTitle='Опыт' />
+				<UserStatsItem initialValue={user.do} statTitle='ДО' />
+				<UserStatsItem initialValue={user.level} statTitle='Уровень' />
+				<UserStatsItem initialValue={user.exp} statTitle='Опыт' />
 			</div>
 			<div className='w-full [&>div]:mb-[0.12rem] [&>div:last-of-type]:mb-0'>
-				<UserStatsItem isBig statTitle='Клипы' />
-				<UserStatsItem isBig statTitle='Легендарные Экзамены' />
-				<UserStatsItem isBig statTitle='Участие в Турнирах Фракций' isSmallTitle />
+				<UserStatsItem initialValue={user.clips} isBig statTitle='Клипы' />
+				<UserStatsItem initialValue={user.exams} isBig statTitle='Легендарные Экзамены' />
+				<UserStatsItem initialValue={user.fractions} isBig statTitle='Участие в Турнирах Фракций' isSmallTitle />
 			</div>
 		</div>
 	)
