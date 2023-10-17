@@ -46,7 +46,7 @@ export class TokenService {
       },
       update: {
         refreshToken,
-        accessToken
+        accessToken,
       },
       create: {
         userId,
@@ -66,6 +66,24 @@ export class TokenService {
     } catch (e) {
       throw new UnauthorizedException();
     }
+  }
+
+  async removeTokenByUserId(userId: number) {
+    const token = await this.prisma.token.findUnique({
+      where: {
+        userId,
+      },
+    });
+
+    if (token) {
+      return await this.prisma.token.delete({
+        where: {
+          userId,
+        },
+      });
+    }
+
+    return
   }
 
   async findToken(refreshToken: string) {

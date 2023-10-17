@@ -2,22 +2,21 @@ import { BrowserRouter } from 'react-router-dom'
 import AppRouter from '@/components/AppRouter'
 import { useContext, useEffect } from 'react'
 import { UserContext } from './Context'
-import axios from 'axios'
-import { IUserTokens } from './types/user.interface'
+import userService from './services/user.service'
 
 function App() {
 	const context = useContext(UserContext)
 
 	const checkAuth = async () => {
 		try {
-			const response = await axios.get<IUserTokens>(
-				`${import.meta.env.VITE_API_URL}/user/refresh`,
-				{ withCredentials: true }
-			)
-			localStorage.setItem('token', response.data.accessToken)
-			context?.setUser(response.data.user)
+			const userData = await userService.refresh()
+			if (userData) {
+				context?.setUser(userData.data.user)
+			}
 		} catch (e) {
-			console.error(e)
+			localStorage.removeItem('token')
+			context?.setUser(null)
+			console.log(e)
 		}
 	}
 
