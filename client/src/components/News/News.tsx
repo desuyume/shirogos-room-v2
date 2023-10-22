@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { useNews } from '@/api/useNews'
-import { formatDate } from '@/utils/formatDate'
+import { formatDateNews } from '@/utils/formatDate'
 import { useNewsCount } from '@/api/useNewsCount'
 
 const News: FC = () => {
@@ -45,7 +45,7 @@ const News: FC = () => {
 							' text-primaryText font-secondary font-bold text-xl max-w-[6.875rem] text-center ml-2.5 mr-8 transition-all leading-[97.795%]'
 						}
 					>
-						{news && formatDate(news.created_at)}
+						{news && formatDateNews(news.created_at)}
 					</p>
 					<button
 						className={

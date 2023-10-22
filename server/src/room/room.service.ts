@@ -11,6 +11,18 @@ export class RoomService {
       where: {
         userId,
       },
+      include: {
+        user: {
+          select: {
+            dangos: true,
+            exp: true,
+            level: true,
+            username: true,
+            profile_img: true,
+            past_usernames: true
+          }
+        }
+      }
     });
 
     if (!room) {

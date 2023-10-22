@@ -334,3 +334,25 @@
 		}
 	}
 }
+
+.past_usernames {
+	.ScrollbarsCustom-TrackY {
+		width: 0.25rem;
+		right: 0.125rem;
+	
+		&:hover,
+		&.dragging {
+			width: 0.25rem;
+			right: 0.125rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		background: #DEDEDE;
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #FFF;
+		}
+	}
+}

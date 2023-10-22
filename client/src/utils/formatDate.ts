@@ -1,5 +1,20 @@
 export const formatDate = (initialDate: Date): string => {
 	const date = new Date(initialDate)
+
+	const formatedDate = date.toLocaleDateString('ru-RU', {
+		timeZone: 'Europe/Moscow',
+		hourCycle: 'h23',
+		day: '2-digit',
+		month: '2-digit',
+		year: 'numeric',
+	})
+
+	return formatedDate
+}
+
+
+export const formatDateNews = (initialDate: Date): string => {
+	const date = new Date(initialDate)
 	const now = new Date()
 	const prevDate = new Date(
 		now.getFullYear(),
