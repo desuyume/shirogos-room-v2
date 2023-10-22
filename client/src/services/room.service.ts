@@ -1,11 +1,11 @@
-import { ICreateRoom } from '@/types/room.interface'
+import { ICreateRoom, IRoom } from '@/types/room.interface'
 import $api from '@/http'
 
 class RoomContentService {
 	private URL = `${import.meta.env.VITE_API_URL}/room`
 
 	async get() {
-		return await $api.get(`${this.URL}`)
+		return await $api.get<IRoom>(`${this.URL}`)
 	}
 
 	async isCreated() {

@@ -22,5 +22,6 @@ export const CREATE_CHRONICLE_EVENT_KEY = 'create chronicle event'
 
 export const CREATE_ROOM_KEY = 'create room'
 export const IS_ROOM_CREATED_KEY = 'is room created'
+export const ROOM_KEY = 'room'
 
 export const TOKEN_KEY = 'token'

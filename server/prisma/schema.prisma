@@ -46,25 +46,38 @@ model RoomBackground {
 }
 
 model User {
-  id          Int              @id @default(autoincrement())
-  username    String           @unique
-  email       String
-  dangos      Int              @default(0)
-  profile_img String?
-  role        String           @default("user")
-  twitch      TwitchProfile    @relation(fields: [twitchId], references: [id])
-  twitchId    Int              @unique
-  discord     DiscordProfile?  @relation(fields: [discordId], references: [id])
-  discordId   Int?             @unique
-  vk          VkProfile?       @relation(fields: [vkId], references: [id])
-  vkId        Int?             @unique
-  telegram    TelegramProfile? @relation(fields: [telegramId], references: [id])
-  telegramId  Int?             @unique
-  Token       Token?
-  Order       Order[]
-  Room        Room?
+  id             Int              @id @default(autoincrement())
+  username       String           @unique
+  email          String
+  dangos         Int              @default(0)
+  level          Int              @default(1)
+  exp            Int              @default(0)
+  past_usernames PastUsername[]
+  profile_img    String?
+  role           String           @default("user")
+  twitch         TwitchProfile    @relation(fields: [twitchId], references: [id])
+  twitchId       Int              @unique
+  discord        DiscordProfile?  @relation(fields: [discordId], references: [id])
+  discordId      Int?             @unique
+  vk             VkProfile?       @relation(fields: [vkId], references: [id])
+  vkId           Int?             @unique
+  telegram       TelegramProfile? @relation(fields: [telegramId], references: [id])
+  telegramId     Int?             @unique
+  Token          Token?
+  Order          Order[]
+  Room           Room?
 
   @@map("users")
+}
+
+model PastUsername {
+  id         Int      @id @default(autoincrement())
+  username   String
+  created_at DateTime @default(now())
+  User       User?    @relation(fields: [userId], references: [id])
+  userId     Int?
+
+  @@map("past_usernames")
 }
 
 model Token {
@@ -78,10 +91,11 @@ model Token {
 }
 
 model Room {
-  id     Int    @id @default(autoincrement())
-  name   String
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int    @unique
+  id         Int      @id @default(autoincrement())
+  name       String
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int      @unique
 
   @@map("rooms")
 }
