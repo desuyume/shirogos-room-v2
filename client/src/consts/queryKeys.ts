@@ -25,3 +25,5 @@ export const IS_ROOM_CREATED_KEY = 'is room created'
 export const ROOM_KEY = 'room'
 
 export const TOKEN_KEY = 'token'
+export const USERS_KEY = 'users'
+export const USER_STATS_KEY = 'user stats'

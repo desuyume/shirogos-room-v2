@@ -18,6 +18,7 @@ import { NewsModule } from './news/news.module';
 import { ChronicleModule } from './chronicle/chronicle.module';
 import { TwitchStrategy } from './auth/strategies/twitch.strategy';
 import { RoomModule } from './room/room.module';
+import { UserStatsModule } from './user_stats/user_stats.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { RoomModule } from './room/room.module';
     NewsModule,
     ChronicleModule,
     RoomModule,
+    UserStatsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

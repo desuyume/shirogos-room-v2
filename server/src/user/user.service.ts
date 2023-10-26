@@ -10,6 +10,16 @@ export class UserService {
     private readonly tokenService: TokenService,
   ) {}
 
+  async getAllUsers() {
+    return this.prisma.user.findMany({
+      select: {
+        id: true,
+        username: true,
+        role: true,
+      },
+    });
+  }
+
   async getUserTokens(refreshToken: string) {
     const userData = await this.tokenService.validateRefreshToken(refreshToken);
     if (!userData) {
