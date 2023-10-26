@@ -12,6 +12,11 @@ import { Request, Response } from 'express';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Get('all')
+  async getAllUsers() {
+    return this.userService.getAllUsers();
+  }
+
   @Get()
   async getUserTokens(@Req() req: Request, @Res() res: Response) {
     try {

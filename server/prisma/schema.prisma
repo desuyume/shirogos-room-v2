@@ -46,12 +46,18 @@ model RoomBackground {
 }
 
 model User {
-  id             Int              @id @default(autoincrement())
-  username       String           @unique
-  email          String
-  dangos         Int              @default(0)
-  level          Int              @default(1)
-  exp            Int              @default(0)
+  id                   Int    @id @default(autoincrement())
+  username             String @unique
+  email                String
+  dangos               Int    @default(0)
+  level                Int    @default(1)
+  exp                  Int    @default(0)
+  panopticons          Int    @default(0)
+  games_ordered        Int    @default(0)
+  viewing_ordered      Int    @default(0)
+  clips                Int    @default(0)
+  legendary_exams      Int    @default(0)
+  fraction_tournaments Int    @default(0)
   past_usernames PastUsername[]
   profile_img    String?
   role           String           @default("user")

@@ -1,5 +1,6 @@
+import { useAddUserStats } from '@/api/useAddUserStats'
 import { isNumber } from '@/utils/isNumber'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 interface IUserStatsItem {
 	initialValue?: number
@@ -7,6 +8,8 @@ interface IUserStatsItem {
 	isBig?: boolean
 	statTitle: string
 	isSmallTitle?: boolean
+	userId?: number
+	type: string
 }
 
 const UserStatsItem: FC<IUserStatsItem> = ({
@@ -15,16 +18,25 @@ const UserStatsItem: FC<IUserStatsItem> = ({
 	isBig,
 	statTitle,
 	isSmallTitle,
+	userId,
+	type,
 }) => {
 	const [value, setValue] = useState<string>('0')
+	const { mutate, isSuccess } = useAddUserStats(userId ?? null, type)
 
 	const clickAdd = () => {
 		if (isNumber(value)) {
-			console.log(value)
+			mutate({ value: +value })
 		} else {
 			console.log('value must be number')
 		}
 	}
+
+	useEffect(() => {
+		if (isSuccess) {
+			setValue('0')
+		}
+	}, [isSuccess])
 
 	return (
 		<div className={(isDisabled ? 'h-[2.6875rem] ' : 'h-[3.375rem] ') + 'flex'}>
