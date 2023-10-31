@@ -1,0 +1,41 @@
+.mantine-DatePickerInput-input {
+	font-size: 0.9375rem;
+	outline: none;
+	border: none;
+	text-align: center;
+	color: #fff;
+	font-family: 'Days One', sans-serif;
+	border-radius: 0;
+	padding-bottom: 0.75rem;
+	padding-top: 0.75rem;
+	line-height: 97.795%;
+}
+
+.mantine-Popover-dropdown {
+	background-color: #242424;
+	border: #242424;
+
+	& * {
+		color: white;
+	}
+
+	.mantine-DatePickerInput-day[data-selected] {
+		background-color: #c34375;
+	}
+}
+
+.mantine-DatePicker-calendarHeaderControlIcon {
+	background-color: #fff;
+	color: white;
+}
+
+.mantine-CalendarHeader-calendarHeaderControl:hover,
+.mantine-CalendarHeader-calendarHeaderLevel:hover,
+.mantine-DatePickerInput-day:hover,
+.mantine-PickerControl-pickerControl:hover {
+	background-color: #363636;
+}
+
+.mantine-DatePickerInput-placeholder {
+	color: white;
+}

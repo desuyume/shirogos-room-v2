@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import PastUsernames from './PastUsernames'
 import { IPastUsername } from '@/types/room.interface'
+import { isUrl } from '@/utils/isUrl'
 
 interface IUserInfoBar {
 	profile_img: string
@@ -23,7 +24,11 @@ const UserInfoBar: FC<IUserInfoBar> = ({
 			<div className='w-full h-[80%] rounded-t-[1.5625rem] bg-[#D9D9D9] z-30'>
 				<img
 					className='rounded-[1.5rem] w-full h-full object-cover'
-					src={profile_img}
+					src={
+						isUrl(profile_img)
+							? profile_img
+							: `${import.meta.env.VITE_SERVER_URL}/${profile_img}`
+					}
 					alt='profile-img'
 				/>
 			</div>
