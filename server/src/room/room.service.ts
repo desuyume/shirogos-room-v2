@@ -19,7 +19,11 @@ export class RoomService {
             level: true,
             username: true,
             profile_img: true,
-            past_usernames: true
+            past_usernames: {
+              orderBy: {
+                created_at: 'desc',
+              },
+            }
           }
         }
       }

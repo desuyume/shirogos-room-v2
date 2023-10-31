@@ -1,3 +1,4 @@
+import { useUpdateGender } from '@/api/useUpdateGender'
 import { FC } from 'react'
 
 interface IChangeGender {
@@ -6,6 +7,13 @@ interface IChangeGender {
 }
 
 const ChangeGender: FC<IChangeGender> = ({ gender, setGender }) => {
+	const { mutate } = useUpdateGender()
+
+	const handleChangeGender = (gender: string) => {
+		setGender(gender)
+		mutate({ gender })
+	}
+
 	return (
 		<div className='h-[7.75rem] border-b-[1px] border-[#646464] flex flex-col justify-center items-center'>
 			<h3 className='text-[#FFF] text-[1.875rem] leading-[97.795%] mb-1'>
@@ -13,15 +21,15 @@ const ChangeGender: FC<IChangeGender> = ({ gender, setGender }) => {
 			</h3>
 			<div className='flex justify-around w-full'>
 				<button
-					onClick={() => setGender('male')}
-					disabled={gender === 'male'}
+					onClick={() => handleChangeGender('MALE')}
+					disabled={gender === 'MALE'}
 					className='w-[20.8%] h-[2.4375rem] bg-transparent hover:bg-secondaryHover text-[#FFF] text-xl disabled:bg-primary transition-all'
 				>
 					Мужской
 				</button>
 				<button
-					onClick={() => setGender('female')}
-					disabled={gender === 'female'}
+					onClick={() => handleChangeGender('FEMALE')}
+					disabled={gender === 'FEMALE'}
 					className='w-[20.8%] h-[2.4375rem] bg-transparent hover:bg-secondaryHover text-[#FFF] text-xl disabled:bg-primary transition-all'
 				>
 					Женский

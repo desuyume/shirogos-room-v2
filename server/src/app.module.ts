@@ -16,9 +16,9 @@ import { OnlineOptionModule } from './online_option/online_option.module';
 import { BirthdayAwardModule } from './birthday_award/birthday_award.module';
 import { NewsModule } from './news/news.module';
 import { ChronicleModule } from './chronicle/chronicle.module';
-import { TwitchStrategy } from './auth/strategies/twitch.strategy';
 import { RoomModule } from './room/room.module';
 import { UserStatsModule } from './user_stats/user_stats.module';
+import { UserInfoModule } from './user_info/user_info.module'
 
 @Module({
   imports: [
@@ -40,6 +40,7 @@ import { UserStatsModule } from './user_stats/user_stats.module';
     ChronicleModule,
     RoomModule,
     UserStatsModule,
+    UserInfoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
