@@ -37,3 +37,40 @@ export interface IUserStats {
 export interface IAddUserStats {
 	value: number
 }
+
+export interface IUpdateUsername {
+	username: string
+}
+
+export interface IUpdateBirthday {
+	birthday: Date | null
+}
+
+export interface IUpdateGender {
+	gender: string
+}
+
+enum Gender {
+	MALE,
+	FEMALE,
+}
+
+export interface IConnection {
+	id: number
+	login: string
+	displayName: string
+	email: string
+	profile_img?: string
+}
+
+export interface IUserInfo {
+	id: number
+	username: string
+	birthday: Date
+	gender: Gender
+	profile_img?: string
+	discord: IConnection
+	telegram: IConnection
+	twitch: IConnection
+	vk: IConnection
+}

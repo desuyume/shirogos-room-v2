@@ -45,33 +45,40 @@ model RoomBackground {
   @@map("room_backgrounds")
 }
 
+enum Gender {
+  MALE
+  FEMALE
+}
+
 model User {
-  id                   Int    @id @default(autoincrement())
-  username             String @unique
+  id                   Int              @id @default(autoincrement())
+  username             String           @unique
   email                String
-  dangos               Int    @default(0)
-  level                Int    @default(1)
-  exp                  Int    @default(0)
-  panopticons          Int    @default(0)
-  games_ordered        Int    @default(0)
-  viewing_ordered      Int    @default(0)
-  clips                Int    @default(0)
-  legendary_exams      Int    @default(0)
-  fraction_tournaments Int    @default(0)
-  past_usernames PastUsername[]
-  profile_img    String?
-  role           String           @default("user")
-  twitch         TwitchProfile    @relation(fields: [twitchId], references: [id])
-  twitchId       Int              @unique
-  discord        DiscordProfile?  @relation(fields: [discordId], references: [id])
-  discordId      Int?             @unique
-  vk             VkProfile?       @relation(fields: [vkId], references: [id])
-  vkId           Int?             @unique
-  telegram       TelegramProfile? @relation(fields: [telegramId], references: [id])
-  telegramId     Int?             @unique
-  Token          Token?
-  Order          Order[]
-  Room           Room?
+  gender               Gender           @default(value: MALE)
+  birthday             DateTime?
+  dangos               Int              @default(0)
+  level                Int              @default(1)
+  exp                  Int              @default(0)
+  panopticons          Int              @default(0)
+  games_ordered        Int              @default(0)
+  viewing_ordered      Int              @default(0)
+  clips                Int              @default(0)
+  legendary_exams      Int              @default(0)
+  fraction_tournaments Int              @default(0)
+  past_usernames       PastUsername[]
+  profile_img          String?
+  role                 String           @default("user")
+  twitch               TwitchProfile    @relation(fields: [twitchId], references: [id])
+  twitchId             Int              @unique
+  discord              DiscordProfile?  @relation(fields: [discordId], references: [id])
+  discordId            Int?             @unique
+  vk                   VkProfile?       @relation(fields: [vkId], references: [id])
+  vkId                 Int?             @unique
+  telegram             TelegramProfile? @relation(fields: [telegramId], references: [id])
+  telegramId           Int?             @unique
+  Token                Token?
+  Order                Order[]
+  Room                 Room?
 
   @@map("users")
 }
