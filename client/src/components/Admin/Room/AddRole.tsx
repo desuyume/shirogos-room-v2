@@ -8,6 +8,7 @@ interface IAddRole {
 const AddRole: FC<IAddRole> = ({ type }) => {
 	const { mutate, data, isSuccess } = useCreateRole(type)
 	const [title, setTitle] = useState<string>('')
+	const [cost, _] = useState<number>(0)
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -16,7 +17,7 @@ const AddRole: FC<IAddRole> = ({ type }) => {
 	}, [data])
 
 	const addRoleHandler = () => {
-		mutate({ title, type })
+		mutate({ title, type, cost })
 	}
 
 	return (
