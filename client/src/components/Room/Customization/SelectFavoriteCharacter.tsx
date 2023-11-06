@@ -1,24 +1,34 @@
-import { FC, useState } from 'react'
+import { useChooseFavoriteCharacter } from '@/api/useChooseFavoriteCharacter'
+import { useRoomCharacters } from '@/api/useRoomCharacters'
+import { ICharacterName } from '@/types/room.interface'
+import { FC, useEffect, useState } from 'react'
 import { Scrollbar } from 'react-scrollbars-custom'
 
 const SelectFavoriteCharacter: FC = () => {
-	const [selectedCharacter, setSelectedCharacter] = useState<number>(4)
-	const characters = [
-		'Бинкс',
-		'Кристал Ширен',
-		'Курого',
-		'Оленяша',
-		'Сэм Аврорус',
-		'Широго',
-		'Широго',
-		'Широго',
-		'Широго',
-		'Широго',
-		'Широго',
-		'Широго',
-		'Широго',
-		'Широго',
-	]
+	const [selectedCharacter, setSelectedCharacter] = useState<number | null>(
+		null
+	)
+
+	const {
+		isLoading,
+		isError,
+		isSuccess,
+		data: characters,
+	} = useRoomCharacters()
+	const { mutate } = useChooseFavoriteCharacter()
+
+	const clickCharacter = (character: ICharacterName) => {
+		mutate({ characterId: character.id })
+		setSelectedCharacter(character.id)
+	}
+
+	useEffect(() => {
+		if (!isLoading) {
+			if (isSuccess) {
+				setSelectedCharacter(characters.favoriteCharacter?.id ?? null)
+			}
+		}
+	}, [isLoading])
 
 	return (
 		<div className='h-[9.9375rem] w-full bg-secondary rounded-t-[1.0625rem] select-character'>
@@ -27,24 +37,34 @@ const SelectFavoriteCharacter: FC = () => {
 					Любимый персонаж
 				</p>
 			</div>
-			<Scrollbar noDefaultStyles style={{ height: '7.1rem' }}>
-				{characters.map((character, index) => (
-					<div className='w-full flex justify-center first-of-type:pt-1 last-of-type:pb-1 '>
-						<p
-							key={index}
-							onClick={() => setSelectedCharacter(index)}
-							className={
-								(selectedCharacter === index
-									? 'text-[#EBE984] '
-									: 'text-primaryText ') +
-								'text-xs text-center cursor-pointer hover:text-[#EBE984] transition-colors'
-							}
-						>
-							{character}
-						</p>
-					</div>
-				))}
-			</Scrollbar>
+			{isLoading ? (
+				<div className='w-full h-[7.1rem] flex justify-center items-center'>
+					<p className='text-primaryText text-center'>Загрузка...</p>
+				</div>
+			) : isError ? (
+				<div className='w-full h-[7.1rem] flex justify-center items-center'>
+					<p className='text-primaryText text-center'>Ошибка 0_0</p>
+				</div>
+			) : (
+				<Scrollbar noDefaultStyles style={{ height: '7.1rem' }}>
+					{characters?.characterNames.map(character => (
+						<div className='w-full flex justify-center first-of-type:pt-1 last-of-type:pb-1 '>
+							<p
+								key={character.id}
+								onClick={() => clickCharacter(character)}
+								className={
+									(selectedCharacter === character.id
+										? 'text-[#EBE984] '
+										: 'text-primaryText ') +
+									'text-xs text-center cursor-pointer hover:text-[#EBE984] transition-colors'
+								}
+							>
+								{character.name}
+							</p>
+						</div>
+					))}
+				</Scrollbar>
+			)}
 		</div>
 	)
 }

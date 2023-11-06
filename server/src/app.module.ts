@@ -39,13 +39,8 @@ import { UserInfoModule } from './user_info/user_info.module'
     NewsModule,
     ChronicleModule,
     RoomModule,
-<<<<<<< HEAD
     UserStatsModule,
     UserInfoModule,
-||||||| 1d0768d
-=======
-    UserStatsModule,
->>>>>>> master
   ],
   controllers: [AppController],
   providers: [AppService],

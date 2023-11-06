@@ -26,6 +26,11 @@ const ChangeBirthday: FC<IChangeBirthday> = ({
 			const initialDate = new Date(initialValue)
 			return initialDate.toDateString() === value.toDateString()
 		}
+
+		if (!initialValue && !!value) {
+			return false
+		}
+
 		return true
 	}
 
