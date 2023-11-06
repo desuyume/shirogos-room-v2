@@ -18,12 +18,12 @@ const RoomCustimization: FC = () => {
 		>
 			<SelectColor
 				className='mb-[0.56rem]'
-				type='account'
+				type='room'
 				title='Цветовая тема аккаунта'
 			/>
 			<SelectColor
 				className='mb-[1.13rem]'
-				type='nickname'
+				type='username'
 				title='Цвет никнейма'
 			/>
 			<div className='flex'>

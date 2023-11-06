@@ -22,18 +22,28 @@ const RoomSettings: FC = () => {
 		if (!isLoading) {
 			if (isSuccess) {
 				setUsername(userInfo?.username)
-				setBirthday(new Date(userInfo?.birthday))
+				setBirthday(userInfo?.birthday ? new Date(userInfo?.birthday) : null)
 				setGender(String(userInfo?.gender))
 			}
 		}
 	}, [isLoading])
 
 	return isLoading ? (
-		<div className='w-full h-[65.5625rem] bg-tertiary rounded-[2.3125rem] flex justify-center items-center'>
+		<div
+			className={
+				(isActive ? 'block' : 'hidden') +
+				' w-full h-[65.5625rem] bg-tertiary rounded-[2.3125rem] flex justify-center items-center'
+			}
+		>
 			<p className='text-xl text-center'>Загрузка...</p>
 		</div>
 	) : isError ? (
-		<div className='w-full h-[65.5625rem] flex justify-center rounded-[2.3125rem] items-center'>
+		<div
+			className={
+				(isActive ? 'block' : 'hidden') +
+				' w-full h-[65.5625rem] flex justify-center rounded-[2.3125rem] items-center'
+			}
+		>
 			<p className='text-xl text-center'>Ошибка</p>
 		</div>
 	) : (

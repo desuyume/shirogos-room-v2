@@ -17,9 +17,11 @@ model Donate {
 }
 
 model UniqueRole {
-  id    Int            @id @default(autoincrement())
-  title String         @unique
+  id    Int                  @id @default(autoincrement())
+  title String               @unique
   type  UniqueRoleType
+  cost  Int                  @default(100)
+  rooms UniqueRolesOnRooms[]
 
   @@map("unique_roles")
 }
@@ -35,14 +37,6 @@ model Panopticon {
   img  String
 
   @@map("panopticons")
-}
-
-model RoomBackground {
-  id   Int    @id @default(autoincrement())
-  cost Int    @default(0)
-  img  String
-
-  @@map("room_backgrounds")
 }
 
 enum Gender {
@@ -103,14 +97,73 @@ model Token {
   @@map("tokens")
 }
 
+model RoomBackground {
+  id                Int                 @id @default(autoincrement())
+  name              String?
+  cost              Int                 @default(0)
+  img               String
+  Room              Room[]
+  BackroundsOnRooms BackroundsOnRooms[]
+
+  @@map("room_backgrounds")
+}
+
 model Room {
-  id         Int      @id @default(autoincrement())
-  name       String
-  created_at DateTime @default(now())
-  user       User     @relation(fields: [userId], references: [id])
-  userId     Int      @unique
+  id                             Int                  @id @default(autoincrement())
+  name                           String
+  created_at                     DateTime             @default(now())
+  room_colors                    String[]             @default(["pink"])
+  active_room_color              String               @default("pink")
+  username_colors                String[]             @default(["pink"])
+  active_username_color          String               @default("pink")
+  unique_roles                   UniqueRolesOnRooms[]
+  selected_unique_role_adjective String?
+  selected_unique_role_noun      String?
+  favorite_character             Character?           @relation(fields: [characterId], references: [id])
+  characterId                    Int?
+  buyed_backgrounds              BackroundsOnRooms[]
+  selected_background            RoomBackground?      @relation(fields: [roomBackgroundId], references: [id])
+  roomBackgroundId               Int?
+  user                           User                 @relation(fields: [userId], references: [id])
+  userId                         Int                  @unique
 
   @@map("rooms")
+}
+
+model BackroundsOnRooms {
+  Room             Room           @relation(fields: [roomId], references: [id])
+  roomId           Int
+  RoomBackground   RoomBackground @relation(fields: [roomBackgroundId], references: [id])
+  roomBackgroundId Int
+
+  @@id([roomId, roomBackgroundId])
+}
+
+model RoomColor {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  hex  String @unique
+  cost Int
+
+  @@map("room_colors")
+}
+
+model UsernameColor {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  hex  String @unique
+  cost Int
+
+  @@map("username_colors")
+}
+
+model UniqueRolesOnRooms {
+  Room         Room       @relation(fields: [roomId], references: [id])
+  roomId       Int
+  UniqueRole   UniqueRole @relation(fields: [uniqueRoleId], references: [id])
+  uniqueRoleId Int
+
+  @@id([roomId, uniqueRoleId])
 }
 
 model TwitchProfile {
@@ -240,4 +293,39 @@ model ChronicleEvent {
   chronicleId Int?
 
   @@map("chronicle_events")
+}
+
+model Character {
+  id                       Int                       @id @default(autoincrement())
+  name                     String
+  subTitle                 String?
+  subSubTitle              String?
+  category                 String?
+  original_img             String?
+  miniature_img            String?
+  characterDescriptions    CharacterDescription[]
+  characterCharacteristics CharacterCharacteristic[]
+  Room                     Room[]
+
+  @@map("characters")
+}
+
+model CharacterDescription {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String
+  Character   Character? @relation(fields: [characterId], references: [id])
+  characterId Int?
+
+  @@map("character_descriptions")
+}
+
+model CharacterCharacteristic {
+  id             Int        @id @default(autoincrement())
+  title          String
+  characteristic String
+  Character      Character? @relation(fields: [characterId], references: [id])
+  characterId    Int?
+
+  @@map("character_characteristics")
 }

@@ -1,7 +1,0 @@
--- AlterTable
-ALTER TABLE "users" ADD COLUMN     "clips" INTEGER NOT NULL DEFAULT 0,
-ADD COLUMN     "fraction_tournaments" INTEGER NOT NULL DEFAULT 0,
-ADD COLUMN     "games_ordered" INTEGER NOT NULL DEFAULT 0,
-ADD COLUMN     "legendary_exams" INTEGER NOT NULL DEFAULT 0,
-ADD COLUMN     "panopticons" INTEGER NOT NULL DEFAULT 0,
-ADD COLUMN     "viewing_ordered" INTEGER NOT NULL DEFAULT 0;
