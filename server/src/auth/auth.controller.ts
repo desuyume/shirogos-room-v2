@@ -25,7 +25,8 @@ export class AuthController {
     res.cookie('refreshToken', userData.refreshToken, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
-      sameSite: 'lax',
+      sameSite: 'none',
+      secure: true,
     });
 
     if (userData.isRoomCreated) {
