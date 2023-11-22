@@ -15,7 +15,7 @@ export class AuthController {
 
   @Get('twitch/callback')
   @UseGuards(TwitchAuthGuard)
-  async twitchAuthCallback(@Request() req, @Res() res: Response) {
+  async twitchAuthCallback(@Request() req, @Res({ passthrough: true }) res: Response) {
     if (!req.user) {
       throw new BadRequestException('no user from twitch');
     }
