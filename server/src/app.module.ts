@@ -19,6 +19,8 @@ import { ChronicleModule } from './chronicle/chronicle.module';
 import { RoomModule } from './room/room.module';
 import { UserStatsModule } from './user_stats/user_stats.module';
 import { UserInfoModule } from './user_info/user_info.module'
+import { TasksModule } from './tasks/tasks.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -41,6 +43,8 @@ import { UserInfoModule } from './user_info/user_info.module'
     RoomModule,
     UserStatsModule,
     UserInfoModule,
+    ScheduleModule.forRoot(),
+    TasksModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderPriceDto } from './dto/create-order-price.dto';
@@ -89,6 +90,11 @@ export class OrderController {
   @Get('price')
   async getOrderPrices() {
     return await this.orderService.getOrderPrices();
+  }
+
+  @Get('info')
+  async getOrdersByType(@Query('type') type) {
+    return await this.orderService.getOrdersByType(type);
   }
 
   @Post('price')

@@ -1,25 +1,25 @@
 import { useInputLimit } from '@/hooks/useInputLimit'
-import { IOrder } from '@/types/order.interface'
+import { IMakeOrder } from '@/types/room.interface'
 import { FC, useEffect, useState } from 'react'
 
 interface IOrderInput {
 	isOrdered: boolean
-	type: string
 	time: string
-	price: number
+	orderPrice: number
+	orderPriceId: number
 	setFinalPrice: React.Dispatch<React.SetStateAction<number>>
-	orders: IOrder[] | null
-	setOrders: React.Dispatch<React.SetStateAction<IOrder[] | null>>
+	userOrder: IMakeOrder | null
+	setUserOrder: React.Dispatch<React.SetStateAction<IMakeOrder | null>>
 }
 
 const OrderInput: FC<IOrderInput> = ({
 	isOrdered,
-	type,
 	time,
-	price,
+	orderPrice,
+	orderPriceId,
 	setFinalPrice,
-	orders,
-	setOrders,
+	userOrder,
+	setUserOrder,
 }) => {
 	const [description, setDescription] = useState<string>('')
 	const [isInputActive, setIsInputActive] = useState<boolean>(false)
@@ -28,26 +28,14 @@ const OrderInput: FC<IOrderInput> = ({
 
 	const clickChooseBttn = () => {
 		if (isInputActive) {
-			setFinalPrice(prev => prev - price)
-			setOrders(orders && orders.filter(order => order.type !== type))
-			setOrders(prev => (prev && !prev.length ? null : prev))
+			setFinalPrice(0)
+			setUserOrder(null)
 		} else {
-			setFinalPrice(prev => prev + price)
-			setOrders(
-				!!orders
-					? [...orders, { type, text: description }]
-					: [{ type, text: description }]
-			)
+			setFinalPrice(orderPrice)
+			setUserOrder({ orderText: description, orderPriceId: orderPriceId })
 		}
 		setIsInputActive(!isInputActive)
 	}
-
-	useEffect(() => {
-		const updatedOrder = { type, text: description }
-		setOrders(
-			orders && [...orders.filter(order => order.type !== type), updatedOrder]
-		)
-	}, [description])
 
 	useEffect(() => {
 		if (!isOrdered) {
@@ -56,6 +44,22 @@ const OrderInput: FC<IOrderInput> = ({
 			setLimit(34)
 		}
 	}, [isOrdered])
+
+	useEffect(() => {
+		if (userOrder && userOrder?.orderPriceId !== orderPriceId) {
+			setIsInputActive(false)
+		}
+	}, [userOrder])
+
+	useEffect(() => {
+		if (userOrder) {
+			const updatedOrder = {
+				orderText: description,
+				orderPriceId: orderPriceId,
+			}
+			setUserOrder(updatedOrder)
+		}
+	}, [description])
 
 	return (
 		<div

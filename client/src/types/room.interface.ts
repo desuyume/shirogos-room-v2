@@ -1,4 +1,5 @@
 import { IBackground } from './background.interface'
+import { IPanopticon } from './room-content.interface'
 import { IUniqueRole } from './unique-role.interface'
 
 export interface ICreateRoom {
@@ -30,6 +31,11 @@ export interface IRoomColor {
 	id: number
 	name: string
 	hex: string
+	cost: number
+}
+
+export interface IBuyRoomColor {
+	roomColorId: number
 	cost: number
 }
 
@@ -95,4 +101,39 @@ export interface IRoomBackground {
 export interface IBuyedRoomBackgrounds {
 	buyed_backgrounds: IRoomBackground[]
 	selected_background: IBackground
+}
+
+export interface IChangeRoomName {
+	roomName: string
+}
+
+export interface IBuyUniqueRole {
+	uniqueRoleId: number
+}
+
+export interface IBoutiqueUniqueRoles {
+	adjectiveRole: IUniqueRole
+	nounRole: IUniqueRole
+	isAdjectiveBuyed: boolean
+	isNounBuyed: boolean
+}
+
+export interface IMakeOrder {
+	orderPriceId: number
+	orderText: string
+}
+
+export interface IBuyedPanopticon {
+	Panopticon: IPanopticon
+	buyed_at: Date
+	buyed_cost: number
+}
+
+export interface IRoomPanopticons {
+	panopticons: IPanopticon[]
+	buyedPanopticons: IBuyedPanopticon[]
+}
+
+export interface IBuyRoomPanopticon {
+	panopticonId: number
 }

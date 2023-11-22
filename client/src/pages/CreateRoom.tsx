@@ -6,11 +6,13 @@ import { useCreateRoom } from '@/api/useCreateRoom'
 import { UserContext } from '@/Context'
 import { useIsRoomCreated } from '../api/useIsRoomCreated'
 import Loader from './Loader'
+import { useNavigate } from 'react-router-dom'
 
 const CreateRoom: FC = () => {
 	const userContext = useContext(UserContext)
 	const [username, setUsername] = useState<string>('')
 	const [roomName, setRoomName] = useState<string>('')
+	const navigate = useNavigate()
 
 	const { data: isRoomCreated, isFetched: isFetchedIsRoomCreated } =
 		useIsRoomCreated()
@@ -31,7 +33,12 @@ const CreateRoom: FC = () => {
 	}
 
 	useEffect(() => {
+		if (userContext?.isFetched && !userContext.user) {
+			navigate('/')
+		}
+
 		if (userContext?.isFetched && userContext.user) {
+			console.log(userContext);
 			setUsername(userContext.user?.username)
 		}
 	}, [userContext?.isFetched])

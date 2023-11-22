@@ -65,7 +65,7 @@ const PastUsernames: FC<IPastUsernames> = ({
 				>
 					<div className='w-full flex-1 pl-2 pr-3.5'>
 						{usernames?.map(username => (
-							<div className='w-full flex justify-between items-center'>
+							<div key={username.id} className='w-full flex justify-between items-center'>
 								<p className='text-primary text-xs font-secondary font-bold leading-[123.295%] max-w-[9.2rem] overflow-ellipsis whitespace-nowrap overflow-hidden'>
 									{username.username}
 								</p>

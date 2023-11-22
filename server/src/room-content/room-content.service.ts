@@ -48,6 +48,42 @@ export class RoomContentService {
 
     switch (type) {
       case 'panopticon':
+        const usersWithPanopticon = await this.prisma.panopticonsOnRooms.findMany({
+          where: {
+            panopticonId: id,
+          },
+          select: {
+            roomId: true,
+          },
+        })
+
+        const rooms = await this.prisma.room.findMany({
+          where: {
+            id: {
+              in: usersWithPanopticon.map(item => item.roomId),
+            }
+          }
+        })
+
+        await this.prisma.user.updateMany({
+          where: {
+            id: {
+              in: rooms.map(item => item.userId)
+            }
+          },
+          data: {
+            panopticons: {
+              decrement: 1
+            }
+          }
+        })
+
+        await this.prisma.panopticonsOnRooms.deleteMany({
+          where: {
+            panopticonId: id,
+          },
+        })
+
         item = await this.prisma.panopticon.delete({
           where: {
             id,

@@ -31,14 +31,6 @@ enum UniqueRoleType {
   NOUNS
 }
 
-model Panopticon {
-  id   Int    @id @default(autoincrement())
-  cost Int    @default(0)
-  img  String
-
-  @@map("panopticons")
-}
-
 enum Gender {
   MALE
   FEMALE
@@ -108,6 +100,17 @@ model RoomBackground {
   @@map("room_backgrounds")
 }
 
+model Panopticon {
+  id                 Int                  @id @default(autoincrement())
+  title              String?
+  description        String?
+  cost               Int                  @default(0)
+  img                String
+  PanopticonsOnRooms PanopticonsOnRooms[]
+
+  @@map("panopticons")
+}
+
 model Room {
   id                             Int                  @id @default(autoincrement())
   name                           String
@@ -119,11 +122,14 @@ model Room {
   unique_roles                   UniqueRolesOnRooms[]
   selected_unique_role_adjective String?
   selected_unique_role_noun      String?
+  random_unique_role_adjective   String?
+  random_unique_role_noun        String?
   favorite_character             Character?           @relation(fields: [characterId], references: [id])
   characterId                    Int?
   buyed_backgrounds              BackroundsOnRooms[]
   selected_background            RoomBackground?      @relation(fields: [roomBackgroundId], references: [id])
   roomBackgroundId               Int?
+  buyed_panopticons              PanopticonsOnRooms[]
   user                           User                 @relation(fields: [userId], references: [id])
   userId                         Int                  @unique
 
@@ -131,12 +137,22 @@ model Room {
 }
 
 model BackroundsOnRooms {
+  id                             Int                  @id @default(autoincrement())
   Room             Room           @relation(fields: [roomId], references: [id])
   roomId           Int
   RoomBackground   RoomBackground @relation(fields: [roomBackgroundId], references: [id])
   roomBackgroundId Int
+}
 
-  @@id([roomId, roomBackgroundId])
+model PanopticonsOnRooms {
+  id                             Int                  @id @default(autoincrement())
+  Room         Room       @relation(fields: [roomId], references: [id])
+  roomId       Int
+  Panopticon   Panopticon @relation(fields: [panopticonId], references: [id])
+  panopticonId Int
+  buyed_at     DateTime   @default(now())
+  buyed_cost   Int
+
 }
 
 model RoomColor {

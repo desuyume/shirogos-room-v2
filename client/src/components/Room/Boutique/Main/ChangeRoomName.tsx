@@ -1,9 +1,23 @@
+import { useChangeRoomName } from '@/api/useChangeRoomName'
 import { useInputLimit } from '@/hooks/useInputLimit'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 const ChangeRoomName: FC = () => {
 	const [roomName, setRoomName] = useState<string>('')
-	const { limit, changeNameHandler, keyDownHandler } = useInputLimit(setRoomName)
+	const { limit, setLimit, changeNameHandler, keyDownHandler } = useInputLimit(setRoomName)
+
+	const { mutate, isSuccess } = useChangeRoomName()
+
+	const clickChangeRoomName = () => {
+		mutate({ roomName })
+	}
+
+	useEffect(() => {
+		if (isSuccess) {
+			setRoomName('')
+			setLimit(34)
+		}
+	}, [isSuccess])
 
 	return (
 		<div className='w-full h-[5.75rem] bg-tertiary rounded-[1.5625rem] flex justify-center items-center'>
@@ -24,7 +38,7 @@ const ChangeRoomName: FC = () => {
 				</div>
 				<hr className='bg-primaryText w-[1px] h-[86.25%]' />
 				<div className='flex-1 h-full flex justify-center items-center'>
-					<button disabled={limit === 34 || limit < 0} className='text-[#EBE984] text-[1.5625rem] w-full h-full hover:bg-secondary rounded-r-[1.5625rem] text-center leading-[97.795%] px-1 transition-all disabled:hover:bg-transparent'>
+					<button onClick={clickChangeRoomName} disabled={limit === 34 || limit < 0} className='text-[#EBE984] text-[1.5625rem] w-full h-full hover:bg-secondary rounded-r-[1.5625rem] text-center leading-[97.795%] px-1 transition-all disabled:hover:bg-transparent'>
 						10 ДО
 					</button>
 				</div>

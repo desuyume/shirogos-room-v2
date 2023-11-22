@@ -68,6 +68,7 @@ const BadgesList: FC<IBadgesList> = ({
 					.filter(badge => badge.type === activeSection)
 					.map(badge => (
 						<div
+							key={badge.id}
 							onClick={() => setActiveBadge(badge)}
 							className={(badge.id === activeBadge?.id ? 'bg-tertiary bg-opacity-[0.35] ' : '') + 'flex justify-between items-center h-[7rem] mb-[0.63rem] last-of-type:mb-0 cursor-pointer rounded-[1.6875rem] hover:bg-tertiary hover:bg-opacity-[0.35] transition-all'}
 						>

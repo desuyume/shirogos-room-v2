@@ -1,21 +1,18 @@
-import { IOrder } from '@/types/order.interface'
+import { IMakeOrder } from '@/types/room.interface'
 import { FC, useEffect, useState } from 'react'
 
 interface IOrderDone {
 	clickDanBttn: () => void
 	isOrdered: boolean
-	orders: IOrder[] | null
+	userOrder: IMakeOrder | null
 }
 
-const OrderDone: FC<IOrderDone> = ({ clickDanBttn, isOrdered, orders }) => {
+const OrderDone: FC<IOrderDone> = ({ clickDanBttn, isOrdered, userOrder }) => {
 	const [ordersText, setOrdersText] = useState<string | null>(null)
 
 	useEffect(() => {
-		let resultOrder = ''
-		orders?.map(order => (resultOrder += order.text + ', '))
-		resultOrder = resultOrder.slice(0, -2)
-		setOrdersText(resultOrder)
-	}, [orders])
+		setOrdersText(userOrder?.orderText ?? '')
+	}, [userOrder])
 
 	return (
 		<div

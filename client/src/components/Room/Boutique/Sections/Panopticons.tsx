@@ -9,7 +9,12 @@ const Panopticons: FC = () => {
 		location.pathname === '/room/boutique/panopticons/'
 
 	return (
-		<div className={(isActive ? 'block ': 'hidden ') + 'h-[47.125rem] flex justify-end pl-[8.12rem] py-[0.94rem] pr-[1.06rem]'}>
+		<div
+			className={
+				(isActive ? 'block ' : 'hidden ') +
+				'h-[47.125rem] flex justify-end pl-[8.12rem] py-[0.94rem] pr-[1.06rem]'
+			}
+		>
 			<PanopticonsList />
 		</div>
 	)

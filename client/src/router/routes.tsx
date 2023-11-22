@@ -19,13 +19,13 @@ export const publicRouter: IRoute[] = [
 	{ path: '/youtubes', element: <Youtubes /> },
 	{ path: '/manga/:id/:chapter?', element: <Manga /> },
 	{ path: '/story/:id/:chapter?', element: <Story /> },
+	{ path: '/room/create', element: <CreateRoom /> },
 ]
 
 export const privateRouter: IRoute[] = [
 	{ path: '/room', element: <Room /> },
 	{ path: '/room/:section', element: <Room /> },
 	{ path: '/room/boutique/:section', element: <Room /> },
-	{ path: '/room/create', element: <CreateRoom /> },
 ]
 
 export const adminRouter: IRoute[] = [{ path: '/admin', element: <Admin /> }]

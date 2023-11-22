@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UniqueRoleType } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
+import { getRandomInt } from 'src/utils/getRandomInt';
 
 @Injectable()
 export class UniqueRoleService {
@@ -69,5 +70,34 @@ export class UniqueRoleService {
         id,
       },
     });
+  }
+
+  async setAllRandomUniqueRoles() {
+    const rooms = await this.prisma.room.findMany();
+    const adjectives = await this.prisma.uniqueRole.findMany({
+      where: {
+        type: UniqueRoleType.ADJECTIVES,
+      },
+    });
+    const nouns = await this.prisma.uniqueRole.findMany({
+      where: {
+        type: UniqueRoleType.NOUNS,
+      },
+    });
+
+    for (const room of rooms) {
+      const randomAdjectiveNum = getRandomInt(0, adjectives.length - 1);
+      const randomNounNum = getRandomInt(0, nouns.length - 1);
+      
+      await this.prisma.room.update({
+        where: {
+          id: room.id,
+        },
+        data: {
+          random_unique_role_adjective: !!adjectives.length ? adjectives[randomAdjectiveNum].title : null,
+          random_unique_role_noun: !!nouns.length ? nouns[randomNounNum].title : null,
+        },
+      });
+    }
   }
 }

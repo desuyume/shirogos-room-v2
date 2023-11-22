@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   Put,
   Query,
@@ -13,11 +14,15 @@ import {
 import { RoomService } from './room.service';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { CreateRoomDto } from './dto/create-room.dto';
-import { ChangeRoomColorDto } from './dto/change-room-color.dto'
-import { ChangeUniqueRoleDto } from './dto/change-uniqueRole.dto'
-import { BuyUniqueRoleDto } from './dto/buy-uniqueRole.dto'
-import { ChooseFavoriteCharacterDto } from './dto/choose-favorite-character.dto'
-import { ChooseActiveRoomBackgroundDto } from './dto/choose-active-room-background.dto'
+import { ChangeRoomColorDto } from './dto/change-room-color.dto';
+import { ChangeUniqueRoleDto } from './dto/change-uniqueRole.dto';
+import { BuyUniqueRoleDto } from './dto/buy-uniqueRole.dto';
+import { ChooseFavoriteCharacterDto } from './dto/choose-favorite-character.dto';
+import { ChooseActiveRoomBackgroundDto } from './dto/choose-active-room-background.dto';
+import { ChangeRoomNameDto } from './dto/change-roomName.dto';
+import { BuyColorDto } from './dto/buy-color.dto';
+import { MakeOrderDto } from './dto/make-order.dto'
+import { BuyPanopticonDto } from './dto/buy-panopticon.dto'
 
 @Controller('room')
 export class RoomController {
@@ -39,10 +44,7 @@ export class RoomController {
 
   @UseGuards(AuthGuard)
   @Post('')
-  async createRoom(
-    @Request() req,
-    @Body() dto: CreateRoomDto,
-  ) {
+  async createRoom(@Request() req, @Body() dto: CreateRoomDto) {
     const { id } = req.user;
     return await this.roomService.createRoom(id, dto);
   }
@@ -62,6 +64,17 @@ export class RoomController {
   }
 
   @UseGuards(AuthGuard)
+  @Post('roomColor')
+  async buyColor(
+    @Request() req,
+    @Query('type') type,
+    @Body() dto: BuyColorDto,
+  ) {
+    const { id } = req.user;
+    return await this.roomService.buyColor(+id, type, dto);
+  }
+
+  @UseGuards(AuthGuard)
   @Put('usernameColor')
   async changeUsernameColor(@Request() req, @Body() dto: ChangeRoomColorDto) {
     const { id } = req.user;
@@ -77,16 +90,27 @@ export class RoomController {
 
   @UseGuards(AuthGuard)
   @Put('uniqueRole')
-  async changeUniqueRole(@Request() req, @Query('type') type, @Body() dto: ChangeUniqueRoleDto) {
+  async changeUniqueRole(
+    @Request() req,
+    @Query('type') type,
+    @Body() dto: ChangeUniqueRoleDto,
+  ) {
     const { id } = req.user;
     return await this.roomService.changeUniqueRole(+id, type, dto);
   }
 
   @UseGuards(AuthGuard)
   @Post('uniqueRole')
-  async buyUniqueRole(@Request() req, dto: BuyUniqueRoleDto) {
+  async buyUniqueRole(@Request() req, @Body() dto: BuyUniqueRoleDto) {
     const { id } = req.user;
     return await this.roomService.buyUniqueRole(+id, dto);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('uniqueRole/boutique')
+  async getBoutiqueUniqueRoles(@Request() req) {
+    const { id } = req.user;
+    return await this.roomService.getBoutiqueUniqueRoles(+id);
   }
 
   @UseGuards(AuthGuard)
@@ -98,7 +122,10 @@ export class RoomController {
 
   @UseGuards(AuthGuard)
   @Post('character')
-  async chooseFavoriteCharacter(@Request() req, @Body() dto: ChooseFavoriteCharacterDto) {
+  async chooseFavoriteCharacter(
+    @Request() req,
+    @Body() dto: ChooseFavoriteCharacterDto,
+  ) {
     const { id } = req.user;
     return await this.roomService.chooseFavoriteCharacter(+id, dto);
   }
@@ -119,8 +146,46 @@ export class RoomController {
 
   @UseGuards(AuthGuard)
   @Put('background/active')
-  async chooseActiveRoomBackground(@Request() req, @Body() dto: ChooseActiveRoomBackgroundDto) {
+  async chooseActiveRoomBackground(
+    @Request() req,
+    @Body() dto: ChooseActiveRoomBackgroundDto,
+  ) {
     const { id } = req.user;
     return await this.roomService.chooseActiveRoomBackground(+id, dto);
+  }
+
+  @UseGuards(AuthGuard)
+  @Put('roomName')
+  async changeRoomName(@Request() req, @Body() dto: ChangeRoomNameDto) {
+    const { id } = req.user;
+    return await this.roomService.changeRoomName(+id, dto);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('order')
+  async makeOrder(@Request() req, @Body() dto: MakeOrderDto, @Query('type') type) {
+    const { id } = req.user;
+    return await this.roomService.makeOrder(+id, dto, type);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('panopticon')
+  async getRoomPanopticons(@Request() req) {
+    const { id } = req.user;
+    return await this.roomService.getRoomPanopticons(+id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('panopticon')
+  async buyPanopticon(@Request() req, @Body() dto: BuyPanopticonDto) {
+    const { id } = req.user;
+    return await this.roomService.buyPanopticon(+id, dto);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('panopticon/:panopticonId')
+  async getRoomPanopticon(@Request() req, @Param('panopticonId') panopticonId: number) {
+    const { id } = req.user;
+    return await this.roomService.getRoomPanopticon(+id, +panopticonId);
   }
 }

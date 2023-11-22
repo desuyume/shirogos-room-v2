@@ -1,10 +1,11 @@
-import { IPanopticon } from '@/types/panopticon.interface'
+import { IBuyedPanopticon } from '@/types/room.interface'
+import { formatDate } from '@/utils/formatDate'
 import { FC, useEffect, useRef, useState } from 'react'
 
 interface IPanopticonPreview {
 	isVisible: boolean
 	setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
-	panopticon: IPanopticon | null
+	panopticon: IBuyedPanopticon | null
 }
 
 const PanopticonPreview: FC<IPanopticonPreview> = ({
@@ -22,8 +23,6 @@ const PanopticonPreview: FC<IPanopticonPreview> = ({
 			} else {
 				setIsVericalImg(false)
 			}
-			console.log(imgRef.current.offsetWidth, imgRef.current.offsetHeight)
-			console.log(isVerticalImg)
 		}
 	}, [isVisible])
 
@@ -44,20 +43,34 @@ const PanopticonPreview: FC<IPanopticonPreview> = ({
 				<div className='w-full h-[23.6875rem] bg-tertiary bg-opacity-75 border-[3px] border-primary rounded-[1.5625rem] flex flex-col items-center'>
 					<div className='w-[90%] py-10 flex items-center'>
 						<p className='text-primaryText text-[1.5625rem] leading-[97.795%] text-center'>
-							“<span className='text-primary'>{panopticon?.title}</span>”
+							{panopticon?.Panopticon.title ? (
+								<>
+									“
+									<span className='text-primary'>
+										{panopticon?.Panopticon.title}
+									</span>
+									”
+								</>
+							) : (
+								'Название отсутствует'
+							)}
 						</p>
 					</div>
 
 					<p className='text-primaryText text-[0.9375rem] leading-[97.795%] text-center w-3/4 flex-1 flex items-center pb-8'>
-						{panopticon?.description}
+						{panopticon?.Panopticon.description
+							? panopticon?.Panopticon.description
+							: 'Описание отсутствует'}
 					</p>
 				</div>
 				<div className='w-full h-[3.6875rem] bg-tertiary bg-opacity-75 rounded-[1.5625rem] flex flex-col justify-center items-center'>
 					<p className='text-primaryText text-[0.9375rem] leading-[97.795%]'>
-						Получено за {panopticon?.cost} до
+						Получено за {panopticon?.buyed_cost} до
 					</p>
 					<p className='text-primaryText text-xl leading-[97.795%]'>
-						{panopticon?.bought_date}
+						{panopticon?.buyed_at
+							? formatDate(panopticon?.buyed_at)
+							: 'Дата отсутствует'}
 					</p>
 				</div>
 			</div>
@@ -68,14 +81,16 @@ const PanopticonPreview: FC<IPanopticonPreview> = ({
 						(isVerticalImg ? 'rounded-[1.5625rem]' : '') +
 						' z-20 absolute max-h-full'
 					}
-					src={panopticon?.originalImg}
+					src={`${import.meta.env.VITE_SERVER_URL}/${panopticon?.Panopticon
+						.img}`}
 				/>
 				<img
 					className={
 						(isVerticalImg ? 'hidden' : 'block') +
 						' absolute opacity-20 h-full object-cover rounded-[1.5625rem]'
 					}
-					src={panopticon?.miniatureImg}
+					src={`${import.meta.env.VITE_SERVER_URL}/${panopticon?.Panopticon
+						.img}`}
 				/>
 			</div>
 		</div>

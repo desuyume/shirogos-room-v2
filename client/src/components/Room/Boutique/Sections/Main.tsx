@@ -23,8 +23,8 @@ const Main: FC = () => {
 				<div className='w-[45.5%] h-[27.875rem] flex flex-col justify-between'>
 					<ChangeRoomName />
 					<div className='flex justify-between'>
-						<BuyColor type='account' />
-						<BuyColor type='nickname' />
+						<BuyColor type='room' />
+						<BuyColor type='username' />
 					</div>
 				</div>
 			</div>

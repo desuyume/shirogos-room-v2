@@ -13,11 +13,13 @@ export const OrderSeed = async () => {
 		},
 		create: {
 			id: 1,
-			type: 'game'
+			type: 'game',
+			orderRules: 'Правлиа заказа игр ;L'
 		},
 		update: {
 			id: 1,
-			type: 'game'
+			type: 'game',
+			orderRules: 'Правлиа заказа игр ;L'
 		}
   });
 
@@ -28,11 +30,13 @@ export const OrderSeed = async () => {
 		},
 		create: {
 			id: 2,
-			type: 'viewing'
+			type: 'viewing',
+			orderRules: 'Правлиа заказа просмотра ;0'
 		},
 		update: {
 			id: 2,
-			type: 'viewing'
+			type: 'viewing',
+			orderRules: 'Правлиа заказа просмотра ;0'
 		}
   });
 
@@ -97,13 +101,13 @@ export const OrderSeed = async () => {
 		create: {
 			id: 4,
 			cost: 100,
-			text: '1 час',
+			text: 'Видео X',
 			orderTypeId: viewingOrderType.id,
 		},
 		update: {
 			id: 4,
 			cost: 100,
-			text: '1 час',
+			text: 'Видео X',
 			orderTypeId: viewingOrderType.id,
 		}
 	});
@@ -115,13 +119,13 @@ export const OrderSeed = async () => {
 		create: {
 			id: 5,
 			cost: 200,
-			text: '2 часа',
+			text: 'Видео Y',
 			orderTypeId: viewingOrderType.id,
 		},
 		update: {
 			id: 5,
 			cost: 200,
-			text: '2 часа',
+			text: 'Видео Y',
 			orderTypeId: viewingOrderType.id,
 		}
 	});
@@ -133,13 +137,13 @@ export const OrderSeed = async () => {
 		create: {
 			id: 6,
 			cost: 300,
-			text: '3 часа',
+			text: 'Фильм-лот',
 			orderTypeId: viewingOrderType.id,
 		},
 		update: {
 			id: 6,
 			cost: 300,
-			text: '3 часа',
+			text: 'Фильм-лот',
 			orderTypeId: viewingOrderType.id,
 		}
 	});

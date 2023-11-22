@@ -1,13 +1,21 @@
 import {
 	IActiveBackground,
+	IBoutiqueUniqueRoles,
+	IBuyRoomColor,
+	IBuyRoomPanopticon,
+	IBuyUniqueRole,
+	IBuyedPanopticon,
 	IBuyedRoomBackgrounds,
 	IChangeRoomColor,
+	IChangeRoomName,
 	IChangeUniqueRole,
 	IChooseActiveRoomBackground,
 	IChooseFavoriteCharacter,
 	ICreateRoom,
+	IMakeOrder,
 	IRoom,
 	IRoomCharacters,
+	IRoomPanopticons,
 	IUserRoomColors,
 	IUserUniqueRoles,
 } from '@/types/room.interface'
@@ -68,7 +76,46 @@ class RoomContentService {
 	}
 
 	async chooseActiveRoomBackground(data: IChooseActiveRoomBackground) {
-		return await $api.put<IActiveBackground>(`${this.URL}/background/active`, data)
+		return await $api.put<IActiveBackground>(
+			`${this.URL}/background/active`,
+			data
+		)
+	}
+
+	async changeRoomName(data: IChangeRoomName) {
+		return await $api.put(`${this.URL}/roomName`, data)
+	}
+
+	async buyRoomColor(type: string, data: IBuyRoomColor) {
+		return await $api.post(`${this.URL}/roomColor?type=${type}`, data)
+	}
+
+	async getBoutiqueUniqueRoles() {
+		return await $api.get<IBoutiqueUniqueRoles>(
+			`${this.URL}/uniqueRole/boutique`
+		)
+	}
+
+	async buyUniqueRole(data: IBuyUniqueRole) {
+		return await $api.post(`${this.URL}/uniqueRole`, data)
+	}
+
+	async makeOrder(type: string, data: IMakeOrder) {
+		return await $api.post(`${this.URL}/order?type=${type}`, data)
+	}
+
+	async getRoomPanopticons() {
+		return await $api.get<IRoomPanopticons>(`${this.URL}/panopticon`)
+	}
+
+	async buyRoomPanopticon(data: IBuyRoomPanopticon) {
+		return await $api.post(`${this.URL}/panopticon`, data)
+	}
+
+	async getRoomPanopticon(panopticonId: number) {
+		return await $api.get<IBuyedPanopticon>(
+			`${this.URL}/panopticon/${panopticonId}`
+		)
 	}
 }
 

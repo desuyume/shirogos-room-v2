@@ -5,7 +5,13 @@ import { ChangeRoomColorDto } from './dto/change-room-color.dto';
 import { ChangeUniqueRoleDto } from './dto/change-uniqueRole.dto';
 import { BuyUniqueRoleDto } from './dto/buy-uniqueRole.dto';
 import { ChooseFavoriteCharacterDto } from './dto/choose-favorite-character.dto';
-import { ChooseActiveRoomBackgroundDto } from './dto/choose-active-room-background.dto'
+import { ChooseActiveRoomBackgroundDto } from './dto/choose-active-room-background.dto';
+import { ChangeRoomNameDto } from './dto/change-roomName.dto';
+import { BuyColorDto } from './dto/buy-color.dto';
+import { UniqueRoleType } from '@prisma/client';
+import { getRandomInt } from 'src/utils/getRandomInt';
+import { MakeOrderDto } from './dto/make-order.dto';
+import { BuyPanopticonDto } from './dto/buy-panopticon.dto';
 
 @Injectable()
 export class RoomService {
@@ -94,14 +100,47 @@ export class RoomService {
         name: dto.roomName,
       },
       select: {
+        id: true,
         name: true,
       },
     });
+
+    await this.setRoomRandomUniqueRoles(updatedRoom.id);
 
     return {
       username: updatedUser.username,
       roomName: updatedRoom.name,
     };
+  }
+
+  async setRoomRandomUniqueRoles(roomId: number) {
+    const adjectives = await this.prisma.uniqueRole.findMany({
+      where: {
+        type: UniqueRoleType.ADJECTIVES,
+      },
+    });
+    const nouns = await this.prisma.uniqueRole.findMany({
+      where: {
+        type: UniqueRoleType.NOUNS,
+      },
+    });
+
+    const randomAdjectiveNum = getRandomInt(0, adjectives.length - 1);
+    const randomNounNum = getRandomInt(0, nouns.length - 1);
+
+    return await this.prisma.room.update({
+      where: {
+        id: roomId,
+      },
+      data: {
+        random_unique_role_adjective: !!adjectives.length
+          ? adjectives[randomAdjectiveNum].title
+          : null,
+        random_unique_role_noun: !!nouns.length
+          ? nouns[randomNounNum].title
+          : null,
+      },
+    });
   }
 
   async getAllRoomColors() {
@@ -163,6 +202,108 @@ export class RoomService {
     });
   }
 
+  async buyColor(userId: number, type: string, dto: BuyColorDto) {
+    const room = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        room_colors: true,
+        username_colors: true,
+      },
+    });
+    let color;
+
+    switch (type) {
+      case 'room':
+        color = await this.prisma.roomColor.findUnique({
+          where: {
+            id: dto.roomColorId,
+          },
+        });
+
+        if (room.room_colors.includes(color.name)) {
+          throw new BadRequestException('room color already exists');
+        }
+
+        break;
+
+      case 'username':
+        color = await this.prisma.usernameColor.findUnique({
+          where: {
+            id: dto.roomColorId,
+          },
+        });
+
+        if (room.username_colors.includes(color.name)) {
+          throw new BadRequestException('room color already exists');
+        }
+
+        break;
+
+      default:
+        throw new BadRequestException('invalid type');
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        dangos: true,
+      },
+    });
+
+    if (user.dangos < dto.cost) {
+      throw new BadRequestException('not enough dangos');
+    }
+
+    await this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        dangos: {
+          decrement: dto.cost,
+        },
+      },
+    });
+
+    let updatedRoom;
+    switch (type) {
+      case 'room':
+        updatedRoom = await this.prisma.room.update({
+          where: {
+            userId,
+          },
+          data: {
+            room_colors: {
+              push: color.name,
+            },
+          },
+        });
+        break;
+
+      case 'username':
+        updatedRoom = await this.prisma.room.update({
+          where: {
+            userId,
+          },
+          data: {
+            username_colors: {
+              push: color.name,
+            },
+          },
+        });
+        break;
+
+      default:
+        throw new BadRequestException('invalid type');
+    }
+
+    return updatedRoom;
+  }
+
   async getUserUniqueRoles(userId: number) {
     return await this.prisma.room.findUnique({
       where: {
@@ -215,6 +356,61 @@ export class RoomService {
     }
   }
 
+  async getBoutiqueUniqueRoles(userId: number) {
+    const userRandomRoles = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        random_unique_role_adjective: true,
+        random_unique_role_noun: true,
+        unique_roles: {
+          select: {
+            UniqueRole: true,
+          },
+        },
+      },
+    });
+
+    let adjective;
+    let noun;
+    let isAdjectiveBuyed = false;
+    let isNounBuyed = false;
+
+    if (!userRandomRoles.random_unique_role_adjective) {
+      adjective = null;
+    } else {
+      adjective = await this.prisma.uniqueRole.findUnique({
+        where: {
+          title: userRandomRoles.random_unique_role_adjective,
+        },
+      });
+      isAdjectiveBuyed = userRandomRoles.unique_roles.some(
+        (obj) => obj.UniqueRole.title === adjective.title,
+      );
+    }
+
+    if (!userRandomRoles.random_unique_role_noun) {
+      noun = null;
+    } else {
+      noun = await this.prisma.uniqueRole.findUnique({
+        where: {
+          title: userRandomRoles.random_unique_role_noun,
+        },
+      });
+      isNounBuyed = userRandomRoles.unique_roles.some(
+        (obj) => obj.UniqueRole.title === noun.title,
+      );
+    }
+
+    return {
+      adjectiveRole: adjective,
+      nounRole: noun,
+      isAdjectiveBuyed,
+      isNounBuyed,
+    };
+  }
+
   async buyUniqueRole(userId: number, dto: BuyUniqueRoleDto) {
     const uniqueRole = await this.prisma.uniqueRole.findUnique({
       where: {
@@ -226,6 +422,10 @@ export class RoomService {
         id: userId,
       },
     });
+
+    if (!uniqueRole) {
+      throw new BadRequestException('unique role not found');
+    }
 
     if (uniqueRole.cost > user.dangos) {
       throw new BadRequestException('not enough dangos');
@@ -278,7 +478,7 @@ export class RoomService {
     });
 
     return {
-      favoriteCharacter: userFavoriteCharacter.favorite_character,
+      favoriteCharacter: userFavoriteCharacter?.favorite_character,
       characterNames: characterNames,
     };
   }
@@ -327,7 +527,10 @@ export class RoomService {
     });
   }
 
-  async chooseActiveRoomBackground(userId: number, dto: ChooseActiveRoomBackgroundDto) {
+  async chooseActiveRoomBackground(
+    userId: number,
+    dto: ChooseActiveRoomBackgroundDto,
+  ) {
     return await this.prisma.room.update({
       where: {
         userId,
@@ -338,6 +541,259 @@ export class RoomService {
       select: {
         selected_background: true,
       },
-    })
+    });
+  }
+
+  async changeRoomName(userId: number, dto: ChangeRoomNameDto) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        dangos: true,
+      },
+    });
+    const room = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        name: true,
+      },
+    });
+
+    if (user.dangos < 10) {
+      throw new BadRequestException('not enough dangos');
+    }
+
+    if (room.name === dto.roomName) {
+      throw new BadRequestException('room name equals to current room name');
+    }
+
+    await this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        dangos: {
+          decrement: 10,
+        },
+      },
+    });
+
+    return await this.prisma.room.update({
+      where: {
+        userId,
+      },
+      data: {
+        name: dto.roomName,
+      },
+      select: {
+        name: true,
+      },
+    });
+  }
+
+  async makeOrder(userId: number, dto: MakeOrderDto, type: string) {
+    const orderType = await this.prisma.orderType.findUnique({
+      where: {
+        type,
+      },
+    });
+
+    if (!orderType) {
+      throw new BadRequestException('order type not found');
+    }
+
+    const orderPrice = await this.prisma.orderPrice.findUnique({
+      where: {
+        id: dto.orderPriceId,
+      },
+    });
+
+    if (!orderPrice) {
+      throw new BadRequestException('order price not found');
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        dangos: true,
+      },
+    });
+
+    if (user.dangos < orderPrice.cost) {
+      throw new BadRequestException('not enough dangos');
+    }
+
+    switch (type) {
+      case 'game':
+        await this.prisma.user.update({
+          where: {
+            id: userId,
+          },
+          data: {
+            dangos: {
+              decrement: orderPrice.cost,
+            },
+            games_ordered: {
+              increment: 1,
+            },
+          },
+        });
+        break;
+
+      case 'viewing':
+        await this.prisma.user.update({
+          where: {
+            id: userId,
+          },
+          data: {
+            dangos: {
+              decrement: orderPrice.cost,
+            },
+            viewing_ordered: {
+              increment: 1,
+            },
+          },
+        });
+        break;
+
+      default:
+        throw new BadRequestException('order type not found');
+    }
+
+    return await this.prisma.order.create({
+      data: {
+        userId,
+        orderTypeId: orderType.id,
+        orderPriceId: dto.orderPriceId,
+        orderText: dto.orderText,
+      },
+    });
+  }
+
+  async getRoomPanopticons(userId: number) {
+    const panopticons = await this.prisma.panopticon.findMany();
+    const buyedPanopticons = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        buyed_panopticons: {
+          select: {
+            Panopticon: true,
+            buyed_at: true,
+            buyed_cost: true,
+          },
+        },
+      },
+    });
+
+    return {
+      panopticons,
+      buyedPanopticons: buyedPanopticons?.buyed_panopticons,
+    };
+  }
+
+  async buyPanopticon(userId: number, dto: BuyPanopticonDto) {
+    const panopticon = await this.prisma.panopticon.findUnique({
+      where: {
+        id: dto.panopticonId,
+      },
+    });
+
+    if (!panopticon) {
+      throw new BadRequestException('panopticon not found');
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        dangos: true,
+      },
+    });
+
+    if (user.dangos < panopticon.cost) {
+      throw new BadRequestException('not enough dangos');
+    }
+
+    await this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        dangos: {
+          decrement: panopticon.cost,
+        },
+      },
+    });
+
+    const room = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    await this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        panopticons: {
+          increment: 1,
+        },
+      },
+    });
+
+    return await this.prisma.panopticonsOnRooms.create({
+      data: {
+        buyed_cost: panopticon.cost,
+        panopticonId: dto.panopticonId,
+        roomId: room.id,
+      },
+      select: {
+        Panopticon: true,
+        buyed_at: true,
+        buyed_cost: true,
+      },
+    });
+  }
+
+  async getRoomPanopticon(userId: number, panopticonId: number) {
+    const room = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        id: true,
+        buyed_panopticons: {
+          select: {
+            Panopticon: true,
+            buyed_at: true,
+            buyed_cost: true,
+          },
+        },
+      },
+    });
+
+    const isBuyed = room.buyed_panopticons.some((panopticon) => {
+      if (panopticon.Panopticon.id === panopticonId) {
+        return panopticon;
+      }
+    });
+
+    if (!isBuyed) {
+      throw new BadRequestException('panopticon is not buyed');
+    }
+
+    return room.buyed_panopticons;
   }
 }

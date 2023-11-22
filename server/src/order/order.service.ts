@@ -205,6 +205,46 @@ export class OrderService {
     return await this.prisma.orderPrice.findMany();
   }
 
+  async getOrdersByType(type: string) {
+    const orderType = await this.prisma.orderType.findUnique({
+      where: {
+        type,
+      },
+    });
+
+    if (!orderType) {
+      throw new BadRequestException('no such order type');
+    }
+
+    const orderPrices = await this.prisma.orderPrice.findMany({
+      where: {
+        orderTypeId: orderType.id,
+      },
+      orderBy: {
+        id: 'asc',
+      }
+    });
+    const result = [];
+
+    for (const price of orderPrices) {
+      const orderType = await this.prisma.orderType.findUnique({
+        where: {
+          id: price.orderTypeId,
+        },
+      });
+      result.push({
+        id: price.id,
+        type: orderType.type,
+        cost: price.cost,
+        text: price.text,
+        rules: orderType.orderRules,
+        priceId: price.id,
+      });
+    }
+
+    return result;
+  }
+
   async createOrderPrice(dto: CreateOrderPriceDto) {
     const orderType = await this.prisma.orderType.findUnique({
       where: {
