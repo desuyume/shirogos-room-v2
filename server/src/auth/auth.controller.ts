@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { TwitchAuthGuard } from './guards/twitch-auth.guard';
 import { UserDto } from 'src/user/dto/user.dto';
 import { Response } from 'express';
+import { cookieConfig } from 'src/consts/cookieConfig'
 
 @Controller('auth')
 export class AuthController {
@@ -22,12 +23,7 @@ export class AuthController {
     const userDto = new UserDto(req.user);
     const userData = await this.authService.twitchAuth(userDto);
 
-    res.cookie('refreshToken', userData.refreshToken, {
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-    });
+    res.cookie('refreshToken', userData.refreshToken, cookieConfig);
 
     if (userData.isRoomCreated) {
       return res.redirect(`${process.env.CLIENT_URL}/room`);

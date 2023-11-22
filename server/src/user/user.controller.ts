@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Request, Response } from 'express';
+import { cookieConfig } from 'src/consts/cookieConfig'
 
 @Controller('user')
 export class UserController {
@@ -33,18 +34,10 @@ export class UserController {
     try {
       const { refreshToken } = req.cookies;
       const token = await this.userService.logout(refreshToken);
-      res.clearCookie('refreshToken', {
-        httpOnly: true,
-        sameSite: 'none',
-        secure: true,
-      });
+      res.clearCookie('refreshToken', cookieConfig);
       return res.json({ message: 'Logout success', data: token });
     } catch (e) {
-      res.clearCookie('refreshToken', {
-        httpOnly: true,
-        sameSite: 'none',
-        secure: true,
-      });
+      res.clearCookie('refreshToken', cookieConfig);
       throw new UnauthorizedException();
     }
   }
@@ -54,12 +47,7 @@ export class UserController {
     try {
       const { refreshToken } = req.cookies;
       const userData = await this.userService.refresh(refreshToken);
-      res.cookie('refreshToken', userData.refreshToken, {
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
-        sameSite: 'none',
-        secure: true,
-      });
+      res.cookie('refreshToken', userData.refreshToken, cookieConfig);
       return res.json(userData);
     } catch (e) {
       await this.logout(req, res);
