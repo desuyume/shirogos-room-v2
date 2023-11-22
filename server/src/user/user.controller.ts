@@ -35,13 +35,13 @@ export class UserController {
       const token = await this.userService.logout(refreshToken);
       res.clearCookie('refreshToken', {
         httpOnly: true,
-        sameSite: 'none',
+        sameSite: 'lax',
       });
       return res.json({ message: 'Logout success', data: token });
     } catch (e) {
       res.clearCookie('refreshToken', {
         httpOnly: true,
-        sameSite: 'none',
+        sameSite: 'lax',
       });
       throw new UnauthorizedException();
     }
@@ -55,7 +55,7 @@ export class UserController {
       res.cookie('refreshToken', userData.refreshToken, {
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        sameSite: 'none',
+        sameSite: 'lax',
       });
       return res.json(userData);
     } catch (e) {
