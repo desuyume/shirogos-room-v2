@@ -12,10 +12,8 @@ import {
 } from '@nestjs/common';
 import { RoomContentService } from './room-content.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
-import { v4 } from 'uuid';
 import { isNumber } from 'src/utils/isNumber'
+import { multerOptions } from 'src/config/multer.config'
 
 @Controller('roomContent')
 export class RoomContentController {
@@ -32,16 +30,7 @@ export class RoomContentController {
 
   @Post()
   @UseInterceptors(
-    FileInterceptor('img', {
-      storage: diskStorage({
-        destination: './static',
-        filename: (req, file, callback) => {
-          const ext = extname(file.originalname);
-          const imgName = v4() + ext;
-          callback(null, imgName);
-        },
-      }),
-    }),
+    FileInterceptor('img', multerOptions),
   )
   async add(
     @Query('type') type,

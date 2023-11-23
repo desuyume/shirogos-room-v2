@@ -28,7 +28,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     ServeStaticModule.forRoot({
       rootPath: path.join(__dirname, '..', '..', 'static'),
     }),
-    MulterModule.register({ dest: './static' }),
+    MulterModule.register({ dest: process.env.UPLOAD_LOCATION }),
     DonateModule,
     AuthModule,
     RoomContentModule,

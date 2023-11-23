@@ -15,10 +15,8 @@ import { CreateChronicleDto } from './dto/create-chronicle.dto';
 import { isMonth } from 'src/utils/isMonth';
 import { CreateChronicleEventDto } from './dto/create-chronicle-event.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
-import { v4 } from 'uuid';
 import { isNumber } from 'src/utils/isNumber';
+import { multerOptions } from 'src/config/multer.config'
 
 @Controller('chronicle')
 export class ChronicleController {
@@ -60,16 +58,7 @@ export class ChronicleController {
 
   @Post(':id')
   @UseInterceptors(
-    FileInterceptor('img', {
-      storage: diskStorage({
-        destination: './static',
-        filename: (req, file, callback) => {
-          const ext = extname(file.originalname);
-          const imgName = v4() + ext;
-          callback(null, imgName);
-        },
-      }),
-    }),
+    FileInterceptor('img', multerOptions),
   )
   async createEvent(
     @Body() dto: CreateChronicleEventDto,

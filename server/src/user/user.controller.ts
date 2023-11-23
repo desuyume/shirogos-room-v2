@@ -30,7 +30,7 @@ export class UserController {
   }
 
   @Get('logout')
-  async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+  async logout(@Req() req: Request, @Res() res: Response) {
     try {
       const { refreshToken } = req.cookies;
       const token = await this.userService.logout(refreshToken);
@@ -43,7 +43,7 @@ export class UserController {
   }
 
   @Get('refresh')
-  async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+  async refresh(@Req() req: Request, @Res() res: Response) {
     try {
       const { refreshToken } = req.cookies;
       const userData = await this.userService.refresh(refreshToken);

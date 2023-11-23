@@ -10,9 +10,7 @@ import {
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
-import { v4 } from 'uuid';
+import { multerOptions } from 'src/config/multer.config'
 
 @Controller('news')
 export class NewsController {
@@ -30,16 +28,7 @@ export class NewsController {
 
   @Post('')
   @UseInterceptors(
-    FileInterceptor('img', {
-      storage: diskStorage({
-        destination: './static',
-        filename: (req, file, callback) => {
-          const ext = extname(file.originalname);
-          const imgName = v4() + ext;
-          callback(null, imgName);
-        },
-      }),
-    }),
+    FileInterceptor('img', multerOptions),
   )
   async create(
     @Body() dto: CreateNewsDto,

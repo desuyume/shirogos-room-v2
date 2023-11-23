@@ -11,12 +11,10 @@ import {
 import { UserInfoService } from './user_info.service';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { UpdateUsernameDto } from './dto/update-username.dto';
-import { UpdateBirthdayDto } from './dto/update-birthday.dto'
-import { UpdateGenderDto } from './dto/update-gender.dto'
-import { FileInterceptor } from '@nestjs/platform-express'
-import { diskStorage } from 'multer'
-import { extname } from 'path'
-import { v4 } from 'uuid';
+import { UpdateBirthdayDto } from './dto/update-birthday.dto';
+import { UpdateGenderDto } from './dto/update-gender.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { multerOptions } from 'src/config/multer.config';
 
 @Controller('userInfo')
 export class UserInfoController {
@@ -49,22 +47,14 @@ export class UserInfoController {
     const { id } = req.user;
     return await this.userInfoService.updateGender(id, dto);
   }
-  
+
   @UseGuards(AuthGuard)
   @Patch('profileImg')
-  @UseInterceptors(
-    FileInterceptor('img', {
-      storage: diskStorage({
-        destination: './static',
-        filename: (req, file, callback) => {
-          const ext = extname(file.originalname);
-          const imgName = v4() + ext;
-          callback(null, imgName);
-        },
-      }),
-    }),
-  )
-  async updateProfileImg(@Request() req, @UploadedFile() img: Express.Multer.File) {
+  @UseInterceptors(FileInterceptor('img', multerOptions))
+  async updateProfileImg(
+    @Request() req,
+    @UploadedFile() img: Express.Multer.File,
+  ) {
     const { id } = req.user;
     return await this.userInfoService.updateProfileImg(id, img);
   }
