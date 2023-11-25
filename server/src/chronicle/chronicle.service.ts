@@ -2,8 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateChronicleDto } from './dto/create-chronicle.dto';
 import { CreateChronicleEventDto } from './dto/create-chronicle-event.dto';
-import * as path from 'path';
-import * as fs from 'fs';
+import { removeFile } from 'src/utils/removeFile';
 
 @Injectable()
 export class ChronicleService {
@@ -30,8 +29,8 @@ export class ChronicleService {
         events: {
           orderBy: {
             day: 'asc',
-          }
-        }
+          },
+        },
       },
       orderBy: [
         {
@@ -84,13 +83,7 @@ export class ChronicleService {
 
     for (const event of events) {
       if (event.img) {
-        if (
-          fs.existsSync(path.join(__dirname, '..', '..', 'static', event.img))
-        ) {
-          fs.unlinkSync(
-            path.resolve(__dirname, '..', '..', 'static', event.img),
-          );
-        }
+        removeFile(event.img);
       }
       await this.prisma.chronicleEvent.delete({
         where: {
@@ -126,7 +119,7 @@ export class ChronicleService {
           orderBy: {
             day: 'asc',
           },
-        }
+        },
       },
     });
   }
@@ -156,15 +149,7 @@ export class ChronicleService {
 
     if (event) {
       if (img) {
-        if (
-          fs.existsSync(
-            path.join(__dirname, '..', '..', 'static', img.filename),
-          )
-        ) {
-          fs.unlinkSync(
-            path.resolve(__dirname, '..', '..', 'static', img.filename),
-          );
-        }
+        removeFile(img.filename);
       }
       throw new BadRequestException('event already exists');
     }
@@ -188,11 +173,7 @@ export class ChronicleService {
     });
 
     if (event.img) {
-      if (
-        fs.existsSync(path.join(__dirname, '..', '..', 'static', event.img))
-      ) {
-        fs.unlinkSync(path.resolve(__dirname, '..', '..', 'static', event.img));
-      }
+      removeFile(event.img);
     }
 
     return await this.prisma.chronicleEvent.delete({

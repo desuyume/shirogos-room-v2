@@ -52,3 +52,7 @@ export const MAKE_ORDER_KEY = 'make order'
 export const ROOM_PANOPTICONS_KEY = 'room panopticons'
 export const ROOM_PANOPTICON_KEY = 'room panopticon'
 export const BUY_ROOM_PANOPTICON_KEY = 'buy room panopticon'
+
+export const AWARD_KEY = 'award'
+export const AWARD_TYPE_KEY = 'award type'
+export const CREATE_AWARD_KEY = 'create award'

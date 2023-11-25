@@ -21,6 +21,7 @@ import { UserStatsModule } from './user_stats/user_stats.module';
 import { UserInfoModule } from './user_info/user_info.module'
 import { TasksModule } from './tasks/tasks.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { AwardModule } from './award/award.module';
 
 @Module({
   imports: [
@@ -44,7 +45,8 @@ import { ScheduleModule } from '@nestjs/schedule';
     UserStatsModule,
     UserInfoModule,
     ScheduleModule.forRoot(),
-    TasksModule
+    TasksModule,
+    AwardModule
   ],
   controllers: [AppController],
   providers: [AppService],

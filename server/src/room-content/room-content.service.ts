@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import * as path from 'path';
-import * as fs from 'fs';
+import { removeFile } from 'src/utils/removeFile'
 
 @Injectable()
 export class RoomContentService {
@@ -101,11 +100,7 @@ export class RoomContentService {
         throw new BadRequestException(`Wrong content type`);
     }
 
-    if (fs.existsSync(path.join(__dirname, '..', '..', 'static', item.img))) {
-      fs.unlinkSync(
-        path.resolve(__dirname, '..', '..', 'static', item.img),
-      );
-    }
+    removeFile(item.img);
 
     return item;
   }
