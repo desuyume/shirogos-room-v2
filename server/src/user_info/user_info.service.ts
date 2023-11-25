@@ -8,6 +8,7 @@ import { isURL } from 'class-validator';
 import * as path from 'path';
 import * as fs from 'fs';
 import { isUrl } from 'src/utils/isUrl'
+import { removeFile } from 'src/utils/removeFile'
 
 @Injectable()
 export class UserInfoService {
@@ -110,15 +111,7 @@ export class UserInfoService {
     });
 
     if (!isUrl(user.profile_img)) { // remove img from static folder if it's not URL
-      if (
-        fs.existsSync(
-          path.join(__dirname, '..', '..', '..', 'static', user.profile_img),
-        )
-      ) {
-        fs.unlinkSync(
-          path.resolve(__dirname, '..', '..', '..', 'static', user.profile_img),
-        );
-      }
+      removeFile(user.profile_img);
     }
 
     return await this.prisma.user.update({

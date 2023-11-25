@@ -137,7 +137,7 @@ model Room {
 }
 
 model BackroundsOnRooms {
-  id                             Int                  @id @default(autoincrement())
+  id               Int            @id @default(autoincrement())
   Room             Room           @relation(fields: [roomId], references: [id])
   roomId           Int
   RoomBackground   RoomBackground @relation(fields: [roomBackgroundId], references: [id])
@@ -145,14 +145,13 @@ model BackroundsOnRooms {
 }
 
 model PanopticonsOnRooms {
-  id                             Int                  @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   Room         Room       @relation(fields: [roomId], references: [id])
   roomId       Int
   Panopticon   Panopticon @relation(fields: [panopticonId], references: [id])
   panopticonId Int
   buyed_at     DateTime   @default(now())
   buyed_cost   Int
-
 }
 
 model RoomColor {
@@ -265,6 +264,31 @@ model OrderPrice {
   Order       Order[]
 
   @@map("order_prices")
+}
+
+enum AwardCategory {
+  BOUTIQUE
+  SPECIAL
+}
+
+model Award {
+  id          Int           @id @default(autoincrement())
+  cost        Int           @default(0)
+  title       String
+  awardType   AwardType     @relation(fields: [awardTypeId], references: [id])
+  awardTypeId Int
+  award_img   String
+  category    AwardCategory @default(value: BOUTIQUE)
+
+  @@map("awards")
+}
+
+model AwardType {
+  id    Int     @id @default(autoincrement())
+  type  String  @unique
+  Award Award[]
+
+  @@map("award_types")
 }
 
 model OnlineOption {
