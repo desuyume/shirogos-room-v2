@@ -95,8 +95,8 @@ const AddAward: FC<IAddAward> = ({ sectionType, awardTypes }) => {
 					className='w-full h-full cursor-pointer text-center bg-transparent outline-none text-[1.125rem] text-[#FFF]'
 				>
 					{awardTypes.map(awardType => (
-						<option key={awardType.id} className='bg-tertiary'>
-							{awardType.type}
+						<option key={awardType.id} value={awardType.type} className='bg-tertiary'>
+							{awardType.title}
 						</option>
 					))}
 				</select>

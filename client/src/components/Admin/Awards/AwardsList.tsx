@@ -51,7 +51,7 @@ const AwardsList: FC<IAwardsList> = ({
 							cost={award.cost}
 							img={award.award_img}
 							title={award.title}
-							type={award.awardType.type}
+							typeTitle={award.awardType.title}
 						/>
 					))}
 				</div>
