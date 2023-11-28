@@ -15,6 +15,7 @@ export interface IAward {
 export interface IAwardType {
 	id: number
 	type: string
+	title: string
 }
 
 export interface ICreateAward {

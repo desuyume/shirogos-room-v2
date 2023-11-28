@@ -7,7 +7,7 @@ interface IAwardItem {
 	awardId: number
 	cost: number
 	title: string
-	type: string
+	typeTitle: string
 	img: string
 }
 
@@ -16,7 +16,7 @@ const AwardItem: FC<IAwardItem> = ({
 	awardId,
 	cost,
 	title,
-	type,
+	typeTitle,
 	img,
 }) => {
 	const { mutate: deleteAward } = useDeleteAward(awardId)
@@ -34,7 +34,7 @@ const AwardItem: FC<IAwardItem> = ({
 				<p className='text-[#FFF] text-xl'>{title}</p>
 			</div>
 			<div className='w-[27.625rem] h-full bg-tertiary flex justify-center items-center mr-[0.94rem]'>
-				<p className='text-[#FFF] text-xl'>{type}</p>
+				<p className='text-[#FFF] text-xl'>{typeTitle}</p>
 			</div>
 			<div className='w-[18.125rem] h-full bg-tertiary flex justify-center items-center mr-[0.94rem] relative'>
 				<img
