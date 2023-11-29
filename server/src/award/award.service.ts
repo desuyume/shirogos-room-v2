@@ -57,6 +57,12 @@ export class AwardService {
       throw new BadRequestException('award not found');
     }
 
+    await this.prisma.awardsOnRooms.deleteMany({
+      where: {
+        awardId: id,
+      },
+    });
+
     removeFile(award.award_img);
 
     return await this.prisma.award.delete({

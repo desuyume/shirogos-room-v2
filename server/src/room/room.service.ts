@@ -8,7 +8,7 @@ import { ChooseFavoriteCharacterDto } from './dto/choose-favorite-character.dto'
 import { ChooseActiveRoomBackgroundDto } from './dto/choose-active-room-background.dto';
 import { ChangeRoomNameDto } from './dto/change-roomName.dto';
 import { BuyColorDto } from './dto/buy-color.dto';
-import { UniqueRoleType } from '@prisma/client';
+import { AwardCategory, UniqueRoleType } from '@prisma/client';
 import { getRandomInt } from 'src/utils/getRandomInt';
 import { MakeOrderDto } from './dto/make-order.dto';
 import { BuyPanopticonDto } from './dto/buy-panopticon.dto';
@@ -730,6 +730,9 @@ export class RoomService {
         dangos: {
           decrement: panopticon.cost,
         },
+        panopticons: {
+          increment: 1,
+        },
       },
     });
 
@@ -739,17 +742,6 @@ export class RoomService {
       },
       select: {
         id: true,
-      },
-    });
-
-    await this.prisma.user.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        panopticons: {
-          increment: 1,
-        },
       },
     });
 
@@ -795,5 +787,193 @@ export class RoomService {
     }
 
     return room.buyed_panopticons;
+  }
+
+  async getBoutiqueBadges(userId: number) {
+    const badges = await this.prisma.award.findMany({
+      where: {
+        category: AwardCategory.BOUTIQUE,
+        awardTypeId: {
+          in: [2, 3, 4],
+        },
+      },
+      select: {
+        award_img: true,
+        awardType: true,
+        awardTypeId: true,
+        category: true,
+        title: true,
+        cost: true,
+        id: true,
+      },
+    });
+    const buyedAwards = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        buyed_awards: {
+          select: {
+            Award: {
+              select: {
+                award_img: true,
+                awardType: true,
+                awardTypeId: true,
+                category: true,
+                title: true,
+                cost: true,
+                id: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const buyedBadges = buyedAwards?.buyed_awards
+      .filter((award) => {
+        return badges.find((badge) => {
+          return badge.id === award.Award.id;
+        });
+      })
+      .map((award) => {
+        return award.Award;
+      });
+
+    return {
+      badges,
+      buyedBadges,
+    };
+  }
+
+  async buyBoutiqueBadge(userId: number, badgeId: number) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        dangos: true,
+      },
+    });
+    const badge = await this.prisma.award.findUnique({
+      where: {
+        id: badgeId,
+      },
+      select: {
+        cost: true,
+      },
+    });
+
+    if (!badge) {
+      throw new BadRequestException('badge not found');
+    }
+
+    if (user.dangos < badge.cost) {
+      throw new BadRequestException('not enough dangos');
+    }
+
+    await this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        dangos: {
+          decrement: badge.cost,
+        },
+      },
+    });
+
+    const room = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    return await this.prisma.awardsOnRooms.create({
+      data: {
+        awardId: badgeId,
+        roomId: room.id,
+      },
+    });
+  }
+
+  async getBoutiqueBackgrounds(userId: number) {
+    const backgrounds = await this.prisma.roomBackground.findMany();
+    const buyedBackgrounds = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        buyed_backgrounds: {
+          select: {
+            RoomBackground: true,
+          },
+        },
+      },
+    });
+
+    return {
+      backgrounds,
+      buyedBackgrounds: buyedBackgrounds?.buyed_backgrounds.map(
+        (bg) => bg.RoomBackground,
+      ),
+    };
+  }
+
+  async buyBoutiqueBackground(userId: number, bgId: number) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        dangos: true,
+      },
+    });
+    const bg = await this.prisma.roomBackground.findUnique({
+      where: {
+        id: bgId,
+      },
+      select: {
+        cost: true,
+      },
+    });
+
+    if (!bg) {
+      throw new BadRequestException('background not found');
+    }
+
+    if (user.dangos < bg.cost) {
+      throw new BadRequestException('not enough dangos');
+    }
+
+    await this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        dangos: {
+          decrement: bg.cost,
+        },
+      },
+    });
+
+    const room = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    return await this.prisma.backroundsOnRooms.create({
+      data: {
+        roomBackgroundId: bgId,
+        roomId: room.id,
+      },
+    });
   }
 }

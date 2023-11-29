@@ -23,7 +23,7 @@ const BackgroundItem: FC<IBackgroundItem> = ({ bgId, bgImg, bgName, selectedBg, 
 					(selectedBg === bgId
 						? 'border-2 border-[#F8FEFA] '
 						: '') +
-					'min-w-[18.375rem] rounded-[1.5625rem] mb-2 pointer-events-none'
+					'min-w-[18.375rem] max-h-[11rem] rounded-[1.5625rem] mb-2 pointer-events-none'
 				}
 				src={`${import.meta.env.VITE_SERVER_URL}/${bgImg}`}
 				alt='bg-img'
@@ -36,7 +36,7 @@ const BackgroundItem: FC<IBackgroundItem> = ({ bgId, bgImg, bgName, selectedBg, 
 					'text-primaryText absolute transition-all select-none text-center'
 				}
 			>
-				{bgName}
+				{bgName ?? 'Нет названия'}
 			</p>
 		</div>
 	)

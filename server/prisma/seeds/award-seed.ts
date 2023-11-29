@@ -27,13 +27,13 @@ export const AwardSeed = async () => {
     },
     create: {
       id: 2,
-      type: 'badge1',
-      title: 'Значок 1',
+      type: 'unique-badge',
+      title: 'Уникальный значок',
     },
     update: {
       id: 2,
-      type: 'badge1',
-      title: 'Значок 1',
+      type: 'unique-badge',
+      title: 'Уникальный значок',
     },
   });
 
@@ -43,13 +43,13 @@ export const AwardSeed = async () => {
     },
     create: {
       id: 3,
-      type: 'badge2',
-      title: 'Значок 2',
+      type: 'copyright-badge',
+      title: 'Копирайтный значок',
     },
     update: {
       id: 3,
-      type: 'badge2',
-      title: 'Значок 2',
+      type: 'copyright-badge',
+      title: 'Копирайтный значок',
     },
   });
 
@@ -59,13 +59,13 @@ export const AwardSeed = async () => {
     },
     create: {
       id: 4,
-      type: 'badge3',
-      title: 'Значок 3',
+      type: 'common-badge',
+      title: 'Обычный значок',
     },
     update: {
       id: 4,
-      type: 'badge3',
-      title: 'Значок 3',
+      type: 'common-badge',
+      title: 'Обычный значок',
     },
   });
 };

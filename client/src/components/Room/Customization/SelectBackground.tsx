@@ -48,10 +48,11 @@ const SelectBackground: FC = () => {
 			) : (
 				<Scrollbar
 					noDefaultStyles
+					noScrollY
 					className='flex-1'
 					style={{ height: '100%' }}
 				>
-					<div className='flex items-center pl-2'>
+					<div className='flex items-center pl-2 h-full'>
 						{buyedBackgrounds?.selected_background && (
 							<BackgroundItem
 								bgId={buyedBackgrounds.selected_background.id}
@@ -68,37 +69,13 @@ const SelectBackground: FC = () => {
 									buyedBackgrounds.selected_background?.id
 							)
 							.map(bg => (
-								<div
-									key={bg.RoomBackground.id}
-									onClick={() => setSelectedBg(bg.RoomBackground.id)}
-									className={
-										(selectedBg === bg.RoomBackground.id ? 'scale-105 ' : '') +
-										'mr-5 flex flex-col items-center relative mb-2 cursor-pointer transition-all duration-300'
-									}
-								>
-									<img
-										className={
-											(selectedBg === bg.RoomBackground.id
-												? 'border-2 border-[#F8FEFA] '
-												: '') +
-											'min-w-[18.375rem] rounded-[1.5625rem] mb-2 pointer-events-none'
-										}
-										src={`${import.meta.env.VITE_SERVER_URL}/${
-											bg.RoomBackground.img
-										}`}
-										alt='bg-img'
-									/>
-									<p
-										className={
-											(selectedBg === bg.RoomBackground.id
-												? 'text-xl -bottom-6 '
-												: 'text-[0.8125rem] -bottom-4 ') +
-											'text-primaryText absolute transition-all select-none text-center'
-										}
-									>
-										{bg.RoomBackground.name}
-									</p>
-								</div>
+								<BackgroundItem
+									bgId={bg.RoomBackground.id}
+									bgImg={bg.RoomBackground.img}
+									bgName={bg.RoomBackground.name}
+									selectedBg={selectedBg}
+									setSelectedBg={setSelectedBg}
+								/>
 							))}
 					</div>
 				</Scrollbar>
