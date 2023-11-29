@@ -188,4 +188,32 @@ export class RoomController {
     const { id } = req.user;
     return await this.roomService.getRoomPanopticon(+id, +panopticonId);
   }
+
+  @UseGuards(AuthGuard)
+  @Get('badge/boutique')
+  async getBoutiqueBadges(@Request() req) {
+    const { id } = req.user;
+    return await this.roomService.getBoutiqueBadges(+id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('badge/:badgeId')
+  async buyBoutiqueBadge(@Request() req, @Param('badgeId') badgeId: number) {
+    const { id } = req.user;
+    return await this.roomService.buyBoutiqueBadge(+id, +badgeId);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('background/boutique')
+  async getBoutiqueBackgrounds(@Request() req) {
+    const { id } = req.user;
+    return await this.roomService.getBoutiqueBackgrounds(+id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('background/:bgId')
+  async buyBoutiqueBackground(@Request() req, @Param('bgId') bgId: number) {
+    const { id } = req.user;
+    return await this.roomService.buyBoutiqueBackground(+id, +bgId);
+  }
 }

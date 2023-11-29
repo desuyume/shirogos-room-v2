@@ -1,3 +1,4 @@
+import { AwardType, IAwardType } from './award.interface'
 import { IBackground } from './background.interface'
 import { IPanopticon } from './room-content.interface'
 import { IUniqueRole } from './unique-role.interface'
@@ -103,6 +104,11 @@ export interface IBuyedRoomBackgrounds {
 	selected_background: IBackground
 }
 
+export interface IBoutiqueBackground {
+	backgrounds: IBackground[]
+	buyedBackgrounds: IBackground[]
+}
+
 export interface IChangeRoomName {
 	roomName: string
 }
@@ -136,4 +142,19 @@ export interface IRoomPanopticons {
 
 export interface IBuyRoomPanopticon {
 	panopticonId: number
+}
+
+export interface IBadge {
+	awardType: IAwardType
+	awardTypeId: number
+	award_img: string
+	category: AwardType
+	cost: number
+	id: number
+	title: string
+}
+
+export interface IBoutiqueBadge {
+	badges: IBadge[]
+	buyedBadges: IBadge[]
 }

@@ -38,6 +38,8 @@ export const ROOM_CHARACTERS_KEY = 'room characters'
 
 export const ROOM_BACKGROUNDS_KEY = 'room backgrounds'
 export const ACTIVE_ROOM_BACKGROUND_KEY = 'active room background'
+export const BOUTIQUE_BACKGROUNDS_KEY = 'boutique backgrounds'
+export const BUY_BACKGROUND_KEY = 'buy backround'
 
 export const ROOM_NAME_KEY = 'room name'
 
@@ -56,3 +58,6 @@ export const BUY_ROOM_PANOPTICON_KEY = 'buy room panopticon'
 export const AWARD_KEY = 'award'
 export const AWARD_TYPE_KEY = 'award type'
 export const CREATE_AWARD_KEY = 'create award'
+
+export const BOUTIQUE_BADGE_KEY = 'boutique badge' 
+export const BUY_BADGE_KEY = 'buy badge'

@@ -7,9 +7,9 @@ interface IBadgesNav {
 
 const BadgesNav: FC<IBadgesNav> = ({ activeSection, setActiveSection }) => {
 	const sections = [
-		{ name: 'unique' },
-		{ name: 'copyright' },
-		{ name: 'default' },
+		{ name: 'unique-badge' },
+		{ name: 'copyright-badge' },
+		{ name: 'common-badge' },
 	]
 
 	return (

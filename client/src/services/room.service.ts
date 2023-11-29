@@ -1,5 +1,7 @@
 import {
 	IActiveBackground,
+	IBoutiqueBackground,
+	IBoutiqueBadge,
 	IBoutiqueUniqueRoles,
 	IBuyRoomColor,
 	IBuyRoomPanopticon,
@@ -116,6 +118,24 @@ class RoomContentService {
 		return await $api.get<IBuyedPanopticon>(
 			`${this.URL}/panopticon/${panopticonId}`
 		)
+	}
+
+	async getBoutiqueBadges() {
+		return await $api.get<IBoutiqueBadge>(`${this.URL}/badge/boutique`)
+	}
+
+	async buyBoutiqueBadge(badgeId: number) {
+		return await $api.post(`${this.URL}/badge/${badgeId}`)
+	}
+
+	async getBoutiqueBackgrounds() {
+		return await $api.get<IBoutiqueBackground>(
+			`${this.URL}/background/boutique`
+		)
+	}
+
+	async buyBoutiqueBackground(bgId: number) {
+		return await $api.post(`${this.URL}/background/${bgId}`)
 	}
 }
 

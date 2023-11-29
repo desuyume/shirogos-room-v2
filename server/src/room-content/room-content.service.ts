@@ -89,13 +89,21 @@ export class RoomContentService {
           },
         });
         break;
+
       case 'background':
+        await this.prisma.backroundsOnRooms.deleteMany({
+          where: {
+            roomBackgroundId: id,
+          },
+        })
+
         item = await this.prisma.roomBackground.delete({
           where: {
             id,
           },
         });
         break;
+        
       default:
         throw new BadRequestException(`Wrong content type`);
     }
