@@ -3,8 +3,6 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const AwardSeed = async () => {
-  await prisma.awardType.deleteMany();
-
   await prisma.awardType.upsert({
     where: {
       id: 1,

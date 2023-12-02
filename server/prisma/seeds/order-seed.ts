@@ -3,9 +3,6 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const OrderSeed = async () => {
-	await prisma.orderPrice.deleteMany();
-	await prisma.orderType.deleteMany();
-
   const gameOrderType = await prisma.orderType.upsert({
 		where: {
 			id: 1,

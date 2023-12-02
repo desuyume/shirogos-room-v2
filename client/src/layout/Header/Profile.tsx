@@ -4,6 +4,7 @@ import notificationIcon from '@/assets/notification.svg'
 import { Link } from 'react-router-dom'
 import { useUserProfile } from '@/api/useUserProfile'
 import noProfilePictureIcon from '@/assets/no-profile-picture-icon.webp'
+import { isUrl } from '@/utils/isUrl'
 
 const Profile: FC = () => {
 	const isHaveUnreadNotification = true
@@ -40,7 +41,11 @@ const Profile: FC = () => {
 				{!!profile?.profile_img ? (
 					<img
 						className='w-full h-full'
-						src={`${import.meta.env.VITE_SERVER_URL}/${profile.profile_img}`}
+						src={
+							isUrl(profile?.profile_img)
+								? profile?.profile_img
+								: `${import.meta.env.VITE_SERVER_URL}/${profile.profile_img}`
+						}
 						alt='profile-img'
 					/>
 				) : (
