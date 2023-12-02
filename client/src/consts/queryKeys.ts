@@ -33,6 +33,8 @@ export const TOKEN_KEY = 'token'
 export const USERS_KEY = 'users'
 export const USER_STATS_KEY = 'user stats'
 export const USER_INFO_KEY = 'user info'
+export const USER_KEY = 'user'
+export const USER_PROFILE_KEY = 'user profile'
 
 export const ROOM_CHARACTERS_KEY = 'room characters'
 

@@ -1,6 +1,7 @@
 import {
 	BOUTIQUE_UNIQUE_ROLES_KEY,
 	BUY_UNIQUE_ROLE_KEY,
+	USER_PROFILE_KEY,
 	USER_UNQIUE_ROLES_KEY,
 } from '@/consts/queryKeys'
 import roomService from '@/services/room.service'
@@ -17,6 +18,7 @@ export const useBuyUniqueRole = (type: string) => {
 			onSettled: () => {
 				queryClient.invalidateQueries([BOUTIQUE_UNIQUE_ROLES_KEY])
 				queryClient.invalidateQueries([USER_UNQIUE_ROLES_KEY])
+				queryClient.invalidateQueries([USER_PROFILE_KEY])
 			},
 		}
 	)

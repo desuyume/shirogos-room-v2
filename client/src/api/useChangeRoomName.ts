@@ -1,4 +1,4 @@
-import { ROOM_KEY, ROOM_NAME_KEY } from '@/consts/queryKeys'
+import { ROOM_KEY, ROOM_NAME_KEY, USER_PROFILE_KEY } from '@/consts/queryKeys'
 import roomService from '@/services/room.service'
 import { IChangeRoomName } from '@/types/room.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -11,6 +11,7 @@ export const useChangeRoomName = () => {
 		{
 			onSettled: () => {
 				queryClient.invalidateQueries([ROOM_KEY])
+				queryClient.invalidateQueries([USER_PROFILE_KEY])
 			}
 		}
 	)

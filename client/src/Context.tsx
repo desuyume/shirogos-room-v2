@@ -1,4 +1,3 @@
-import axios from 'axios'
 import {
 	FC,
 	PropsWithChildren,
@@ -6,7 +5,8 @@ import {
 	useEffect,
 	useState,
 } from 'react'
-import { IUser, IUserTokens } from './types/user.interface'
+import { IUser } from './types/user.interface'
+import { useUser } from './api/useUser'
 
 interface IContext {
 	user: IUser | null
@@ -21,29 +21,27 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 	const [user, setUser] = useState<IUser | null>(null)
 	const [isFetched, setIsFetched] = useState<boolean>(false)
 
-	const getUser = async () => {
-		await axios
-			.get<IUserTokens | undefined>(`${import.meta.env.VITE_API_URL}/user`, {
-				withCredentials: true,
-			})
-			.then(res => res.data)
-			.then(data => {
-				if (data && data.isAuth) {
-					localStorage.setItem('token', data.accessToken)
+	const { data: userData, isLoading } = useUser()
 
-					setUser({
-						id: data.user.id,
-						username: data.user.username,
-						role: data.user.role,
-					})
-				}
+	const setUserData = () => {
+		if (userData && userData?.isAuth) {
+			localStorage.setItem('token', userData.accessToken)
+
+			setUser({
+				id: userData.user.id,
+				username: userData.user.username,
+				role: userData.user.role,
 			})
-			.finally(() => setIsFetched(true))
+		}
+
+		setIsFetched(true)
 	}
 
 	useEffect(() => {
-		getUser()
-	}, [])
+		if (!isLoading) {
+			setUserData()
+		}
+	}, [isLoading])
 
 	return (
 		<UserContext.Provider value={{ user, setUser, isFetched, setIsFetched }}>

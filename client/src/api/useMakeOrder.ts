@@ -1,10 +1,17 @@
-import { MAKE_ORDER_KEY } from '@/consts/queryKeys'
+import { MAKE_ORDER_KEY, USER_PROFILE_KEY } from '@/consts/queryKeys'
 import roomService from '@/services/room.service'
 import { IMakeOrder } from '@/types/room.interface'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useMakeOrder = (type: string) => {
+	const queryClient = useQueryClient()
+
 	return useMutation([MAKE_ORDER_KEY, type], (data: IMakeOrder) =>
-		roomService.makeOrder(type, data)
+		roomService.makeOrder(type, data),
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries([USER_PROFILE_KEY])
+			}
+		}
 	)
 }

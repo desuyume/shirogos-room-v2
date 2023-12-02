@@ -2,9 +2,10 @@ import { FC, useState } from 'react'
 import PastUsernames from './PastUsernames'
 import { IPastUsername } from '@/types/room.interface'
 import { isUrl } from '@/utils/isUrl'
+import noProfilePictureIcon from '@/assets/no-profile-picture-icon.webp'
 
 interface IUserInfoBar {
-	profile_img: string
+	profile_img: string | null
 	username: string
 	past_usernames?: IPastUsername[]
 	level: number
@@ -22,15 +23,23 @@ const UserInfoBar: FC<IUserInfoBar> = ({
 	return (
 		<div className='bg-[#D9D9D9] h-[37%] relative flex flex-col items-center rounded-[1.5625rem]'>
 			<div className='w-full h-[80%] rounded-t-[1.5625rem] bg-[#D9D9D9] z-30'>
-				<img
-					className='rounded-[1.5rem] w-full h-full object-cover'
-					src={
-						isUrl(profile_img)
-							? profile_img
-							: `${import.meta.env.VITE_SERVER_URL}/${profile_img}`
-					}
-					alt='profile-img'
-				/>
+				{!!profile_img ? (
+					<img
+						className='rounded-[1.5rem] w-full h-full object-cover'
+						src={
+							isUrl(profile_img)
+								? profile_img
+								: `${import.meta.env.VITE_SERVER_URL}/${profile_img}`
+						}
+						alt='profile-img'
+					/>
+				) : (
+					<img
+						className='rounded-[1.5rem] w-full h-full object-cover'
+						src={noProfilePictureIcon}
+						alt='profile-img'
+					/>
+				)}
 			</div>
 			<div className='w-full h-[2.4375rem] flex justify-center items-center bg-[#D9D9D9] rounded-b-[1.5625rem] z-20 relative'>
 				<p className='text-primary text-xl leading-[97.795%] text-center max-w-[11.75rem] overflow-ellipsis whitespace-nowrap overflow-hidden'>

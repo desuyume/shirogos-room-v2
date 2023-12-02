@@ -7,12 +7,15 @@ export interface IUser {
 export interface IUserTokens {
 	accessToken: string
 	refreshToken: string
-	user: {
-		id: number
-		username: string
-		role: string
-	}
+	user: IUser
 	isAuth: boolean
+}
+
+export interface IUserProfile {
+	username: string
+	dangos: number
+	level: number
+	profile_img: string | null
 }
 
 export interface IFindUser {
@@ -60,7 +63,7 @@ export interface IConnection {
 	login: string
 	displayName: string
 	email: string
-	profile_img?: string
+	profile_img: string | null
 }
 
 export interface IUserInfo {
@@ -68,7 +71,7 @@ export interface IUserInfo {
 	username: string
 	birthday: Date
 	gender: Gender
-	profile_img?: string
+	profile_img: string | null
 	discord: IConnection
 	telegram: IConnection
 	twitch: IConnection

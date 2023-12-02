@@ -1,6 +1,7 @@
 import {
 	BUY_ROOM_PANOPTICON_KEY,
 	ROOM_PANOPTICONS_KEY,
+	USER_PROFILE_KEY,
 } from '@/consts/queryKeys'
 import roomService from '@/services/room.service'
 import { IBuyRoomPanopticon } from '@/types/room.interface'
@@ -15,6 +16,7 @@ export const useBuyRoomPanopticon = () => {
 		{
 			onSettled: () => {
 				queryClient.invalidateQueries([ROOM_PANOPTICONS_KEY])
+				queryClient.invalidateQueries([USER_PROFILE_KEY])
 			},
 		}
 	)

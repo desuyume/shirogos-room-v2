@@ -23,7 +23,7 @@ export interface IRoom {
 		dangos: number
 		level: number
 		exp: number
-		profile_img: string
+		profile_img: string | null
 		past_usernames: IPastUsername[]
 	}
 }

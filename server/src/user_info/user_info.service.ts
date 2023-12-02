@@ -110,7 +110,7 @@ export class UserInfoService {
       },
     });
 
-    if (!isUrl(user.profile_img)) { // remove img from static folder if it's not URL
+    if (!!user.profile_img && !isUrl(user.profile_img)) { // remove img from static folder if it's not URL
       removeFile(user.profile_img);
     }
 

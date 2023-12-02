@@ -4,10 +4,12 @@ import {
   Req,
   Res,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Request, Response } from 'express';
 import { cookieConfig } from 'src/consts/cookieConfig'
+import { AuthGuard } from 'src/auth/guards/auth.guard'
 
 @Controller('user')
 export class UserController {
@@ -24,6 +26,17 @@ export class UserController {
       const { refreshToken } = req.cookies;
       const userData = await this.userService.getUserTokens(refreshToken);
       return res.json(userData);
+    } catch (e) {
+      throw new UnauthorizedException();
+    }
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('profile')
+  async getUserProfile(@Req() req) {
+    try {
+      const { id } = req.user;
+      return await this.userService.getUserProfile(+id);
     } catch (e) {
       throw new UnauthorizedException();
     }

@@ -43,6 +43,20 @@ export class UserService {
     };
   }
 
+  async getUserProfile(id: number) {
+    return await this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        username: true,
+        profile_img: true,
+        level: true,
+        dangos: true
+      }
+    })
+  }
+
   async logout(refreshToken: string) {
     const token = await this.tokenService.removeToken(refreshToken);
     return token;

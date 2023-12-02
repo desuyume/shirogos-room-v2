@@ -7,6 +7,7 @@ import ChangeUsername from '../Settings/ChangeUsername'
 import ChangeBirthday from '../Settings/ChangeBirthday'
 import ChangeProfileImg from '../Settings/ChangeProfileImg'
 import { isUrl } from '@/utils/isUrl'
+import noProfilePictureIcon from '@/assets/no-profile-picture-icon.webp'
 
 const RoomSettings: FC = () => {
 	const location = useLocation()
@@ -73,15 +74,24 @@ const RoomSettings: FC = () => {
 				/>
 			</div>
 			<div className='w-[32%]'>
-				<img
-					className='w-full mb-[0.62rem] rounded-[1.5625rem]'
-					src={
-						isUrl(userInfo.profile_img ?? '')
-							? userInfo.profile_img
-							: `${import.meta.env.VITE_SERVER_URL}/${userInfo.profile_img}`
-					}
-					alt='profile-img'
-				/>
+				{!!userInfo.profile_img ? (
+					<img
+						className='w-full mb-[0.62rem] rounded-[1.5625rem]'
+						src={
+							isUrl(userInfo.profile_img ?? '')
+								? userInfo.profile_img
+								: `${import.meta.env.VITE_SERVER_URL}/${userInfo.profile_img}`
+						}
+						alt='profile-img'
+					/>
+				) : (
+					<img
+						className='w-full mb-[0.62rem] rounded-[1.5625rem]'
+						src={noProfilePictureIcon}
+						alt='profile-img'
+					/>
+				)}
+
 				<button className='w-full bg-secondaryHover h-[3.1875rem] text-xl text-primaryText mb-[0.62rem] hover:bg-secondary transition-all'>
 					Изменить миниатюру
 				</button>

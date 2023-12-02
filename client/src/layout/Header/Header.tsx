@@ -1,8 +1,10 @@
-import { FC, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import logo from '@/assets/logo.png'
 import logoHover from '@/assets/logo-hover.png'
 import { Link } from 'react-router-dom'
 import HeaderBttn from './HeaderBttn'
+import { UserContext } from '@/Context'
+import Profile from './Profile'
 
 interface IHeader {
 	withLine: boolean
@@ -10,11 +12,19 @@ interface IHeader {
 }
 
 const Header: FC<IHeader> = ({ withLine, isFixed }) => {
+	const userContext = useContext(UserContext)
+
 	const [isLogoHover, setIsLogoHover] = useState<boolean>(false)
 	const links = [
 		{ path: '/wiki', title: 'Википедия' },
 		{ path: '/dangoteka', title: 'Данготека' },
 	]
+
+	useEffect(() => {
+		if (userContext?.isFetched) {
+			console.log(userContext?.user)
+		}
+	}, [userContext?.isFetched])
 
 	return (
 		<div
@@ -23,20 +33,41 @@ const Header: FC<IHeader> = ({ withLine, isFixed }) => {
 				' bg-tertiary h-[5.25rem] flex justify-center items-center z-50'
 			}
 		>
-			<Link
-				className='absolute left-4'
-				to='/'
-				onMouseOver={() => setIsLogoHover(true)}
-				onMouseLeave={() => setIsLogoHover(false)}
-			>
-				<img src={isLogoHover ? logoHover : logo} alt='logo' />
-			</Link>
+			<div className='absolute left-4 w-[3.58rem] h-[3.58rem]'>
+				<Link
+					className='relative w-full h-full block'
+					to='/'
+					onMouseOver={() => setIsLogoHover(true)}
+					onMouseLeave={() => setIsLogoHover(false)}
+				>
+					<img
+						className={
+							(!!isLogoHover ? 'opacity-0 invisible' : 'opacity-100 visible') +
+							' w-full h-full absolute inset-0 transition-all'
+						}
+						src={logo}
+						alt='logo'
+					/>
+					<img
+						className={
+							(!isLogoHover ? 'opacity-0 invisible' : 'opacity-100 visible') +
+							' w-full h-full absolute inset-0 transition-all'
+						}
+						src={logoHover}
+						alt='logo'
+					/>
+				</Link>
+			</div>
+
 			<nav>
 				{links.map(link => (
 					<HeaderBttn key={link.path} path={link.path} title={link.title} />
 				))}
 			</nav>
-			{withLine && <hr className='border-primary w-full absolute top-[calc(5.25rem-1px)]' />}
+			{userContext?.isFetched && userContext.user && <Profile />}
+			{withLine && (
+				<hr className='border-primary w-full absolute top-[calc(5.25rem-1px)]' />
+			)}
 		</div>
 	)
 }

@@ -1,4 +1,4 @@
-import { ROOM_KEY, USER_INFO_KEY } from '@/consts/queryKeys'
+import { ROOM_KEY, USER_INFO_KEY, USER_PROFILE_KEY } from '@/consts/queryKeys'
 import userInfoService from '@/services/user-info.service'
 import { IUpdateUsername } from '@/types/user.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -13,6 +13,7 @@ export const useUpdateUsername = () => {
 			onSuccess: () => {
 				queryClient.invalidateQueries([USER_INFO_KEY])
 				queryClient.invalidateQueries([ROOM_KEY])
+				queryClient.invalidateQueries([USER_PROFILE_KEY])
 			},
 		}
 	)
