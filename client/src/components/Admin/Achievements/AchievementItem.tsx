@@ -6,6 +6,7 @@ import BadgeAward from './BadgeAward'
 import BackgroundAward from './BackgroundAward'
 import RoleAward from './RoleAward'
 import ExperienceAward from './ExperienceAward'
+import FrameAward from "@/components/Admin/Achievements/FrameAward.tsx";
 
 interface IAchievementItem {
 	achieve: IAchievemnt
@@ -23,6 +24,7 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 	const [roleType, setRoleType] = useState<string>('noun')
 	const [role, setRole] = useState<string>('')
 	const [exp, setExp] = useState<string>('0')
+	const [frameImg, setFrameImg] = useState<File | null>(null)
 
 	const handleClickAwardType = (type: string) => {
 		if (awardType.includes(type)) {
@@ -40,6 +42,10 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 	useEffect(() => {
 		console.log(bgImg)
 	}, [bgImg])
+
+	useEffect(() => {
+		console.log(frameImg)
+	}, [frameImg])
 
 	useEffect(() => {
 		console.log(`${roleType} - ${role}`)
@@ -143,6 +149,26 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 						Опыт
 					</label>
 				</div>
+				<div className='w-1/2 flex justify-center items-center'>
+					<input
+						onClick={() => handleClickAwardType('frame')}
+						checked={awardType.includes('frame')}
+						className='mr-2'
+						type='checkbox'
+						id={'frame' + achieve.id}
+					/>
+					<label
+						htmlFor={'frame' + achieve.id}
+						className={
+							(selectedAwardType === 'frame'
+								? 'text-primary '
+								: 'text-primaryText ') +
+							'text-xl font-secondary font-normal transition-all'
+						}
+					>
+						Рамка
+					</label>
+				</div>
 			</div>
 			<div className='w-[14.27%] h-full flex flex-col bg-tertiary'>
 				<AwardButtons
@@ -170,6 +196,7 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 					exp={exp}
 					setExp={setExp}
 				/>
+				<FrameAward selectedAwardType={selectedAwardType} setFrameImg={setFrameImg} />
 			</div>
 			<div className='w-[13.84%] h-full flex justify-center items-center bg-tertiary relative'>
 				<button
