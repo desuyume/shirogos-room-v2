@@ -45,6 +45,15 @@ const AwardButtons: FC<IAwardButtons> = ({ awardType, selectedAwardType, setSele
 					'w-1/4 h-4 border-[1px] border-primary transition-all disabled:border-secondary'
 				}
 			/>
+			<button
+				disabled={!awardType.includes('frame')}
+				onClick={() => setSelectedAwardType('frame')}
+				className={
+					(awardType.includes('frame') ? 'hover:bg-primary ' : '') +
+					(selectedAwardType === 'frame' ? 'bg-primary ' : '') +
+					'w-1/4 h-4 border-[1px] border-primary transition-all disabled:border-secondary'
+				}
+			/>
 		</div>
 	)
 }
