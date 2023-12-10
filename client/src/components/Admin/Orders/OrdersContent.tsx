@@ -1,23 +1,10 @@
 import { FC } from 'react'
 import OrdersList from './OrdersList'
 import AddOrder from './AddOrder'
-import { IOrderAdmin } from '@/types/order.interface'
+import { usePendingOrders } from '@/api/usePendingOrders'
 
 const OrdersContent: FC = () => {
-	const orders: IOrderAdmin[] = [
-		{
-			id: 1,
-			nickname: 'mercenaryJulian',
-			order: 'Total War: Warhammer 40000 Riptide',
-			time: '3 часа',
-		},
-		{
-			id: 2,
-			nickname: 'mercenaryJulian',
-			order: 'Total War: Warhammer 40000 Riptide',
-			time: '3 часа',
-		},
-	]
+	const { data: orders, isLoading, isError } = usePendingOrders()
 
 	return (
 		<div className='w-[60%] orders-admin'>
@@ -25,10 +12,22 @@ const OrdersContent: FC = () => {
 				<p className='w-[6.59%]'>#</p>
 				<p className='w-[25%]'>Никнейм</p>
 				<p className='flex-1'>Заказ</p>
-				<p className='w-[23.8%]'>На сколько</p>
+				<p className='w-[20%]'>На сколько</p>
 			</div>
-			<OrdersList orders={orders} />
-			<AddOrder index={orders.length + 1} />
+			{isLoading ? (
+				<div className='w-[76.2%] h-[27.5rem] flex justify-center items-center'>
+					<p>Загрузка...</p>
+				</div>
+			) : isError ? (
+				<div className='w-[76.2%] h-[27.5rem] flex justify-center items-center'>
+					<p>Ошибка</p>
+				</div>
+			) : (
+				<>
+					<OrdersList orders={orders} />
+					<AddOrder index={orders.length + 1} />
+				</>
+			)}
 		</div>
 	)
 }

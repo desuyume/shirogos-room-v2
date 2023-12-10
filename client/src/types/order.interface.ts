@@ -10,9 +10,26 @@ export interface IOrderAdmin {
 	time: string
 }
 
+export interface IFetchedOrderPrice {
+	id: number
+	orderTypeId: number | null
+	cost: number
+	text: string
+}
+
+export interface IOrderRules {
+	rules: string
+}
+
+export interface ICreateOrderManually {
+	orderPriceId: number
+	username: string
+	orderText: string
+}
+
 export interface IOrderPrice {
 	cost: number
-	time: string
+	text: string
 }
 
 export interface IOrderType {
@@ -30,4 +47,32 @@ export interface IOrderByTypes {
 	text: string
 	rules: string | null
 	priceId: number
+}
+
+export interface IUpdateOrderPrice {
+	cost: number
+	text: string
+}
+
+export interface IUpdateOrderRules {
+	rules: string
+}
+
+enum OrderStatus {
+	PENDING = 'PENDING',
+	COMPLETED = 'COMPLETED',
+	REJECTED = 'REJECTED',
+}
+
+export interface IUserOrder {
+	id: number
+	orderText: string
+	orderPrice: IOrderPrice
+	orderType: {
+		type: OrderType
+	}
+	status: OrderStatus
+	user: {
+		username: string
+	}
 }

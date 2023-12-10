@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const useInputLimit = (
 	setInput: React.Dispatch<React.SetStateAction<string>>
@@ -17,6 +17,13 @@ export const useInputLimit = (
 			setLimit(prev => prev + 1)
 		}
 	}
+
+	useEffect(() => {
+		if (limit < 0) {
+			setInput(value => value.slice(0, 34))
+			setLimit(0)
+		}
+	}, [limit])
 
 	return {
 		limit,

@@ -1,8 +1,9 @@
 import { FC, useState } from 'react'
 import gamepadImg from '@/assets/gamepad.png'
 import OrdersList from './OrdersList'
+import { usePendingOrders } from '@/api/usePendingOrders'
 
-interface IOrders { 
+interface IOrders {
 	isPastOrders: boolean
 	setIsPastOrders: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -10,9 +11,21 @@ interface IOrders {
 const Orders: FC<IOrders> = ({ isPastOrders, setIsPastOrders }) => {
 	const [isHintVisible, setIsHintVisible] = useState<boolean>(false)
 
+	const { isLoading, isError, data: orders } = usePendingOrders()
+
 	return (
-		<div className={(isPastOrders ? 'invisible opacity-0' : 'visible opacity-100') + ' w-[38.8125rem] h-[18.375rem] absolute top-[11.40rem] right-6 transition-all'}>
-			<div className={(isHintVisible ? 'visible opacity-100' : 'invisible opacity-0') + ' bg-orders-hint-bg bg-no-repeat absolute w-[16.38444rem] h-[15.9375rem] -left-[17.2rem] flex justify-center items-center transition-all'}>
+		<div
+			className={
+				(isPastOrders ? 'invisible opacity-0' : 'visible opacity-100') +
+				' w-[38.8125rem] h-[18.375rem] absolute top-[11.40rem] right-6 transition-all'
+			}
+		>
+			<div
+				className={
+					(isHintVisible ? 'visible opacity-100' : 'invisible opacity-0') +
+					' bg-orders-hint-bg bg-no-repeat absolute w-[16.38444rem] h-[15.9375rem] -left-[17.2rem] flex justify-center items-center transition-all'
+				}
+			>
 				<p className='text-primaryText text-center text-[1.5625rem] max-w-[12.625rem] leading-[95.795%]'>
 					Заказы делаются в <span className='text-[#EBE984]'>Бутике</span>{' '}
 					<span className='text-[1.25rem] inline-block'>(личная комната)</span>.
@@ -39,7 +52,21 @@ const Orders: FC<IOrders> = ({ isPastOrders, setIsPastOrders }) => {
 					<circle cx='8' cy='8' r='8' fill='#EBE984' />
 				</svg>
 			</div>
-			<OrdersList isPastOrders={isPastOrders} />
+			{isLoading ? (
+				<div className='w-full h-[14.0625rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-80 flex justify-center items-center'>
+					<p className='text-xl text-[#EBE984]'>Загрузка...</p>
+				</div>
+			) : isError ? (
+				<div className='w-full h-[14.0625rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-80 flex justify-center items-center'>
+					<p className='text-xl text-[#EBE984]'>Ошибка</p>
+				</div>
+			) : !orders.length ? (
+				<div className='w-full h-[14.0625rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-80 flex justify-center items-center'>
+					<p className='text-xl text-[#EBE984]'>Нет активных заказов</p>
+				</div>
+			) : (
+				<OrdersList isPastOrders={isPastOrders} orders={orders} />
+			)}
 		</div>
 	)
 }

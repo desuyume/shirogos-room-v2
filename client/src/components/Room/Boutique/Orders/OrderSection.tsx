@@ -2,13 +2,13 @@ import { FC, useEffect, useState } from 'react'
 import OrderRules from './OrderRules'
 import Order from './Order'
 import OrderDone from './OrderDone'
-import { IOrderType } from '@/types/order.interface'
 import RulesBlock from './RulesBlock'
 import { IMakeOrder } from '@/types/room.interface'
 import { useMakeOrder } from '@/api/useMakeOrder'
+import { isUrl } from '@/utils/isUrl'
 
 interface IOrderSection {
-	orderType: IOrderType
+	orderType: string
 }
 
 const OrderSection: FC<IOrderSection> = ({ orderType }) => {
@@ -17,11 +17,22 @@ const OrderSection: FC<IOrderSection> = ({ orderType }) => {
 	const [isRulesOpened, setIsRulesOpened] = useState<boolean>(false)
 	const [finalPrice, setFinalPrice] = useState<number>(0)
 
-	const { mutate, isSuccess } = useMakeOrder(orderType.type)
+	const { mutate, isSuccess } = useMakeOrder(orderType)
 
 	const clickBuy = () => {
 		if (userOrder) {
-			mutate({ orderText: userOrder.orderText, orderPriceId: userOrder.orderPriceId })
+			const isVideo =
+				userOrder?.orderPriceId === 4 || userOrder?.orderPriceId === 5
+
+			if (isVideo && !isUrl(userOrder.orderText)) {
+				console.log('video must be a url')
+				return
+			}
+
+			mutate({
+				orderText: userOrder.orderText,
+				orderPriceId: userOrder.orderPriceId,
+			})
 		} else {
 			console.log('no orders')
 		}
@@ -42,7 +53,7 @@ const OrderSection: FC<IOrderSection> = ({ orderType }) => {
 	return (
 		<div
 			className={
-				(orderType.type === 'game'
+				(orderType === 'game'
 					? 'bg-room-gameOrder-bg rounded-[1.5625rem] '
 					: '') + 'w-full h-[21.75rem] py-[0.94rem] pl-[0.69rem] flex relative'
 			}
@@ -54,7 +65,7 @@ const OrderSection: FC<IOrderSection> = ({ orderType }) => {
 				}
 			>
 				<OrderRules
-					type={orderType.type}
+					type={orderType}
 					isRulesOpened={isRulesOpened}
 					setIsRulesOpened={setIsRulesOpened}
 				/>
@@ -65,7 +76,7 @@ const OrderSection: FC<IOrderSection> = ({ orderType }) => {
 					isOrdered={isOrdered}
 					userOrder={userOrder}
 					setUserOrder={setUserOrder}
-					type={orderType.type}
+					type={orderType}
 				/>
 			</div>
 			<OrderDone
@@ -73,7 +84,7 @@ const OrderSection: FC<IOrderSection> = ({ orderType }) => {
 				isOrdered={isOrdered}
 				userOrder={userOrder}
 			/>
-			<RulesBlock rules={orderType.orderRules} isRulesOpened={isRulesOpened} />
+			<RulesBlock rules={orderType} isRulesOpened={isRulesOpened} />
 		</div>
 	)
 }
