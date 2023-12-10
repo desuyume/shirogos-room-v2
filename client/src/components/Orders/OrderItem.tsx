@@ -11,24 +11,15 @@ interface IOrderItem {
 
 const renderLink = ({
 	attributes,
-	content,
 }: {
 	attributes: any
 	content: string
 }) => {
 	const { href, ...props } = attributes
 
-	if (content.startsWith('https://www.youtube.com')) {
-		return (
-			<a href={href} {...props}>
-				Видео
-			</a>
-		)
-	}
-
 	return (
 		<a href={href} {...props}>
-			{content}
+			Видео
 		</a>
 	)
 }
@@ -54,12 +45,12 @@ const OrderItem: FC<IOrderItem> = ({
 					(isPastOrders
 						? 'text-[#A6A6A6] text-xl'
 						: 'text-primaryText text-[1.5625rem]') +
-					' text-center font-secondary w-[15%] font-bold'
+					' text-center font-secondary w-[12.5%] font-bold'
 				}
 			>
 				{index}
 			</p>
-			<div className='max-w-[65%] flex flex-col items-center justify-center pt-1.5 truncate'>
+			<div className='max-w-[67.5%] flex flex-col items-center justify-center pt-1.5 truncate'>
 				<Linkify options={{ target: '_blank', render: renderLink }}>
 					<p
 						className={

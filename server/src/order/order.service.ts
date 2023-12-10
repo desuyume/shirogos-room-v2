@@ -6,6 +6,7 @@ import { UpdateOrderPriceDto } from './dto/update-order-price.dto';
 import { UpdateOrderRulesDto } from './dto/update-order-rules.dto';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderStatus } from '@prisma/client';
+import { CreateOrderManuallyDto } from './dto/create-order-manually.dto';
 
 @Injectable()
 export class OrderService {
@@ -48,13 +49,66 @@ export class OrderService {
     });
   }
 
-  async createOrderManually(dto: CreateOrderDto) {
+  async createOrderManually(dto: CreateOrderManuallyDto) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        username: dto.username,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    const orderPrice = await this.prisma.orderPrice.findUnique({
+      where: {
+        id: dto.orderPriceId,
+      },
+    });
+
+    const orderType = await this.prisma.orderType.findUnique({
+      where: {
+        id: orderPrice.orderTypeId,
+      },
+    });
+
+    switch (orderType.type) {
+      case 'game':
+        await this.prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            games_ordered: {
+              increment: 1,
+            },
+          },
+        });
+        break;
+
+      case 'viewing':
+        await this.prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            viewing_ordered: {
+              increment: 1,
+            },
+          },
+        });
+        break;
+
+      default:
+        throw new BadRequestException('invalid order type');
+    }
+
     return await this.prisma.order.create({
       data: {
-        userId: dto.userId,
-        orderTypeId: dto.orderTypeId,
+        userId: user.id,
+        orderTypeId: orderPrice.orderTypeId,
         orderText: dto.orderText,
         orderPriceId: dto.orderPriceId,
+        isByAdmin: true,
       },
     });
   }
@@ -75,6 +129,9 @@ export class OrderService {
       where: {
         id,
       },
+      include: {
+        orderType: true,
+      },
     });
     const user = await this.prisma.user.findUnique({
       where: {
@@ -87,16 +144,49 @@ export class OrderService {
       },
     });
 
-    await this.prisma.user.update({
-      where: {
-        id: user.id,
-      },
-      data: {
-        dangos: {
-          increment: orderPrice.cost,
+    switch (order.orderType.type) {
+      case 'game':
+        await this.prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            games_ordered: {
+              decrement: 1,
+            },
+          },
+        });
+        break;
+
+      case 'viewing':
+        await this.prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            viewing_ordered: {
+              decrement: 1,
+            },
+          },
+        });
+        break;
+
+      default:
+        throw new BadRequestException('invalid order type');
+    }
+
+    if (!order.isByAdmin) {
+      await this.prisma.user.update({
+        where: {
+          id: user.id,
         },
-      },
-    });
+        data: {
+          dangos: {
+            increment: orderPrice.cost,
+          },
+        },
+      });
+    }
 
     return await this.prisma.order.update({
       where: {
@@ -109,83 +199,116 @@ export class OrderService {
   }
 
   async getAllOrders() {
-    const orders = [];
-    const ordersFromDb = await this.prisma.order.findMany();
-
-    for (const orderFromDb of ordersFromDb) {
-      const user = await this.prisma.user.findUnique({
-        where: {
-          id: orderFromDb.userId,
+    return await this.prisma.order.findMany({
+      select: {
+        id: true,
+        orderText: true,
+        orderPrice: {
+          select: {
+            cost: true,
+            text: true,
+          },
         },
-      });
-      const order = { ...orderFromDb, username: user.username };
-      orders.push(order);
-    }
-
-    return orders;
+        orderType: {
+          select: {
+            type: true,
+          },
+        },
+        status: true,
+        user: {
+          select: {
+            username: true,
+          },
+        },
+      },
+    });
   }
 
   async getPendingOrders() {
-    const orders = [];
-    const ordersFromDb = await this.prisma.order.findMany({
+    return await this.prisma.order.findMany({
       where: {
         status: OrderStatus.PENDING,
       },
-    });
-
-    for (const orderFromDb of ordersFromDb) {
-      const user = await this.prisma.user.findUnique({
-        where: {
-          id: orderFromDb.userId,
+      select: {
+        id: true,
+        orderText: true,
+        orderPrice: {
+          select: {
+            cost: true,
+            text: true,
+          },
         },
-      });
-      const order = { ...orderFromDb, username: user.username };
-      orders.push(order);
-    }
-
-    return orders;
+        orderType: {
+          select: {
+            type: true,
+          },
+        },
+        status: true,
+        user: {
+          select: {
+            username: true,
+          },
+        },
+      },
+    });
   }
 
   async getCompletedOrders() {
-    const orders = [];
-    const ordersFromDb = await this.prisma.order.findMany({
+    return await this.prisma.order.findMany({
       where: {
         status: OrderStatus.COMPLETED,
       },
-    });
-
-    for (const orderFromDb of ordersFromDb) {
-      const user = await this.prisma.user.findUnique({
-        where: {
-          id: orderFromDb.userId,
+      select: {
+        id: true,
+        orderText: true,
+        orderPrice: {
+          select: {
+            cost: true,
+            text: true,
+          },
         },
-      });
-      const order = { ...orderFromDb, username: user.username };
-      orders.push(order);
-    }
-
-    return orders;
+        orderType: {
+          select: {
+            type: true,
+          },
+        },
+        status: true,
+        user: {
+          select: {
+            username: true,
+          },
+        },
+      },
+    });
   }
 
   async getRejectedOrders() {
-    const orders = [];
-    const ordersFromDb = await this.prisma.order.findMany({
+    return await this.prisma.order.findMany({
       where: {
         status: OrderStatus.REJECTED,
       },
-    });
-
-    for (const orderFromDb of ordersFromDb) {
-      const user = await this.prisma.user.findUnique({
-        where: {
-          id: orderFromDb.userId,
+      select: {
+        id: true,
+        orderText: true,
+        orderPrice: {
+          select: {
+            cost: true,
+            text: true,
+          },
         },
-      });
-      const order = { ...orderFromDb, username: user.username };
-      orders.push(order);
-    }
-
-    return orders;
+        orderType: {
+          select: {
+            type: true,
+          },
+        },
+        status: true,
+        user: {
+          select: {
+            username: true,
+          },
+        },
+      },
+    });
   }
 
   async getOrderTypes() {
@@ -202,7 +325,11 @@ export class OrderService {
   }
 
   async getOrderPrices() {
-    return await this.prisma.orderPrice.findMany();
+    return await this.prisma.orderPrice.findMany({
+      orderBy: {
+        id: 'asc',
+      },
+    });
   }
 
   async getOrdersByType(type: string) {
@@ -222,7 +349,7 @@ export class OrderService {
       },
       orderBy: {
         id: 'asc',
-      }
+      },
     });
     const result = [];
 
@@ -243,6 +370,20 @@ export class OrderService {
     }
 
     return result;
+  }
+
+  async getOrderRulesByType(type: string) {
+    const orderType = await this.prisma.orderType.findUnique({
+      where: {
+        type,
+      },
+    });
+
+    if (!orderType) {
+      throw new BadRequestException('no such order type');
+    }
+
+    return { rules: orderType.orderRules };
   }
 
   async createOrderPrice(dto: CreateOrderPriceDto) {
@@ -284,10 +425,10 @@ export class OrderService {
     });
   }
 
-  async updateOrderRules(id: number, dto: UpdateOrderRulesDto) {
+  async updateOrderRules(type: string, dto: UpdateOrderRulesDto) {
     const orderType = await this.prisma.orderType.findUnique({
       where: {
-        id,
+        type,
       },
     });
 
@@ -297,7 +438,7 @@ export class OrderService {
 
     return await this.prisma.orderType.update({
       where: {
-        id,
+        id: orderType.id,
       },
       data: {
         orderRules: dto.rules,

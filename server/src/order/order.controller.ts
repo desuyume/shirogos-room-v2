@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
@@ -15,6 +16,7 @@ import { Prisma } from '@prisma/client';
 import { UpdateOrderPriceDto } from './dto/update-order-price.dto';
 import { UpdateOrderRulesDto } from './dto/update-order-rules.dto';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { CreateOrderManuallyDto } from './dto/create-order-manually.dto'
 
 @Controller('order')
 export class OrderController {
@@ -27,7 +29,7 @@ export class OrderController {
 
   @Get('completed')
   async getCompletedOrders() {
-    return await this.orderService.getPendingOrders();
+    return await this.orderService.getCompletedOrders();
   }
 
   @Get('pending')
@@ -46,7 +48,7 @@ export class OrderController {
   }
 
   @Post('manually')
-  async createOrderManually(@Body() dto: CreateOrderDto) {
+  async createOrderManually(@Body() dto: CreateOrderManuallyDto) {
     return await this.orderService.createOrderManually(dto);
   }
 
@@ -79,12 +81,12 @@ export class OrderController {
     }
   }
 
-  @Patch('type/rules/:id')
+  @Put('rules/:type')
   async updateOrderRules(
-    @Param('id') id: string,
+    @Param('type') type: string,
     @Body() dto: UpdateOrderRulesDto,
   ) {
-    return await this.orderService.updateOrderRules(+id, dto);
+    return await this.orderService.updateOrderRules(type, dto);
   }
 
   @Get('price')
@@ -97,12 +99,17 @@ export class OrderController {
     return await this.orderService.getOrdersByType(type);
   }
 
+  @Get('rules')
+  async getOrderRulesByType(@Query('type') type) {
+    return await this.orderService.getOrderRulesByType(type);
+  }
+
   @Post('price')
   async createOrderPrice(@Body() dto: CreateOrderPriceDto) {
     return await this.orderService.createOrderPrice(dto);
   }
 
-  @Patch('price/:id')
+  @Put('price/:id')
   async updateOrderPrice(
     @Param('id') id: string,
     @Body() dto: UpdateOrderPriceDto,
