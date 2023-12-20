@@ -12,21 +12,21 @@ interface IDangotekaSectionList {
 const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 	const mangas = [
 		{
-			mangaId: 'forlowers',
+			itemId: 'forlowers',
 			img: mangaImg,
 			title: 'FOR:LOWERS Для низших уровней',
 			description:
 				'Авантюристы прибывают в Ди-Таун. Однако действия загадочной девушки приводят к тому, что те сваливаются в подземелье, где не менее загадочный мужик говорит им проходить испытание. Внушительно. Особенно когда тот на глазах убивает нескольких из них. ',
 		},
 		{
-			mangaId: 'forlowers',
+			itemId: 'forlowers',
 			img: mangaImg,
 			title: 'FOR:LOWERS Для низших уровней',
 			description:
 				'Авантюристы прибывают в Ди-Таун. Однако действия загадочной девушки приводят к тому, что те сваливаются в подземелье, где не менее загадочный мужик говорит им проходить испытание. Внушительно. Особенно когда тот на глазах убивает нескольких из них. ',
 		},
 		{
-			mangaId: 'forlowers',
+			itemId: 'forlowers',
 			img: mangaImg,
 			title: 'FOR:LOWERS Для низших уровней',
 			description:
@@ -35,35 +35,35 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 	]
 	const stories = [
 		{
-			storyId: 'flame',
+			itemId: 'flame',
 			img: storyImg,
 			title: 'Ледяное пламя',
 			description:
 				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
 		},
 		{
-			storyId: 'flame',
+			itemId: 'flame',
 			img: storyImg,
 			title: 'Ледяное пламя',
 			description:
 				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
 		},
 		{
-			storyId: 'flame',
+			itemId: 'flame',
 			img: storyImg,
 			title: 'Ледяное пламя',
 			description:
 				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
 		},
 		{
-			storyId: 'flame',
+			itemId: 'flame',
 			img: storyImg,
 			title: 'Ледяное пламя',
 			description:
 				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
 		},
 		{
-			storyId: 'flame',
+			itemId: 'flame',
 			img: storyImg,
 			title: 'Ледяное пламя',
 			description:
@@ -138,15 +138,15 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 					{ minWidth: '800', slideSize: '100%' },
 				]}
 			>
-				{items.map(manga => (
+				{items.map(item => (
 					<Carousel.Slide>
 						<DangotekaSectionItem
-							key={manga.title}
-							type='manga'
-							itemId={manga.mangaId}
-							img={manga.img}
-							title={manga.title}
-							description={manga.description}
+							key={item.title}
+							type={type}
+							itemId={item.itemId}
+							img={item.img}
+							title={item.title}
+							description={item.description}
 						/>
 					</Carousel.Slide>
 				))}
