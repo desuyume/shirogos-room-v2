@@ -12,6 +12,7 @@ import { AwardCategory, UniqueRoleType } from '@prisma/client';
 import { getRandomInt } from 'src/utils/getRandomInt';
 import { MakeOrderDto } from './dto/make-order.dto';
 import { BuyPanopticonDto } from './dto/buy-panopticon.dto';
+import { isUrl } from 'src/utils/isUrl';
 
 @Injectable()
 export class RoomService {
@@ -595,6 +596,14 @@ export class RoomService {
   }
 
   async makeOrder(userId: number, dto: MakeOrderDto, type: string) {
+    const isVideo = dto.orderPriceId === 4 || dto.orderPriceId === 5;
+
+    if (!isVideo && dto.orderText.length > 34) {
+      throw new BadRequestException(
+        'orderText must be shorter than or equal to 34 characters',
+      );
+    }
+
     const orderType = await this.prisma.orderType.findUnique({
       where: {
         type,

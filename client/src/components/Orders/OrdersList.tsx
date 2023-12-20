@@ -2,98 +2,14 @@ import { FC } from 'react'
 import OrderItem from './OrderItem'
 import { Carousel } from '@mantine/carousel'
 import slideBttn from '@/assets/orders-slide-bttn.svg'
+import { IUserOrder } from '@/types/order.interface'
 
 interface IOrdersList {
 	isPastOrders: boolean
+	orders: IUserOrder[]
 }
 
-const OrdersList: FC<IOrdersList> = ({ isPastOrders }) => {
-	const orders = [
-		{
-			order: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
-			nickname: 'mercenaryJulian',
-			time: '3 часа',
-		},
-		{
-			order: 'Total War: Warhammer 40000 Riptide',
-			nickname: 'mercenaryJulian',
-			time: '3 часа',
-		},
-		{
-			order: 'WarCraft III The Frozen Throne',
-			nickname: 'EgoistManiac',
-			time: '2 часа',
-		},
-		{
-			order: 'https://www.youtube.com/watch?v=HEGtfSc6X-I',
-			nickname: 'TUSKASTEL',
-			time: '',
-		},
-		{
-			order: 'Total War: Warhammer 40000 Riptide',
-			nickname: 'mercenaryJulian',
-			time: '3 часа',
-		},
-		{
-			order: 'WarCraft III The Frozen Throne',
-			nickname: 'EgoistManiac',
-			time: '2 часа',
-		},
-		{
-			order: 'https://www.youtube.com/watch?v=HEGtfSc6X-I',
-			nickname: 'TUSKASTEL',
-			time: '',
-		},
-		{
-			order: 'Total War: Warhammer 40000 Riptide',
-			nickname: 'mercenaryJulian',
-			time: '3 часа',
-		},
-		{
-			order: 'WarCraft III The Frozen Throne',
-			nickname: 'EgoistManiac',
-			time: '2 часа',
-		},
-		{
-			order: 'https://www.youtube.com/watch?v=HEGtfSc6X-I',
-			nickname: 'TUSKASTEL',
-			time: '',
-		},
-	]
-
-	const pastOrders = [
-		{
-			order: 'Total War: Warhammer 40000 RiptideTotal War: Warhammer 40000 Riptide',
-			nickname: 'mercenaryJulian',
-			time: '3 часа',
-		},
-		{
-			order: 'Total War: Warhammer 40000 Riptide',
-			nickname: 'mercenaryJulian',
-			time: '3 часа',
-		},
-		{
-			order: 'Total War: Warhammer 40000 Riptide',
-			nickname: 'mercenaryJulian',
-			time: '3 часа',
-		},
-		{
-			order: 'Total War: Warhammer 40000 Riptide',
-			nickname: 'mercenaryJulian',
-			time: '3 часа',
-		},
-		{
-			order: 'Total War: Warhammer 40000 Riptide',
-			nickname: 'mercenaryJulian',
-			time: '3 часа',
-		},
-		{
-			order: 'Total War: Warhammer 40000 Riptide',
-			nickname: 'mercenaryJulian',
-			time: '3 часа',
-		},
-	]
-
+const OrdersList: FC<IOrdersList> = ({ isPastOrders, orders }) => {
 	return (
 		<div className='bg-secondary bg-opacity-70 '>
 			<Carousel
@@ -132,24 +48,24 @@ const OrdersList: FC<IOrdersList> = ({ isPastOrders }) => {
 			>
 				{isPastOrders
 					?
-					pastOrders.map((order, index) => (
+					orders.map((order, index) => (
 						<OrderItem
-							key={index} // TODO: change key from index to smth else
+							key={order.id}
 							index={index + 1}
-							nickname={order.nickname}
-							order={order.order}
-							time={order.time}
+							nickname={order.user.username}
+							order={order.orderText}
+							time={order.orderPrice.text}
 							isPastOrders={isPastOrders}
 						/>
 					))
 					:
 					orders.map((order, index) => (
 						<OrderItem
-							key={index} // TODO: change key from index to smth else
+							key={order.id}
 							index={index + 1}
-							nickname={order.nickname}
-							order={order.order}
-							time={order.time}
+							nickname={order.user.username}
+							order={order.orderText}
+							time={order.orderPrice.text}
 							isPastOrders={isPastOrders}
 						/>
 					))

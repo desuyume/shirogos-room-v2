@@ -21,6 +21,7 @@ const OrderInput: FC<IOrderInput> = ({
 	userOrder,
 	setUserOrder,
 }) => {
+	const isVideo = orderPriceId === 4 || orderPriceId === 5
 	const [description, setDescription] = useState<string>('')
 	const [isInputActive, setIsInputActive] = useState<boolean>(false)
 	const { limit, setLimit, changeNameHandler, keyDownHandler } =
@@ -74,20 +75,24 @@ const OrderInput: FC<IOrderInput> = ({
 			<div className='flex-1 h-full flex items-center relative'>
 				<input
 					value={description}
-					onChange={e => changeNameHandler(e)}
-					onKeyDown={e => keyDownHandler(e)}
+					onChange={e => !!isVideo ? setDescription(e.target.value) : changeNameHandler(e)}
+					onKeyDown={e => !isVideo && keyDownHandler(e)}
 					disabled={!isInputActive}
 					className='w-full h-full text-center placeholder:text-primaryText placeholder:text-opacity-25 outline-none text-primaryText text-[0.9375rem] bg-tertiary'
-					placeholder='Не забудь описание'
+					placeholder={isVideo ? 'Не забудь ссылку' : 'Не забудь описание'}
 				/>
-				<p
-					className={
-						(isInputActive ? 'visible opacity-100 ' : 'invisible opacity-0 ') +
-						'absolute right-[0.44rem] text-[0.625rem] z-10 pointer-events-none transition-all'
-					}
-				>
-					{limit}
-				</p>
+				{!isVideo && (
+					<p
+						className={
+							(isInputActive
+								? 'visible opacity-100 '
+								: 'invisible opacity-0 ') +
+							'absolute right-[0.44rem] text-[0.625rem] z-10 pointer-events-none transition-all'
+						}
+					>
+						{limit}
+					</p>
+				)}
 			</div>
 
 			<button
