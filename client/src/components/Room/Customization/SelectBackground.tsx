@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { Scrollbar } from 'react-scrollbars-custom'
 import { useBuyedRoomBackgrounds } from '@/api/useBuyedRoomBackgrounds'
-import { useChooseActiveRoomBackground } from '@/api/useChooseActiveRoomBackground'
 import BackgroundItem from './BackgroundItem'
 
 const SelectBackground: FC = () => {
@@ -13,13 +12,6 @@ const SelectBackground: FC = () => {
 		isSuccess,
 		data: buyedBackgrounds,
 	} = useBuyedRoomBackgrounds()
-	const { mutate } = useChooseActiveRoomBackground()
-
-	const clickChooseBg = () => {
-		if (selectedBg) {
-			mutate({ backgroundId: selectedBg })
-		}
-	}
 
 	useEffect(() => {
 		if (!isLoading && isSuccess) {
@@ -31,12 +23,9 @@ const SelectBackground: FC = () => {
 
 	return (
 		<div className='h-[17.5rem] bg-room-gradient w-[78%] ml-[2%] rounded-[1.5625rem] py-[0.63rem] pl-[0.56rem] flex items-center select-bg'>
-			<button
-				onClick={clickChooseBg}
-				className='min-w-[14.85%] max-w-[14.85%] bg-tertiary hover:opacity-95 transition-all h-full rounded-[1.0625rem] text-primaryText text-[0.9375rem] mr-8'
-			>
+			<p className='min-w-[14.85%] max-w-[14.85%] bg-tertiary transition-all h-full rounded-[1.0625rem] text-primaryText text-[0.9375rem] mr-8 flex justify-center items-center'>
 				Выбрать фон
-			</button>
+			</p>
 			{isLoading ? (
 				<div className='w-full h-full flex justify-center items-center'>
 					<p className='text-center'>Загрузка...</p>
@@ -70,6 +59,7 @@ const SelectBackground: FC = () => {
 							)
 							.map(bg => (
 								<BackgroundItem
+									key={bg.RoomBackground.id}
 									bgId={bg.RoomBackground.id}
 									bgImg={bg.RoomBackground.img}
 									bgName={bg.RoomBackground.name}

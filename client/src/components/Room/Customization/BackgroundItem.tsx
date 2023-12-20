@@ -1,6 +1,7 @@
+import { useChooseActiveRoomBackground } from '@/api/useChooseActiveRoomBackground'
 import { FC } from 'react'
 
-interface IBackgroundItem { 
+interface IBackgroundItem {
 	bgId: number
 	bgImg: string
 	bgName: string
@@ -8,11 +9,24 @@ interface IBackgroundItem {
 	setSelectedBg: React.Dispatch<React.SetStateAction<number | null>>
 }
 
-const BackgroundItem: FC<IBackgroundItem> = ({ bgId, bgImg, bgName, selectedBg, setSelectedBg }) => {
+const BackgroundItem: FC<IBackgroundItem> = ({
+	bgId,
+	bgImg,
+	bgName,
+	selectedBg,
+	setSelectedBg,
+}) => {
+	const { mutate } = useChooseActiveRoomBackground()
+
+	const clickBg = () => {
+		setSelectedBg(bgId)
+		mutate({ backgroundId: bgId })
+	}
+
 	return (
 		<div
 			key={bgId}
-			onClick={() => setSelectedBg(bgId)}
+			onClick={clickBg}
 			className={
 				(selectedBg === bgId ? 'scale-105 ' : '') +
 				'mr-5 flex flex-col items-center relative mb-2 cursor-pointer transition-all duration-300'
@@ -20,9 +34,7 @@ const BackgroundItem: FC<IBackgroundItem> = ({ bgId, bgImg, bgName, selectedBg, 
 		>
 			<img
 				className={
-					(selectedBg === bgId
-						? 'border-2 border-[#F8FEFA] '
-						: '') +
+					(selectedBg === bgId ? 'border-2 border-[#F8FEFA] ' : '') +
 					'min-w-[18.375rem] max-h-[11rem] rounded-[1.5625rem] mb-2 pointer-events-none'
 				}
 				src={`${import.meta.env.VITE_SERVER_URL}/${bgImg}`}
