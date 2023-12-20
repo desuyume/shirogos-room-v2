@@ -17,16 +17,22 @@ const News: FC = () => {
 		refetch()
 	}
 
-	useEffect(() => {
-		if (!isLoading && !isError) {
-			if (textRef.current && textRef.current?.clientHeight > 150) {
-				setIsTextOverflow(true)
-			} else {
-				setIsTextOverflow(false)
+	const checkIsTextOverflow = () => {
+		if (!isFetching && !isError) {
+			if (textRef.current) {
+				if (textRef.current.clientHeight > 150) {
+					setIsTextOverflow(true)
+				} else {
+					setIsTextOverflow(false)
+				}
 			}
 		}
-	}, [textRef, isLoading])
+	}
 
+	useEffect(() => {
+		checkIsTextOverflow()
+	}, [textRef, isFetching])
+	
 	return (
 		<div className='w-[66rem] h-[9.375rem] bg-tertiary bg-opacity-40 absolute top-4 right-6 rounded-[2.3125rem] flex justify-between items-center pr-[0.94rem] transition-all news'>
 			{isLoading || isFetching ? (
