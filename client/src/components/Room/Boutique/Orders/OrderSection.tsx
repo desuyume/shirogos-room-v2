@@ -84,7 +84,7 @@ const OrderSection: FC<IOrderSection> = ({ orderType }) => {
 				isOrdered={isOrdered}
 				userOrder={userOrder}
 			/>
-			<RulesBlock rules={orderType} isRulesOpened={isRulesOpened} />
+			<RulesBlock type={orderType} isRulesOpened={isRulesOpened} />
 		</div>
 	)
 }
