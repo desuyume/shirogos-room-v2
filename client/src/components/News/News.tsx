@@ -1,22 +1,35 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { useNews } from '@/api/useNews'
 import { formatDateNews } from '@/utils/formatDate'
 import { useNewsCount } from '@/api/useNewsCount'
+import { Scrollbar } from 'react-scrollbars-custom'
 
 const News: FC = () => {
 	const [skip, setSkip] = useState<number>(0)
 	const { isLoading, isFetching, isError, data: news, refetch } = useNews(skip)
 	const { data: newsCount } = useNewsCount()
 	const [isNextBttnHovered, setIsNextBttnHovered] = useState<boolean>(false)
+	const textRef = useRef<HTMLParagraphElement | null>(null)
+	const [isTextOverflow, setIsTextOverflow] = useState<boolean>(false)
 
 	const clickNextNews = () => {
 		setSkip(prev => prev + 1)
 		refetch()
 	}
 
+	useEffect(() => {
+		if (!isLoading && !isError) {
+			if (textRef.current && textRef.current?.clientHeight > 150) {
+				setIsTextOverflow(true)
+			} else {
+				setIsTextOverflow(false)
+			}
+		}
+	}, [textRef, isLoading])
+
 	return (
 		<div className='w-[66rem] h-[9.375rem] bg-tertiary bg-opacity-40 absolute top-4 right-6 rounded-[2.3125rem] flex justify-between items-center pr-[0.94rem] transition-all news'>
-			{(isLoading || isFetching) ? (
+			{isLoading || isFetching ? (
 				<p className='w-full h-full flex justify-center items-center text-xl text-primaryText'>
 					Загрузка...
 				</p>
@@ -35,10 +48,26 @@ const News: FC = () => {
 						src={`${import.meta.env.VITE_SERVER_URL}/${news?.news_img}`}
 						alt='announce-img'
 					/>
-
-					<p className='text-primaryText font-secondary font-bold flex-1 text-[1.5625rem] ml-6 px-2'>
-						{news?.text}
-					</p>
+					{isTextOverflow ? (
+						<Scrollbar
+							noDefaultStyles
+							style={{ flex: '1 1 0%', height: '100%' }}
+						>
+							<p
+								ref={textRef}
+								className='text-primaryText font-secondary font-bold text-[1.5625rem] ml-6 px-2'
+							>
+								{news?.text}
+							</p>
+						</Scrollbar>
+					) : (
+						<p
+							ref={textRef}
+							className='text-primaryText font-secondary font-bold flex-1 text-[1.5625rem] ml-6 px-2'
+						>
+							{news?.text}
+						</p>
+					)}
 					<p
 						className={
 							(isNextBttnHovered && 'mr-[1.37rem]') +

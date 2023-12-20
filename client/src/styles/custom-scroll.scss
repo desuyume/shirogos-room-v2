@@ -356,3 +356,25 @@
 		}
 	}
 }
+
+.news {
+	.ScrollbarsCustom-TrackY {
+		width: 0.25rem;
+		right: 0.125rem;
+	
+		&:hover,
+		&.dragging {
+			width: 0.25rem;
+			right: 0.125rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #fffec5;
+		}
+	}
+}
