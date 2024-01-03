@@ -37,8 +37,18 @@ const Profile: FC = () => {
 				/>
 			</div>
 
-			<Link className='w-[4.5rem] h-[4.5rem] mr-[0.62rem]' to='/room'>
-				{!!profile?.profile_img ? (
+			<Link className='w-[5.625rem] h-[4.5rem] mr-[0.62rem]' to='/room'>
+				{!!profile?.miniature_img ? (
+					<img
+						className='w-full h-full'
+						src={
+							isUrl(profile?.miniature_img)
+								? profile?.miniature_img
+								: `${import.meta.env.VITE_SERVER_URL}/${profile.miniature_img}`
+						}
+						alt='profile-img'
+					/>
+				) : !!profile.profile_img ? (
 					<img
 						className='w-full h-full'
 						src={

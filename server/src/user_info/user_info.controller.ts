@@ -58,4 +58,17 @@ export class UserInfoController {
     const { id } = req.user;
     return await this.userInfoService.updateProfileImg(id, img);
   }
+
+  @UseGuards(AuthGuard)
+  @Patch('miniatureImg')
+  @UseInterceptors(FileInterceptor('img', multerOptions))
+  async updateMiniatureImg(
+    @Request() req,
+    @UploadedFile() img: Express.Multer.File,
+  ) {
+    console.log(img);
+    
+    const { id } = req.user;
+    return await this.userInfoService.updateMiniatureImg(id, img);
+  }
 }

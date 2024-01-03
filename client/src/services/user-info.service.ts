@@ -23,6 +23,10 @@ class UserStatsService {
 	async updateProfileImg(content: FormData) {
 		return await $api.patch(`${this.URL}/profileImg`, content)
 	}
+
+	async updateMiniatureImg(content: FormData) {
+		return await $api.patch(`${this.URL}/miniatureImg`, content)
+	}
 }
 
 export default new UserStatsService()

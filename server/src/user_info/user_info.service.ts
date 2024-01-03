@@ -4,11 +4,8 @@ import { UpdateUsernameDto } from './dto/update-username.dto';
 import { UpdateBirthdayDto } from './dto/update-birthday.dto';
 import { UpdateGenderDto } from './dto/update-gender.dto';
 import { Gender } from '@prisma/client';
-import { isURL } from 'class-validator';
-import * as path from 'path';
-import * as fs from 'fs';
-import { isUrl } from 'src/utils/isUrl'
-import { removeFile } from 'src/utils/removeFile'
+import { isUrl } from 'src/utils/isUrl';
+import { removeFile } from 'src/utils/removeFile';
 
 @Injectable()
 export class UserInfoService {
@@ -25,6 +22,7 @@ export class UserInfoService {
         birthday: true,
         gender: true,
         profile_img: true,
+        miniature_img: true,
         discord: true,
         telegram: true,
         twitch: true,
@@ -110,8 +108,13 @@ export class UserInfoService {
       },
     });
 
-    if (!!user.profile_img && !isUrl(user.profile_img)) { // remove img from static folder if it's not URL
+    if (!!user.profile_img && !isUrl(user.profile_img)) {
+      // remove img from static folder if it's not URL
       removeFile(user.profile_img);
+    }
+
+    if (!!user.miniature_img && !isUrl(user.miniature_img)) {
+      removeFile(user.miniature_img);
     }
 
     return await this.prisma.user.update({
@@ -120,6 +123,29 @@ export class UserInfoService {
       },
       data: {
         profile_img: img.filename,
+        miniature_img: null,
+      },
+    });
+  }
+
+  async updateMiniatureImg(userId: number, img: Express.Multer.File) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!!user.miniature_img && !isUrl(user.miniature_img)) {
+      // remove img from static folder if it's not URL
+      removeFile(user.miniature_img);
+    }
+
+    return await this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        miniature_img: img.filename,
       },
     });
   }

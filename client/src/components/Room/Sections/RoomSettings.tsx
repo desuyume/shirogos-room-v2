@@ -8,6 +8,7 @@ import ChangeBirthday from '../Settings/ChangeBirthday'
 import ChangeProfileImg from '../Settings/ChangeProfileImg'
 import { isUrl } from '@/utils/isUrl'
 import noProfilePictureIcon from '@/assets/no-profile-picture-icon.webp'
+import ChangeMiniature from '../Settings/ChangeMiniature'
 
 const RoomSettings: FC = () => {
 	const location = useLocation()
@@ -92,9 +93,14 @@ const RoomSettings: FC = () => {
 					/>
 				)}
 
-				<button className='w-full bg-secondaryHover h-[3.1875rem] text-xl text-primaryText mb-[0.62rem] hover:bg-secondary transition-all'>
-					Изменить миниатюру
-				</button>
+				<ChangeMiniature
+					isDisabled={!userInfo.profile_img}
+					profileImg={
+						isUrl(userInfo.profile_img ?? '')
+							? userInfo.profile_img
+							: `${import.meta.env.VITE_SERVER_URL}/${userInfo.profile_img}`
+					}
+				/>
 				<ChangeProfileImg />
 			</div>
 		</div>

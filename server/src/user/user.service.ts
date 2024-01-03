@@ -51,6 +51,7 @@ export class UserService {
       select: {
         username: true,
         profile_img: true,
+        miniature_img: true,
         level: true,
         dangos: true
       }

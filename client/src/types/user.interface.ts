@@ -16,6 +16,7 @@ export interface IUserProfile {
 	dangos: number
 	level: number
 	profile_img: string | null
+	miniature_img: string | null
 }
 
 export interface IFindUser {
@@ -72,6 +73,7 @@ export interface IUserInfo {
 	birthday: Date
 	gender: Gender
 	profile_img: string | null
+	miniature_img: string | null
 	discord: IConnection
 	telegram: IConnection
 	twitch: IConnection

@@ -54,6 +54,7 @@ model User {
   fraction_tournaments Int              @default(0)
   past_usernames       PastUsername[]
   profile_img          String?
+  miniature_img        String?
   role                 String           @default("user")
   twitch               TwitchProfile    @relation(fields: [twitchId], references: [id])
   twitchId             Int              @unique
