@@ -66,8 +66,6 @@ export class UserInfoController {
     @Request() req,
     @UploadedFile() img: Express.Multer.File,
   ) {
-    console.log(img);
-    
     const { id } = req.user;
     return await this.userInfoService.updateMiniatureImg(id, img);
   }

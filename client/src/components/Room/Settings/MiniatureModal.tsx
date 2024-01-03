@@ -72,7 +72,7 @@ const MiniatureModal: FC<IMiniatureModal> = ({
 		<div
 			className={
 				(isVisible ? 'visible opacity-100 ' : 'invisible opacity-0 ') +
-				`bg-secondary bg-opacity-50 w-screen h-screen fixed inset-0 flex justify-center items-center z-50 transition-all`
+				`bg-black bg-opacity-60 w-screen h-screen fixed inset-0 flex justify-center items-center z-50 transition-all`
 			}
 		>
 			<div className='bg-secondary text-center items-center rounded-[37px] p-8'>
