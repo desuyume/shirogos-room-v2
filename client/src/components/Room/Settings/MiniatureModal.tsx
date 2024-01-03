@@ -75,16 +75,13 @@ const MiniatureModal: FC<IMiniatureModal> = ({
 				`bg-secondary bg-opacity-50 w-screen h-screen fixed inset-0 flex justify-center items-center z-50 transition-all`
 			}
 		>
-			<div className='bg-secondary text-center items-center rounded-[37px] overflow-y-scroll p-8'>
+			<div className='bg-secondary text-center items-center rounded-[37px] p-8'>
 				<div className='w-full mb-6 relative'>
 					<ReactCrop
 						aspect={5 / 4}
 						crop={crop}
 						onChange={c => setCrop(c)}
-						onComplete={c => {
-							setCompletedCrop(c)
-							console.log(c)
-						}}
+						onComplete={c => setCompletedCrop(c)}
 					>
 						<img
 							className='h-[70vh]'
