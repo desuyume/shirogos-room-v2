@@ -26,10 +26,14 @@ const MiniatureModal: FC<IMiniatureModal> = ({
 	const { mutate: updateMiniature, isSuccess: isSuccessUpdate } =
 		useUpdateMiniatureImg()
 
-	const onImageLoad = (e: SyntheticEvent<HTMLImageElement, Event>) => {
-		imgRef.current = e.currentTarget
+	const setCropInCenter = (e?: SyntheticEvent<HTMLImageElement, Event>) => {
+		const image = e?.currentTarget ?? imgRef.current
 
-		const { naturalWidth: width, naturalHeight: height } = e.currentTarget
+		if (!image) {
+			return
+		}
+
+		const { naturalWidth: width, naturalHeight: height } = image
 
 		const crop = centerCrop(
 			makeAspectCrop(
@@ -50,6 +54,11 @@ const MiniatureModal: FC<IMiniatureModal> = ({
 		setCrop(crop)
 	}
 
+	const onImageLoad = (e: SyntheticEvent<HTMLImageElement, Event>) => {
+		imgRef.current = e.currentTarget
+		setCropInCenter(e)
+	}
+
 	const clickSave = async () => {
 		const saveToServer = (file: File) => {
 			const data = new FormData()
@@ -68,6 +77,17 @@ const MiniatureModal: FC<IMiniatureModal> = ({
 		}
 	}, [isSuccessUpdate])
 
+	useEffect(() => {
+		const observer = new ResizeObserver(() => {
+			setCropInCenter()
+		})
+		observer.observe(document.documentElement)
+
+		return () => {
+			observer.unobserve(document.documentElement)
+		}
+	}, [])
+
 	return (
 		<div
 			className={
@@ -76,7 +96,7 @@ const MiniatureModal: FC<IMiniatureModal> = ({
 			}
 		>
 			<div className='bg-secondary text-center items-center rounded-[37px] p-8'>
-				<div className='w-full mb-6 relative'>
+				<div className='w-full mb-6'>
 					<ReactCrop
 						aspect={5 / 4}
 						crop={crop}
