@@ -34,7 +34,7 @@ const News: FC = () => {
 	}, [textRef, isFetching])
 	
 	return (
-		<div className='w-[66rem] h-[9.375rem] bg-tertiary bg-opacity-40 absolute top-4 right-6 rounded-[2.3125rem] flex justify-between items-center pr-[0.94rem] transition-all news'>
+		<div className='w-full h-[9.375rem] bg-tertiary bg-opacity-40 rounded-[2.3125rem] flex justify-between items-center pr-[0.94rem] transition-all mb-[0.94rem] news'>
 			{isLoading || isFetching ? (
 				<p className='w-full h-full flex justify-center items-center text-xl text-primaryText'>
 					Загрузка...

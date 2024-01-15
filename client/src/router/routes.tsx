@@ -10,12 +10,14 @@ import Youtubes from '@/pages/Youtubes'
 import { IRoute } from '@/types/types'
 import { adminRoutes } from './adminRoutes'
 import Admin from '@/pages/Admin/Admin'
+import Streamer from '@/pages/Streamer'
 
 export const publicRouter: IRoute[] = [
 	{ path: '/', element: <Main /> },
 	{ path: '/wiki/:id', element: <WikiReader /> },
 	{ path: '/wiki', element: <Wiki /> },
 	{ path: '/dangoteka', element: <Dangoteka /> },
+	{ path: '/streamer', element: <Streamer /> },
 	{ path: '/youtubes', element: <Youtubes /> },
 	{ path: '/manga/:id/:chapter?', element: <Manga /> },
 	{ path: '/story/:id/:chapter?', element: <Story /> },

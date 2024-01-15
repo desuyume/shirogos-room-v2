@@ -14,7 +14,7 @@ const PastOrders: FC<IPastOrders> = ({ isPastOrders, setIsPastOrders }) => {
 		<div
 			className={
 				(isPastOrders ? 'visible opacity-100' : 'invisible opacity-0') +
-				' w-[38.8125rem] h-[18.375rem] absolute top-[11.40rem] right-6 transition-all'
+				' w-full h-full absolute inset-0 transition-all'
 			}
 		>
 			<div className='bg-tertiary bg-opacity-80 h-[4.3125rem] flex justify-center items-center relative rounded-t-[2.3125rem]'>

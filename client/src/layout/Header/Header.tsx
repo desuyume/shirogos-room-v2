@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import HeaderBttn from './HeaderBttn'
 import { UserContext } from '@/Context'
 import Profile from './Profile'
+import PrimaryHeaderBttn from './PrimaryHeaderBttn'
 
 interface IHeader {
 	withLine: boolean
@@ -15,10 +16,6 @@ const Header: FC<IHeader> = ({ withLine, isFixed }) => {
 	const userContext = useContext(UserContext)
 
 	const [isLogoHover, setIsLogoHover] = useState<boolean>(false)
-	const links = [
-		{ path: '/wiki', title: 'Википедия' },
-		{ path: '/dangoteka', title: 'Данготека' },
-	]
 
 	return (
 		<div
@@ -53,10 +50,10 @@ const Header: FC<IHeader> = ({ withLine, isFixed }) => {
 				</Link>
 			</div>
 
-			<nav>
-				{links.map(link => (
-					<HeaderBttn key={link.path} path={link.path} title={link.title} />
-				))}
+			<nav className='w-full flex justify-center items-center'>
+				<HeaderBttn path='/wiki' title='Википедия' />
+				<PrimaryHeaderBttn path='/streamer' title='Стримерская' />
+				<HeaderBttn path='/dangoteka' title='Данготека' />
 			</nav>
 			{userContext?.isFetched && userContext.user && <Profile />}
 			{withLine && (

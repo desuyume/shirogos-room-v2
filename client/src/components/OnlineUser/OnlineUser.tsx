@@ -5,7 +5,7 @@ const OnlineUser: FC = () => {
 	const { isLoading, data: onlineOption, isError } = useRandomOnlineOption()
 
 	return (
-		<div className='w-[31.875rem] h-[6.0625rem] rounded-[2.3125rem] bg-secondary absolute -bottom-[3.5rem] left-7'>
+		<div className='w-[31.875rem] h-[6.0625rem] rounded-[2.3125rem] bg-secondary bg-opacity-80'>
 			<p className='text-center text-primaryText text-xl mt-3 leading-none'>
 				{isLoading
 					? 'Загрузка...'

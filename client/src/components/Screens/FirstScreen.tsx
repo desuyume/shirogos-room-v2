@@ -1,6 +1,4 @@
 import { FC, useContext, useState } from 'react'
-import docsIcon from '@/assets/docs.png'
-import docsIconHover from '@/assets/docs-hover.png'
 import shirogoImg from '@/assets/shirogo-first-screen.png'
 import Socials from '@/components/Socials/Socials'
 import {
@@ -14,7 +12,6 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 const FirstScreen: FC = () => {
-	const [isDocsHover, setIsDocsHover] = useState<boolean>(false)
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 	const context = useContext(UserContext)
 
@@ -94,19 +91,6 @@ const FirstScreen: FC = () => {
 				</button>
 				</div>
 			)}
-
-			<a
-				onMouseOver={() => setIsDocsHover(true)}
-				onMouseLeave={() => setIsDocsHover(false)}
-				href='https://docs.google.com/spreadsheets/d/1Qa0lxGo0qPGpLf2k2HsfinIy6zfg7MYlgWGRsG88Eac/edit?usp=sharing'
-				target='_blank'
-			>
-				<img
-					className='absolute right-5 bottom-6 w-[78px]'
-					src={isDocsHover ? docsIconHover : docsIcon}
-					alt='docs-icon'
-				/>
-			</a>
 		</div>
 	)
 }

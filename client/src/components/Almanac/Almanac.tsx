@@ -47,7 +47,7 @@ const Almanac: FC = () => {
 
 	return (
 		<div
-			className='w-[510px] h-[275px] absolute rounded-[37px] left-7 bottom-16 flex justify-between items-center py-3.5 px-3'
+			className='w-[31.875rem] h-[17.1875rem] rounded-[2.3125rem] flex justify-between items-center py-3.5 px-3'
 			style={{
 				background:
 					'linear-gradient(137deg, rgba(23, 23, 23, 0.20) 0%, rgba(36, 36, 36, 0.20) 46.88%), rgba(24, 24, 24, 0.40)',
@@ -64,7 +64,9 @@ const Almanac: FC = () => {
 						{currentDate.getDate()}{' '}
 						{months[currentDate.getMonth() as keyof typeof months]}
 					</p>
-					<p className='text-primaryText text-[2.5rem] leading-none'>Альманах</p>
+					<p className='text-primaryText text-[2.5rem] leading-none'>
+						Альманах
+					</p>
 				</div>
 				<div className='flex justify-center items-center overflow-y-auto'>
 					{nicknames ? (
@@ -83,7 +85,10 @@ const Almanac: FC = () => {
 							<img src={noBirthdayCakeImg} alt='cake-img' className='mr-5' />
 							<p className='text-[1.0625rem] text-primaryText text-center w-[45%] leading-none pt-2.5'>
 								Сегодня нет
-								<span className='text-[#EBE984] inline-block'>Дней Рождений</span>!
+								<span className='text-[#EBE984] inline-block'>
+									Дней Рождений
+								</span>
+								!
 								<span className='text-[0.625rem] inline-block leading-normal'>
 									(или его не указали в настройках)
 								</span>

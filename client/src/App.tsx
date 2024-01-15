@@ -3,6 +3,7 @@ import AppRouter from '@/components/AppRouter'
 import { useContext, useEffect } from 'react'
 import { UserContext } from './Context'
 import userService from './services/user.service'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
 	const context = useContext(UserContext)
@@ -28,6 +29,7 @@ function App() {
 
 	return (
 		<BrowserRouter>
+			<ScrollToTop />
 			<AppRouter />
 		</BrowserRouter>
 	)
