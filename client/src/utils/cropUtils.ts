@@ -37,7 +37,11 @@ export const setCanvasImage = (
 	)
 }
 
-export const saveCrop = async (image: HTMLImageElement, crop: Crop, fn: (file: File) => void) => {
+export const saveCrop = async (
+	image: HTMLImageElement,
+	crop: Crop,
+	fn?: (file: File) => void
+): Promise<File | null> => {
 	const canvas = document.createElement('canvas')
 	const scaleX = image.naturalWidth / image.width
 	const scaleY = image.naturalHeight / image.height
@@ -50,6 +54,8 @@ export const saveCrop = async (image: HTMLImageElement, crop: Crop, fn: (file: F
 	if (!ctx) {
 		return null
 	}
+
+	ctx.imageSmoothingQuality = 'high'
 
 	ctx.drawImage(
 		image,
@@ -66,7 +72,25 @@ export const saveCrop = async (image: HTMLImageElement, crop: Crop, fn: (file: F
 	const dataUrl = canvas.toDataURL('image/jpeg')
 	const file = dataURLtoFile(dataUrl, 'image.jpeg')
 
-	fn(file)
+	if (fn) {
+		fn(file)
+	}
+
+	return file
+}
+
+export const clearCanvas = (canvas: HTMLCanvasElement) => {
+	if (!canvas) {
+		return
+	}
+
+	const ctx = canvas.getContext('2d')
+
+	if (!ctx) {
+		return
+	}
+
+	ctx.restore()
 }
 
 const dataURLtoFile = (dataURL: string, filename: string) => {

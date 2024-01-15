@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC, useContext, useState } from 'react'
 import logo from '@/assets/logo.png'
 import logoHover from '@/assets/logo-hover.png'
 import { Link } from 'react-router-dom'
@@ -19,12 +19,6 @@ const Header: FC<IHeader> = ({ withLine, isFixed }) => {
 		{ path: '/wiki', title: 'Википедия' },
 		{ path: '/dangoteka', title: 'Данготека' },
 	]
-
-	useEffect(() => {
-		if (userContext?.isFetched) {
-			console.log(userContext?.user)
-		}
-	}, [userContext?.isFetched])
 
 	return (
 		<div

@@ -493,7 +493,7 @@ export class RoomService {
         userId,
       },
       data: {
-        characterId: +dto.characterId,
+        characterId: dto.characterId,
       },
       select: {
         favorite_character: true,

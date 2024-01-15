@@ -127,7 +127,7 @@ model Room {
   random_unique_role_adjective   String?
   random_unique_role_noun        String?
   favorite_character             Character?           @relation(fields: [characterId], references: [id])
-  characterId                    Int?
+  characterId                    String?
   buyed_backgrounds              BackroundsOnRooms[]
   selected_background            RoomBackground?      @relation(fields: [roomBackgroundId], references: [id])
   roomBackgroundId               Int?
@@ -350,16 +350,17 @@ model ChronicleEvent {
 }
 
 model Character {
-  id                       Int                       @id @default(autoincrement())
+  id                       String                    @id @unique
   name                     String
   subTitle                 String?
   subSubTitle              String?
-  category                 String?
+  category                 CharacterCategory?        @relation(fields: [characterCategoryId], references: [id])
   original_img             String?
   miniature_img            String?
   characterDescriptions    CharacterDescription[]
   characterCharacteristics CharacterCharacteristic[]
   Room                     Room[]
+  characterCategoryId      Int?
 
   @@map("characters")
 }
@@ -368,8 +369,8 @@ model CharacterDescription {
   id          Int        @id @default(autoincrement())
   title       String
   description String
+  characterId String?
   Character   Character? @relation(fields: [characterId], references: [id])
-  characterId Int?
 
   @@map("character_descriptions")
 }
@@ -378,8 +379,14 @@ model CharacterCharacteristic {
   id             Int        @id @default(autoincrement())
   title          String
   characteristic String
+  characterId    String?
   Character      Character? @relation(fields: [characterId], references: [id])
-  characterId    Int?
 
   @@map("character_characteristics")
+}
+
+model CharacterCategory {
+  id        Int         @id @default(autoincrement())
+  title     String      @unique
+  Character Character[]
 }

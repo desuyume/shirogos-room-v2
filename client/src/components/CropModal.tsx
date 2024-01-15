@@ -1,5 +1,4 @@
-import { useUpdateMiniatureImg } from '@/api/useUpdateMiniatureImg'
-import { saveCrop } from '@/utils/cropUtils'
+import { saveCrop, setCanvasImage } from '@/utils/cropUtils'
 import { FC, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import ReactCrop, {
 	centerCrop,
@@ -8,23 +7,28 @@ import ReactCrop, {
 } from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 
-interface IMiniatureModal {
-	profileImg: string | null
+interface ICropModal {
+	aspect: number
+	img: string | null
 	isVisible: boolean
 	setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
+	saveToServerFn?: (file: File) => void
+	canvas?: HTMLCanvasElement | null
+	setMiniature?: React.Dispatch<React.SetStateAction<File | null>>
 }
 
-const MiniatureModal: FC<IMiniatureModal> = ({
-	profileImg,
+const CropModal: FC<ICropModal> = ({
+	aspect,
+	img,
 	isVisible,
 	setIsVisible,
+	saveToServerFn,
+	canvas,
+	setMiniature
 }) => {
 	const [crop, setCrop] = useState<Crop>()
 	const [completedCrop, setCompletedCrop] = useState<Crop | null>(null)
 	const imgRef = useRef<HTMLImageElement | null>(null)
-
-	const { mutate: updateMiniature, isSuccess: isSuccessUpdate } =
-		useUpdateMiniatureImg()
 
 	const setCropInCenter = (e?: SyntheticEvent<HTMLImageElement, Event>) => {
 		const image = e?.currentTarget ?? imgRef.current
@@ -43,7 +47,7 @@ const MiniatureModal: FC<IMiniatureModal> = ({
 					unit: '%',
 					width: 90,
 				},
-				5 / 4,
+				aspect,
 				width,
 				height
 			),
@@ -60,22 +64,20 @@ const MiniatureModal: FC<IMiniatureModal> = ({
 	}
 
 	const clickSave = async () => {
-		const saveToServer = (file: File) => {
-			const data = new FormData()
-			data.append('img', file)
-			updateMiniature(data)
+		if (imgRef.current && completedCrop && saveToServerFn) {
+			saveCrop(imgRef.current, completedCrop, saveToServerFn)
 		}
 
-		if (imgRef.current && completedCrop) {
-			saveCrop(imgRef.current, completedCrop, saveToServer)
+		if (!!canvas && imgRef.current && completedCrop) {
+			setCanvasImage(imgRef.current, canvas, completedCrop)
+			setIsVisible(false)
+
+			if (setMiniature) {
+				const file = await saveCrop(imgRef.current, completedCrop)
+				setMiniature(file)
+			}
 		}
 	}
-
-	useEffect(() => {
-		if (isSuccessUpdate) {
-			setIsVisible(false)
-		}
-	}, [isSuccessUpdate])
 
 	useEffect(() => {
 		const observer = new ResizeObserver(() => {
@@ -98,7 +100,7 @@ const MiniatureModal: FC<IMiniatureModal> = ({
 			<div className='bg-secondary text-center items-center rounded-[37px] p-8'>
 				<div className='w-full mb-6'>
 					<ReactCrop
-						aspect={5 / 4}
+						aspect={aspect}
 						crop={crop}
 						onChange={c => setCrop(c)}
 						onComplete={c => setCompletedCrop(c)}
@@ -106,7 +108,7 @@ const MiniatureModal: FC<IMiniatureModal> = ({
 						<img
 							className='h-[70vh]'
 							onLoad={onImageLoad}
-							src={profileImg ?? ''}
+							src={img ?? ''}
 							crossOrigin='anonymous'
 						/>
 					</ReactCrop>
@@ -130,4 +132,4 @@ const MiniatureModal: FC<IMiniatureModal> = ({
 	)
 }
 
-export default MiniatureModal
+export default CropModal
