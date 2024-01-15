@@ -1,0 +1,26 @@
+.quill {
+	color: #FFF;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+
+	.ql-toolbar {
+		height: 9%;
+		border: none;
+		border-bottom: 5px solid #181818;
+
+		.ql-picker-options {
+			background-color: transparent;
+			width: 153px;
+		}
+	}
+
+	.ql-container {
+		border: none;
+		height: 91%;
+
+		.ql-editor {
+			outline: none;
+		}
+	}
+}

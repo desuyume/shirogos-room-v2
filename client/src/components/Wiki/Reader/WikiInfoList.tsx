@@ -1,18 +1,21 @@
 import { FC } from 'react'
 import WikiInfoItem from './WikiInfoItem'
+import { IDescription } from '@/types/wiki.interface'
 
-interface IWikiInfoList { 
-	dossier: string
-	abilities: string
-	relations: string
+interface IWikiInfoList {
+	descriptions: IDescription[]
 }
 
-const WikiInfoList: FC<IWikiInfoList> = ({ dossier, abilities, relations }) => {
+const WikiInfoList: FC<IWikiInfoList> = ({ descriptions }) => {
 	return (
 		<div className='ml-[2.69rem] mt-[4.5rem] transition-all duration-1000 ease-out z-10'>
-			<WikiInfoItem type='Общее досье' value={dossier} />
-			<WikiInfoItem type='Способности' value={abilities} />
-			<WikiInfoItem type='Связи' value={relations}  />
+			{descriptions.map(description => (
+				<WikiInfoItem
+					key={description.id}
+					type={description.title}
+					value={description.description}
+				/>
+			))}
 		</div>
 	)
 }

@@ -72,3 +72,8 @@ export const CREATE_AWARD_KEY = 'create award'
 
 export const BOUTIQUE_BADGE_KEY = 'boutique badge' 
 export const BUY_BADGE_KEY = 'buy badge'
+
+export const CHARACTER_KEY = 'character'
+export const CREATE_CHARACTER_KEY = 'create character'
+export const CHARACTER_CATEGORY_KEY = 'character category'
+export const CREATE_CHARACTER_CATEGORY_KEY = 'create character category'

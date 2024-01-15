@@ -22,6 +22,7 @@ import { UserInfoModule } from './user_info/user_info.module'
 import { TasksModule } from './tasks/tasks.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AwardModule } from './award/award.module';
+import { WikiModule } from './wiki/wiki.module';
 
 @Module({
   imports: [
@@ -46,7 +47,8 @@ import { AwardModule } from './award/award.module';
     UserInfoModule,
     ScheduleModule.forRoot(),
     TasksModule,
-    AwardModule
+    AwardModule,
+    WikiModule
   ],
   controllers: [AppController],
   providers: [AppService],

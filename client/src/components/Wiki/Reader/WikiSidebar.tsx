@@ -1,18 +1,15 @@
 import { FC } from 'react'
 import WikiSidebarInfo from './WikiSidebarInfo'
+import { ICharacteristic } from '@/types/wiki.interface'
 
 interface IWikiSidebar {
-	gender: string
-	fraction: string
-	age: string
+	characteristics: ICharacteristic[]
 	isOpen: boolean
 	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const WikiSidebar: FC<IWikiSidebar> = ({
-	gender,
-	fraction,
-	age,
+	characteristics,
 	isOpen,
 	setIsOpen,
 }) => {
@@ -25,10 +22,20 @@ const WikiSidebar: FC<IWikiSidebar> = ({
 				' h-[calc(100%-5.25rem)] fixed left-0 bottom-0 bg-tertiary transition-all duration-1000 ease-out z-40'
 			}
 		>
-			<WikiSidebarInfo isSidebarOpen={isOpen} type='Пол' value={gender} />
-			<WikiSidebarInfo isSidebarOpen={isOpen} type='Фракция' value={fraction} />
-			<WikiSidebarInfo isSidebarOpen={isOpen} type='Возраст' value={age} />
-			<p className={(isOpen ? 'left-[-50%]' : 'left-[50%]') + ' text-[#44B86B] text-[2.1875rem] absolute translate-x-[-50%] top-[50%] translate-y-[-50%] select-none transition-all duration-1000 ease-out'}>
+			{characteristics.map(characteristic => (
+				<WikiSidebarInfo
+					isSidebarOpen={isOpen}
+					key={characteristic.id}
+					type={characteristic.title}
+					value={characteristic.characteristic}
+				/>
+			))}
+			<p
+				className={
+					(isOpen ? 'left-[-50%]' : 'left-[50%]') +
+					' text-[#44B86B] text-[2.1875rem] absolute translate-x-[-50%] top-[50%] translate-y-[-50%] select-none transition-all duration-1000 ease-out'
+				}
+			>
 				|
 			</p>
 		</div>

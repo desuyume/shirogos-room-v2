@@ -1,3 +1,3 @@
 export class ChooseFavoriteCharacterDto {
-	characterId: number
+	characterId: string
 }
