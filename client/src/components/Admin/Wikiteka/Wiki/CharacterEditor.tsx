@@ -138,7 +138,7 @@ const CharacterEditor: FC<ICharacterEditor> = ({
 		<div
 			className={
 				(isVisible ? 'opacity-100 visible ' : 'opacity-0 invisible ') +
-				'bg-tertiary w-full h-[60.625rem] border-t-[1px] border-t-primary absolute inset-0 top-[5.25rem] flex justify-center transition-all px-8 pt-[1.94rem]'
+				'bg-tertiary w-full h-[60.625rem] border-t-[1px] border-t-primary absolute inset-0 top-[5.25rem] flex justify-center transition-all px-8 pt-[1.94rem] z-20'
 			}
 		>
 			<button
