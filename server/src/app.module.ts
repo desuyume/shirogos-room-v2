@@ -18,11 +18,12 @@ import { NewsModule } from './news/news.module';
 import { ChronicleModule } from './chronicle/chronicle.module';
 import { RoomModule } from './room/room.module';
 import { UserStatsModule } from './user_stats/user_stats.module';
-import { UserInfoModule } from './user_info/user_info.module'
+import { UserInfoModule } from './user_info/user_info.module';
 import { TasksModule } from './tasks/tasks.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AwardModule } from './award/award.module';
 import { WikiModule } from './wiki/wiki.module';
+import { MangaModule } from './manga/manga.module';
 
 @Module({
   imports: [
@@ -48,7 +49,8 @@ import { WikiModule } from './wiki/wiki.module';
     ScheduleModule.forRoot(),
     TasksModule,
     AwardModule,
-    WikiModule
+    WikiModule,
+    MangaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

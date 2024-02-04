@@ -16,7 +16,7 @@ const ChaptersList: FC<IChaptersList> = ({ isVisible, setIsVisible, currentChapt
 			continue
 		}
 
-		list.push(<ChapterItem chapter={i} path={path} setIsVisible={setIsVisible} />)
+		list.push(<ChapterItem key={i} chapter={i} path={path} setIsVisible={setIsVisible} />)
 	}
 	return (
 		<div onClick={e => e.stopPropagation()} className={(isVisible ? 'visible opacity-100' : 'invisible opacity-0') + ' cursor-default absolute w-full top-[7.8125rem] bg-primary pb-[0.3rem] z-30 transition-all'}>

@@ -6,7 +6,7 @@ interface IDangotekaSectionItem {
 	itemId: string
 	img: string
 	title: string
-	description: string
+	description: string | null
 }
 
 const DangotekaSectionItem: FC<IDangotekaSectionItem> = ({
@@ -23,7 +23,15 @@ const DangotekaSectionItem: FC<IDangotekaSectionItem> = ({
 					className='min-w-[14.75rem] min-h-[19.4375rem] max-w-[14.75rem] max-h-[19.4375rem] inline-block'
 					to={type === 'manga' ? '/manga/' + itemId + '/1' : '/story/' + itemId}
 				>
-					<img className='rounded-[2.3125rem]' src={img} alt='manga-img' />
+					<img
+						className='w-full aspect-[236/311] rounded-[2.3125rem]'
+						src={
+							type === 'manga'
+								? `${import.meta.env.VITE_SERVER_URL}/${img}`
+								: img
+						}
+						alt='manga-img'
+					/>
 				</Link>
 				<p className='text-primaryText text-[0.9375rem] text-center ml-[1.8rem] w-[15.6875rem]'>
 					{description}

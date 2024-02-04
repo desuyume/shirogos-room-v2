@@ -1,9 +1,10 @@
+import { IMangaPage } from '@/types/manga.interface'
 import { ICharacterBlocks } from '@/types/wiki.interface'
 import { getAdminWikitekaColor } from '@/utils/wikitekaColors'
 import { FC } from 'react'
 
 interface IEditorBlocks {
-	blocks: ICharacterBlocks
+	blocks: ICharacterBlocks | IMangaPage[]
 	setSelectedBlock: React.Dispatch<React.SetStateAction<any>>
 	setIsEditorVisible: React.Dispatch<React.SetStateAction<boolean>>
 	title: string

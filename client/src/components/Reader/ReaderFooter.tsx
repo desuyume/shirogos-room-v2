@@ -25,7 +25,11 @@ const ReaderFooter: FC<IReaderFooter> = ({
 	return (
 		<div
 			className='flex justify-between items-center border-t-secondaryHover border-t-[1px] min-h-[7.8125rem] transition-all'
-			style={{ paddingLeft: offset + '%', paddingRight: offset + '%' }}
+			style={
+				pages > 0
+					? { paddingLeft: offset + '%', paddingRight: offset + '%' }
+					: { paddingLeft: '4.3rem', paddingRight: '4.3rem' }
+			}
 		>
 			<div className='flex items-center'>
 				<img

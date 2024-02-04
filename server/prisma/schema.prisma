@@ -390,3 +390,27 @@ model CharacterCategory {
   title     String      @unique
   Character Character[]
 }
+
+model Manga {
+  id           String         @id @unique
+  title        String
+  cover_img    String
+  description  String
+  MangaChapter MangaChapter[]
+}
+
+model MangaChapter {
+  id        Int         @id @default(autoincrement())
+  chapter   Int
+  mangaId   String
+  Manga     Manga?      @relation(fields: [mangaId], references: [id])
+  MangaPage MangaPage[]
+}
+
+model MangaPage {
+  id             Int           @id @default(autoincrement())
+  page_number    Int
+  page_img       String
+  mangaChapterId Int?
+  MangaChapter   MangaChapter? @relation(fields: [mangaChapterId], references: [id])
+}
