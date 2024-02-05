@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import EditorBlocks from '../Wiki/EditorBlocks'
+import EditorBlocks from '../EditorBlocks'
 import { IManga, IMangaPage } from '@/types/manga.interface'
 import MangaPageEditor from './MangaPageEditor'
 import EditorInput from '../EditorInput'
@@ -218,7 +218,7 @@ const MangaEditor: FC<IMangaEditor> = ({
 		>
 			<button
 				onClick={() => setIsVisible(false)}
-				className='w-[16rem] h-[57.3125rem] bg-primary hover:bg-primaryHover transition-all flex justify-center items-center text-[#FFF] text-[2.5rem]'
+				className='min-w-[16rem] h-[57.3125rem] bg-primary hover:bg-primaryHover transition-all flex justify-center items-center text-[#FFF] text-[2.5rem]'
 			>
 				Назад
 			</button>
@@ -274,7 +274,7 @@ const MangaEditor: FC<IMangaEditor> = ({
 
 			<button
 				onClick={clickAddHandler}
-				className='w-[16rem] h-[57.3125rem] bg-primary hover:bg-primaryHover transition-all flex justify-center items-center text-[#FFF] text-[2.5rem]'
+				className='min-w-[16rem] h-[57.3125rem] bg-primary hover:bg-primaryHover transition-all flex justify-center items-center text-[#FFF] text-[2.5rem]'
 			>
 				{isEditManga ? 'Изменить' : 'Добавить'}
 			</button>

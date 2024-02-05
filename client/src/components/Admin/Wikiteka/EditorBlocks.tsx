@@ -17,13 +17,13 @@ const EditorBlocks: FC<IEditorBlocks> = ({
 	title,
 }) => {
 	return (
-		<div className='w-full h-[3.8125rem] border-[5px] box-content border-primary bg-secondary mb-5 last-of-type:mb-0 flex'>
+		<div className='w-full h-[3.8125rem] border-[5px] box-content border-primary bg-secondary mb-5 last-of-type:mb-0 flex relative'>
 			<div className='w-[38%] h-full bg-tertiary flex justify-center items-center'>
 				<p className='text-[#FFF] text-[1.5625rem] text-center leading-none'>
 					{title}
 				</p>
 			</div>
-			<div className='flex-1 h-full flex overflow-x-auto overflow-y-hidden'>
+			<div className='w-[62%] h-full flex overflow-x-auto overflow-y-hidden absolute right-0'>
 				{blocks.map((block, index) => (
 					<button
 						key={block.id}
@@ -32,7 +32,7 @@ const EditorBlocks: FC<IEditorBlocks> = ({
 							setIsEditorVisible(true)
 						}}
 						style={{ backgroundColor: getAdminWikitekaColor(index + 1) }}
-						className='min-w-[4.5625rem] h-full bg-green-800 hover:bg-green-700 transition-all flex justify-center items-center text-[#FFF] font-secondary font-bold text-[2.1875rem]'
+						className='min-w-[4.5625rem] max-w-[4.5625rem] h-full bg-green-800 hover:bg-green-700 transition-all flex justify-center items-center text-[#FFF] font-secondary font-bold text-[2.1875rem]'
 					>
 						{index + 1}
 					</button>
@@ -42,7 +42,7 @@ const EditorBlocks: FC<IEditorBlocks> = ({
 						setSelectedBlock(null)
 						setIsEditorVisible(true)
 					}}
-					className='min-w-[4.5625rem] h-full transition-all flex justify-center items-center text-[#FFF] hover:text-opacity-70 text-[2.5rem] leading-none'
+					className='min-w-[4.5625rem] max-w-[4.5625rem] h-full transition-all flex justify-center items-center text-[#FFF] hover:text-opacity-70 text-[2.5rem] leading-none'
 				>
 					+
 				</button>
