@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import EditorBlocks from '../Wiki/EditorBlocks'
+import EditorBlocks from '../EditorBlocks'
 import { IManga, IMangaPage } from '@/types/manga.interface'
 import MangaPageEditor from './MangaPageEditor'
 import EditorInput from '../EditorInput'

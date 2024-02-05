@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import EditorMainInfo from './EditorMainInfo'
-import EditorBlocks from './EditorBlocks'
+import EditorBlocks from '../EditorBlocks'
 import CharacteristicEditor from './CharacteristicEditor'
 import {
 	ICategory,

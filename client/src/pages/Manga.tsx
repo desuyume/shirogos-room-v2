@@ -79,6 +79,11 @@ const Manga: FC = () => {
 	}, [pagesCount])
 
 	useEffect(() => {
+		window.scrollTo(0, 0)
+		setIsImagesLoaded(false)
+	}, [currentPageNum])
+
+	useEffect(() => {
 		if (isSuccess) {
 			setPagesCount(manga.pages.length)
 			setChaptersCount(manga.chaptersCount)
@@ -145,15 +150,31 @@ const Manga: FC = () => {
 								<p className='text-xl'>Страниц нет</p>
 							</div>
 						) : (
-							<img
-								style={{ width: mangaWidth + 'vw' }}
-								className='select-none'
-								src={`${import.meta.env.VITE_SERVER_URL}/${pages[
-									+currentPageNum - 1
-								]?.page_img}`}
-								alt='manga-img'
-								onLoad={() => setIsImagesLoaded(true)}
-							/>
+							<div>
+								<img
+									style={{ width: mangaWidth + 'vw' }}
+									className={
+										(isImagesLoaded
+											? 'opacity-100 visible '
+											: 'opacity-0 invisible ') + 'select-none transition-all'
+									}
+									src={`${import.meta.env.VITE_SERVER_URL}/${pages[
+										+currentPageNum - 1
+									]?.page_img}`}
+									alt='manga-img'
+									onLoad={() => setIsImagesLoaded(true)}
+								/>
+								<p
+									className={
+										(isImagesLoaded
+											? 'opacity-0 invisible '
+											: 'opacity-100 visible ') +
+										'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl transition-all'
+									}
+								>
+									Загрузка...
+								</p>
+							</div>
 						)}
 
 						{+currentPageNum < pagesCount && (
