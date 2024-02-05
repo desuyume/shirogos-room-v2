@@ -17,7 +17,7 @@ const Manga: FC = () => {
 
 	const currentChapter = params.chapter ?? 1
 	const [chaptersCount, setChaptersCount] = useState<number>(1)
-
+	
 	const [pagesCount, setPagesCount] = useState<number>(0)
 	const [pages, setPages] = useState<IFetchMangaPage[]>([])
 
