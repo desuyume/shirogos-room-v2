@@ -24,6 +24,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { AwardModule } from './award/award.module';
 import { WikiModule } from './wiki/wiki.module';
 import { MangaModule } from './manga/manga.module';
+import { StoryModule } from './story/story.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { MangaModule } from './manga/manga.module';
     AwardModule,
     WikiModule,
     MangaModule,
+    StoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,7 +4,7 @@ import ChapterItem from './ChapterItem'
 interface IChaptersList { 
 	isVisible: boolean
 	setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
-	currentChapter: number
+	currentChapter?: number
 	chaptersCount: number
 	path: string
 }

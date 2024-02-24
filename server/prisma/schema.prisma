@@ -414,3 +414,19 @@ model MangaPage {
   mangaChapterId Int?
   MangaChapter   MangaChapter? @relation(fields: [mangaChapterId], references: [id])
 }
+
+model Story {
+  id          String      @id @unique
+  title       String
+  description String
+  cover_img   String
+  StoryPage   StoryPage[]
+}
+
+model StoryPage {
+  id       Int     @id @default(autoincrement())
+  text     String
+  page_num Int
+  Story    Story?  @relation(fields: [storyId], references: [id])
+  storyId  String?
+}
