@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import ChaptersList from './ChaptersList'
 
 interface IReaderHeader {
+	title: string
 	currentPage: number
 	pages: number
-	currentChapter: number
-	chapters: number
+	currentChapter?: number
+	chapters?: number
 	type: string
 	itemId: string
 	clickNext?: () => void
@@ -14,6 +15,7 @@ interface IReaderHeader {
 }
 
 const ReaderHeader: FC<IReaderHeader> = ({
+	title,
 	currentPage,
 	pages,
 	currentChapter,
@@ -29,14 +31,14 @@ const ReaderHeader: FC<IReaderHeader> = ({
 		<div className='header min-h-[7.875rem] bg-tertiary border-b-secondaryHover border-b-[1px] flex items-center justify-center relative'>
 			<div 
 				onClick={() => setIsChaptersVisible(!isChaptersVisible)}
-				className={(chapters > 1 && 'cursor-pointer') + ' h-full border-b-[5px] border-b-primary -mb-[2px] pb-[2.5px] flex items-center absolute left-[4.3rem]'}
+				className={(chapters && chapters > 1 && 'cursor-pointer') + ' h-full border-b-[5px] border-b-primary -mb-[2px] pb-[2.5px] flex items-center absolute left-[4.3rem]'}
 			>
 				<p 
-					className='font-tertiary text-[#FFF] text-2xl'
+					className='font-tertiary text-[#FFF] text-2xl px-2 w-[17rem] text-center'
 				>
-					FOR:LOWERS {chapters > 1 && "/ Глава " + currentChapter}
+					{title} {chapters&& chapters > 1 && "/ Глава " + currentChapter}
 				</p>
-				{chapters > 1 && (
+				{chapters && chapters > 1 && (
 					<ChaptersList
 						isVisible={isChaptersVisible}
 						setIsVisible={setIsChaptersVisible}

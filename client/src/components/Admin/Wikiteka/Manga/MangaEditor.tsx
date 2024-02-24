@@ -3,12 +3,12 @@ import EditorBlocks from '../EditorBlocks'
 import { IManga, IMangaPage } from '@/types/manga.interface'
 import MangaPageEditor from './MangaPageEditor'
 import EditorInput from '../EditorInput'
-import MangaEditorImgUpload from './MangaEditorImgUpload'
 import { useCreateManga } from '@/api/useCreateManga'
 import { isNumber } from '@/utils/isNumber'
 import { useAddChapter } from '@/api/useAddChapter'
 import { useUpdateManga } from '@/api/useUpdateManga'
 import { imgSrcToFile } from '@/utils/imageConvert'
+import EditorImgUpload from '../EditorImgUpload'
 
 interface IMangaEditor {
 	isVisible: boolean
@@ -254,7 +254,7 @@ const MangaEditor: FC<IMangaEditor> = ({
 						isDisabled={isCreateChapter}
 						isTextarea
 					/>
-					<MangaEditorImgUpload
+					<EditorImgUpload
 						title='Обложка'
 						img={cover}
 						imgSrc={coverSrc}

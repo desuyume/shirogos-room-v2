@@ -25,11 +25,7 @@ const DangotekaSectionItem: FC<IDangotekaSectionItem> = ({
 				>
 					<img
 						className='w-full aspect-[236/311] rounded-[2.3125rem]'
-						src={
-							type === 'manga'
-								? `${import.meta.env.VITE_SERVER_URL}/${img}`
-								: img
-						}
+						src={`${import.meta.env.VITE_SERVER_URL}/${img}`}
 						alt='manga-img'
 					/>
 				</Link>

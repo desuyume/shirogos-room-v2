@@ -1,9 +1,9 @@
 import { FC, useEffect, useRef, useState } from 'react'
-import storyImg from '@/assets/story.png'
 import DangotekaSectionItem from './DangotekaSectionItem'
 import { Carousel } from '@mantine/carousel'
 import { useWindowSize } from 'usehooks-ts'
 import { useAllMangas } from '@/api/useAllMangas'
+import { useStoriesGeneral } from '@/api/useStoriesGeneral'
 
 interface IDangotekaSectionList {
 	type: string
@@ -15,52 +15,18 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 		isLoading: isMangaLoading,
 		isError: isMangaError,
 	} = useAllMangas()
+	const {
+		data: stories,
+		isLoading: isStoryLoading,
+		isError: isStoryError,
+	} = useStoriesGeneral()
 
-	const stories = [
-		{
-			id: 'flame',
-			cover_img: storyImg,
-			title: 'Ледяное пламя',
-			description:
-				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
-		},
-		{
-			id: 'flame',
-			cover_img: storyImg,
-			title: 'Ледяное пламя',
-			description:
-				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
-		},
-		{
-			id: 'flame',
-			cover_img: storyImg,
-			title: 'Ледяное пламя',
-			description:
-				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
-		},
-		{
-			id: 'flame',
-			cover_img: storyImg,
-			title: 'Ледяное пламя',
-			description:
-				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
-		},
-		{
-			id: 'flame',
-			cover_img: storyImg,
-			title: 'Ледяное пламя',
-			description:
-				'Юная девушка Кристал Ширен отправляется в путешествие, ведомая духом авантюризма.',
-		},
-	]
 	const [items, setItems] = useState<any[]>([])
 	const { width } = useWindowSize()
 	const [isWithControls, setIsWithControls] = useState<boolean>(true)
 	const carouselRef = useRef<HTMLDivElement | null>(null)
 
 	useEffect(() => {
-		console.log(carouselRef.current)
-
 		if (items.length * 666.7 <= width) {
 			setIsWithControls(false)
 		} else {
@@ -74,17 +40,21 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 				setItems(mangas)
 			}
 		} else {
-			setItems(stories)
+			if (!isStoryLoading && !isStoryError) {
+				setItems(stories)
+			}
 		}
-	}, [isMangaLoading])
+	}, [isMangaLoading, isStoryLoading])
 
 	return (
 		<div className='flex w-full h-[25.6rem]'>
-			{type === 'manga' && isMangaLoading ? (
+			{(type === 'manga' && isMangaLoading) ||
+			(type === 'story' && isStoryLoading) ? (
 				<div className='w-full h-full flex justify-center items-center'>
 					<p className='text-xl'>Загрузка...</p>
 				</div>
-			) : type === 'manga' && isMangaError ? (
+			) : (type === 'manga' && isMangaError) ||
+			  (type === 'story' && isStoryError) ? (
 				<div className='w-full h-full flex justify-center items-center'>
 					<p className='text-xl'>Ошибка</p>
 				</div>
@@ -145,7 +115,7 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 					{items.map(item => (
 						<Carousel.Slide>
 							<DangotekaSectionItem
-								key={item.title}
+								key={type + item.title}
 								type={type}
 								itemId={item.id}
 								img={item.cover_img}

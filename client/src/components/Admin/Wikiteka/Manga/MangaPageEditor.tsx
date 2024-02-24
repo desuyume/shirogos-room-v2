@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import MangaEditorImgUpload from './MangaEditorImgUpload'
+import MangaEditorImgUpload from '../EditorImgUpload'
 import { IMangaPage } from '@/types/manga.interface'
 
 interface IMangaPageEditor {

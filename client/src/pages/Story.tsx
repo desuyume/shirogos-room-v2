@@ -2,52 +2,84 @@ import { FC, useEffect, useRef, useState } from 'react'
 import ReaderHeader from '@/components/Reader/ReaderHeader'
 import ReaderFooter from '@/components/Reader/ReaderFooter'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { IStoryPage } from '@/types/story.interface'
+import { isNumber } from '@/utils/isNumber'
+import { useStory } from '@/api/useStory'
+import HTMLReactParser from 'html-react-parser'
+import '@/styles/story.scss'
 
 const Story: FC = () => {
 	const params = useParams()
 
-	const storyId = params.id ?? '' // TODO: use id to get manga from db
-	console.log('story id - ' + storyId)
+	const storyId = params.id ?? ''
 
-	const currentChapter = params.chapter ?? 1
-	console.log('story chapter - ' + currentChapter)
-	const chapters = 1 // TODO: fetch chapters count from d
-
-	// TODO: use page to fetch needed page
 	const [searchParams] = useSearchParams()
-	let currentPage = searchParams.get('page') ?? '1'
-	console.log('story page - ' + currentPage)
-
-	const pages = 18 // TODO: fetch pages from db
+	const [currentPageNum, setCurrentPageNum] = useState<string>(
+		searchParams.get('page') ?? '1'
+	)
+	const [pagesCount, setPagesCount] = useState<number>(0)
+	const [pages, setPages] = useState<IStoryPage[]>([])
 
 	const storyRef = useRef<HTMLDivElement | null>(null)
 	const [offset, setOffset] = useState<number | undefined>(0)
 	const [isZoomed, setIsZoomed] = useState<boolean>(false)
-	const [textSize, setTextSize] = useState<number>(1.5)
+	const [isContentLoaded, setIsContentLoaded] = useState<boolean>(false)
+
+	const { data: story, isLoading, isError, isSuccess } = useStory(storyId)
 
 	const clickZoom = () => {
 		if (!isZoomed) {
 			setIsZoomed(true)
-			setTextSize(textSize + 1)
 		} else {
 			setIsZoomed(false)
-			setTextSize(textSize - 1)
 		}
 	}
 
 	const navigate = useNavigate()
 
-	useEffect(() => {
+	const clickNextPage = () => {
+		navigate(location.pathname + '?page=' + (+currentPageNum + 1))
+		setCurrentPageNum(String(+currentPageNum + 1))
+	}
+
+	const clickPrevPage = () => {
+		navigate(location.pathname + '?page=' + (+currentPageNum - 1))
+		setCurrentPageNum(String(+currentPageNum - 1))
+	}
+
+	const setPageParams = () => {
 		if (!location.search) {
 			navigate(location.pathname + '?page=1')
-		}
-		if (+currentPage < 1) {
+			setCurrentPageNum('1')
+		} else if (+currentPageNum < 1) {
 			navigate(location.pathname + '?page=1')
+			setCurrentPageNum('1')
+		} else if (+currentPageNum > pagesCount) {
+			navigate(location.pathname + '?page=' + pagesCount)
+			setCurrentPageNum(String(pagesCount))
+		} else if (!isNumber(currentPageNum)) {
+			navigate(location.pathname + '?page=1')
+			setCurrentPageNum('1')
 		}
-		if (+currentPage > pages) {
-			navigate(location.pathname + '?page=' + pages)
+	}
+
+	useEffect(() => {
+		if (isSuccess) {
+			setPageParams()
+			setIsContentLoaded(true)
 		}
-	}, [])
+	}, [pagesCount])
+
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [currentPageNum])
+
+	useEffect(() => {
+		if (isSuccess) {
+			setPagesCount(story.pages.length)
+			setPages(story.pages)
+		}
+	}, [isLoading])
 
 	useEffect(() => {
 		const observer = new ResizeObserver(() => {
@@ -60,78 +92,87 @@ const Story: FC = () => {
 		return () => {
 			observer.unobserve(document.documentElement)
 		}
-	}, [])
-
-	const clickNextPage = () => {
-		navigate(location.pathname + '?page=' + (+currentPage + 1))
-	}
-
-	const clickPrevPage = () => {
-		navigate(location.pathname + '?page=' + (+currentPage - 1))
-	}
+	}, [pagesCount])
 
 	return (
-		<div className='h-screen flex flex-col'>
-			<ReaderHeader currentPage={+currentPage} pages={pages} type='story' clickNext={clickNextPage} clickPrev={clickPrevPage} chapters={chapters} currentChapter={+currentChapter} itemId={storyId} />
-			<div
-				ref={storyRef}
-				className='my-0 mx-auto relative flex-grow py-[0.8rem] px-[1.2rem]'
-			>
-				{+currentPage > 1 && (
-					<button
-						onClick={clickPrevPage}
-						className='right-full top-0 absolute w-[0.9375rem] h-[6.5625rem] bg-primary hover:w-[1.6875rem] hover:bg-primaryHover transition-all'
+		<div className='h-screen flex flex-col story'>
+			{isLoading ? (
+				<div className='w-full h-full flex justify-center items-center'>
+					<p className='text-xl'>Загрузка...</p>
+				</div>
+			) : isError ? (
+				<div className='w-full h-full flex justify-center items-center'>
+					<p className='text-xl'>Ошибка</p>
+				</div>
+			) : (
+				<>
+					<ReaderHeader
+						title='fdsf'
+						currentPage={+currentPageNum}
+						pages={pagesCount}
+						type='story'
+						clickNext={clickNextPage}
+						clickPrev={clickPrevPage}
+						itemId={storyId}
 					/>
-				)}
-				<p
-					style={{ fontSize: textSize + 'rem' }}
-					className='leading-normal text-[#FFF] font-secondary text-2xl w-[66.1875rem]'
-				>
-					Достаточно шумный летний день: Богом покинутую деревеньку оставляли
-					последние жители. Город Авантюристов был рядом, буквально за горой —
-					поэтому-то деревенские, водрузив на себя и в тележки с повозками
-					большие сумки и вещи, потихоньку шли вдоль каменных стен, оставляя
-					позади себя дряхлые деревянные постройки. Благодаря помощи маленьких,
-					но коренастых людей поход не предполагал какой-то неимоверной
-					сложности. В былину их бы точно назвали дворфами, но сейчас это
-					несколько устаревший термин. “Авантюристы”, - подумала Копи. Да,
-					именно так она бы их и назвала. <br />
-					<br /> Алтарь. Это было последнее, что поместилось в повозку Копи. Не
-					то чтобы она была жрицей деревни или девушкой божественного помысла,
-					на которую все поклонялись, скорее, самый близкий друг почившего
-					старосты. Светловолосая леди оставалась позади всех, чтобы помочь им
-					собрать свои вещи. Теперь же не без помощи крепкого авантюриста Копи
-					грузила последние деревенские предметы, в том числе пожитки старосты.
-					Как раз последним из них и был старый алтарь. Похож он был, скорее, на
-					статуэтку размером с пень, однако воплощал в себе всю историческую
-					ценность деревни. <br />
-					<br /> — На этом всё, спасибо за помощь! — сказала Копи авантюристу.
-					Сев во главе повозки, крупный парень потихоньку уехал за остальными,
-					тем самым оставив юную девушку наедине с собой: она вежливо попросила
-					об этом прежде, чем погрузили последний предмет. <br />
-					<br /> Это был тяжёлый день. Свалившись на траву, Копи протянула руку
-					в небо, в котором уже не осталось ничего от солнца, прежде игравшего
-					лучами в пинг-понг с воображаемыми друзьями-тенями. "Где же ты,
-					сестра?", - тревожная мысль уже второй год выдавливала из Копи её
-					горькие слёзы.
-				</p>
-				{+currentPage < pages && (
-					<button
-						onClick={clickNextPage}
-						className='left-full top-0 absolute w-[0.9375rem] h-[6.5625rem] bg-primary hover:w-[1.6875rem] hover:bg-primaryHover transition-all'
+					<div
+						ref={storyRef}
+						className='my-0 mx-auto relative flex-grow py-[0.8rem] px-[1.2rem]'
+					>
+						{+currentPageNum > 1 && (
+							<button
+								onClick={clickPrevPage}
+								className='right-full top-0 absolute w-[0.9375rem] h-[6.5625rem] bg-primary hover:w-[1.6875rem] hover:bg-primaryHover transition-all'
+							/>
+						)}
+						{pagesCount <= 0 ? (
+							<div className='w-full h-full flex justify-center items-center'>
+								<p className='text-xl'>Страниц нет</p>
+							</div>
+						) : !isContentLoaded ? (
+							<p
+								className={
+									(isContentLoaded
+										? 'opacity-0 invisible '
+										: 'opacity-100 visible ') +
+									'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl transition-all'
+								}
+							>
+								Загрузка...
+							</p>
+						) : (
+							<div
+								className={
+									(!isContentLoaded
+										? 'opacity-0 invisible '
+										: 'opacity-100 visible ') +
+									'story-container leading-normal text-[#FFF] font-secondary w-[66.1875rem] [&_img]:w-[80%] [&_img]:mx-auto [&_img]:my-8 ql-editor [&_h1]:text-4xl [&_a]:text-primary [&_a:hover]:text-primaryHover' +
+									(isZoomed ? ' zoomed' : '')
+								}
+							>
+								{HTMLReactParser(pages[+currentPageNum - 1]?.text)}
+							</div>
+						)}
+
+						{+currentPageNum < pagesCount && (
+							<button
+								onClick={clickNextPage}
+								className='left-full top-0 absolute w-[0.9375rem] h-[6.5625rem] bg-primary hover:w-[1.6875rem] hover:bg-primaryHover transition-all'
+							/>
+						)}
+					</div>
+					<ReaderFooter
+						currentPage={+currentPageNum}
+						offset={offset}
+						itemType='story'
+						clickZoom={clickZoom}
+						pages={pagesCount}
+						type='story'
+						clickNext={clickNextPage}
+						clickPrev={clickPrevPage}
 					/>
-				)}
-			</div>
-			<ReaderFooter
-				currentPage={+currentPage}
-				offset={offset}
-				itemType='story'
-				clickZoom={clickZoom}
-				pages={pages}
-				type='story'
-				clickNext={clickNextPage}
-				clickPrev={clickPrevPage}
-			/>
+				</>
+			)}
 		</div>
 	)
 }

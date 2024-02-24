@@ -1,7 +1,7 @@
 import previewUploadedImg from '@/utils/previewUploadedImg'
 import { FC, useEffect, useRef, useState } from 'react'
 
-interface IMangaEditorImgUpload {
+interface IEditorImgUpload {
 	title: string
 	img?: File | null
 	imgSrc?: string | null
@@ -10,7 +10,7 @@ interface IMangaEditorImgUpload {
 	isDisabled?: boolean
 }
 
-const MangaEditorImgUpload: FC<IMangaEditorImgUpload> = ({
+const EditorImgUpload: FC<IEditorImgUpload> = ({
 	title,
 	img,
 	imgSrc,
@@ -93,4 +93,4 @@ const MangaEditorImgUpload: FC<IMangaEditorImgUpload> = ({
 	)
 }
 
-export default MangaEditorImgUpload
+export default EditorImgUpload

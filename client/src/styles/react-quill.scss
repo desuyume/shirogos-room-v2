@@ -1,8 +1,7 @@
 .quill {
 	color: #FFF;
 	height: 100%;
-	display: flex;
-	flex-direction: column;
+	width: 100%;
 
 	.ql-toolbar {
 		height: 9%;
@@ -22,5 +21,18 @@
 		.ql-editor {
 			outline: none;
 		}
+	}
+}
+
+.story .quill {
+	.ql-toolbar {
+		height: 5.5%;
+		border: none;
+		border-bottom: 5px solid #C34375;
+	}
+
+	.ql-container {
+		height: 94.5%;
+		border: none;
 	}
 }
