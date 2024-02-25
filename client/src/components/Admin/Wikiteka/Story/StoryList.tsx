@@ -19,7 +19,7 @@ const StoryList: FC<IStoryList> = ({
 	return (
 		<div className='w-full h-[52.6875rem] flex flex-col mb-[0.69rem]'>
 			<div className='w-[80.8%] h-[3.375rem] flex justify-center items-center bg-tertiary'>
-				<p className='text-[#FFF] text-[1.5625rem]'>Манга</p>
+				<p className='text-[#FFF] text-[1.5625rem]'>Рассказ</p>
 			</div>
 
 			<Scrollbar noDefaultStyles style={{ width: '100%', height: '100%' }}>

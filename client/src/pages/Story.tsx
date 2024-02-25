@@ -107,7 +107,7 @@ const Story: FC = () => {
 			) : (
 				<>
 					<ReaderHeader
-						title='fdsf'
+						title={story.title}
 						currentPage={+currentPageNum}
 						pages={pagesCount}
 						type='story'
