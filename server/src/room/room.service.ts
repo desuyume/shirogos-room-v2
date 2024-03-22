@@ -8,11 +8,16 @@ import { ChooseFavoriteCharacterDto } from './dto/choose-favorite-character.dto'
 import { ChooseActiveRoomBackgroundDto } from './dto/choose-active-room-background.dto';
 import { ChangeRoomNameDto } from './dto/change-roomName.dto';
 import { BuyColorDto } from './dto/buy-color.dto';
-import { AwardCategory, UniqueRoleType } from '@prisma/client';
+import { AwardCategory, UniqueRoleType, WidgetType } from '@prisma/client';
 import { getRandomInt } from 'src/utils/getRandomInt';
 import { MakeOrderDto } from './dto/make-order.dto';
 import { BuyPanopticonDto } from './dto/buy-panopticon.dto';
 import { isUrl } from 'src/utils/isUrl';
+import {
+  IEditorBadge,
+  IEditorWidget,
+  UpdateRoomEditorDto,
+} from './dto/update-room-editor';
 
 @Injectable()
 export class RoomService {
@@ -501,6 +506,25 @@ export class RoomService {
     });
   }
 
+  async getFavoriteCharacter(userId: number) {
+    const favoriteCharacter = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        favorite_character: {
+          select: {
+            id: true,
+            name: true,
+            miniature_img: true,
+          },
+        },
+      },
+    });
+
+    return !!favoriteCharacter ? favoriteCharacter.favorite_character : null;
+  }
+
   async getActiveRoomBackground(userId: number) {
     return await this.prisma.room.findUnique({
       where: {
@@ -798,6 +822,33 @@ export class RoomService {
     return room.buyed_panopticons;
   }
 
+  async getBuyedBadges(userId: number) {
+    const badges = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        buyed_awards: {
+          select: {
+            Award: {
+              select: {
+                award_img: true,
+                awardType: true,
+                awardTypeId: true,
+                category: true,
+                title: true,
+                cost: true,
+                id: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return badges.buyed_awards.map((award) => award.Award);
+  }
+
   async getBoutiqueBadges(userId: number) {
     const badges = await this.prisma.award.findMany({
       where: {
@@ -984,5 +1035,130 @@ export class RoomService {
         roomId: room.id,
       },
     });
+  }
+
+  async getRoomStats(userId: number) {
+    const room = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        id: true,
+      },
+    });
+    const panopticons = await this.prisma.panopticonsOnRooms.findMany({
+      where: {
+        roomId: room.id,
+      },
+    });
+    const userStats = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        clips: true,
+        games_ordered: true,
+      },
+    });
+    return {
+      panopticons_count: panopticons.length,
+      ...userStats,
+    };
+  }
+
+  async getRoomEditor(userId: number) {
+    const room = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        id: true,
+      },
+    });
+    return await this.prisma.editor.findUnique({
+      where: {
+        roomId: room.id,
+      },
+      select: {
+        notepad_text: true,
+        widgets: true,
+        badges: {
+          select: {
+            id: true,
+            badge: true,
+            width: true,
+            height: true,
+            translateX: true,
+            translateY: true,
+            zIndex: true,
+          },
+        },
+      },
+    });
+  }
+
+  async updateRoomEditor(userId: number, dto: UpdateRoomEditorDto) {
+    const room = await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    const editor = await this.prisma.editor.upsert({
+      where: {
+        roomId: room.id,
+      },
+      create: {
+        roomId: room.id,
+        notepad_text: dto.notepad_text,
+      },
+      update: {
+        notepad_text: dto.notepad_text,
+      },
+    });
+
+    const widgets = dto.widgets;
+    const badges = dto.badges;
+
+    await this.prisma.editorWidget.deleteMany({
+      where: {
+        editorId: editor.id,
+      },
+    });
+    await this.prisma.editorBadge.deleteMany({
+      where: {
+        editorId: editor.id,
+      },
+    });
+
+    for (const widget of widgets) {
+      await this.prisma.editorWidget.create({
+        data: {
+          editorId: editor.id,
+          widgetType: widget.widgetType,
+          translateX: widget.translateX,
+          translateY: widget.translateY,
+          zIndex: widget.zIndex,
+        },
+      });
+    }
+    for (const badge of badges) {
+      await this.prisma.editorBadge.create({
+        data: {
+          editorId: editor.id,
+          badgeId: badge.badgeId,
+          width: badge.width,
+          height: badge.height,
+          translateX: badge.translateX,
+          translateY: badge.translateY,
+          zIndex: badge.zIndex,
+        },
+      });
+    }
+
+    return editor;
   }
 }

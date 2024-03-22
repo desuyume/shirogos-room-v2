@@ -76,6 +76,8 @@ export interface ICharacterName {
 
 export interface IFavoriteCharacter {
 	id: number
+	name: string
+	miniature_img: string
 }
 
 export interface IRoomCharacters {
@@ -157,4 +159,52 @@ export interface IBadge {
 export interface IBoutiqueBadge {
 	badges: IBadge[]
 	buyedBadges: IBadge[]
+}
+
+export interface IStats {
+	panopticons_count: number
+	clips: number
+	games_ordered: number
+}
+
+export interface IUpdateRoomEditor {
+	notepad_text: string
+	widgets: IEditorWidgetFetch[]
+	badges: IEditorBadgeFetch[]
+}
+
+export interface IRoomEditor {
+	notepad_text: string
+	widgets: IEditorWidgetFetch[]
+	badges: {
+		id: number
+		width: number
+		height: number
+		translateX: number
+		translateY: number
+		zIndex: number
+		badge: IBadge
+	}[]
+}
+
+export type WidgetType =
+	| 'UNIQUE_ROLE'
+	| 'STATISTIC'
+	| 'FAVORITE_CHARACTER'
+	| 'NOTEPAD'
+
+export interface IEditorWidgetFetch {
+	widgetType: WidgetType
+	translateX: number
+	translateY: number
+	zIndex: number
+}
+
+export interface IEditorBadgeFetch {
+	badgeId: number
+	width: number
+	height: number
+	translateX: number
+	translateY: number
+	zIndex: number
 }

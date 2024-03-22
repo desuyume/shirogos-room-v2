@@ -135,6 +135,7 @@ model Room {
   buyed_awards                   AwardsOnRooms[]
   user                           User                 @relation(fields: [userId], references: [id])
   userId                         Int                  @unique
+  Editor                         Editor[]
 
   @@map("rooms")
 }
@@ -292,6 +293,7 @@ model Award {
   award_img     String
   category      AwardCategory   @default(value: BOUTIQUE)
   AwardsOnRooms AwardsOnRooms[]
+  EditorBadge   EditorBadge[]
 
   @@map("awards")
 }
@@ -354,13 +356,13 @@ model Character {
   name                     String
   subTitle                 String?
   subSubTitle              String?
-  category                 CharacterCategory?        @relation(fields: [characterCategoryId], references: [id])
   original_img             String?
   miniature_img            String?
   characterDescriptions    CharacterDescription[]
   characterCharacteristics CharacterCharacteristic[]
   Room                     Room[]
   characterCategoryId      Int?
+  category                 CharacterCategory?        @relation(fields: [characterCategoryId], references: [id])
 
   @@map("characters")
 }
@@ -389,6 +391,8 @@ model CharacterCategory {
   id        Int         @id @default(autoincrement())
   title     String      @unique
   Character Character[]
+
+  @@map("character_categories")
 }
 
 model Manga {
@@ -397,6 +401,8 @@ model Manga {
   cover_img    String
   description  String
   MangaChapter MangaChapter[]
+
+  @@map("mangas")
 }
 
 model MangaChapter {
@@ -405,6 +411,8 @@ model MangaChapter {
   mangaId   String
   Manga     Manga?      @relation(fields: [mangaId], references: [id])
   MangaPage MangaPage[]
+
+  @@map("manga_chapters")
 }
 
 model MangaPage {
@@ -413,6 +421,8 @@ model MangaPage {
   page_img       String
   mangaChapterId Int?
   MangaChapter   MangaChapter? @relation(fields: [mangaChapterId], references: [id])
+
+  @@map("manga_pages")
 }
 
 model Story {
@@ -421,6 +431,8 @@ model Story {
   description String
   cover_img   String
   StoryPage   StoryPage[]
+
+  @@map("stories")
 }
 
 model StoryPage {
@@ -429,4 +441,51 @@ model StoryPage {
   page_num Int
   Story    Story?  @relation(fields: [storyId], references: [id])
   storyId  String?
+
+  @@map("story_pages")
+}
+
+model Editor {
+  id           Int            @id @default(autoincrement())
+  notepad_text String?
+  widgets      EditorWidget[]
+  badges       EditorBadge[]
+  roomId       Int            @unique
+  Room         Room           @relation(fields: [roomId], references: [id])
+
+  @@map("editors")
+}
+
+enum WidgetType {
+  UNIQUE_ROLE
+  STATISTIC
+  FAVORITE_CHARACTER
+  NOTEPAD
+}
+
+model EditorWidget {
+  id         Int        @id @default(autoincrement())
+  widgetType WidgetType
+  translateX Float      @default(0)
+  translateY Float      @default(0)
+  zIndex     Int        @default(1)
+  Editor     Editor?    @relation(fields: [editorId], references: [id])
+  editorId   Int?
+
+  @@map("editor_widgets")
+}
+
+model EditorBadge {
+  id         Int     @id @default(autoincrement())
+  width      Float   @default(0)
+  height     Float   @default(0)
+  translateX Float   @default(0)
+  translateY Float   @default(0)
+  zIndex     Int     @default(1)
+  badgeId    Int
+  badge      Award   @relation(fields: [badgeId], references: [id])
+  Editor     Editor? @relation(fields: [editorId], references: [id])
+  editorId   Int?
+
+  @@map("editor_badges")
 }

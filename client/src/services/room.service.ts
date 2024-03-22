@@ -1,5 +1,6 @@
 import {
 	IActiveBackground,
+	IBadge,
 	IBoutiqueBackground,
 	IBoutiqueBadge,
 	IBoutiqueUniqueRoles,
@@ -14,10 +15,14 @@ import {
 	IChooseActiveRoomBackground,
 	IChooseFavoriteCharacter,
 	ICreateRoom,
+	IFavoriteCharacter,
 	IMakeOrder,
 	IRoom,
 	IRoomCharacters,
+	IRoomEditor,
 	IRoomPanopticons,
+	IStats,
+	IUpdateRoomEditor,
 	IUserRoomColors,
 	IUserUniqueRoles,
 } from '@/types/room.interface'
@@ -67,6 +72,10 @@ class RoomContentService {
 
 	async chooseFavoriteCharacter(data: IChooseFavoriteCharacter) {
 		return await $api.post(`${this.URL}/character`, data)
+	}
+
+	async getFavoriteCharacter() {
+		return await $api.get<IFavoriteCharacter | null>(`${this.URL}/character/favorite`)
 	}
 
 	async getActiveRoomBackground() {
@@ -120,6 +129,10 @@ class RoomContentService {
 		)
 	}
 
+	async getBuyedBadges() {
+		return await $api.get<IBadge[]>(`${this.URL}/badge`)
+	}
+
 	async getBoutiqueBadges() {
 		return await $api.get<IBoutiqueBadge>(`${this.URL}/badge/boutique`)
 	}
@@ -136,6 +149,18 @@ class RoomContentService {
 
 	async buyBoutiqueBackground(bgId: number) {
 		return await $api.post(`${this.URL}/background/${bgId}`)
+	}
+
+	async getRoomStats() {
+		return await $api.get<IStats>(`${this.URL}/stats`)
+	}
+
+	async getRoomEditor() {
+		return await $api.get<IRoomEditor>(`${this.URL}/editor`)
+	}
+
+	async updateEditor(data: IUpdateRoomEditor) {
+		return await $api.put(`${this.URL}/editor`, data)
 	}
 }
 

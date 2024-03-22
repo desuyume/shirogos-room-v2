@@ -1,0 +1,1 @@
+export type BadgeSectionType = 'unique' | 'copyright' | 'common'
