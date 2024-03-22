@@ -46,6 +46,7 @@ export const BUY_BACKGROUND_KEY = 'buy backround'
 export const ROOM_NAME_KEY = 'room name'
 
 export const USER_UNQIUE_ROLES_KEY = 'user unique roles'
+export const CHANGE_UNQIUE_ROLES_KEY = 'change unique roles'
 export const BUY_UNIQUE_ROLE_KEY = 'buy unique role'
 export const BOUTIQUE_UNIQUE_ROLES_KEY = 'boutique unique roles'
 
@@ -72,6 +73,7 @@ export const CREATE_AWARD_KEY = 'create award'
 
 export const BOUTIQUE_BADGE_KEY = 'boutique badge' 
 export const BUY_BADGE_KEY = 'buy badge'
+export const BUYED_BADGE_KEY = 'buyed badge'
 
 export const CHARACTER_KEY = 'character'
 export const CREATE_CHARACTER_KEY = 'create character'
@@ -89,3 +91,11 @@ export const STORY_GENERAL_KEY = 'story general'
 export const CREATE_STORY_KEY = 'create story'
 export const UPDATE_STORY_KEY = 'update story'
 export const DELETE_STORY_KEY = 'delete story'
+
+export const FAVORITE_CHARACTER_KEY = 'favorite character'
+export const CHOOSE_FAVORITE_CHARACTER_KEY = 'choose favorite character'
+
+export const ROOM_STATS_KEY = 'room stats'
+
+export const ROOM_EDITOR_KEY = 'room editor'
+export const UPDATE_ROOM_EDITOR_KEY = 'update room editor'

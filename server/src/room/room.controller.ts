@@ -23,6 +23,7 @@ import { ChangeRoomNameDto } from './dto/change-roomName.dto';
 import { BuyColorDto } from './dto/buy-color.dto';
 import { MakeOrderDto } from './dto/make-order.dto'
 import { BuyPanopticonDto } from './dto/buy-panopticon.dto'
+import { UpdateRoomEditorDto } from './dto/update-room-editor'
 
 @Controller('room')
 export class RoomController {
@@ -131,6 +132,13 @@ export class RoomController {
   }
 
   @UseGuards(AuthGuard)
+  @Get('character/favorite')
+  async getFavoriteCharacter(@Request() req) {
+    const { id } = req.user;
+    return await this.roomService.getFavoriteCharacter(+id);
+  }
+
+  @UseGuards(AuthGuard)
   @Get('background/active')
   async getActiveRoomBackground(@Request() req) {
     const { id } = req.user;
@@ -190,6 +198,13 @@ export class RoomController {
   }
 
   @UseGuards(AuthGuard)
+  @Get('badge')
+  async getBuyedBadges(@Request() req) {
+    const { id } = req.user;
+    return await this.roomService.getBuyedBadges(+id);
+  }
+
+  @UseGuards(AuthGuard)
   @Get('badge/boutique')
   async getBoutiqueBadges(@Request() req) {
     const { id } = req.user;
@@ -215,5 +230,26 @@ export class RoomController {
   async buyBoutiqueBackground(@Request() req, @Param('bgId') bgId: number) {
     const { id } = req.user;
     return await this.roomService.buyBoutiqueBackground(+id, +bgId);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('stats')
+  async getRoomStats(@Request() req) {
+    const { id } = req.user;
+    return await this.roomService.getRoomStats(+id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('editor')
+  async getRoomEditor(@Request() req) {
+    const { id } = req.user;
+    return await this.roomService.getRoomEditor(+id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Put('editor')
+  async updateRoomEditor(@Request() req, @Body() dto: UpdateRoomEditorDto) {
+    const { id } = req.user;
+    return await this.roomService.updateRoomEditor(+id, dto);
   }
 }

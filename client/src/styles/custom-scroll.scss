@@ -53,10 +53,12 @@
 	}
 }
 
-.room, .donates, .room-tasks {
+.room,
+.donates,
+.room-tasks {
 	.ScrollbarsCustom-TrackY {
 		right: 0.25rem;
-	
+
 		&:hover,
 		&.dragging {
 			width: 0.1875rem;
@@ -77,7 +79,7 @@
 	.ScrollbarsCustom-TrackY {
 		width: 0.5625rem;
 		right: 0;
-	
+
 		&:hover,
 		&.dragging {
 			width: 0.5625rem;
@@ -86,16 +88,17 @@
 	}
 
 	.ScrollbarsCustom-Thumb {
-		background-color: #C34375;
+		background-color: #c34375;
 		&:hover,
 		&.dragging {
 			width: initial;
-			background: #FF75AB;
+			background: #ff75ab;
 		}
 	}
 }
 
-.select-color, .select-bg {
+.select-color,
+.select-bg {
 	.ScrollbarsCustom-Scroller {
 		display: flex;
 		align-items: center;
@@ -104,7 +107,7 @@
 	.ScrollbarsCustom-TrackX {
 		height: 0.2rem;
 		bottom: 0;
-	
+
 		&:hover,
 		&.dragging {
 			height: 0.2rem;
@@ -113,7 +116,7 @@
 	}
 
 	.ScrollbarsCustom-Thumb {
-		background-color: #EBE984;
+		background-color: #ebe984;
 		&:hover,
 		&.dragging {
 			height: 0.2rem;
@@ -126,7 +129,7 @@
 	.ScrollbarsCustom-TrackX {
 		height: 0.5rem;
 		padding-right: 1rem;
-	
+
 		&:hover,
 		&.dragging {
 			height: 0.5rem;
@@ -134,7 +137,6 @@
 	}
 
 	.ScrollbarsCustom-Thumb {
-		
 		&:hover,
 		&.dragging {
 			height: 0.5rem;
@@ -146,7 +148,7 @@
 	.ScrollbarsCustom-TrackY {
 		width: 1%;
 		right: -2%;
-	
+
 		&:hover,
 		&.dragging {
 			width: 1%;
@@ -155,11 +157,11 @@
 	}
 
 	.ScrollbarsCustom-Thumb {
-		background: #DEDEDE;
+		background: #dedede;
 		&:hover,
 		&.dragging {
 			width: initial;
-			background: #FFF;
+			background: #fff;
 		}
 	}
 }
@@ -168,7 +170,7 @@
 	.ScrollbarsCustom-TrackY {
 		width: 0.38675rem;
 		right: -0.8rem;
-	
+
 		&:hover,
 		&.dragging {
 			width: 0.38675rem;
@@ -177,11 +179,11 @@
 	}
 
 	.ScrollbarsCustom-Thumb {
-		background: #DEDEDE;
+		background: #dedede;
 		&:hover,
 		&.dragging {
 			width: initial;
-			background: #FFF;
+			background: #fff;
 		}
 	}
 }
@@ -191,7 +193,7 @@
 		width: 0.1875rem;
 		right: 0.12rem;
 		padding-bottom: 0.1rem;
-	
+
 		&:hover,
 		&.dragging {
 			width: 0.1875rem;
@@ -200,11 +202,11 @@
 	}
 
 	.ScrollbarsCustom-Thumb {
-		background: #C34375;
+		background: #c34375;
 		&:hover,
 		&.dragging {
 			width: initial;
-			background: #FF75AB;
+			background: #ff75ab;
 		}
 	}
 }
@@ -214,7 +216,7 @@
 		width: 0.9375rem;
 		right: 1rem;
 		padding-bottom: 0.1rem;
-	
+
 		&:hover,
 		&.dragging {
 			width: 0.9375rem;
@@ -223,11 +225,11 @@
 	}
 
 	.ScrollbarsCustom-Thumb {
-		background: #C34375;
+		background: #c34375;
 		&:hover,
 		&.dragging {
 			width: initial;
-			background: #FF75AB;
+			background: #ff75ab;
 		}
 	}
 }
@@ -235,7 +237,7 @@
 .orders-admin {
 	.ScrollbarsCustom-TrackY {
 		right: -0.5rem;
-	
+
 		&:hover,
 		&.dragging {
 			width: 0.1875rem;
@@ -255,7 +257,7 @@
 .find-user {
 	.ScrollbarsCustom-TrackY {
 		right: 0.1875rem;
-	
+
 		&:hover,
 		&.dragging {
 			width: 0.1875rem;
@@ -276,7 +278,7 @@
 	.ScrollbarsCustom-TrackY {
 		width: 0.5rem;
 		right: 0.35rem;
-	
+
 		&:hover,
 		&.dragging {
 			width: 0.5rem;
@@ -293,11 +295,12 @@
 	}
 }
 
-.chronicles-dates-admin, .chronicles-admin {
+.chronicles-dates-admin,
+.chronicles-admin {
 	.ScrollbarsCustom-TrackY {
 		width: 0.15rem;
 		right: 0.15rem;
-	
+
 		&:hover,
 		&.dragging {
 			width: 0.15rem;
@@ -318,7 +321,7 @@
 	.ScrollbarsCustom-TrackY {
 		width: 0.15rem;
 		right: -0.25rem;
-	
+
 		&:hover,
 		&.dragging {
 			width: 0.15rem;
@@ -339,7 +342,7 @@
 	.ScrollbarsCustom-TrackY {
 		width: 0.25rem;
 		right: 0.125rem;
-	
+
 		&:hover,
 		&.dragging {
 			width: 0.25rem;
@@ -348,11 +351,11 @@
 	}
 
 	.ScrollbarsCustom-Thumb {
-		background: #DEDEDE;
+		background: #dedede;
 		&:hover,
 		&.dragging {
 			width: initial;
-			background: #FFF;
+			background: #fff;
 		}
 	}
 }
@@ -361,7 +364,7 @@
 	.ScrollbarsCustom-TrackY {
 		width: 0.25rem;
 		right: 0.125rem;
-	
+
 		&:hover,
 		&.dragging {
 			width: 0.25rem;
@@ -370,11 +373,34 @@
 	}
 
 	.ScrollbarsCustom-Thumb {
-
 		&:hover,
 		&.dragging {
 			width: initial;
 			background: #fffec5;
+		}
+	}
+}
+
+.editor-badges {
+	.ScrollbarsCustom-TrackX {
+		height: 0.4375rem;
+		top: -2.375rem;
+		padding-left: 0.9375rem;
+		padding-right: 0.9375rem;
+
+		&:hover,
+		&.dragging {
+			height: 0.4375rem;
+			top: -2.375rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		background: #c34375;
+		&:hover,
+		&.dragging {
+			height: 0.4375rem;
+			background: #FF75AB;
 		}
 	}
 }

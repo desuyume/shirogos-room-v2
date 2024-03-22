@@ -21,7 +21,7 @@ const UserInfoBar: FC<IUserInfoBar> = ({
 		useState<boolean>(false)
 
 	return (
-		<div className='bg-[#D9D9D9] h-[37%] relative flex flex-col items-center rounded-[1.5625rem]'>
+		<div className='bg-[#D9D9D9] h-[24.375rem] relative flex flex-col items-center rounded-[1.5625rem] mb-[0.5625rem]'>
 			<div className='w-full h-[80%] rounded-t-[1.5625rem] bg-[#D9D9D9] z-30'>
 				{!!profile_img ? (
 					<img
