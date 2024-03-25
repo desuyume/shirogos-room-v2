@@ -180,6 +180,19 @@ export class RoomService {
     };
   }
 
+  async getRoomAppearance(userId: number) {
+    return await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        active_room_color: true,
+        active_username_color: true,
+        selected_background: true,
+      },
+    });
+  }
+
   async changeRoomColor(userId: number, dto: ChangeRoomColorDto) {
     return await this.prisma.room.update({
       where: {

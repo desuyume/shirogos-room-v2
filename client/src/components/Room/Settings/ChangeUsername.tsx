@@ -1,5 +1,11 @@
+import { RoomAppearanceContext } from '@/Context'
 import { useUpdateUsername } from '@/api/useUpdateUsername'
-import { FC } from 'react'
+import {
+	colorVariants,
+	colorVariantsFocus,
+	colorVariantsHover,
+} from '@/consts/roomColors'
+import { FC, useContext } from 'react'
 
 interface IChangeUsername {
 	initialValue: string
@@ -12,6 +18,8 @@ const ChangeUsername: FC<IChangeUsername> = ({
 	value,
 	setValue,
 }) => {
+	const roomAppearance = useContext(RoomAppearanceContext)
+
 	const { mutate } = useUpdateUsername()
 
 	const updateUsername = () => {
@@ -29,14 +37,24 @@ const ChangeUsername: FC<IChangeUsername> = ({
 					Никнейм
 				</h3>
 				<input
-					className='outline-none bg-transparent w-[11.6875rem] border-b-[0.1875rem] pb-3 px-2 border-primary text-center text-[#FFF] text-[0.9375rem] leading-[97.795%] focus:border-primaryHover hover:border-primaryHover transition-all'
+					className={`outline-none bg-transparent w-[11.6875rem] border-b-[0.1875rem] pb-3 px-2 ${
+						colorVariants.border[roomAppearance.active_room_color]
+					} text-center text-[#FFF] text-[0.9375rem] leading-[97.795%] ${
+						colorVariantsFocus.border[roomAppearance.active_room_color]
+					} ${
+						colorVariantsHover.border[roomAppearance.active_room_color]
+					} transition-all`}
 					value={value}
 					onChange={e => setValue(e.target.value)}
 				/>
 			</div>
 			<button
 				disabled={initialValue === value}
-				className='w-[8rem] h-[85%] bg-primary hover:bg-primaryHover transition-all text-primaryText text-[0.9375rem] mr-[2.73rem] disabled:bg-secondaryHover'
+				className={`w-[8rem] h-[85%] ${
+					colorVariants.bg[roomAppearance.active_room_color]
+				} ${
+					colorVariantsHover.bg[roomAppearance.active_room_color]
+				} transition-all text-primaryText text-[0.9375rem] mr-[2.73rem] disabled:bg-secondaryHover`}
 				onClick={updateUsername}
 			>
 				Сохранить

@@ -1,9 +1,12 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants } from '@/consts/roomColors'
+import { FC, useContext, useEffect, useRef, useState } from 'react'
 
 const BadgesTitle: FC = () => {
 	const [isDescOpen, setIsDescOpen] = useState<boolean>(false)
 	const [descHeight, setDescHeight] = useState<number>(0)
 	const descRef = useRef<HTMLDivElement | null>(null)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	useEffect(() => {
 		const observer = new ResizeObserver(() => {
@@ -28,8 +31,10 @@ const BadgesTitle: FC = () => {
 					className={
 						(isDescOpen
 							? 'scale-y-[-1] border-t-[#EBE984] bottom-[0.50rem] '
-							: 'border-t-primary -bottom-[0.20rem] ') +
-						'border-transparent border-[0.625rem] border-t-[0.5rem] absolute transition-all'
+							: `${
+									colorVariants.border[roomAppearance.active_room_color]
+							  } -bottom-[0.20rem] `) +
+						'border-l-transparent border-r-transparent border-b-transparent border-[0.625rem] border-t-[0.5rem] absolute transition-all'
 					}
 				/>
 			</button>

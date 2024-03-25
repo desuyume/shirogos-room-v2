@@ -29,6 +29,8 @@ export const USER_ROOM_COLORS_KEY = 'user room colors'
 export const ROOM_COLOR_KEY = 'room color'
 export const USERNAME_COLOR_KEY = 'username color'
 
+export const ROOM_APPEARANCE_KEY = 'room appearance'
+
 export const TOKEN_KEY = 'token'
 export const USERS_KEY = 'users'
 export const USER_STATS_KEY = 'user stats'

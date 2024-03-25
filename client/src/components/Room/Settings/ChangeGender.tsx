@@ -1,5 +1,7 @@
+import { RoomAppearanceContext } from '@/Context'
 import { useUpdateGender } from '@/api/useUpdateGender'
-import { FC } from 'react'
+import { colorVariantsDisabled } from '@/consts/roomColors'
+import { FC, useContext } from 'react'
 
 interface IChangeGender {
 	gender: string
@@ -7,6 +9,8 @@ interface IChangeGender {
 }
 
 const ChangeGender: FC<IChangeGender> = ({ gender, setGender }) => {
+	const roomAppearance = useContext(RoomAppearanceContext)
+
 	const { mutate } = useUpdateGender()
 
 	const handleChangeGender = (gender: string) => {
@@ -23,14 +27,18 @@ const ChangeGender: FC<IChangeGender> = ({ gender, setGender }) => {
 				<button
 					onClick={() => handleChangeGender('MALE')}
 					disabled={gender === 'MALE'}
-					className='w-[20.8%] h-[2.4375rem] bg-transparent hover:bg-secondaryHover text-[#FFF] text-xl disabled:bg-primary transition-all'
+					className={`w-[20.8%] h-[2.4375rem] bg-transparent hover:bg-secondaryHover text-[#FFF] text-xl ${
+						colorVariantsDisabled.bg[roomAppearance.active_room_color]
+					} transition-all`}
 				>
 					Мужской
 				</button>
 				<button
 					onClick={() => handleChangeGender('FEMALE')}
 					disabled={gender === 'FEMALE'}
-					className='w-[20.8%] h-[2.4375rem] bg-transparent hover:bg-secondaryHover text-[#FFF] text-xl disabled:bg-primary transition-all'
+					className={`w-[20.8%] h-[2.4375rem] bg-transparent hover:bg-secondaryHover text-[#FFF] text-xl ${
+						colorVariantsDisabled.bg[roomAppearance.active_room_color]
+					} transition-all`}
 				>
 					Женский
 				</button>

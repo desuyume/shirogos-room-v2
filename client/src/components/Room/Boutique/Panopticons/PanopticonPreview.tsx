@@ -1,6 +1,8 @@
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants } from '@/consts/roomColors'
 import { IBuyedPanopticon } from '@/types/room.interface'
 import { formatDate } from '@/utils/formatDate'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useContext, useEffect, useRef, useState } from 'react'
 
 interface IPanopticonPreview {
 	isVisible: boolean
@@ -15,6 +17,7 @@ const PanopticonPreview: FC<IPanopticonPreview> = ({
 }) => {
 	const imgRef = useRef<HTMLImageElement>(null)
 	const [isVerticalImg, setIsVericalImg] = useState<boolean>(true)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	useEffect(() => {
 		if (imgRef.current && isVisible) {
@@ -40,13 +43,21 @@ const PanopticonPreview: FC<IPanopticonPreview> = ({
 				>
 					Назад
 				</button>
-				<div className='w-full h-[23.6875rem] bg-tertiary bg-opacity-75 border-[3px] border-primary rounded-[1.5625rem] flex flex-col items-center'>
-					<div className='w-[90%] py-10 flex items-center'>
+				<div
+					className={`w-full h-[23.6875rem] bg-tertiary bg-opacity-75 border-[3px] ${
+						colorVariants.border[roomAppearance.active_room_color]
+					} rounded-[1.5625rem] flex flex-col items-center`}
+				>
+					<div className='w-[90%] py-10 flex justify-center items-center'>
 						<p className='text-primaryText text-[1.5625rem] leading-[97.795%] text-center'>
 							{panopticon?.Panopticon.title ? (
 								<>
 									“
-									<span className='text-primary'>
+									<span
+										className={`${
+											colorVariants.text[roomAppearance.active_room_color]
+										}`}
+									>
 										{panopticon?.Panopticon.title}
 									</span>
 									”

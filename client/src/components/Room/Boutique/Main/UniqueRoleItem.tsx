@@ -1,8 +1,10 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import adjectiveImg from '@/assets/room/adjective.png'
 import nounImg from '@/assets/room/noun.png'
 import { IUniqueRole } from '@/types/unique-role.interface'
 import { useBuyUniqueRole } from '@/api/useBuyUniqueRole'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 
 interface IUniqueRoleItem {
 	visibleRole: string
@@ -17,6 +19,8 @@ const UniqueRoleItem: FC<IUniqueRoleItem> = ({
 	role,
 	isBuyed,
 }) => {
+	const roomAppearance = useContext(RoomAppearanceContext)
+
 	const { mutate } = useBuyUniqueRole(type)
 
 	const clickBuy = () => {
@@ -66,14 +70,14 @@ const UniqueRoleItem: FC<IUniqueRoleItem> = ({
 					)}
 				</div>
 				{isBuyed ? (
-					<p className='text-primaryText text-xl self-end'>
-						Куплено
-					</p>
+					<p className='text-primaryText text-xl self-end'>Куплено</p>
 				) : (
 					<button
 						onClick={clickBuy}
 						disabled={!role}
-						className='bg-primary hover:bg-primaryHover transition-all w-[6.32rem] h-[2.75rem] text-primaryText text-xl rounded-br-[1.2rem] self-end disabled:bg-secondary disabled:text-opacity-80'
+						className={`${colorVariants.bg[roomAppearance.active_room_color]} ${
+							colorVariantsHover.bg[roomAppearance.active_room_color]
+						} transition-all w-[6.32rem] h-[2.75rem] text-primaryText text-xl rounded-br-[1.2rem] self-end disabled:bg-secondary disabled:text-opacity-80`}
 					>
 						Купить
 					</button>

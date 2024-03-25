@@ -1,8 +1,10 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import lockImg from '@/assets/room/lock.png'
 import { useUserRoomColors } from '@/api/useUserRoomColors'
 import { IRoomColor } from '@/types/room.interface'
 import { useBuyRoomColor } from '@/api/useBuyRoomColor'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 
 interface IBuyColor {
 	type: string
@@ -12,6 +14,7 @@ const BuyColor: FC<IBuyColor> = ({ type }) => {
 	const [cost, setCost] = useState<number>(0)
 	const [selectedColor, setSelectedColor] = useState<string | null>(null)
 	const [allColors, setAllColors] = useState<IRoomColor[] | null>(null)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const {
 		data: roomColors,
@@ -67,7 +70,11 @@ const BuyColor: FC<IBuyColor> = ({ type }) => {
 	}, [isBuySucces])
 
 	return (
-		<div className='w-[48.7%] h-[21.5625rem] bg-room-gradient rounded-[1.5625rem] pt-[0.68rem] flex flex-col justify-between items-center'>
+		<div
+			className={`w-[48.7%] h-[21.5625rem] ${
+				colorVariants.bgRoomGradient[roomAppearance.active_room_color]
+			} rounded-[1.5625rem] pt-[0.68rem] flex flex-col justify-between items-center`}
+		>
 			{isLoading ? (
 				<div className='w-full h-full flex justify-center items-center'>
 					<p className='text-primaryText text-center'>Загрузка...</p>
@@ -84,23 +91,25 @@ const BuyColor: FC<IBuyColor> = ({ type }) => {
 						</p>
 					</div>
 					<div className='laptop:h-[40%] min-desktop:h-[44%] medium-desktop:h-[52%] fullhd:h-[57.5%] 2k:h-[30%] flex justify-center items-center flex-wrap gap-[3%]'>
-						{allColors?.map(color => (
-							<div
-								key={color.id}
-								style={{ backgroundColor: color.hex }}
-								className={
-									(selectedColor === color.name
-										? 'border-2 border-[#F8FEFA] scale-[107%] transition-transform '
-										: '') +
-									'min-h-[30%] max-h-[30%] 2k:min-h-[40%] 2k:max-h-[40%] rounded-[1.125rem] aspect-square flex justify-center items-center cursor-pointer'
-								}
-								onClick={() => chooseColor(color)}
-							>
-								{!checkColor(color) && (
-									<img className='w-[66%]' src={lockImg} alt='lock-icon' />
-								)}
-							</div>
-						))}
+						{allColors
+							?.filter(color => color.name !== 'pink')
+							.map(color => (
+								<div
+									key={color.id}
+									style={{ backgroundColor: color.hex }}
+									className={
+										(selectedColor === color.name
+											? 'border-2 border-[#F8FEFA] scale-[107%] transition-transform '
+											: '') +
+										'min-h-[30%] max-h-[30%] 2k:min-h-[40%] 2k:max-h-[40%] rounded-[1.125rem] aspect-square flex justify-center items-center cursor-pointer'
+									}
+									onClick={() => chooseColor(color)}
+								>
+									{!checkColor(color) && (
+										<img className='w-[66%]' src={lockImg} alt='lock-icon' />
+									)}
+								</div>
+							))}
 					</div>
 				</>
 			)}
@@ -118,7 +127,11 @@ const BuyColor: FC<IBuyColor> = ({ type }) => {
 				<button
 					disabled={cost <= 0}
 					onClick={clickBuy}
-					className='h-full flex-1 bg-primary hover:bg-primaryHover transition-all flex justify-center items-center text-primaryText text-xs disabled:bg-tertiary rounded-br-[1.2rem]'
+					className={`h-full flex-1 ${
+						colorVariants.bg[roomAppearance.active_room_color]
+					} ${
+						colorVariantsHover.bg[roomAppearance.active_room_color]
+					} transition-all flex justify-center items-center text-primaryText text-xs disabled:bg-tertiary rounded-br-[1.2rem]`}
 				>
 					Купить
 				</button>

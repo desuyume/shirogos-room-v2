@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useRoom } from '@/api/useRoom'
 import UserBar from '../Main/UserBar'
@@ -7,11 +7,15 @@ import Notepad from '../Editor/Widgets/Notepad'
 import FavioriteCharacter from '../Editor/Widgets/FavioriteCharacter'
 import UniqueRole from '../Editor/Widgets/UniqueRole'
 import Statistic from '../Editor/Widgets/Statistic'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants } from '@/consts/roomColors'
 
 const RoomMain: FC = () => {
 	const location = useLocation()
 	const isActive =
 		location.pathname === '/room' || location.pathname === '/room/'
+
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const { isLoading, isError, data: roomInfo } = useRoom()
 
@@ -45,11 +49,11 @@ const RoomMain: FC = () => {
 						</div>
 						<div className='bg-secondaryHover bg-opacity-75 rounded-[2.3125rem] w-full aspect-[1163/953] relative'>
 							{isEditorLoading ? (
-								<div className='w-full h-full flex justify-center items-center'>
+								<div className='w-full h-full flex justify-center items-center text-primaryText'>
 									Загрузка...
 								</div>
 							) : isEditorError ? (
-								<div className='w-full h-full flex justify-center items-center'>
+								<div className='w-full h-full flex justify-center items-center text-primaryText'>
 									Не удалось получить данные
 								</div>
 							) : (
@@ -88,7 +92,11 @@ const RoomMain: FC = () => {
 														transform: `translate(${widget.translateX}%, ${widget.translateY}%)`,
 														zIndex: widget.zIndex,
 													}}
-													className='w-[17.11%] aspect-[199/361] flex justify-center bg-room-gradient rounded-[1.5625rem] absolute'
+													className={`w-[17.11%] aspect-[199/361] flex justify-center ${
+														colorVariants.bgRoomGradient[
+															roomAppearance.active_room_color
+														]
+													} rounded-[1.5625rem] absolute`}
 												>
 													<FavioriteCharacter />
 												</div>
@@ -136,7 +144,11 @@ const RoomMain: FC = () => {
 														transform: `translate(${widget.translateX}%, ${widget.translateY}%)`,
 														zIndex: widget.zIndex,
 													}}
-													className='w-[38.865%] aspect-[452/313] bg-room-gradient rounded-[1.5625rem] absolute'
+													className={`w-[38.865%] aspect-[452/313] ${
+														colorVariants.bgRoomGradient[
+															roomAppearance.active_room_color
+														]
+													} rounded-[1.5625rem] absolute`}
 												>
 													<Statistic />
 												</div>

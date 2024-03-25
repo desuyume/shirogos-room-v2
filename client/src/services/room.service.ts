@@ -18,6 +18,7 @@ import {
 	IFavoriteCharacter,
 	IMakeOrder,
 	IRoom,
+	IRoomAppearance,
 	IRoomCharacters,
 	IRoomEditor,
 	IRoomPanopticons,
@@ -48,6 +49,10 @@ class RoomContentService {
 
 	async getUserRoomColors() {
 		return await $api.get<IUserRoomColors>(`${this.URL}/colors`)
+	}
+
+	async getRoomAppearance() {
+		return await $api.get<IRoomAppearance>(`${this.URL}/appearance`)
 	}
 
 	async changeRoomColor(data: IChangeRoomColor) {

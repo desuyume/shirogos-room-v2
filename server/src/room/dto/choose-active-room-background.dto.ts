@@ -1,3 +1,3 @@
 export class ChooseActiveRoomBackgroundDto {
-	backgroundId: number
+	backgroundId: number | null
 }

@@ -1,6 +1,8 @@
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 import { useInputLimit } from '@/hooks/useInputLimit'
 import { IMakeOrder } from '@/types/room.interface'
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 
 interface IOrderInput {
 	isOrdered: boolean
@@ -26,6 +28,7 @@ const OrderInput: FC<IOrderInput> = ({
 	const [isInputActive, setIsInputActive] = useState<boolean>(false)
 	const { limit, setLimit, changeNameHandler, keyDownHandler } =
 		useInputLimit(setDescription)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const clickChooseBttn = () => {
 		if (isInputActive) {
@@ -75,7 +78,9 @@ const OrderInput: FC<IOrderInput> = ({
 			<div className='flex-1 h-full flex items-center relative'>
 				<input
 					value={description}
-					onChange={e => !!isVideo ? setDescription(e.target.value) : changeNameHandler(e)}
+					onChange={e =>
+						!!isVideo ? setDescription(e.target.value) : changeNameHandler(e)
+					}
 					onKeyDown={e => !isVideo && keyDownHandler(e)}
 					disabled={!isInputActive}
 					className='w-full h-full text-center placeholder:text-primaryText placeholder:text-opacity-25 outline-none text-primaryText text-[0.9375rem] bg-tertiary'
@@ -87,7 +92,9 @@ const OrderInput: FC<IOrderInput> = ({
 							(isInputActive
 								? 'visible opacity-100 '
 								: 'invisible opacity-0 ') +
-							'absolute right-[0.44rem] text-[0.625rem] z-10 pointer-events-none transition-all'
+							`absolute right-[0.44rem] ${
+								colorVariants.text[roomAppearance.active_room_color]
+							} text-[0.625rem] z-10 pointer-events-none transition-all`
 						}
 					>
 						{limit}
@@ -100,8 +107,11 @@ const OrderInput: FC<IOrderInput> = ({
 				className={
 					(isInputActive
 						? 'w-[22.19%] text-[0.9375rem] bg-secondary hover:bg-secondaryHover '
-						: 'w-[15.9%] bg-primary hover:bg-primaryHover text-xs ') +
-					'h-full transition-all text-primaryText'
+						: `w-[15.9%] ${
+								colorVariants.bg[roomAppearance.active_room_color]
+						  } ${
+								colorVariantsHover.bg[roomAppearance.active_room_color]
+						  } text-xs `) + 'h-full transition-all text-primaryText'
 				}
 			>
 				{isInputActive ? 'Отмена' : 'Выбрать'}

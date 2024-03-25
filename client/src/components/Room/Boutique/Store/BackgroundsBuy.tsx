@@ -1,6 +1,8 @@
+import { RoomAppearanceContext } from '@/Context'
 import { useBuyBackground } from '@/api/useBuyBackground'
+import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 import { IBackground } from '@/types/background.interface'
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 
 interface IBackgroundsBuy {
 	activeBackground: IBackground | null
@@ -12,6 +14,7 @@ const BackgroundsBuy: FC<IBackgroundsBuy> = ({
 	buyedBackgrounds,
 }) => {
 	const [isBgBuyed, setIsBgBuyed] = useState(false)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const { mutate: buyBg, isSuccess } = useBuyBackground()
 
@@ -58,7 +61,9 @@ const BackgroundsBuy: FC<IBackgroundsBuy> = ({
 			<button
 				disabled={!activeBackground || isBgBuyed}
 				onClick={handleBuyBg}
-				className='bg-primary hover:bg-primaryHover transition-all text-primaryText text-xs w-[21.15%] rounded-br-[1.2rem] min-w-[3.5rem] disabled:bg-tertiary'
+				className={`${colorVariants.bg[roomAppearance.active_room_color]} ${
+					colorVariantsHover.bg[roomAppearance.active_room_color]
+				} transition-all text-primaryText text-xs w-[21.15%] rounded-br-[1.2rem] min-w-[3.5rem] disabled:bg-tertiary`}
 			>
 				Купить
 			</button>

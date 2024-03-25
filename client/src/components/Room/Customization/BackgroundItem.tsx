@@ -19,8 +19,13 @@ const BackgroundItem: FC<IBackgroundItem> = ({
 	const { mutate } = useChooseActiveRoomBackground()
 
 	const clickBg = () => {
-		setSelectedBg(bgId)
-		mutate({ backgroundId: bgId })
+		if (selectedBg === bgId) {
+			setSelectedBg(null)
+			mutate({ backgroundId: null })
+		} else {
+			setSelectedBg(bgId)
+			mutate({ backgroundId: bgId })
+		}
 	}
 
 	return (

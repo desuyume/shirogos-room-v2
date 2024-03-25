@@ -1,3 +1,4 @@
+import { RoomColor } from '@/consts/roomColors'
 import { AwardType, IAwardType } from './award.interface'
 import { IBackground } from './background.interface'
 import { IPanopticon } from './room-content.interface'
@@ -51,6 +52,12 @@ export interface IUserRoomColors {
 	}
 }
 
+export interface IRoomAppearance {
+	active_room_color: RoomColor
+	active_username_color: RoomColor
+	selected_background: IBackground
+}
+
 export interface IChangeRoomColor {
 	color: string
 }
@@ -90,7 +97,7 @@ export interface IChooseFavoriteCharacter {
 }
 
 export interface IChooseActiveRoomBackground {
-	backgroundId: number
+	backgroundId: number | null
 }
 
 export interface IActiveBackground {

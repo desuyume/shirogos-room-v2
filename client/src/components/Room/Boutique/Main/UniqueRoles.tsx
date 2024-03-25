@@ -1,14 +1,21 @@
-import { FC, useState } from 'react'
+import { FC, useContext, useState } from 'react'
 import { useBoutiqueUniqueRoles } from '@/api/useBoutiqueUniqueRoles'
 import UniqueRoleItem from './UniqueRoleItem'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariantsMediumTablet } from '@/consts/roomColors'
 
 const UniqueRoles: FC = () => {
 	const [visibleRole, setVisibleRole] = useState<string>('adjective')
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const { data: roles, isLoading, isError } = useBoutiqueUniqueRoles()
 
 	return (
-		<div className='medium-tablet:bg-primary bg-tertiary h-[20.0625rem] w-full rounded-b-[2.3125rem] flex items-center'>
+		<div
+			className={`${
+				colorVariantsMediumTablet.bg[roomAppearance.active_room_color]
+			} bg-tertiary h-[20.0625rem] w-full rounded-b-[2.3125rem] flex items-center`}
+		>
 			<div className='h-[8rem] border-[8.5rem] mb-4 border-transparent border-l-tertiary border-l-[15rem] laptop:flex justify-center items-center hidden'>
 				<p className='text-primaryText text-[1.5625rem] leading-[97.795%] w-[10.5rem] absolute left-[1.12rem]'>
 					Уголок уникальных ролей

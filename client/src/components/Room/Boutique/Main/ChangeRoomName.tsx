@@ -1,10 +1,14 @@
+import { RoomAppearanceContext } from '@/Context'
 import { useChangeRoomName } from '@/api/useChangeRoomName'
+import { colorVariants } from '@/consts/roomColors'
 import { useInputLimit } from '@/hooks/useInputLimit'
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 
 const ChangeRoomName: FC = () => {
 	const [roomName, setRoomName] = useState<string>('')
-	const { limit, setLimit, changeNameHandler, keyDownHandler } = useInputLimit(setRoomName)
+	const { limit, setLimit, changeNameHandler, keyDownHandler } =
+		useInputLimit(setRoomName)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const { mutate, isSuccess } = useChangeRoomName()
 
@@ -31,14 +35,28 @@ const ChangeRoomName: FC = () => {
 							value={roomName}
 							onChange={e => changeNameHandler(e)}
 							onKeyDown={e => keyDownHandler(e)}
-							className='text-[0.9375rem] text-[#FFF] leading-[97.795%] text-center bg-transparent outline-none w-full border-primary border-b-[3px] pb-1 caret-primary'
+							className={`text-[0.9375rem] text-[#FFF] leading-[97.795%] text-center bg-transparent outline-none w-full ${
+								colorVariants.border[roomAppearance.active_room_color]
+							} border-b-[3px] pb-1 ${
+								colorVariants.caret[roomAppearance.active_room_color]
+							}`}
 						/>
-						<p className='text-primary text-xs absolute -right-[12%] w-[12%] text-center'>{limit}</p>
+						<p
+							className={`${
+								colorVariants.text[roomAppearance.active_room_color]
+							} text-xs absolute -right-[12%] w-[12%] text-center`}
+						>
+							{limit}
+						</p>
 					</div>
 				</div>
 				<hr className='bg-primaryText w-[1px] h-[86.25%]' />
 				<div className='flex-1 h-full flex justify-center items-center'>
-					<button onClick={clickChangeRoomName} disabled={limit === 34 || limit < 0} className='text-[#EBE984] text-[1.5625rem] w-full h-full hover:bg-secondary rounded-r-[1.5625rem] text-center leading-[97.795%] px-1 transition-all disabled:hover:bg-transparent'>
+					<button
+						onClick={clickChangeRoomName}
+						disabled={limit === 34 || limit < 0}
+						className='text-[#EBE984] text-[1.5625rem] w-full h-full hover:bg-secondary rounded-r-[1.5625rem] text-center leading-[97.795%] px-1 transition-all disabled:hover:bg-transparent disabled:cursor-not-allowed'
+					>
 						10 ДО
 					</button>
 				</div>

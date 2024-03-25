@@ -404,3 +404,133 @@
 		}
 	}
 }
+
+.pink-scrollbar {
+	.ScrollbarsCustom-Thumb {
+		background: #c34375;
+		&:hover,
+		&.dragging {
+			background: #FF75AB;
+		}
+	}
+}
+
+.vermilion-scrollbar {
+	.ScrollbarsCustom-Thumb {
+		background: #C34343;
+		&:hover,
+		&.dragging {
+			background: #FA8D8D;
+		}
+	}
+}
+
+.orange-scrollbar {
+	.ScrollbarsCustom-Thumb {
+		background: #C37143;
+		&:hover,
+		&.dragging {
+			background: #F1A57B;
+		}
+	}
+}
+
+.blue-scrollbar {
+	.ScrollbarsCustom-Thumb {
+		background: #4367C3;
+		&:hover,
+		&.dragging {
+			background: #7C9AE8;
+		}
+	}
+}
+
+.purple-scrollbar {
+	.ScrollbarsCustom-Thumb {
+		background: #7B43C3;
+		&:hover,
+		&.dragging {
+			background: #A77BDF;
+		}
+	}
+}
+
+.magenta-scrollbar {
+	.ScrollbarsCustom-Thumb {
+		background: #C343B6;
+		&:hover,
+		&.dragging {
+			background: #F281E7;
+		}
+	}
+}
+
+.gray-scrollbar {
+	.ScrollbarsCustom-Thumb {
+		background: #717171;
+		&:hover,
+		&.dragging {
+			background: #ACACAC;
+		}
+	}
+}
+
+.green-scrollbar {
+	.ScrollbarsCustom-Thumb {
+		background: #4A9648;
+		&:hover,
+		&.dragging {
+			background: #80D77E;
+		}
+	}
+}
+
+.yellow-scrollbar {
+	.ScrollbarsCustom-Thumb {
+		background: #BE9C25;
+		&:hover,
+		&.dragging {
+			background: #F0CF5B;
+		}
+	}
+}
+
+.aqua-scrollbar {
+	.ScrollbarsCustom-Thumb {
+		background: #34A3AA;
+		&:hover,
+		&.dragging {
+			background: #75D6DC;
+		}
+	}
+}
+
+.red-scrollbar {
+	.ScrollbarsCustom-Thumb {
+		background: #A80000;
+		&:hover,
+		&.dragging {
+			background: #DD4242;
+		}
+	}
+}
+
+.turquoise-scrollbar {
+	.ScrollbarsCustom-Thumb {
+		background: #00A880;
+		&:hover,
+		&.dragging {
+			background: #47D8B5;
+		}
+	}
+}
+
+.crimson-scrollbar {
+	.ScrollbarsCustom-Thumb {
+		background: #A4114A;
+		&:hover,
+		&.dragging {
+			background: #DE5389;
+		}
+	}
+}

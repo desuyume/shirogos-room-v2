@@ -1,8 +1,10 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { EditorSection } from '../Sections/RoomEditor'
 import badgesIcon from '@/assets/room/badges-icon.png'
 import widgetsIcon from '@/assets/room/widgets-icon.png'
 import crossIcon from '@/assets/room/editor-nav-cross.svg'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants, colorVariantsGroupHover } from '@/consts/roomColors'
 
 interface IEditorNavBttn {
 	type: EditorSection
@@ -15,6 +17,8 @@ const EditorNavBttn: FC<IEditorNavBttn> = ({
 	activeSection,
 	setActiveSection,
 }) => {
+	const roomAppearance = useContext(RoomAppearanceContext)
+
 	return (
 		<div
 			onClick={() =>
@@ -45,7 +49,9 @@ const EditorNavBttn: FC<IEditorNavBttn> = ({
 					(activeSection === type
 						? 'visible opacity-100 '
 						: 'invisible opacity-0 ') +
-					'bg-primary group-hover:bg-primaryHover text-primaryText rounded-full w-full h-full absolute inset-0 transition-all font-secondary font-bold text-xl flex justify-center items-center'
+					`${colorVariants.bg[roomAppearance.active_room_color]} ${
+						colorVariantsGroupHover.bg[roomAppearance.active_room_color]
+					} text-primaryText rounded-full w-full h-full absolute inset-0 transition-all font-secondary font-bold text-xl flex justify-center items-center`
 				}
 			>
 				<img className='w-[1.75rem] h-[1.75rem]' src={crossIcon} alt='cross' />

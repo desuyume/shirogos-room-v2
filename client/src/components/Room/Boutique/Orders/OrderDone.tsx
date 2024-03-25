@@ -1,5 +1,7 @@
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 import { IMakeOrder } from '@/types/room.interface'
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 
 interface IOrderDone {
 	clickDanBttn: () => void
@@ -9,6 +11,7 @@ interface IOrderDone {
 
 const OrderDone: FC<IOrderDone> = ({ clickDanBttn, isOrdered, userOrder }) => {
 	const [ordersText, setOrdersText] = useState<string | null>(null)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	useEffect(() => {
 		setOrdersText(userOrder?.orderText ?? '')
@@ -24,7 +27,11 @@ const OrderDone: FC<IOrderDone> = ({ clickDanBttn, isOrdered, userOrder }) => {
 			<h2 className='text-primaryText text-[3.125rem] leading-[97.795%] mb-4'>
 				Заказ сделан!
 			</h2>
-			<hr className='w-[65.76%] border-t-[3px] border-primary mb-8' />
+			<hr
+				className={`w-[65.76%] border-t-[3px] ${
+					colorVariants.border[roomAppearance.active_room_color]
+				} mb-8`}
+			/>
 			<div className='flex-1 flex justify-center items-center'>
 				<p className='text-primaryText text-[2.1875rem] leading-[97.795%] mb-8 text-center'>
 					{ordersText}
@@ -32,7 +39,9 @@ const OrderDone: FC<IOrderDone> = ({ clickDanBttn, isOrdered, userOrder }) => {
 			</div>
 			<button
 				onClick={clickDanBttn}
-				className='bg-primary hover:bg-primaryHover transition-all w-[12.48%] h-[3.6875rem] text-primaryText text-[2.1875rem] mb-[0.63rem] min-w-[6.25rem]'
+				className={`${colorVariants.bg[roomAppearance.active_room_color]} ${
+					colorVariantsHover.bg[roomAppearance.active_room_color]
+				} transition-all w-[12.48%] h-[3.6875rem] text-primaryText text-[2.1875rem] mb-[0.63rem] min-w-[6.25rem]`}
 			>
 				ДАН
 			</button>

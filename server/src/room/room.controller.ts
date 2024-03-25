@@ -58,6 +58,13 @@ export class RoomController {
   }
 
   @UseGuards(AuthGuard)
+  @Get('appearance')
+  async getRoomAppearance(@Request() req) {
+    const { id } = req.user;
+    return await this.roomService.getRoomAppearance(+id);
+  }
+
+  @UseGuards(AuthGuard)
   @Put('roomColor')
   async changeRoomColor(@Request() req, @Body() dto: ChangeRoomColorDto) {
     const { id } = req.user;

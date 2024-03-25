@@ -1,5 +1,7 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { IEditorBadge } from '../Sections/RoomEditor'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariantsGroupHover } from '@/consts/roomColors'
 
 interface IBadgeItem {
 	id: number
@@ -18,6 +20,8 @@ const BadgeItem: FC<IBadgeItem> = ({
 	zIndexCount,
 	setZIndexCount,
 }) => {
+	const roomAppearance = useContext(RoomAppearanceContext)
+
 	const clickHandler = () => {
 		setEditorBadges(prev =>
 			prev.length > 0
@@ -54,7 +58,11 @@ const BadgeItem: FC<IBadgeItem> = ({
 				/>
 			</div>
 
-			<p className='max-h-[2.7rem] max-w-full text-[0.8125rem] text-primaryText leading-[0.9rem] px-3 text-center overflow-hidden text-ellipsis group-hover:text-primary transition-all'>
+			<p
+				className={`max-h-[2.7rem] max-w-full text-[0.8125rem] text-primaryText leading-[0.9rem] px-3 text-center overflow-hidden text-ellipsis ${
+					colorVariantsGroupHover.text[roomAppearance.active_room_color]
+				} transition-all`}
+			>
 				{title}
 			</p>
 		</div>

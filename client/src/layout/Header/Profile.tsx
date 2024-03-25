@@ -1,13 +1,17 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import noNotificationIcon from '@/assets/no-notification.svg'
 import notificationIcon from '@/assets/notification.svg'
 import { Link } from 'react-router-dom'
 import { useUserProfile } from '@/api/useUserProfile'
 import noProfilePictureIcon from '@/assets/no-profile-picture-icon.webp'
 import { isUrl } from '@/utils/isUrl'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants } from '@/consts/roomColors'
 
 const Profile: FC = () => {
 	const isHaveUnreadNotification = true
+	const roomAppearance = useContext(RoomAppearanceContext)
+
 	const { data: profile, isLoading, isError } = useUserProfile()
 
 	return isLoading || isError ? (
@@ -17,7 +21,7 @@ const Profile: FC = () => {
 			<div className='w-[2.1875rem] h-[2.1875rem] relative mr-8'>
 				<img
 					className={
-						(!!isHaveUnreadNotification
+						(!isHaveUnreadNotification
 							? 'opacity-100 visible'
 							: 'opacity-0 invisible') +
 						' absolute inset-0 cursor-pointer hover:scale-110 transition-all'
@@ -27,7 +31,7 @@ const Profile: FC = () => {
 				/>
 				<img
 					className={
-						(!isHaveUnreadNotification
+						(isHaveUnreadNotification
 							? 'opacity-100 visible'
 							: 'opacity-0 invisible') +
 						' absolute inset-0 cursor-pointer hover:scale-110 transition-all'
@@ -71,7 +75,11 @@ const Profile: FC = () => {
 				<p className='text-primaryText text-xs leading-[1.0625rem] mb-[0.13rem]'>
 					{profile?.level} уровень
 				</p>
-				<p className='text-primaryText text-base leading-[1.0625rem] mb-[0.13rem]'>
+				<p
+					className={`${
+						colorVariants.text[roomAppearance.active_username_color]
+					} text-base leading-[1.0625rem] mb-[0.13rem] transition-colors`}
+				>
 					{profile?.username}
 				</p>
 				<p className='text-[#EBE984] text-[0.8125rem] leading-[1.0625rem]'>
