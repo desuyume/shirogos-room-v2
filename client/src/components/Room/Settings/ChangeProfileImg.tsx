@@ -1,8 +1,12 @@
+import { RoomAppearanceContext } from '@/Context'
 import { useUpdateProfileImg } from '@/api/useUpdateProfileImg'
-import { FC, useRef } from 'react'
+import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
+import { FC, useContext, useRef } from 'react'
 
 const ChangeProfileImg: FC = () => {
 	const inputRef = useRef<HTMLInputElement | null>(null)
+	const roomAppearance = useContext(RoomAppearanceContext)
+
 	const { mutate } = useUpdateProfileImg()
 
 	const handleChangeProfileImg = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +21,7 @@ const ChangeProfileImg: FC = () => {
 	}
 
 	return (
-		<div className='w-full h-[3.9375rem] relative group'>
+		<div className='w-full h-[3.9375rem] relative'>
 			<input
 				ref={inputRef}
 				accept='image/*'
@@ -27,7 +31,11 @@ const ChangeProfileImg: FC = () => {
 			/>
 			<button
 				onClick={() => inputRef.current?.click()}
-				className='w-full h-full bg-primary text-primaryText text-xl hover:bg-primaryHover transition-all group-hover:bg-primaryHover'
+				className={`w-full h-full ${
+					colorVariants.bg[roomAppearance.active_room_color]
+				} ${
+					colorVariantsHover.bg[roomAppearance.active_room_color]
+				} text-primaryText text-xl transition-all`}
 			>
 				Изменить аватарку
 			</button>

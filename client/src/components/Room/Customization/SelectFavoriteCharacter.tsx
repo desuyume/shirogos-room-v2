@@ -1,13 +1,15 @@
+import { RoomAppearanceContext } from '@/Context'
 import { useChooseFavoriteCharacter } from '@/api/useChooseFavoriteCharacter'
 import { useRoomCharacters } from '@/api/useRoomCharacters'
 import { ICharacterName } from '@/types/room.interface'
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import { Scrollbar } from 'react-scrollbars-custom'
 
 const SelectFavoriteCharacter: FC = () => {
 	const [selectedCharacter, setSelectedCharacter] = useState<number | null>(
 		null
 	)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const {
 		isLoading,
@@ -46,7 +48,11 @@ const SelectFavoriteCharacter: FC = () => {
 					<p className='text-primaryText text-center'>Ошибка 0_0</p>
 				</div>
 			) : (
-				<Scrollbar noDefaultStyles style={{ height: '7.1rem' }}>
+				<Scrollbar
+					noDefaultStyles
+					style={{ height: '7.1rem' }}
+					className={`${roomAppearance.active_room_color}-scrollbar`}
+				>
 					{characters?.characterNames.map(character => (
 						<div className='w-full flex justify-center first-of-type:pt-1 last-of-type:pb-1 '>
 							<p

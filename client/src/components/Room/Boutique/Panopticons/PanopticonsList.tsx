@@ -1,10 +1,12 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import { Scrollbar } from 'react-scrollbars-custom'
 import BuyPanopticon from './BuyPanopticon'
 import PanopticonPreview from './PanopticonPreview'
 import { useRoomPanopticons } from '@/api/useRoomPanopticons'
 import { IBuyedPanopticon } from '@/types/room.interface'
 import { IPanopticon } from '@/types/room-content.interface'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants } from '@/consts/roomColors'
 
 const PanopticonsList: FC = () => {
 	const [chosenBuyPanopticon, setChosenBuyPanopticon] =
@@ -18,6 +20,7 @@ const PanopticonsList: FC = () => {
 	const [buyedPanopticons, setBuyedPanopticons] = useState<number[] | null>(
 		null
 	)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const {
 		isLoading,
@@ -89,7 +92,11 @@ const PanopticonsList: FC = () => {
 	}, [buyedPanopticons])
 
 	return (
-		<div className='w-full h-[44.875rem] bg-room-gradient rounded-[1.5625rem] pt-[1.04rem] pb-[1.28rem] px-[1.31rem] flex flex-col items-center relative panopticons'>
+		<div
+			className={`w-full h-[44.875rem] ${
+				colorVariants.bgRoomGradient[roomAppearance.active_room_color]
+			} rounded-[1.5625rem] pt-[1.04rem] pb-[1.28rem] px-[1.31rem] flex flex-col items-center relative panopticons`}
+		>
 			{isLoading ? (
 				<div className='w-full h-full flex justify-center items-center'>
 					<p className='text-center text-xl text-primaryText'>Загрузка...</p>

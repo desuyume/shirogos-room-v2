@@ -26,6 +26,32 @@ export default {
 				secondaryHover: '#323232',
 				tertiary: '#181818',
 				primaryText: '#DEDEDE',
+				pink: '#C34375',
+				pinkHover: '#FF75AB',
+				vermilion: '#C34343',
+				vermilionHover: '#FA8D8D',
+				orange: '#C37143',
+				orangeHover: '#F1A57B',
+				blue: '#4367C3',
+				blueHover: '#7C9AE8',
+				purple: '#7B43C3',
+				purpleHover: '#A77BDF',
+				magenta: '#C343B6',
+				magentaHover: '#F281E7',
+				gray: '#717171',
+				grayHover: '#ACACAC',
+				green: '#4A9648',
+				greenHover: '#80D77E',
+				yellow: '#BE9C25',
+				yellowHover: '#F0CF5B',
+				aqua: '#34A3AA',
+				aquaHover: '#7DD9D3',
+				red: '#A80000',
+				redHover: '#DD4242',
+				turquoise: '#00A880',
+				turquoiseHover: '#47D8B5',
+				crimson: '#A4114A',
+				crimsonHover: '#DE5389',
 			},
 			backgroundImage: {
 				'orders-hint-bg': "url('/images/orders-about-bg.svg')",
@@ -41,9 +67,63 @@ export default {
 					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(36, 36, 36, 0.50) 100%)',
 				'room-orderDone-bg':
 					'linear-gradient(180deg, rgba(24, 24, 24, 0.90) 0%, rgba(36, 36, 36, 0.90) 100%)',
-				'room-buyPanopticon-bg':
+				'room-gradient-revert':
 					'linear-gradient(180deg, rgba(195, 67, 117, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
 				'streamer-bg': "url('/images/streamer-bg.png')",
+
+				'room-gradient-pink':
+					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(195, 67, 117, 0.50) 100%)',
+				'room-gradient-vermilion':
+					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(195, 67, 67, 0.50) 100%)',
+				'room-gradient-orange':
+					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(195, 113, 67, 0.50) 100%)',
+				'room-gradient-blue':
+					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(67, 103, 195, 0.50) 100%)',
+				'room-gradient-purple':
+					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(123, 67, 195, 0.50) 100%)',
+				'room-gradient-magenta':
+					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(195, 67, 182, 0.50) 100%)',
+				'room-gradient-gray':
+					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(113, 113, 113, 0.50) 100%)',
+				'room-gradient-green':
+					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(74, 150, 72, 0.50) 100%)',
+				'room-gradient-yellow':
+					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(190, 156, 37, 0.50) 100%)',
+				'room-gradient-aqua':
+					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(52, 163, 170, 0.50) 100%)',
+				'room-gradient-red':
+					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(168, 0, 0, 0.50) 100%)',
+				'room-gradient-turquoise':
+					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(0, 168, 128, 0.50) 100%)',
+				'room-gradient-crimson':
+					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(164, 17, 74, 0.50) 100%)',
+
+				'room-gradient-revert-pink':
+					'linear-gradient(180deg, rgba(195, 67, 117, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
+				'room-gradient-revert-vermilion':
+					'linear-gradient(180deg, rgba(195, 67, 67, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
+				'room-gradient-revert-orange':
+					'linear-gradient(180deg, rgba(195, 113, 67, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
+				'room-gradient-revert-blue':
+					'linear-gradient(180deg, rgba(67, 103, 195, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
+				'room-gradient-revert-purple':
+					'linear-gradient(180deg, rgba(123, 67, 195, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
+				'room-gradient-revert-magenta':
+					'linear-gradient(180deg, rgba(195, 67, 182, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
+				'room-gradient-revert-gray':
+					'linear-gradient(180deg, rgba(113, 113, 113, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
+				'room-gradient-revert-green':
+					'linear-gradient(180deg, rgba(74, 150, 72, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
+				'room-gradient-revert-yellow':
+					'linear-gradient(180deg, rgba(190, 156, 37, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
+				'room-gradient-revert-aqua':
+					'linear-gradient(180deg, rgba(52, 163, 170, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
+				'room-gradient-revert-red':
+					'linear-gradient(180deg, rgba(168, 0, 0, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
+				'room-gradient-revert-turquoise':
+					'linear-gradient(180deg, rgba(0, 168, 128, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
+				'room-gradient-revert-crimson':
+					'linear-gradient(180deg, rgba(164, 17, 74, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
 			},
 		},
 	},

@@ -39,3 +39,81 @@
 .mantine-DatePickerInput-placeholder {
 	color: white;
 }
+
+.mantine-DatePickerInput-root.pink-datepicker
+	.mantine-Popover-dropdown
+	.mantine-DatePickerInput-day[data-selected] {
+	background-color: #c34375;
+}
+
+.mantine-DatePickerInput-root.vermilion-datepicker
+	.mantine-Popover-dropdown
+	.mantine-DatePickerInput-day[data-selected] {
+	background-color: #C34343;
+}
+
+.mantine-DatePickerInput-root.orange-datepicker
+	.mantine-Popover-dropdown
+	.mantine-DatePickerInput-day[data-selected] {
+	background-color: #C37143;
+}
+
+.mantine-DatePickerInput-root.blue-datepicker
+	.mantine-Popover-dropdown
+	.mantine-DatePickerInput-day[data-selected] {
+	background-color: #4367C3;
+}
+
+.mantine-DatePickerInput-root.purple-datepicker
+	.mantine-Popover-dropdown
+	.mantine-DatePickerInput-day[data-selected] {
+	background-color: #7B43C3;
+}
+
+.mantine-DatePickerInput-root.magenta-datepicker
+	.mantine-Popover-dropdown
+	.mantine-DatePickerInput-day[data-selected] {
+	background-color: #C343B6;
+}
+
+.mantine-DatePickerInput-root.gray-datepicker
+	.mantine-Popover-dropdown
+	.mantine-DatePickerInput-day[data-selected] {
+	background-color: #717171;
+}
+
+.mantine-DatePickerInput-root.green-datepicker
+	.mantine-Popover-dropdown
+	.mantine-DatePickerInput-day[data-selected] {
+	background-color: #4A9648;
+}
+
+.mantine-DatePickerInput-root.yellow-datepicker
+	.mantine-Popover-dropdown
+	.mantine-DatePickerInput-day[data-selected] {
+	background-color: #BE9C25;
+}
+
+.mantine-DatePickerInput-root.aqua-datepicker
+	.mantine-Popover-dropdown
+	.mantine-DatePickerInput-day[data-selected] {
+	background-color: #34A3AA;
+}
+
+.mantine-DatePickerInput-root.red-datepicker
+	.mantine-Popover-dropdown
+	.mantine-DatePickerInput-day[data-selected] {
+	background-color: #A80000;
+}
+
+.mantine-DatePickerInput-root.turquoise-datepicker
+	.mantine-Popover-dropdown
+	.mantine-DatePickerInput-day[data-selected] {
+	background-color: #00A880;
+}
+
+.mantine-DatePickerInput-root.crimson-datepicker
+	.mantine-Popover-dropdown
+	.mantine-DatePickerInput-day[data-selected] {
+	background-color: #A4114A;
+}

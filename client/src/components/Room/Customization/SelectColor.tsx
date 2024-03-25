@@ -1,10 +1,12 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import lockImg from '@/assets/room/lock.png'
 import { Scrollbar } from 'react-scrollbars-custom'
 import { useUserRoomColors } from '@/api/useUserRoomColors'
 import { IRoomColor } from '@/types/room.interface'
 import { useChangeRoomColor } from '@/api/useChangeRoomColor'
 import { useChangeUsernameColor } from '@/api/useChangeUsernameColor'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants } from '@/consts/roomColors'
 
 interface ISelectColor {
 	type: string
@@ -14,6 +16,7 @@ interface ISelectColor {
 
 const SelectColor: FC<ISelectColor> = ({ type, title, className }) => {
 	const [selectedColor, setSelectedColor] = useState<string | null>(null)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const { isLoading, isError, data: roomColors } = useUserRoomColors()
 	const { mutate: mutateRoomColor } = useChangeRoomColor()
@@ -54,7 +57,9 @@ const SelectColor: FC<ISelectColor> = ({ type, title, className }) => {
 
 	return (
 		<div
-			className={`w-full bg-room-gradient h-[6.625rem] rounded-[1.5625rem] py-[0.56rem] px-[0.56rem] select-color flex ${className}`}
+			className={`w-full ${
+				colorVariants.bgRoomGradient[roomAppearance.active_room_color]
+			} h-[6.625rem] rounded-[1.5625rem] py-[0.56rem] px-[0.56rem] transition-all select-color flex ${className}`}
 		>
 			{isLoading ? (
 				<div className='w-full h-full flex justify-center items-center'>

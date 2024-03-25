@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 
 import {
 	EditorSection,
@@ -12,6 +12,8 @@ import {
 } from '@/utils/getEditorElementPosition'
 import { useUpdateRoomEditor } from '@/api/useUpdateRoomEditor'
 import { IEditorBadgeFetch, IEditorWidgetFetch } from '@/types/room.interface'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 
 interface IEditorNav {
 	activeSection: EditorSection | null
@@ -30,6 +32,8 @@ const EditorNav: FC<IEditorNav> = ({
 	notepadText,
 	setIsCancelEdit,
 }) => {
+	const roomAppearance = useContext(RoomAppearanceContext)
+
 	const { mutate: updateEditor } = useUpdateRoomEditor()
 
 	const clickSave = () => {
@@ -100,7 +104,9 @@ const EditorNav: FC<IEditorNav> = ({
 					</button>
 					<button
 						onClick={clickSave}
-						className='bg-primary hover:bg-primaryHover text-primaryText rounded-[2.3125rem] transition-all w-[12.25rem] h-[2.0625rem]'
+						className={`${colorVariants.bg[roomAppearance.active_room_color]} ${
+							colorVariantsHover.bg[roomAppearance.active_room_color]
+						} text-primaryText rounded-[2.3125rem] transition-all w-[12.25rem] h-[2.0625rem]`}
 					>
 						Сохранить
 					</button>

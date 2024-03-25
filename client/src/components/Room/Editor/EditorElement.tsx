@@ -1,4 +1,4 @@
-import { FC, useLayoutEffect, useRef, useState } from 'react'
+import { FC, useContext, useLayoutEffect, useRef, useState } from 'react'
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable'
 import EditorElementCross from './EditorElementCross'
 import { IEditorBadge, IEditorWidget } from '../Sections/RoomEditor'
@@ -11,6 +11,8 @@ import {
 import { WidgetType } from '@/types/room.interface'
 import { useScreenObserver } from '@/hooks/useScreenObserver'
 import { Resizable } from 're-resizable'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariantsHover } from '@/consts/roomColors'
 
 interface IEditorElement {
 	type: 'badge' | 'widget'
@@ -68,6 +70,7 @@ const EditorElement: FC<IEditorElement> = ({
 		height: 0,
 	})
 	const [badgeAspect, setBadgeAspect] = useState<number | null>(null)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const handleRemove = () => {
 		if (type === 'widget' && element) {
@@ -317,7 +320,9 @@ const EditorElement: FC<IEditorElement> = ({
 							recalculateTranslation()
 						}}
 						lockAspectRatio
-						className='outline outline-transparent hover:outline-primary outline-4 flex justify-center items-center transition-colors'
+						className={`outline outline-transparent ${
+							colorVariantsHover.outline[roomAppearance.active_room_color]
+						} outline-4 flex justify-center items-center transition-colors`}
 					>
 						<div className='handle w-full h-full flex justify-center items-center'>
 							<img

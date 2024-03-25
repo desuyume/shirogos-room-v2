@@ -1,17 +1,17 @@
+import { RoomAppearanceContext } from '@/Context'
 import { useBuyBadge } from '@/api/useBuyBadge'
+import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 import { IBadge } from '@/types/room.interface'
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 
 interface IBadgesBuy {
 	activeBadge: IBadge | null
 	buyedBadges: IBadge[]
 }
 
-const BadgesBuy: FC<IBadgesBuy> = ({
-	activeBadge,
-	buyedBadges,
-}) => {
+const BadgesBuy: FC<IBadgesBuy> = ({ activeBadge, buyedBadges }) => {
 	const [isBadgeBuyed, setIsBadgeBuyed] = useState(false)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const { mutate: buyBadge, isSuccess } = useBuyBadge()
 
@@ -58,7 +58,9 @@ const BadgesBuy: FC<IBadgesBuy> = ({
 			<button
 				disabled={!activeBadge || isBadgeBuyed}
 				onClick={handleClickBuy}
-				className='bg-primary hover:bg-primaryHover transition-all text-primaryText text-xs w-[21.15%] rounded-br-[1.2rem] min-w-[3.5rem] disabled:bg-tertiary'
+				className={`${colorVariants.bg[roomAppearance.active_room_color]} ${
+					colorVariantsHover.bg[roomAppearance.active_room_color]
+				} transition-all text-primaryText text-xs w-[21.15%] rounded-br-[1.2rem] min-w-[3.5rem] disabled:bg-tertiary`}
 			>
 				Купить
 			</button>

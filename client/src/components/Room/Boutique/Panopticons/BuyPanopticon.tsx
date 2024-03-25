@@ -1,6 +1,8 @@
+import { RoomAppearanceContext } from '@/Context'
 import { useBuyRoomPanopticon } from '@/api/useBuyRoomPanopticon'
+import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 import { IPanopticon } from '@/types/room-content.interface'
-import { FC, useEffect } from 'react'
+import { FC, useContext, useEffect } from 'react'
 
 interface IBuyPanopticon {
 	isVisible: boolean
@@ -13,8 +15,10 @@ const BuyPanopticon: FC<IBuyPanopticon> = ({
 	isVisible,
 	setIsVisible,
 	panopticon,
-	setBuyedPanopticons
+	setBuyedPanopticons,
 }) => {
+	const roomAppearance = useContext(RoomAppearanceContext)
+
 	const { mutate, isSuccess } = useBuyRoomPanopticon()
 
 	const buyPanopticon = () => {
@@ -39,7 +43,11 @@ const BuyPanopticon: FC<IBuyPanopticon> = ({
 				'w-full h-full absolute inset-0 transition-all z-40'
 			}
 		>
-			<div className='w-full h-[24rem] bg-room-buyPanopticon-bg transition-all z-30 top-[50%] translate-y-[50%] pt-6 flex flex-col items-center'>
+			<div
+				className={`w-full h-[24rem] ${
+					colorVariants.bgRoomGradientRevert[roomAppearance.active_room_color]
+				} transition-all z-30 top-[50%] translate-y-[50%] pt-6 flex flex-col items-center`}
+			>
 				<p className='text-primaryText text-[2.5rem] text-center leading-[97.795%] mb-4'>
 					Уверен/а???
 				</p>
@@ -56,7 +64,11 @@ const BuyPanopticon: FC<IBuyPanopticon> = ({
 				<div className='w-full flex justify-center'>
 					<button
 						onClick={buyPanopticon}
-						className='w-[12.45%] min-w-[9rem] h-[3.73rem] bg-primary hover:bg-primaryHover text-primaryText text-[1.5625rem] transition-all mr-[0.64rem]'
+						className={`w-[12.45%] min-w-[9rem] h-[3.73rem] ${
+							colorVariants.bg[roomAppearance.active_room_color]
+						} ${
+							colorVariantsHover.bg[roomAppearance.active_room_color]
+						} text-primaryText text-[1.5625rem] transition-all mr-[0.64rem]`}
 					>
 						ДАН
 					</button>

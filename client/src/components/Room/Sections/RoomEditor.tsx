@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useContext, useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useRoom } from '@/api/useRoom'
 import EditorNav from '../Editor/EditorNav'
@@ -11,6 +11,8 @@ import { useRoomEditor } from '@/api/useRoomEditor'
 import { WidgetType } from '@/types/room.interface'
 import { editorWidgetsProps } from '@/consts/editorElements'
 import { useScreenObserver } from '@/hooks/useScreenObserver'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants } from '@/consts/roomColors'
 
 export type EditorSection = 'badges' | 'widgets'
 
@@ -50,6 +52,8 @@ const RoomEditor: FC = () => {
 
 	const containerRef = useRef<HTMLDivElement | null>(null)
 	const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
+
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const {
 		data: editorElements,
@@ -224,7 +228,16 @@ const RoomEditor: FC = () => {
 									<EditorElement
 										key={widget.type}
 										element={widget.element}
-										className={widget.className}
+										className={
+											widget.type === 'FAVORITE_CHARACTER' ||
+											widget.type === 'STATISTIC'
+												? `${widget.className} ${
+														colorVariants.bgRoomGradient[
+															roomAppearance.active_room_color
+														]
+												  }`
+												: widget.className
+										}
 										widgetType={widget.type}
 										type='widget'
 										setEditorWidgets={setEditorWidgets}

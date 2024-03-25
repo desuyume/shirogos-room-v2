@@ -15,14 +15,14 @@ export const editorWidgetsProps: IEditorWidget[] = [
 		type: 'STATISTIC',
 		element: <Statistic />,
 		className:
-			'w-[38.865%] aspect-[452/313] bg-room-gradient rounded-[1.5625rem]',
+			'w-[38.865%] aspect-[452/313] rounded-[1.5625rem]',
 		zIndex: 0,
 	},
 	{
 		type: 'FAVORITE_CHARACTER',
 		element: <FavioriteCharacter />,
 		className:
-			'w-[17.11%] aspect-[199/361] flex justify-center bg-room-gradient rounded-[1.5625rem]',
+			'w-[17.11%] aspect-[199/361] flex justify-center rounded-[1.5625rem]',
 		zIndex: 0,
 	},
 	{

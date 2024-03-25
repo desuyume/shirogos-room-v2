@@ -1,8 +1,10 @@
 import { DatePickerInput, DatesProvider } from '@mantine/dates'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import '@/styles/date-picker.scss'
 import 'dayjs/locale/ru'
 import { useUpdateBirthday } from '@/api/useUpdateBirthday'
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 
 interface IChangeBirthday {
 	initialValue: Date | null
@@ -15,6 +17,8 @@ const ChangeBirthday: FC<IChangeBirthday> = ({
 	value,
 	setValue,
 }) => {
+	const roomAppearance = useContext(RoomAppearanceContext)
+
 	const { mutate } = useUpdateBirthday()
 
 	const updateBirthday = () => {
@@ -46,7 +50,11 @@ const ChangeBirthday: FC<IChangeBirthday> = ({
 					}}
 				>
 					<DatePickerInput
-						className='bg-transparent w-[11.6875rem] border-b-[0.1875rem] border-primary hover:border-primaryHover transition-all'
+						className={`bg-transparent w-[11.6875rem] border-b-[0.1875rem] ${
+							colorVariants.border[roomAppearance.active_room_color]
+						} ${
+							colorVariantsHover.border[roomAppearance.active_room_color]
+						} transition-all ${roomAppearance.active_room_color}-datepicker`}
 						value={value}
 						onChange={setValue}
 						hideWeekdays
@@ -56,7 +64,11 @@ const ChangeBirthday: FC<IChangeBirthday> = ({
 			</div>
 			<button
 				disabled={isDatesEqual()}
-				className='w-[8rem] h-[85%] bg-primary hover:bg-primaryHover transition-all text-primaryText text-[0.9375rem] mr-[2.73rem] disabled:bg-secondaryHover'
+				className={`w-[8rem] h-[85%] ${
+					colorVariants.bg[roomAppearance.active_room_color]
+				} ${
+					colorVariantsHover.bg[roomAppearance.active_room_color]
+				} transition-all text-primaryText text-[0.9375rem] mr-[2.73rem] disabled:bg-secondaryHover`}
 				onClick={updateBirthday}
 			>
 				Сохранить

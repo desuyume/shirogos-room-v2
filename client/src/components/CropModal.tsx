@@ -1,5 +1,14 @@
+import { RoomAppearanceContext } from '@/Context'
+import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 import { saveCrop, setCanvasImage } from '@/utils/cropUtils'
-import { FC, SyntheticEvent, useEffect, useRef, useState } from 'react'
+import {
+	FC,
+	SyntheticEvent,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from 'react'
 import ReactCrop, {
 	centerCrop,
 	makeAspectCrop,
@@ -24,11 +33,12 @@ const CropModal: FC<ICropModal> = ({
 	setIsVisible,
 	saveToServerFn,
 	canvas,
-	setMiniature
+	setMiniature,
 }) => {
 	const [crop, setCrop] = useState<Crop>()
 	const [completedCrop, setCompletedCrop] = useState<Crop | null>(null)
 	const imgRef = useRef<HTMLImageElement | null>(null)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const setCropInCenter = (e?: SyntheticEvent<HTMLImageElement, Event>) => {
 		const image = e?.currentTarget ?? imgRef.current
@@ -122,7 +132,9 @@ const CropModal: FC<ICropModal> = ({
 					</button>
 					<button
 						onClick={clickSave}
-						className='bg-primary w-52 h-10 text-primaryText hover:bg-primaryHover transition-all'
+						className={`${colorVariants.bg[roomAppearance.active_room_color]} ${
+							colorVariantsHover.bg[roomAppearance.active_room_color]
+						} w-52 h-10 text-primaryText transition-all`}
 					>
 						Сохранить
 					</button>

@@ -1,6 +1,8 @@
+import { RoomAppearanceContext } from '@/Context'
 import { useChangeUniqueRole } from '@/api/useChangeUniqueRole'
 import { useUserUniqueRoles } from '@/api/useUserUniqueRoles'
-import { FC, useEffect, useState } from 'react'
+import { colorVariants } from '@/consts/roomColors'
+import { FC, useContext, useEffect, useState } from 'react'
 
 interface IRoleSwitcher {
 	type: string
@@ -9,6 +11,7 @@ interface IRoleSwitcher {
 const RoleSwitcher: FC<IRoleSwitcher> = ({ type }) => {
 	const [activeRole, setActiveRole] = useState<string | null>(null)
 	const [roles, setRoles] = useState<string[]>([])
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const {
 		isLoading,
@@ -86,7 +89,9 @@ const RoleSwitcher: FC<IRoleSwitcher> = ({ type }) => {
 	return (
 		<div className='h-[1.6875rem] w-full flex items-center relative'>
 			{isLoading ? (
-				<p className='w-full h-full text-center text-primaryText'>загрузка...</p>
+				<p className='w-full h-full text-center text-primaryText'>
+					загрузка...
+				</p>
 			) : isError ? (
 				<p className='w-full h-full text-center text-primaryText'>ошибка 0_0</p>
 			) : (
@@ -95,7 +100,9 @@ const RoleSwitcher: FC<IRoleSwitcher> = ({ type }) => {
 						disabled={(roles.length === 1 && !!activeRole) || !roles.length}
 						onClick={switchPrevRole}
 						className={
-							(type === 'adjective' ? 'bg-[#DEDEDE] ' : 'bg-primary ') +
+							(type === 'adjective'
+								? 'bg-[#DEDEDE] '
+								: `${colorVariants.bg[roomAppearance.active_room_color]} `) +
 							'h-full w-[2%] hover:w-[5%] absolute left-0 transition-all disabled:opacity-50 disabled:hover:w-[2%]'
 						}
 					/>
@@ -106,7 +113,9 @@ const RoleSwitcher: FC<IRoleSwitcher> = ({ type }) => {
 						disabled={(roles.length === 1 && !!activeRole) || !roles.length}
 						onClick={switchNextRole}
 						className={
-							(type === 'adjective' ? 'bg-[#DEDEDE] ' : 'bg-primary ') +
+							(type === 'adjective'
+								? 'bg-[#DEDEDE] '
+								: `${colorVariants.bg[roomAppearance.active_room_color]} `) +
 							'h-full w-[2%] hover:w-[5%] absolute right-0 transition-all disabled:opacity-50 disabled:hover:w-[2%]'
 						}
 					/>

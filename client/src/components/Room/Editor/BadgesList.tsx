@@ -1,9 +1,10 @@
 import { BadgeSectionType } from '@/types/badge.interface'
 import { IBadge } from '@/types/room.interface'
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import { Scrollbar } from 'react-scrollbars-custom'
 import BadgeItem from './BadgeItem'
 import { IEditorBadge } from '../Sections/RoomEditor'
+import { RoomAppearanceContext } from '@/Context'
 
 interface IBadgesList {
 	badges: IBadge[]
@@ -20,9 +21,10 @@ const BadgesList: FC<IBadgesList> = ({
 	editorBadges,
 	setEditorBadges,
 	zIndexCount,
-	setZIndexCount
+	setZIndexCount,
 }) => {
 	const [filteredBadges, setFilteredBadges] = useState<IBadge[]>(badges)
+	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const filterBadges = () => {
 		setFilteredBadges(
@@ -45,7 +47,11 @@ const BadgesList: FC<IBadgesList> = ({
 			<p className='text-xl text-center'>Нет значков</p>
 		</div>
 	) : (
-		<Scrollbar noScrollY noDefaultStyles className='w-full flex-1 pb-2'>
+		<Scrollbar
+			noScrollY
+			noDefaultStyles
+			className={`w-full flex-1 pb-2 ${roomAppearance.active_room_color}-scrollbar`}
+		>
 			<div className='flex h-full'>
 				{filteredBadges
 					.filter(

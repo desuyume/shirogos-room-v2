@@ -1,7 +1,8 @@
 import { IBadge } from '@/types/room.interface'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { Scrollbar } from 'react-scrollbars-custom'
 import BadgeItem from './BadgeItem'
+import { RoomAppearanceContext } from '@/Context'
 
 interface IBadgesList {
 	badges: IBadge[]
@@ -18,8 +19,13 @@ const BadgesList: FC<IBadgesList> = ({
 	activeBadge,
 	setActiveBadge,
 }) => {
+	const roomAppearance = useContext(RoomAppearanceContext)
+
 	return (
-		<Scrollbar noDefaultStyles className='w-full flex-1'>
+		<Scrollbar
+			noDefaultStyles
+			className={`w-full flex-1 ${roomAppearance.active_room_color}-scrollbar`}
+		>
 			<div className='w-full px-2'>
 				{badges
 					.filter(badge => badge.awardType.type === activeSection)

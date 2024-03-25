@@ -1,4 +1,4 @@
-import { ACTIVE_ROOM_BACKGROUND_KEY } from '@/consts/queryKeys'
+import { ACTIVE_ROOM_BACKGROUND_KEY, ROOM_APPEARANCE_KEY } from '@/consts/queryKeys'
 import roomService from '@/services/room.service'
 import { IChooseActiveRoomBackground } from '@/types/room.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -11,6 +11,7 @@ export const useChooseActiveRoomBackground = () => {
 		{
 			onSettled: () => {
 				queryClient.invalidateQueries([ACTIVE_ROOM_BACKGROUND_KEY])
+				queryClient.invalidateQueries([ROOM_APPEARANCE_KEY])
 			}
 		}
 	)
