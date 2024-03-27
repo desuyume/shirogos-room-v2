@@ -93,7 +93,6 @@ const Almanac: FC = () => {
 						{!!birthdays?.length ? (
 							<>
 								<img src={cakeImg} alt='cake-img' className='mr-[1.375rem]' />
-
 								<div className='flex flex-col items-center max-w-[11.8125rem] w-[11.8125rem] pt-2.5'>
 									<p className='text-[#EBE984] text-[1.0625rem] font-bold font-secondary text-center'>
 										С Днем Рождения<span className='text-primaryText'>,</span>
@@ -130,7 +129,6 @@ const Almanac: FC = () => {
 									alt='cake-img'
 									className='mr-[1.375rem]'
 								/>
-
 								<p className='text-[1.0625rem] text-primaryText text-center w-[11.8125rem] leading-none pt-2.5'>
 									Сегодня нет
 									<span className='text-[#EBE984] inline-block mb-1'>
