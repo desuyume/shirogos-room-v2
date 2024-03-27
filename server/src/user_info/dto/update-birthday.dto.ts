@@ -1,3 +1,3 @@
 export class UpdateBirthdayDto {
-	birthday: Date;
+	birthday: string;
 }
