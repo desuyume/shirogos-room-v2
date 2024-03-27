@@ -1,5 +1,10 @@
 import $api from '@/http'
-import { IUpdateBirthday, IUpdateGender, IUpdateUsername, IUserInfo } from '@/types/user.interface'
+import {
+	IUpdateBirthday,
+	IUpdateGender,
+	IUpdateUsername,
+	IUserInfo,
+} from '@/types/user.interface'
 
 class UserStatsService {
 	private URL = `${import.meta.env.VITE_API_URL}/userInfo`
@@ -13,7 +18,9 @@ class UserStatsService {
 	}
 
 	async updateBirthday(dto: IUpdateBirthday) {
-		return await $api.patch(`${this.URL}/birthday`, { birthday: dto.birthday?.toLocaleDateString() })
+		return await $api.patch(`${this.URL}/birthday`, {
+			birthday: dto.birthday?.toLocaleDateString('en-US'),
+		})
 	}
 
 	async updateGender(dto: IUpdateGender) {

@@ -5,7 +5,7 @@ class AlmanacService {
 	private URL = `${import.meta.env.VITE_API_URL}/almanac`
 
 	async getCurrentBirthdays(date: Date) {
-		const currentDateArr = date.toLocaleDateString().split('/')
+		const currentDateArr = date.toLocaleDateString('en-US').split('/')
 		const currentDate = `${currentDateArr[0]}.${currentDateArr[1]}`
 		return await axios.get<IAlmanac[]>(`${this.URL}/${currentDate}`)
 	}
