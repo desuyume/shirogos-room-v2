@@ -1,10 +1,11 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { abbrMonths, months } from '@/consts/months.ts'
 import cakeImg from '@/assets/cake.png'
 import noBirthdayCakeImg from '@/assets/black-gray-cake.png'
 import AlmanacSwitchBttn from './AlmanacSwitchBttn.tsx'
 import { useCurrentBirthdays } from '@/api/useCurrentBirthdays.ts'
 import useDate from '@/hooks/useDate.ts'
+import { Scrollbar } from 'react-scrollbars-custom'
 
 const Almanac: FC = () => {
 	const {
@@ -21,6 +22,8 @@ const Almanac: FC = () => {
 		isError,
 	} = useCurrentBirthdays(currentDate)
 	const [usernames, setUsernames] = useState<string[]>([])
+	const [isTwoRowNicknames, setIsTwoRowNicknames] = useState<boolean>(false)
+	const usernamesRef = useRef<HTMLParagraphElement | null>(null)
 
 	const clickPrevBttn = () => {
 		setNextDate(currentDate)
@@ -52,9 +55,19 @@ const Almanac: FC = () => {
 		}
 	}, [isFetching])
 
+	useLayoutEffect(() => {
+		if (usernamesRef.current) {
+			if (usernamesRef.current.clientHeight > 26) {
+				setIsTwoRowNicknames(true)
+			} else {
+				setIsTwoRowNicknames(false)
+			}
+		}
+	}, [usernamesRef.current])
+
 	return (
 		<div
-			className='w-[31.875rem] h-[17.1875rem] rounded-[2.3125rem] flex justify-between items-center py-3.5 px-3'
+			className='w-[31.875rem] h-[17.1875rem] rounded-[2.3125rem] flex justify-between items-center py-3.5 px-3 almanac'
 			style={{
 				background:
 					'linear-gradient(137deg, rgba(23, 23, 23, 0.20) 0%, rgba(36, 36, 36, 0.20) 46.88%), rgba(24, 24, 24, 0.40)',
@@ -84,9 +97,29 @@ const Almanac: FC = () => {
 									<p className='text-[#EBE984] text-[1.0625rem] font-bold font-secondary text-center'>
 										С Днем Рождения<span className='text-primaryText'>,</span>
 									</p>
-									<p className='text-primaryText text-[1.0625rem] font-bold font-secondary text-center max-h-[6.375rem] overflow-y-auto max-w-full break-words'>
-										{usernames?.join(', ')}!
-									</p>
+									{isTwoRowNicknames ? (
+										<Scrollbar
+											noDefaultStyles
+											style={{
+												height: isTwoRowNicknames ? '3.1875rem' : '1.59375rem',
+											}}
+											className='w-full'
+										>
+											<p
+												ref={usernamesRef}
+												className='text-primaryText text-[1.0625rem] font-bold font-secondary text-center break-words'
+											>
+												{usernames?.join(', ')}!
+											</p>
+										</Scrollbar>
+									) : (
+										<p
+											ref={usernamesRef}
+											className='text-primaryText text-[1.0625rem] font-bold font-secondary w-full text-center break-words'
+										>
+											{usernames?.join(', ')}!
+										</p>
+									)}
 								</div>
 							</>
 						) : (
