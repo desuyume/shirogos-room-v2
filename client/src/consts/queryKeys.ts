@@ -101,3 +101,5 @@ export const ROOM_STATS_KEY = 'room stats'
 
 export const ROOM_EDITOR_KEY = 'room editor'
 export const UPDATE_ROOM_EDITOR_KEY = 'update room editor'
+
+export const ALMANAC_KEY = 'almanac'

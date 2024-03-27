@@ -25,6 +25,7 @@ import { AwardModule } from './award/award.module';
 import { WikiModule } from './wiki/wiki.module';
 import { MangaModule } from './manga/manga.module';
 import { StoryModule } from './story/story.module';
+import { AlmanacModule } from './almanac/almanac.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { StoryModule } from './story/story.module';
     WikiModule,
     MangaModule,
     StoryModule,
+    AlmanacModule,
   ],
   controllers: [AppController],
   providers: [AppService],

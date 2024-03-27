@@ -13,7 +13,7 @@ class UserStatsService {
 	}
 
 	async updateBirthday(dto: IUpdateBirthday) {
-		return await $api.patch(`${this.URL}/birthday`, dto)
+		return await $api.patch(`${this.URL}/birthday`, { birthday: dto.birthday?.toLocaleDateString() })
 	}
 
 	async updateGender(dto: IUpdateGender) {
