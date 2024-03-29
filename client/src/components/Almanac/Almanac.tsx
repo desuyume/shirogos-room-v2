@@ -94,7 +94,8 @@ const Almanac: FC = () => {
 							className={
 								(usernames.length
 									? 'visible opacity-100 '
-									: 'invisible opacity-0 ') + 'absolute inset-0 w-full h-full flex justify-center items-center'
+									: 'invisible opacity-0 ') +
+								'absolute inset-0 w-full h-full flex justify-center items-center'
 							}
 						>
 							<img src={cakeImg} alt='cake-img' className='mr-[1.375rem]' />
@@ -116,7 +117,7 @@ const Almanac: FC = () => {
 												'text-primaryText text-[1.0625rem] font-bold font-secondary text-center break-words'
 											}
 										>
-											{usernames}
+											{usernames.join(', ')}
 										</p>
 									</Scrollbar>
 								) : (
@@ -126,7 +127,7 @@ const Almanac: FC = () => {
 											'text-primaryText text-[1.0625rem] font-bold font-secondary w-full text-center break-words'
 										}
 									>
-										{usernames}
+										{usernames.join(', ')}
 									</p>
 								)}
 							</div>
@@ -135,7 +136,8 @@ const Almanac: FC = () => {
 							className={
 								(!usernames.length
 									? 'visible opacity-100 '
-									: 'invisible opacity-0 ') + 'absolute inset-0 w-full h-full flex justify-center items-center'
+									: 'invisible opacity-0 ') +
+								'absolute inset-0 w-full h-full flex justify-center items-center'
 							}
 						>
 							<img
