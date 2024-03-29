@@ -94,7 +94,7 @@ const Almanac: FC = () => {
 							className={
 								(usernames.length
 									? 'visible opacity-100 '
-									: 'invisible opacity-0 ') + 'absolute inset-0 w-full h-full flex justify-center items-center transition-all'
+									: 'invisible opacity-0 ') + 'absolute inset-0 w-full h-full flex justify-center items-center'
 							}
 						>
 							<img src={cakeImg} alt='cake-img' className='mr-[1.375rem]' />
@@ -135,7 +135,7 @@ const Almanac: FC = () => {
 							className={
 								(!usernames.length
 									? 'visible opacity-100 '
-									: 'invisible opacity-0 ') + 'absolute inset-0 w-full h-full flex justify-center items-center transition-all'
+									: 'invisible opacity-0 ') + 'absolute inset-0 w-full h-full flex justify-center items-center'
 							}
 						>
 							<img
