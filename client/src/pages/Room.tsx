@@ -32,14 +32,14 @@ const Room = () => {
 								backgroundImage: !!roomAppearance.selected_background
 									? `url(${import.meta.env.VITE_SERVER_URL}/${roomAppearance
 											.selected_background?.img})`
-									: "url('/images/room-default-bg.png')",
+									: "url('/images/room-default-bg.webp')",
 						  }
 						: {}
 				}
 				className={
 					(pathname.includes('editor')
 						? 'bg-tertiary '
-						: 'bg-cover bg-no-repeat bg-center ') +
+						: !!roomAppearance.selected_background ? 'bg-cover bg-no-repeat bg-center ' : '') +
 					`pt-[0.62rem] min-h-[calc(100vh-5.25rem)] relative z-10 ${
 						colorVariants.text[roomAppearance.active_room_color]
 					}`

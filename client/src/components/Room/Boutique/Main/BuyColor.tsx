@@ -1,5 +1,4 @@
 import { FC, useContext, useEffect, useState } from 'react'
-import lockImg from '@/assets/room/lock.png'
 import { useUserRoomColors } from '@/api/useUserRoomColors'
 import { IRoomColor } from '@/types/room.interface'
 import { useBuyRoomColor } from '@/api/useBuyRoomColor'
@@ -36,13 +35,14 @@ const BuyColor: FC<IBuyColor> = ({ type }) => {
 		}
 	}
 
-	const chooseColor = (color: IRoomColor) => {
-		if (!checkColor(color)) {
-			setCost(color.cost)
-		} else {
+	const toggleColor = (color: IRoomColor) => {
+		if (selectedColor === color.name) {
 			setCost(0)
+			setSelectedColor(null)
+		} else {
+			setCost(color.cost)
+			setSelectedColor(color.name)
 		}
-		setSelectedColor(color.name)
 	}
 
 	const clickBuy = () => {
@@ -94,21 +94,20 @@ const BuyColor: FC<IBuyColor> = ({ type }) => {
 						{allColors
 							?.filter(color => color.name !== 'pink')
 							.map(color => (
-								<div
+								<button
 									key={color.id}
 									style={{ backgroundColor: color.hex }}
 									className={
 										(selectedColor === color.name
 											? 'border-2 border-[#F8FEFA] scale-[107%] transition-transform '
 											: '') +
-										'min-h-[30%] max-h-[30%] 2k:min-h-[40%] 2k:max-h-[40%] rounded-[1.125rem] aspect-square flex justify-center items-center cursor-pointer'
+										(checkColor(color)
+											? 'opacity-0 invisible '
+											: 'opacity-100 visible ') +
+										'min-h-[30%] max-h-[30%] 2k:min-h-[40%] 2k:max-h-[40%] rounded-[1.125rem] aspect-square flex justify-center items-center cursor-pointer transition-all'
 									}
-									onClick={() => chooseColor(color)}
-								>
-									{!checkColor(color) && (
-										<img className='w-[66%]' src={lockImg} alt='lock-icon' />
-									)}
-								</div>
+									onClick={() => toggleColor(color)}
+								/>
 							))}
 					</div>
 				</>
