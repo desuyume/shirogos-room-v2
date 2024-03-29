@@ -63,7 +63,7 @@ const Almanac: FC = () => {
 				setIsTwoRowNicknames(false)
 			}
 		}
-	}, [usernamesRef.current])
+	}, [usernamesRef.current, usernames])
 
 	return (
 		<div
@@ -78,7 +78,7 @@ const Almanac: FC = () => {
 				date={prevDate.getDate()}
 				month={abbrMonths[prevDate.getMonth() as keyof typeof months]}
 			/>
-			<div className='h-full flex flex-col items-center mt-[1.875rem]'>
+			<div className='h-full w-full flex flex-col items-center mt-[1.875rem]'>
 				<div className='text-center mb-6'>
 					<p className='text-[#EBE984] text-2xl leading-none mb-1'>
 						{currentDate.getDate()}{' '}
@@ -89,58 +89,71 @@ const Almanac: FC = () => {
 					</p>
 				</div>
 				{
-					<div className='flex justify-center items-center'>
-						{!!birthdays?.length ? (
-							<>
-								<img src={cakeImg} alt='cake-img' className='mr-[1.375rem]' />
-								<div className='flex flex-col items-center max-w-[11.8125rem] w-[11.8125rem] pt-2.5'>
-									<p className='text-[#EBE984] text-[1.0625rem] font-bold font-secondary text-center'>
-										С Днем Рождения<span className='text-primaryText'>,</span>
-									</p>
-									{isTwoRowNicknames ? (
-										<Scrollbar
-											noDefaultStyles
-											style={{
-												height: isTwoRowNicknames ? '3.1875rem' : '1.59375rem',
-											}}
-											className='w-full'
-										>
-											<p
-												ref={usernamesRef}
-												className='text-primaryText text-[1.0625rem] font-bold font-secondary text-center break-words'
-											>
-												{usernames?.join(', ')}!
-											</p>
-										</Scrollbar>
-									) : (
+					<div className='w-full h-[6.625rem] relative'>
+						<div
+							className={
+								(usernames.length
+									? 'visible opacity-100 '
+									: 'invisible opacity-0 ') + 'absolute inset-0 w-full h-full flex justify-center items-center transition-all'
+							}
+						>
+							<img src={cakeImg} alt='cake-img' className='mr-[1.375rem]' />
+							<div className='flex flex-col items-center max-w-[11.8125rem] w-[11.8125rem] pt-2.5'>
+								<p className='text-[#EBE984] text-[1.0625rem] font-bold font-secondary text-center'>
+									С Днем Рождения<span className='text-primaryText'>,</span>
+								</p>
+								{isTwoRowNicknames ? (
+									<Scrollbar
+										noDefaultStyles
+										style={{
+											height: isTwoRowNicknames ? '3.1875rem' : '1.59375rem',
+										}}
+										className='w-full'
+									>
 										<p
 											ref={usernamesRef}
-											className='text-primaryText text-[1.0625rem] font-bold font-secondary w-full text-center break-words'
+											className={
+												'text-primaryText text-[1.0625rem] font-bold font-secondary text-center break-words'
+											}
 										>
-											{usernames?.join(', ')}!
+											{usernames}
 										</p>
-									)}
-								</div>
-							</>
-						) : (
-							<>
-								<img
-									src={noBirthdayCakeImg}
-									alt='cake-img'
-									className='mr-[1.375rem]'
-								/>
-								<p className='text-[1.0625rem] text-primaryText text-center w-[11.8125rem] leading-none pt-2.5'>
-									Сегодня нет
-									<span className='text-[#EBE984] inline-block mb-1'>
-										Дней Рождений
-									</span>
-									!
-									<span className='text-[0.625rem] inline-block leading-none'>
-										(или его не указали в настройках)
-									</span>
-								</p>
-							</>
-						)}
+									</Scrollbar>
+								) : (
+									<p
+										ref={usernamesRef}
+										className={
+											'text-primaryText text-[1.0625rem] font-bold font-secondary w-full text-center break-words'
+										}
+									>
+										{usernames}
+									</p>
+								)}
+							</div>
+						</div>
+						<div
+							className={
+								(!usernames.length
+									? 'visible opacity-100 '
+									: 'invisible opacity-0 ') + 'absolute inset-0 w-full h-full flex justify-center items-center transition-all'
+							}
+						>
+							<img
+								src={noBirthdayCakeImg}
+								alt='cake-img'
+								className='mr-[1.375rem]'
+							/>
+							<p className='text-[1.0625rem] text-primaryText text-center w-[11.8125rem] leading-none pt-2.5'>
+								Сегодня нет
+								<span className='text-[#EBE984] inline-block mb-1'>
+									Дней Рождений
+								</span>
+								!
+								<span className='text-[0.625rem] inline-block leading-none'>
+									(или его не указали в настройках)
+								</span>
+							</p>
+						</div>
 					</div>
 				}
 			</div>
