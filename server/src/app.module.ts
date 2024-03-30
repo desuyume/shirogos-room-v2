@@ -26,6 +26,7 @@ import { WikiModule } from './wiki/wiki.module';
 import { MangaModule } from './manga/manga.module';
 import { StoryModule } from './story/story.module';
 import { AlmanacModule } from './almanac/almanac.module';
+import { RatingModule } from './rating/rating.module';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { AlmanacModule } from './almanac/almanac.module';
     MangaModule,
     StoryModule,
     AlmanacModule,
+    RatingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
