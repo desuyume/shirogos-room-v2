@@ -15,9 +15,9 @@ const RatingList: FC = () => {
 		</div>
 	) : (
 		<div className='flex flex-col items-center'>
-			<RatingItem user={bestUsers[0]} place='first' />
-			<RatingItem user={bestUsers[1]} place='second' />
-			<RatingItem user={bestUsers[2]} place='third' />
+			{bestUsers[0] && <RatingItem user={bestUsers[0]} place='first' />}
+			{bestUsers[1] && <RatingItem user={bestUsers[1]} place='second' />}
+			{bestUsers[2] && <RatingItem user={bestUsers[2]} place='third' />}
 		</div>
 	)
 }
