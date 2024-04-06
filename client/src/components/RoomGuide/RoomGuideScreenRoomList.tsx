@@ -55,7 +55,7 @@ const RoomGuideScreenRoomList: FC = () => {
 					}
 				/>
 			</div>
-			{!isLoading ? (
+			{isLoading ? (
 				<div
 					className={
 						'w-full flex justify-center items-center ' +
