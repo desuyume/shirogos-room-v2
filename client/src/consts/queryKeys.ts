@@ -105,3 +105,7 @@ export const UPDATE_ROOM_EDITOR_KEY = 'update room editor'
 export const ALMANAC_KEY = 'almanac'
 
 export const RATING_THREE_BEST_KEY = 'rating three best'
+
+export const RANDOM_ROOMS_KEY = 'random rooms'
+export const ROOMS_BY_LEVEL_KEY = 'rooms by level'
+export const ROOM_BY_USERNAME = 'room by username'

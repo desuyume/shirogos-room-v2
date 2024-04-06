@@ -400,7 +400,31 @@
 		&:hover,
 		&.dragging {
 			height: 0.4375rem;
-			background: #FF75AB;
+			background: #ff75ab;
+		}
+	}
+}
+
+.room-guide-screen {
+	.ScrollbarsCustom-TrackY {
+		width: 1.1875rem;
+		right: 2.1875rem;
+		padding-bottom: 1.9375rem;
+		padding-top: 1.9375rem;
+
+		&:hover,
+		&.dragging {
+			width: 1.1875rem;
+			right: 2.1875rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		background: #c34375;
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #ff75ab;
 		}
 	}
 }
@@ -410,57 +434,57 @@
 		background: #c34375;
 		&:hover,
 		&.dragging {
-			background: #FF75AB;
+			background: #ff75ab;
 		}
 	}
 }
 
 .vermilion-scrollbar {
 	.ScrollbarsCustom-Thumb {
-		background: #C34343;
+		background: #c34343;
 		&:hover,
 		&.dragging {
-			background: #FA8D8D;
+			background: #fa8d8d;
 		}
 	}
 }
 
 .orange-scrollbar {
 	.ScrollbarsCustom-Thumb {
-		background: #C37143;
+		background: #c37143;
 		&:hover,
 		&.dragging {
-			background: #F1A57B;
+			background: #f1a57b;
 		}
 	}
 }
 
 .blue-scrollbar {
 	.ScrollbarsCustom-Thumb {
-		background: #4367C3;
+		background: #4367c3;
 		&:hover,
 		&.dragging {
-			background: #7C9AE8;
+			background: #7c9ae8;
 		}
 	}
 }
 
 .purple-scrollbar {
 	.ScrollbarsCustom-Thumb {
-		background: #7B43C3;
+		background: #7b43c3;
 		&:hover,
 		&.dragging {
-			background: #A77BDF;
+			background: #a77bdf;
 		}
 	}
 }
 
 .magenta-scrollbar {
 	.ScrollbarsCustom-Thumb {
-		background: #C343B6;
+		background: #c343b6;
 		&:hover,
 		&.dragging {
-			background: #F281E7;
+			background: #f281e7;
 		}
 	}
 }
@@ -470,67 +494,67 @@
 		background: #717171;
 		&:hover,
 		&.dragging {
-			background: #ACACAC;
+			background: #acacac;
 		}
 	}
 }
 
 .green-scrollbar {
 	.ScrollbarsCustom-Thumb {
-		background: #4A9648;
+		background: #4a9648;
 		&:hover,
 		&.dragging {
-			background: #80D77E;
+			background: #80d77e;
 		}
 	}
 }
 
 .yellow-scrollbar {
 	.ScrollbarsCustom-Thumb {
-		background: #BE9C25;
+		background: #be9c25;
 		&:hover,
 		&.dragging {
-			background: #F0CF5B;
+			background: #f0cf5b;
 		}
 	}
 }
 
 .aqua-scrollbar {
 	.ScrollbarsCustom-Thumb {
-		background: #34A3AA;
+		background: #34a3aa;
 		&:hover,
 		&.dragging {
-			background: #75D6DC;
+			background: #75d6dc;
 		}
 	}
 }
 
 .red-scrollbar {
 	.ScrollbarsCustom-Thumb {
-		background: #A80000;
+		background: #a80000;
 		&:hover,
 		&.dragging {
-			background: #DD4242;
+			background: #dd4242;
 		}
 	}
 }
 
 .turquoise-scrollbar {
 	.ScrollbarsCustom-Thumb {
-		background: #00A880;
+		background: #00a880;
 		&:hover,
 		&.dragging {
-			background: #47D8B5;
+			background: #47d8b5;
 		}
 	}
 }
 
 .crimson-scrollbar {
 	.ScrollbarsCustom-Thumb {
-		background: #A4114A;
+		background: #a4114a;
 		&:hover,
 		&.dragging {
-			background: #DE5389;
+			background: #de5389;
 		}
 	}
 }

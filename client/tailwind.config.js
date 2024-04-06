@@ -70,6 +70,10 @@ export default {
 				'room-gradient-revert':
 					'linear-gradient(180deg, rgba(195, 67, 117, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
 				'streamer-bg': "url('/images/streamer-bg.png')",
+				'black-to-secondary-gradient':
+					'linear-gradient(135deg, #000000 0%, #242424 100%)',
+				'room-guide-screen-gradient':
+					'linear-gradient(180deg, #181818 0%, #640026 100%)',
 
 				'room-gradient-pink':
 					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(195, 67, 117, 0.50) 100%)',

@@ -1,8 +1,14 @@
 import { FC } from 'react'
 import { useRoomStats } from '@/api/useRoomStats'
+import { IStats } from '@/types/room.interface'
 
-const Statistic: FC = () => {
-	const { data: stats, isLoading, isError } = useRoomStats()
+interface IStatistic {
+	isGuide?: boolean
+	guideStats?: IStats
+}
+
+const Statistic: FC<IStatistic> = ({ isGuide, guideStats }) => {
+	const { data: stats, isLoading, isError } = useRoomStats(!isGuide)
 
 	return (
 		<>
@@ -12,13 +18,13 @@ const Statistic: FC = () => {
 						Статистика
 					</p>
 				</div>
-				{isLoading ? (
+				{isLoading && !isGuide ? (
 					<div className='w-full h-full flex justify-center items-center'>
 						<p className='text-primaryText text-center text-[0.73vw] leading-none'>
-							Загрукза...
+							Загрузка...
 						</p>
 					</div>
-				) : isError ? (
+				) : isError && !isGuide ? (
 					<div className='w-full h-full flex justify-center items-center'>
 						<p className='text-primaryText text-center text-[0.73vw] leading-none'>
 							Ошибка
@@ -34,7 +40,9 @@ const Statistic: FC = () => {
 							</div>
 							<div className='h-full aspect-[86.05/47] bg-[#8CAFB1] rounded-[1.5625rem] flex justify-center items-center pointer-events-none'>
 								<p className='text-primaryText text-center text-[0.65vw]'>
-									{stats.panopticons_count}
+									{isGuide
+										? guideStats?.panopticons_count
+										: stats?.panopticons_count}
 								</p>
 							</div>
 						</div>
@@ -46,7 +54,7 @@ const Statistic: FC = () => {
 							</div>
 							<div className='h-full aspect-[86.05/47] bg-[#67B8BD] rounded-[1.5625rem] flex justify-center items-center'>
 								<p className='text-primaryText text-center text-[0.65vw] pointer-events-none'>
-									{stats.clips}
+									{isGuide ? guideStats?.clips : stats?.clips}
 								</p>
 							</div>
 						</div>
@@ -58,7 +66,7 @@ const Statistic: FC = () => {
 							</div>
 							<div className='h-full aspect-[86.05/47] bg-[#7FB5B8] rounded-[1.5625rem] flex justify-center items-center'>
 								<p className='text-primaryText text-center text-[0.65vw] pointer-events-none'>
-									{stats.games_ordered}
+									{isGuide ? guideStats?.games_ordered : stats?.games_ordered}
 								</p>
 							</div>
 						</div>

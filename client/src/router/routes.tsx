@@ -11,6 +11,7 @@ import { IRoute } from '@/types/types'
 import { adminRoutes } from './adminRoutes'
 import Admin from '@/pages/Admin/Admin'
 import Streamer from '@/pages/Streamer'
+import Guide from '@/pages/Guide'
 
 export const publicRouter: IRoute[] = [
 	{ path: '/', element: <Main /> },
@@ -22,6 +23,7 @@ export const publicRouter: IRoute[] = [
 	{ path: '/manga/:id/:chapter?', element: <Manga /> },
 	{ path: '/story/:id/:chapter?', element: <Story /> },
 	{ path: '/room/create', element: <CreateRoom /> },
+	{ path: '/guide/:username', element: <Guide /> },
 ]
 
 export const privateRouter: IRoute[] = [

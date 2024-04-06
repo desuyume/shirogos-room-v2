@@ -6,13 +6,15 @@ import HeaderBttn from './HeaderBttn'
 import { UserContext } from '@/Context'
 import Profile from './Profile'
 import PrimaryHeaderBttn from './PrimaryHeaderBttn'
+import { RoomColor } from '@/consts/roomColors'
 
 interface IHeader {
 	withLine: boolean
 	isFixed: boolean
+	room_color?: RoomColor
 }
 
-const Header: FC<IHeader> = ({ withLine, isFixed }) => {
+const Header: FC<IHeader> = ({ withLine, isFixed, room_color }) => {
 	const userContext = useContext(UserContext)
 
 	const [isLogoHover, setIsLogoHover] = useState<boolean>(false)
@@ -52,7 +54,7 @@ const Header: FC<IHeader> = ({ withLine, isFixed }) => {
 
 			<nav className='w-full flex justify-center items-center'>
 				<HeaderBttn path='/wiki' title='Википедия' />
-				<PrimaryHeaderBttn path='/streamer' title='Стримерская' />
+				<PrimaryHeaderBttn path='/streamer' title='Стримерская' room_color={room_color} />
 				<HeaderBttn path='/dangoteka' title='Данготека' />
 			</nav>
 			{userContext?.isFetched && userContext.user && <Profile />}

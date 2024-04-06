@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import UserInfoBar from './UserInfoBar'
 import UserAchievementsBar from './UserAchievementsBar'
-import { IPastUsername } from '@/types/room.interface'
+import { IPastUsername, IRoomAppearance } from '@/types/room.interface'
 
 interface IUserBar {
 	profile_img: string | null
@@ -10,6 +10,8 @@ interface IUserBar {
 	level: number
 	created_at: Date
 	className?: string
+	isGuide?: boolean
+	guideRoomAppearance?: IRoomAppearance
 }
 
 const UserBar: FC<IUserBar> = ({
@@ -18,7 +20,9 @@ const UserBar: FC<IUserBar> = ({
 	past_usernames,
 	level,
 	created_at,
-	className
+	className,
+	isGuide,
+	guideRoomAppearance,
 }) => {
 	return (
 		<div className={'w-[14.625rem] h-full flex flex-col transition-all ' + className}>
@@ -27,6 +31,8 @@ const UserBar: FC<IUserBar> = ({
 				username={username}
 				past_usernames={past_usernames}
 				level={level}
+				isGuide={isGuide}
+				guideRoomAppearance={guideRoomAppearance}
 			/>
 			<UserAchievementsBar created_at={created_at} />
 		</div>
