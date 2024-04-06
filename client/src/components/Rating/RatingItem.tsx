@@ -1,6 +1,7 @@
 import { IRatingUser } from '@/types/rating.interface'
 import { FC } from 'react'
 import noProfilePic from '@/assets/no-profile-picture-icon.webp'
+import { Link } from 'react-router-dom'
 
 interface IRatingItem {
 	user: IRatingUser
@@ -25,20 +26,26 @@ const RatingItem: FC<IRatingItem> = ({ user, place }) => {
 			>
 				#{place === 'first' ? 1 : place === 'second' ? 2 : 3}
 			</p>
-			<img
+			<Link
 				className={
 					(place === 'first' ? 'mr-8 ' : 'mr-[1.71875rem] ') +
-					'h-full rounded-[0.6875rem] aspect-[85/70]'
+					'h-full aspect-[85/70] rounded-[0.6875rem] outline outline-transparent outline-[3px] hover:outline-primary cursor-pointer transition-all'
 				}
-				src={
-					!!user.miniature_img
-						? `${import.meta.env.VITE_SERVER_URL}/${user.miniature_img}`
-						: !!user.profile_img
-						? `${import.meta.env.VITE_SERVER_URL}/${user.profile_img}`
-						: noProfilePic
-				}
-				alt={`${user.username}-pic`}
-			/>
+				to={`/guide/${user.username}?from=guidePreview`}
+			>
+				<img
+					className={'h-full rounded-[0.6875rem] aspect-[85/70]'}
+					src={
+						!!user.miniature_img
+							? `${import.meta.env.VITE_SERVER_URL}/${user.miniature_img}`
+							: !!user.profile_img
+							? `${import.meta.env.VITE_SERVER_URL}/${user.profile_img}`
+							: noProfilePic
+					}
+					alt={`${user.username}-pic`}
+				/>
+			</Link>
+
 			<div
 				className={
 					(place === 'first' ? 'max-w-[10.375rem] ' : 'max-w-[8.375rem] ') +

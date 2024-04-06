@@ -27,6 +27,7 @@ import { MangaModule } from './manga/manga.module';
 import { StoryModule } from './story/story.module';
 import { AlmanacModule } from './almanac/almanac.module';
 import { RatingModule } from './rating/rating.module';
+import { RoomGuideModule } from './room-guide/room-guide.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { RatingModule } from './rating/rating.module';
     StoryModule,
     AlmanacModule,
     RatingModule,
+    RoomGuideModule,
   ],
   controllers: [AppController],
   providers: [AppService],

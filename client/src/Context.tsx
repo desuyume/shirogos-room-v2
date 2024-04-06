@@ -60,8 +60,6 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 	const setUserActiveColors = () => {
 		if (roomAppearanceData) {
 			setRoomAppearance(roomAppearanceData)
-			console.log(roomAppearanceData);
-			
 		}
 	}
 
