@@ -111,6 +111,12 @@ export class RoomService {
       },
     });
 
+    await this.prisma.editor.create({
+      data: {
+        roomId: updatedRoom.id,
+      },
+    });
+
     await this.setRoomRandomUniqueRoles(updatedRoom.id);
 
     return {
