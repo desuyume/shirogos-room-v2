@@ -23,7 +23,7 @@ const RoomGuideScreenRoomItem: FC<IRoomGuideScreenRoomItem> = ({
 			>
 				<div className='max-w-full min-w-full h-full relative cursor-pointer flex justify-between items-center group'>
 					<img
-						className='h-full aspect-[290/236] rounded-[2.3125rem] z-10'
+						className='h-full aspect-[290/236] object-cover rounded-[2.3125rem] z-10'
 						src={
 							!!room.user.miniature_img
 								? `${import.meta.env.VITE_SERVER_URL}/${
