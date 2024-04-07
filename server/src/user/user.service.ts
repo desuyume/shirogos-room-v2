@@ -43,7 +43,14 @@ export class UserService {
     return {
       accessToken: tokens.accessToken,
       refreshToken,
-      user: userData,
+      user: {
+        id: userData.id,
+        username: userData.username,
+        role: userData.role,
+        Room: {
+          id: userData.roomId,
+        },
+      },
       isAuth: true,
     };
   }
@@ -83,7 +90,7 @@ export class UserService {
         id: userData.id,
       },
     });
-    const userDto = new UserDto(user);
+    const userDto = new UserDto({ ...user, roomId: userData.roomId });
     const tokens = this.tokenService.generateTokens({ ...userDto });
 
     await this.tokenService.saveToken(
