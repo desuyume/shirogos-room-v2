@@ -51,6 +51,9 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 				id: userData.user.id,
 				username: userData.user.username,
 				role: userData.user.role,
+				Room: {
+					id: userData.user.Room.id,
+				},
 			})
 		}
 

@@ -1,7 +1,8 @@
+import { AwardType } from '@/types/achievements.interface'
 import { FC } from 'react'
 
 interface IExperienceAward {
-	selectedAwardType: string | null
+	selectedAwardType: AwardType | null
 	exp: string
 	setExp: React.Dispatch<React.SetStateAction<string>>
 }

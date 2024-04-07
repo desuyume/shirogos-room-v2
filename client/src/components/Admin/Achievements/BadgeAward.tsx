@@ -1,8 +1,9 @@
+import { AwardType } from '@/types/achievements.interface'
 import previewUploadedImg from '@/utils/previewUploadedImg'
 import { FC, useEffect, useRef, useState } from 'react'
 
 interface IBadgeAward { 
-	selectedAwardType: string | null
+	selectedAwardType: AwardType | null
 	setBadgeImg: React.Dispatch<React.SetStateAction<File | null>>
 }
 

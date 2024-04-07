@@ -18,11 +18,12 @@ model Donate {
 }
 
 model UniqueRole {
-  id    Int                  @id @default(autoincrement())
-  title String               @unique
-  type  UniqueRoleType
-  cost  Int                  @default(100)
-  rooms UniqueRolesOnRooms[]
+  id               Int                  @id @default(autoincrement())
+  title            String               @unique
+  type             UniqueRoleType
+  cost             Int                  @default(100)
+  rooms            UniqueRolesOnRooms[]
+  AchievementAward AchievementAward[]
 
   @@map("unique_roles")
 }
@@ -98,6 +99,7 @@ model RoomBackground {
   img               String
   Room              Room[]
   BackroundsOnRooms BackroundsOnRooms[]
+  AchievementAward  AchievementAward[]
 
   @@map("room_backgrounds")
 }
@@ -114,28 +116,29 @@ model Panopticon {
 }
 
 model Room {
-  id                             Int                  @id @default(autoincrement())
+  id                             Int                   @id @default(autoincrement())
   name                           String
-  created_at                     DateTime             @default(now())
-  room_colors                    String[]             @default(["pink"])
-  active_room_color              String               @default("pink")
-  username_colors                String[]             @default(["pink"])
-  active_username_color          String               @default("pink")
+  created_at                     DateTime              @default(now())
+  room_colors                    String[]              @default(["pink"])
+  active_room_color              String                @default("pink")
+  username_colors                String[]              @default(["pink"])
+  active_username_color          String                @default("pink")
   unique_roles                   UniqueRolesOnRooms[]
   selected_unique_role_adjective String?
   selected_unique_role_noun      String?
   random_unique_role_adjective   String?
   random_unique_role_noun        String?
-  favorite_character             Character?           @relation(fields: [characterId], references: [id])
+  favorite_character             Character?            @relation(fields: [characterId], references: [id])
   characterId                    String?
   buyed_backgrounds              BackroundsOnRooms[]
-  selected_background            RoomBackground?      @relation(fields: [roomBackgroundId], references: [id])
+  selected_background            RoomBackground?       @relation(fields: [roomBackgroundId], references: [id])
   roomBackgroundId               Int?
   buyed_panopticons              PanopticonsOnRooms[]
   buyed_awards                   AwardsOnRooms[]
-  user                           User                 @relation(fields: [userId], references: [id])
-  userId                         Int                  @unique
+  user                           User                  @relation(fields: [userId], references: [id])
+  userId                         Int                   @unique
   Editor                         Editor[]
+  AchievementsOnRooms            AchievementsOnRooms[]
 
   @@map("rooms")
 }
@@ -285,15 +288,16 @@ enum AwardCategory {
 }
 
 model Award {
-  id            Int             @id @default(autoincrement())
-  cost          Int             @default(0)
-  title         String
-  awardType     AwardType       @relation(fields: [awardTypeId], references: [id])
-  awardTypeId   Int
-  award_img     String
-  category      AwardCategory   @default(value: BOUTIQUE)
-  AwardsOnRooms AwardsOnRooms[]
-  EditorBadge   EditorBadge[]
+  id               Int                @id @default(autoincrement())
+  cost             Int                @default(0)
+  title            String
+  awardType        AwardType          @relation(fields: [awardTypeId], references: [id])
+  awardTypeId      Int
+  award_img        String
+  category         AwardCategory      @default(value: BOUTIQUE)
+  AwardsOnRooms    AwardsOnRooms[]
+  EditorBadge      EditorBadge[]
+  AchievementAward AchievementAward[]
 
   @@map("awards")
 }
@@ -488,4 +492,38 @@ model EditorBadge {
   editorId   Int?
 
   @@map("editor_badges")
+}
+
+model Achievement {
+  id                  Int                   @id @default(autoincrement())
+  title               String
+  description         String?
+  background          String?
+  AchievementsOnRooms AchievementsOnRooms[]
+  AchievementAward    AchievementAward?
+
+  @@map("achievements")
+}
+
+model AchievementAward {
+  id               Int             @id @default(autoincrement())
+  Achievement      Achievement     @relation(fields: [achievementId], references: [id])
+  achievementId    Int             @unique
+  Badge            Award?          @relation(fields: [badgeId], references: [id])
+  badgeId          Int?
+  RoomBackgorund   RoomBackground? @relation(fields: [roomBackgorundId], references: [id])
+  roomBackgorundId Int?
+  UniqueRole       UniqueRole?     @relation(fields: [uniqueRoleId], references: [id])
+  uniqueRoleId     Int?
+  exp              Int?
+
+  @@map("achievement_awards")
+}
+
+model AchievementsOnRooms {
+  id            Int         @id @default(autoincrement())
+  Room          Room        @relation(fields: [roomId], references: [id])
+  roomId        Int
+  Achievement   Achievement @relation(fields: [achievenentId], references: [id])
+  achievenentId Int
 }

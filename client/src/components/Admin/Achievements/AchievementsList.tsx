@@ -1,47 +1,9 @@
 import { FC } from 'react'
 import AchievementItem from './AchievementItem'
-import { IAchievemnt } from '@/types/achievements.interface'
-import AddAchievement from './AddAchievement'
+import { useAchievements } from '@/api/useAchievements'
 
 const AchievementsList: FC = () => {
-	const achievements: IAchievemnt[] = [
-		{
-			id: 1,
-			name: 'Хэллоуин 2018',
-			description:
-				'Выдавалось за участие в ивенте “Ночь на Хэллоуин” 2018 года',
-			awardType: ['badge'],
-			bgImg: null,
-			users: ['mercenaryJulian'],
-		},
-		{
-			id: 2,
-			name: 'Хэллоуин 2018',
-			description:
-				'Выдавалось за участие в ивенте “Ночь на Хэллоуин” 2018 года',
-			awardType: ['badge'],
-			bgImg: null,
-			users: ['mercenaryJulian'],
-		},
-		{
-			id: 3,
-			name: 'Хэллоуин 2018',
-			description:
-				'Выдавалось за участие в ивенте “Ночь на Хэллоуин” 2018 года',
-			awardType: ['badge'],
-			bgImg: null,
-			users: ['mercenaryJulian'],
-		},
-		{
-			id: 4,
-			name: 'Хэллоуин 2018',
-			description:
-				'Выдавалось за участие в ивенте “Ночь на Хэллоуин” 2018 года',
-			awardType: ['badge'],
-			bgImg: null,
-			users: ['mercenaryJulian'],
-		},
-	]
+	const { data: achievements, isLoading, isError } = useAchievements()
 
 	return (
 		<div className='w-[85.4%]'>
@@ -62,15 +24,22 @@ const AchievementsList: FC = () => {
 					<p className='text-[#FFF] text-xl text-center'>У кого есть</p>
 				</div>
 			</div>
-			<div className='w-full flex flex-col'>
-				{achievements.map(achieve => (
-					<AchievementItem
-						key={achieve.id}
-						achieve={achieve}
-					/>
-				))}
-				<AddAchievement />
-			</div>
+			{isLoading ? (
+				<div className='w-full py-4 flex justify-center items-center'>
+					<p>Загрузка...</p>
+				</div>
+			) : isError ? (
+				<div className='w-full py-4 flex justify-center items-center'>
+					<p>Ошибка</p>
+				</div>
+			) : (
+				<div className='w-full flex flex-col'>
+					{achievements.map(achieve => (
+						<AchievementItem key={achieve.id} achieve={achieve} />
+					))}
+					<AchievementItem isNew />
+				</div>
+			)}
 		</div>
 	)
 }

@@ -1,32 +1,43 @@
 import { FC, useEffect, useState } from 'react'
 import FindUser from '../FindUser'
-import { IAchievemnt } from '@/types/achievements.interface'
+import { AwardType, IAchievementFetch } from '@/types/achievements.interface'
 import AwardButtons from './AwardButtons'
 import BadgeAward from './BadgeAward'
 import BackgroundAward from './BackgroundAward'
 import RoleAward from './RoleAward'
 import ExperienceAward from './ExperienceAward'
-import FrameAward from "@/components/Admin/Achievements/FrameAward.tsx";
+import FrameAward from '@/components/Admin/Achievements/FrameAward.tsx'
+import AchieveBg from './AchieveBg'
+import { useCreateAchievement } from '@/api/useCreateAchievement'
 
 interface IAchievementItem {
-	achieve: IAchievemnt
+	achieve?: IAchievementFetch
+	isNew?: boolean
 }
 
-const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
+const AchievementItem: FC<IAchievementItem> = ({ achieve, isNew = false }) => {
 	const [isChooseUserVisible, setIsChooseUserVisible] = useState<boolean>(false)
-	const [selectedUsers, setSelectedUsers] = useState<string[]>(achieve.users)
-	const [name, setName] = useState<string>(achieve.name)
-	const [desc, setDesc] = useState<string>(achieve.description)
-	const [awardType, setAwardType] = useState<string[]>(achieve.awardType)
-	const [selectedAwardType, setSelectedAwardType] = useState<string | null>('')
-	const [badgeImg, setBadgeImg] = useState<File | null>(null)
-	const [bgImg, setBgImg] = useState<File | null>(null)
+	const [selectedRooms, setSelectedRooms] = useState<number[]>(
+		achieve?.AchievementsOnRooms.map(room => room.roomId) ?? []
+	)
+	const [title, setTitle] = useState<string>(achieve?.title ?? '')
+	const [desc, setDesc] = useState<string>(achieve?.description ?? '')
+	const [awardType, setAwardType] = useState<AwardType[]>(['achieve-bg'])
+	const [selectedAwardType, setSelectedAwardType] = useState<AwardType | null>(
+		null
+	)
+	const [_, setBadgeImg] = useState<File | null>(null)
+	const [__, setBgImg] = useState<File | null>(null)
 	const [roleType, setRoleType] = useState<string>('noun')
 	const [role, setRole] = useState<string>('')
 	const [exp, setExp] = useState<string>('0')
-	const [frameImg, setFrameImg] = useState<File | null>(null)
+	const [___, setFrameImg] = useState<File | null>(null)
+	const [achieveBgImg, setAchieveBgImg] = useState<File | null>(null)
 
-	const handleClickAwardType = (type: string) => {
+	const { mutate: createAchieve, isSuccess: isSuccessCreate } =
+		useCreateAchievement()
+
+	const handleClickAwardType = (type: AwardType) => {
 		if (awardType.includes(type)) {
 			setAwardType(awardType.filter(item => item !== type))
 		} else {
@@ -35,28 +46,58 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 		setSelectedAwardType(null)
 	}
 
-	useEffect(() => {
-		console.log(badgeImg)
-	}, [badgeImg])
+	const handleCreate = () => {
+		const data = new FormData()
+
+		if (!title) {
+			console.log('title is required')
+			return
+		}
+		data.append('title', title)
+
+		if (desc) {
+			data.append('description', desc)
+		}
+
+		if (!achieveBgImg) {
+			console.log('achieveBgImg is required')
+			return
+		}
+		data.append('bgImg', achieveBgImg)
+
+		data.append('roomsId', JSON.stringify(selectedRooms))
+
+		createAchieve(data)
+	}
+
+	const clearFields = () => {
+		setTitle('')
+		setDesc('')
+		setAwardType([])
+		setSelectedAwardType(null)
+		setBadgeImg(null)
+		setBgImg(null)
+		setRoleType('noun')
+		setRole('')
+		setExp('0')
+		setFrameImg(null)
+		setAchieveBgImg(null)
+		setSelectedRooms([])
+		setIsChooseUserVisible(false)
+	}
 
 	useEffect(() => {
-		console.log(bgImg)
-	}, [bgImg])
-
-	useEffect(() => {
-		console.log(frameImg)
-	}, [frameImg])
-
-	useEffect(() => {
-		console.log(`${roleType} - ${role}`)
-	}, [roleType, role])
+		if (isSuccessCreate) {
+			clearFields()
+		}
+	}, [isSuccessCreate])
 
 	return (
 		<div className='w-full h-[7.75rem] flex justify-between items-center relative'>
 			<div className='w-[18.72%] h-full flex justify-center items-center bg-tertiary'>
 				<input
-					value={name}
-					onChange={e => setName(e.target.value)}
+					value={title}
+					onChange={e => setTitle(e.target.value)}
 					className='text-[#FFF] text-xl text-center bg-transparent outline-none w-full'
 				/>
 			</div>
@@ -74,10 +115,10 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 						checked={awardType.includes('badge')}
 						className='mr-2'
 						type='checkbox'
-						id={'badge' + achieve.id}
+						id={isNew ? 'new-badge' : 'badge' + achieve?.id}
 					/>
 					<label
-						htmlFor={'badge' + achieve.id}
+						htmlFor={isNew ? 'new-badge' : 'badge' + achieve?.id}
 						className={
 							(selectedAwardType === 'badge'
 								? 'text-primary '
@@ -94,10 +135,10 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 						checked={awardType.includes('background')}
 						className='mr-2'
 						type='checkbox'
-						id={'background' + achieve.id}
+						id={isNew ? 'new-background' : 'background' + achieve?.id}
 					/>
 					<label
-						htmlFor={'background' + achieve.id}
+						htmlFor={isNew ? 'new-background' : 'background' + achieve?.id}
 						className={
 							(selectedAwardType === 'background'
 								? 'text-primary '
@@ -115,10 +156,10 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 						checked={awardType.includes('unique-role')}
 						className='mr-2'
 						type='checkbox'
-						id={'unique-role' + achieve.id}
+						id={isNew ? 'new-unique-role' : 'unique-role' + achieve?.id}
 					/>
 					<label
-						htmlFor={'unique-role' + achieve.id}
+						htmlFor={isNew ? 'new-unique-role' : 'unique-role' + achieve?.id}
 						className={
 							(selectedAwardType === 'unique-role'
 								? 'text-primary '
@@ -135,10 +176,10 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 						checked={awardType.includes('experience')}
 						className='mr-2'
 						type='checkbox'
-						id={'experience' + achieve.id}
+						id={isNew ? 'new-experience' : 'experience' + achieve?.id}
 					/>
 					<label
-						htmlFor={'experience' + achieve.id}
+						htmlFor={isNew ? 'new-experience' : 'experience' + achieve?.id}
 						className={
 							(selectedAwardType === 'experience'
 								? 'text-primary '
@@ -155,10 +196,10 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 						checked={awardType.includes('frame')}
 						className='mr-2'
 						type='checkbox'
-						id={'frame' + achieve.id}
+						id={isNew ? 'new-frame' : 'frame' + achieve?.id}
 					/>
 					<label
-						htmlFor={'frame' + achieve.id}
+						htmlFor={isNew ? 'new-frame' : 'frame' + achieve?.id}
 						className={
 							(selectedAwardType === 'frame'
 								? 'text-primary '
@@ -167,6 +208,25 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 						}
 					>
 						Рамка
+					</label>
+				</div>
+				<div className='w-1/2 flex justify-center items-center'>
+					<input
+						checked
+						className='mr-2'
+						type='checkbox'
+						id={isNew ? 'new-achieve-bg' : 'achieve-bg' + achieve?.id}
+					/>
+					<label
+						htmlFor={isNew ? 'new-achieve-bg' : 'achieve-bg' + achieve?.id}
+						className={
+							(selectedAwardType === 'achieve-bg'
+								? 'text-primary '
+								: 'text-primaryText ') +
+							'text-xl font-secondary font-normal transition-all'
+						}
+					>
+						XXX
 					</label>
 				</div>
 			</div>
@@ -196,7 +256,16 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 					exp={exp}
 					setExp={setExp}
 				/>
-				<FrameAward selectedAwardType={selectedAwardType} setFrameImg={setFrameImg} />
+				<FrameAward
+					selectedAwardType={selectedAwardType}
+					setFrameImg={setFrameImg}
+				/>
+				<AchieveBg
+					selectedAwardType={selectedAwardType}
+					imgSrc={achieve?.background ?? null}
+					img={achieveBgImg}
+					setImg={setAchieveBgImg}
+				/>
 			</div>
 			<div className='w-[13.84%] h-full flex justify-center items-center bg-tertiary relative'>
 				<button
@@ -208,19 +277,29 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 				<FindUser
 					isVisible={isChooseUserVisible}
 					className='absolute translate-y-[100%] bottom-8'
-					selectedUsers={selectedUsers}
-					setSelectedUsers={setSelectedUsers}
+					selectType='rooms'
+					selectedRooms={selectedRooms}
+					setSelectedRooms={setSelectedRooms}
 					multiple
 				/>
 			</div>
-			<div className='w-[9.5%] absolute right-[-0.81rem] translate-x-[100%] flex flex-col'>
-				<button className='w-full h-[3.125rem] text-[#FFF] text-xl bg-primary hover:bg-primaryHover transition-all mb-2'>
-					Обновить
+			{isNew ? (
+				<button
+					onClick={handleCreate}
+					className='w-[9.5%] h-[3.125rem] text-[#FFF] text-xl bg-primary hover:bg-primaryHover transition-all absolute right-[-0.81rem] translate-x-[100%]'
+				>
+					Добавить
 				</button>
-				<button className='w-full h-[3.125rem] text-[#FFF] text-xl bg-tertiary hover:bg-opacity-90 transition-all'>
-					Удалить
-				</button>
-			</div>
+			) : (
+				<div className='w-[9.5%] absolute right-[-0.81rem] translate-x-[100%] flex flex-col'>
+					<button className='w-full h-[3.125rem] text-[#FFF] text-xl bg-primary hover:bg-primaryHover transition-all mb-2'>
+						Обновить
+					</button>
+					<button className='w-full h-[3.125rem] text-[#FFF] text-xl bg-tertiary hover:bg-opacity-90 transition-all'>
+						Удалить
+					</button>
+				</div>
+			)}
 		</div>
 	)
 }
