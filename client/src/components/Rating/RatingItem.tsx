@@ -34,7 +34,7 @@ const RatingItem: FC<IRatingItem> = ({ user, place }) => {
 				to={`/guide/${user.username}?from=guidePreview`}
 			>
 				<img
-					className={'h-full rounded-[0.6875rem] aspect-[85/70]'}
+					className={'h-full rounded-[0.6875rem] aspect-[85/70] object-cover'}
 					src={
 						!!user.miniature_img
 							? `${import.meta.env.VITE_SERVER_URL}/${user.miniature_img}`

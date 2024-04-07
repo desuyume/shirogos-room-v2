@@ -32,7 +32,7 @@ const News: FC = () => {
 	useEffect(() => {
 		checkIsTextOverflow()
 	}, [textRef, isFetching])
-	
+
 	return (
 		<div className='w-full h-[9.375rem] bg-tertiary bg-opacity-40 rounded-[2.3125rem] flex justify-between items-center pr-[0.94rem] transition-all mb-[0.94rem] news'>
 			{isLoading || isFetching ? (
@@ -50,7 +50,7 @@ const News: FC = () => {
 			) : (
 				<>
 					<img
-						className='w-[11.75rem] h-full object-fill rounded-[2.3125rem]'
+						className='w-[11.75rem] h-full rounded-[2.3125rem] object-cover'
 						src={`${import.meta.env.VITE_SERVER_URL}/${news?.news_img}`}
 						alt='announce-img'
 					/>

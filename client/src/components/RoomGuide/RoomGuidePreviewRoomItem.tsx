@@ -24,7 +24,7 @@ const RoomGuidePreviewRoomItem: FC<IRoomGuidePreviewRoomItem> = ({
 				to={`/guide/${room.user.username}?from=guidePreview`}
 			>
 				<img
-					className='w-full rounded-[2.3125rem] aspect-[185/134] cursor-pointer outline outline-transparent outline-[3px] hover:outline-primary transition-all'
+					className='w-full rounded-[2.3125rem] aspect-[185/134] object-cover cursor-pointer outline outline-transparent outline-[3px] hover:outline-primary transition-all'
 					src={
 						!!room.user.miniature_img
 							? `${import.meta.env.VITE_SERVER_URL}/${room.user.miniature_img}`
@@ -36,7 +36,7 @@ const RoomGuidePreviewRoomItem: FC<IRoomGuidePreviewRoomItem> = ({
 				/>
 			</Link>
 
-			<p className='text-[#EBE984] font-secondary font-bold text-[0.5rem] order-1 peer-hover:text-primary transition-all px-2 max-w-full truncate'>
+			<p className='text-[#EBE984] font-secondary font-bold text-[0.625rem] order-1 peer-hover:text-primary transition-all px-2 max-w-full truncate'>
 				{room.user.username}
 			</p>
 			<p className='text-primaryText text-xs mb-1 leading-4 font-secondary font-bold text-center order-2 max-h-12 break-words max-w-full overflow-hidden'>
