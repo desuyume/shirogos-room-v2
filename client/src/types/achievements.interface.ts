@@ -1,10 +1,26 @@
 export interface IAchievemnt {
 	id: number
-	name: string
+	title: string
 	description: string
 	awardType: AwardType[]
 	bgImg: string | null
-	users: string[]
+	rooms: number[]
 }
 
-type AwardType = 'badge' | 'background' | 'unique-role' | 'experience'
+export type AwardType =
+	| 'badge'
+	| 'background'
+	| 'unique-role'
+	| 'experience'
+	| 'frame'
+	| 'achieve-bg'
+
+export interface IAchievementFetch {
+	id: number
+	title: string
+	description: string | null
+	background: string | null
+	AchievementsOnRooms: {
+		roomId: number
+	}[]
+}

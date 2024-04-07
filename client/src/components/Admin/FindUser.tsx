@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import searchIcon from '@/assets/search-icon.png'
-import { IFindUser } from '@/types/user.interface'
+import { IUser } from '@/types/user.interface'
 import { Scrollbar } from 'react-scrollbars-custom'
 import { useUsers } from '@/api/useUsers'
 
@@ -8,21 +8,28 @@ interface FindUserProps {
 	multiple?: boolean
 	isVisible: boolean
 	className?: string
-	selectedUsers: string[]
-	setSelectedUsers: React.Dispatch<React.SetStateAction<string[]>>
+	selectType: 'users' | 'rooms'
+	selectedUsers?: string[]
+	setSelectedUsers?: React.Dispatch<React.SetStateAction<string[]>>
+	selectedRooms?: number[]
+	setSelectedRooms?: React.Dispatch<React.SetStateAction<number[]>>
 }
 
 const FindUser: FC<FindUserProps> = ({
 	multiple,
 	isVisible,
 	className,
+	selectType,
 	selectedUsers,
 	setSelectedUsers,
+	selectedRooms,
+	setSelectedRooms,
 }) => {
 	const [searchQuery, setSearchQuery] = useState<string>('')
 	const { isLoading, isError, data: users } = useUsers()
 
-	const selectUser = (user: IFindUser) => {
+	const selectUser = (user: IUser) => {
+		if (!selectedUsers || !setSelectedUsers) return
 		if (multiple) {
 			setSelectedUsers(prev =>
 				selectedUsers.includes(user.username)
@@ -33,6 +40,21 @@ const FindUser: FC<FindUserProps> = ({
 			selectedUsers.includes(user.username)
 				? setSelectedUsers([])
 				: setSelectedUsers([user.username])
+		}
+	}
+
+	const selectRoom = (user: IUser) => {
+		if (!selectedRooms || !setSelectedRooms) return
+		if (multiple) {
+			setSelectedRooms(prev =>
+				selectedRooms.includes(user.Room.id)
+					? [...prev.filter(roomId => roomId !== user.Room.id)]
+					: [...prev, user.Room.id]
+			)
+		} else {
+			selectedRooms.includes(user.Room.id)
+				? setSelectedRooms([])
+				: setSelectedRooms([user.Room.id])
 		}
 	}
 
@@ -73,11 +95,19 @@ const FindUser: FC<FindUserProps> = ({
 									.includes(searchQuery.toLowerCase())
 							)
 							.map(user => (
-								<div key={user.id} className='min-w-full max-w-full h-4 flex items-center mb-[0.38rem] last-of-type:mb-0'>
+								<div
+									key={user.id}
+									className='min-w-full max-w-full h-4 flex items-center mb-[0.38rem] last-of-type:mb-0'
+								>
 									<button
-										onClick={() => selectUser(user)}
+										onClick={() =>
+											selectType === 'users'
+												? selectUser(user)
+												: selectRoom(user)
+										}
 										className={
-											(selectedUsers.includes(user.username)
+											(selectedUsers?.includes(user.username) ||
+											selectedRooms?.includes(user.Room.id)
 												? 'bg-primary '
 												: 'bg-transparent ') +
 											'min-w-[1.5625rem] max-w-[1.5625rem] h-full border-[1px] border-primary mr-[0.38rem] transition-all'

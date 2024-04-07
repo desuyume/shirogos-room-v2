@@ -1,8 +1,9 @@
+import { AwardType } from '@/types/achievements.interface'
 import previewUploadedImg from '@/utils/previewUploadedImg'
 import { FC, useEffect, useRef, useState } from 'react'
 
 interface IBackgroundAward { 
-	selectedAwardType: string | null
+	selectedAwardType: AwardType | null
 	setBgImg: React.Dispatch<React.SetStateAction<File | null>>
 }
 

@@ -63,6 +63,7 @@ const Notification: FC = () => {
 				</div>
 				<FindUser
 					isVisible={true}
+					selectType='users'
 					selectedUsers={selectedUsers}
 					setSelectedUsers={setSelectedUsers}
 					multiple
