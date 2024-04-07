@@ -2,6 +2,9 @@ export interface IUser {
 	id: number
 	username: string
 	role: string
+	Room: {
+		id: number
+	}
 }
 
 export interface IUserTokens {

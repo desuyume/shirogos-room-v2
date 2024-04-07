@@ -11,11 +11,16 @@ export class UserService {
   ) {}
 
   async getAllUsers() {
-    return this.prisma.user.findMany({
+    return await this.prisma.user.findMany({
       select: {
         id: true,
         username: true,
         role: true,
+        Room: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -53,9 +58,9 @@ export class UserService {
         profile_img: true,
         miniature_img: true,
         level: true,
-        dangos: true
-      }
-    })
+        dangos: true,
+      },
+    });
   }
 
   async logout(refreshToken: string) {

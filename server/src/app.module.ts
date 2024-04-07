@@ -28,6 +28,7 @@ import { StoryModule } from './story/story.module';
 import { AlmanacModule } from './almanac/almanac.module';
 import { RatingModule } from './rating/rating.module';
 import { RoomGuideModule } from './room-guide/room-guide.module';
+import { AchievementModule } from './achievement/achievement.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { RoomGuideModule } from './room-guide/room-guide.module';
     AlmanacModule,
     RatingModule,
     RoomGuideModule,
+    AchievementModule,
   ],
   controllers: [AppController],
   providers: [AppService],

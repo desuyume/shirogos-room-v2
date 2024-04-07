@@ -92,6 +92,7 @@ const AddOrder: FC<IAddOrder> = ({ index }) => {
 					<FindUser
 						isVisible={isChooseUserVisible}
 						className='absolute translate-y-[100%] -bottom-[0.42rem]'
+						selectType='users'
 						selectedUsers={selectedUsers}
 						setSelectedUsers={setSelectedUsers}
 					/>

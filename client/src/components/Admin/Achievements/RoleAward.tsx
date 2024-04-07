@@ -1,7 +1,8 @@
+import { AwardType } from '@/types/achievements.interface'
 import { FC } from 'react'
 
 interface IRoleAward {
-	selectedAwardType: string | null
+	selectedAwardType: AwardType | null
 	roleType: string
 	setRoleType: React.Dispatch<React.SetStateAction<string>>
 	role: string
