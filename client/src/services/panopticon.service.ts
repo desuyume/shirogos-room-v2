@@ -8,6 +8,10 @@ class PanopticonService {
 		return axios.get<IPanopticon[]>(`${this.URL}`)
 	}
 
+	async getUnique() {
+		return axios.get<IPanopticon[]>(`${this.URL}/unique`)
+	}
+
 	async create(data: FormData) {
 		return axios.post(`${this.URL}`, data)
 	}

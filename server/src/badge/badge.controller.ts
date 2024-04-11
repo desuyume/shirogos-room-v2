@@ -22,6 +22,11 @@ export class BadgeController {
     return await this.badgeService.getAllBadges();
   }
 
+  @Get('unique')
+  async getUniqueBadges() {
+    return await this.badgeService.getUniqueBadges();
+  }
+
   @Get('type')
   async getBadgeTypes() {
     return await this.badgeService.getBadgeTypes();

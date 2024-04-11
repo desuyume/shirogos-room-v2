@@ -19,11 +19,12 @@ export class PanopticonController {
 
   @Get()
   async getAll() {
-    try {
-      return await this.panopticonService.getAll();
-    } catch (e) {
-      throw e;
-    }
+    return await this.panopticonService.getAll();
+  }
+
+  @Get('unique')
+  async getUnique() {
+    return await this.panopticonService.getUnique();
   }
 
   @Post()

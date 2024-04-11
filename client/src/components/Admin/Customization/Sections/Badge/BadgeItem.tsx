@@ -128,13 +128,13 @@ const BadgeItem: FC<IBadgeItem> = ({ badge, isNew = false }) => {
 				<div className='w-[12%] h-full flex justify-center items-center'>
 					{isNew ? (
 						<CustomizationImgUpload
-							imgSrc={badge?.badgeImg ?? null}
+							imgSrc={badge?.img ?? null}
 							img={badgeImg}
 							setImg={setBadgeImg}
 						/>
 					) : (
 							<img
-								src={`${import.meta.env.VITE_SERVER_URL}/${badge?.badgeImg}`}
+								src={`${import.meta.env.VITE_SERVER_URL}/${badge?.img}`}
 								alt='badge-img'
 								className='h-full object-contain'
 							/>

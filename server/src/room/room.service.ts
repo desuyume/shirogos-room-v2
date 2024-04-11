@@ -855,7 +855,7 @@ export class RoomService {
             Badge: {
               select: {
                 isForSale: true,
-                badgeImg: true,
+                img: true,
                 type: true,
                 typeId: true,
                 title: true,
@@ -877,7 +877,7 @@ export class RoomService {
         isForSale: true,
       },
       select: {
-        badgeImg: true,
+        img: true,
         type: true,
         typeId: true,
         title: true,
@@ -895,7 +895,7 @@ export class RoomService {
             Badge: {
               select: {
                 isForSale: true,
-                badgeImg: true,
+                img: true,
                 type: true,
                 typeId: true,
                 title: true,

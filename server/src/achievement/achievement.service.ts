@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
-import { CreateAchievementDto } from './dto/create-achievement.dto';
+import { AchievementAwards, CreateAchievementDto } from './dto/create-achievement.dto';
 
 @Injectable()
 export class AchievementService {
@@ -34,6 +34,17 @@ export class AchievementService {
         background: bgImg.filename,
       },
     });
+    
+    const awards = JSON.parse(dto.awards) as AchievementAwards;
+
+    // await this.prisma.achievementAward.create({
+    //   data: {
+    //     badgeId: awards.badge,
+    //     frameId: awards.frame,
+    //     backgroundId: awards.background,
+        
+    //   }
+    // })
 
     const roomsId = JSON.parse(dto.roomsId);
 

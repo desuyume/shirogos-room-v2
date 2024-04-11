@@ -2,7 +2,7 @@ export interface IBadge {
 	id: number
 	cost: number
 	title: string
-	badgeImg: string
+	img: string
 	type: IBadgeType
 	isForSale: boolean
 }

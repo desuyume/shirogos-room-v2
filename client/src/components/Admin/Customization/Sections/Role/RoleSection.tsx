@@ -1,4 +1,4 @@
-import { useUniqueRoles } from '@/api/useUniqueRoles'
+import { useRoles } from '@/api/useRoles'
 import { UniqueRoleType } from '@/types/unique-role.interface'
 import { FC } from 'react'
 import { Scrollbar } from 'react-scrollbars-custom'
@@ -9,12 +9,12 @@ const RoleSection: FC = () => {
 		data: adjectives,
 		isLoading: isAdjectivesLoading,
 		isError: isAdjectivesError,
-	} = useUniqueRoles(UniqueRoleType.adjectives)
+	} = useRoles(UniqueRoleType.adjectives)
 	const {
 		data: nouns,
 		isLoading: isNounsLoading,
 		isError: isNounsError,
-	} = useUniqueRoles(UniqueRoleType.nouns)
+	} = useRoles(UniqueRoleType.nouns)
 
 	return (
 		<div className='w-[93.3125rem] h-[50.25rem] flex justify-between unique-roles-admin'>
