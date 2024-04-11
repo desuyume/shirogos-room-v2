@@ -9,10 +9,11 @@ export interface IAchievemnt {
 
 export type AwardType =
 	| 'badge'
+	| 'frame'
 	| 'background'
+	| 'panopticon'
 	| 'unique-role'
 	| 'experience'
-	| 'frame'
 	| 'achieve-bg'
 
 export interface IAchievementFetch {

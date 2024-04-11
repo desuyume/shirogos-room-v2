@@ -28,6 +28,19 @@ const AwardButtons: FC<IAwardButtons> = ({
 				}
 			/>
 			<button
+				disabled={!awardType.includes('frame')}
+				onClick={() =>
+					selectedAwardType === 'frame'
+						? setSelectedAwardType(null)
+						: setSelectedAwardType('frame')
+				}
+				className={
+					(awardType.includes('frame') ? 'hover:bg-primary ' : '') +
+					(selectedAwardType === 'frame' ? 'bg-primary ' : '') +
+					'w-1/4 h-4 border-[1px] border-primary transition-all disabled:border-secondary'
+				}
+			/>
+			<button
 				disabled={!awardType.includes('background')}
 				onClick={() =>
 					selectedAwardType === 'background'
@@ -37,6 +50,19 @@ const AwardButtons: FC<IAwardButtons> = ({
 				className={
 					(awardType.includes('background') ? 'hover:bg-primary ' : '') +
 					(selectedAwardType === 'background' ? 'bg-primary ' : '') +
+					'w-1/4 h-4 border-[1px] border-primary transition-all disabled:border-secondary'
+				}
+			/>
+			<button
+				disabled={!awardType.includes('panopticon')}
+				onClick={() =>
+					selectedAwardType === 'panopticon'
+						? setSelectedAwardType(null)
+						: setSelectedAwardType('panopticon')
+				}
+				className={
+					(awardType.includes('panopticon') ? 'hover:bg-primary ' : '') +
+					(selectedAwardType === 'panopticon' ? 'bg-primary ' : '') +
 					'w-1/4 h-4 border-[1px] border-primary transition-all disabled:border-secondary'
 				}
 			/>
@@ -63,19 +89,6 @@ const AwardButtons: FC<IAwardButtons> = ({
 				className={
 					(awardType.includes('experience') ? 'hover:bg-primary ' : '') +
 					(selectedAwardType === 'experience' ? 'bg-primary ' : '') +
-					'w-1/4 h-4 border-[1px] border-primary transition-all disabled:border-secondary'
-				}
-			/>
-			<button
-				disabled={!awardType.includes('frame')}
-				onClick={() =>
-					selectedAwardType === 'frame'
-						? setSelectedAwardType(null)
-						: setSelectedAwardType('frame')
-				}
-				className={
-					(awardType.includes('frame') ? 'hover:bg-primary ' : '') +
-					(selectedAwardType === 'frame' ? 'bg-primary ' : '') +
 					'w-1/4 h-4 border-[1px] border-primary transition-all disabled:border-secondary'
 				}
 			/>

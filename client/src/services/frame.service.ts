@@ -8,6 +8,10 @@ class FrameService {
 		return axios.get<IFrame[]>(`${this.URL}`)
 	}
 
+	async getUnique() {
+		return axios.get<IFrame[]>(`${this.URL}/unique`)
+	}
+
 	async create(data: FormData) {
 		return axios.post(`${this.URL}`, data)
 	}

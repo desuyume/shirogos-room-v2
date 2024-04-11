@@ -9,20 +9,36 @@ export class BadgeService {
   constructor(private prisma: PrismaService) {}
 
   async getAllBadges() {
-    return this.prisma.badge.findMany({
+    return await this.prisma.badge.findMany({
       select: {
         id: true,
         cost: true,
         title: true,
-        badgeImg: true,
+        img: true,
         type: true,
         isForSale: true,
       },
     });
   }
 
+  async getUniqueBadges() {
+    return await this.prisma.badge.findMany({
+      select: {
+        id: true,
+        cost: true,
+        title: true,
+        img: true,
+        type: true,
+        isForSale: true,
+      },
+      where: {
+        isForSale: false,
+      },
+    });
+  }
+
   async getBadgeTypes() {
-    return this.prisma.badgeType.findMany();
+    return await this.prisma.badgeType.findMany();
   }
 
   async create(dto: CreateBadgeDto, img: Express.Multer.File) {
@@ -46,11 +62,11 @@ export class BadgeService {
 
     const isForSale = JSON.parse(dto.isForSale);
 
-    return this.prisma.badge.create({
+    return await this.prisma.badge.create({
       data: {
         cost: +dto.cost,
         title: dto.title,
-        badgeImg: img.filename,
+        img: img.filename,
         typeId: badgeType.id,
         isForSale,
       },
@@ -74,7 +90,7 @@ export class BadgeService {
       },
     });
 
-    removeFile(badge.badgeImg);
+    removeFile(badge.img);
 
     return await this.prisma.badge.delete({
       where: {

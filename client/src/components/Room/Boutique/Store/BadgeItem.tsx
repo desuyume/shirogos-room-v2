@@ -29,7 +29,7 @@ const BadgeItem: FC<IBadgeItem> = ({
 		>
 			<div className='w-1/2 min-h-[7rem] max-h-[7rem] flex justify-center items-center mr-[0.62rem]'>
 				<img
-					src={`${import.meta.env.VITE_SERVER_URL}/${badge.badgeImg}`}
+					src={`${import.meta.env.VITE_SERVER_URL}/${badge.img}`}
 					alt='badge-img'
 					className='min-h-[7rem] max-h-[7rem] object-contain'
 				/>

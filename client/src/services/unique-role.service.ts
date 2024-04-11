@@ -12,6 +12,10 @@ class UniqueRoleService {
 		return axios.get<IUniqueRole[]>(`${this.URL}?type=${type}`)
 	}
 
+	async getUnique(type: UniqueRoleType) {
+		return axios.get<IUniqueRole[]>(`${this.URL}/unique?type=${type}`)
+	}
+
 	async create(data: ICreateUniqueRole, type: UniqueRoleType) {
 		return axios.post(`${this.URL}?type=${type}`, data)
 	}

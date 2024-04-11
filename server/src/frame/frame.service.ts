@@ -12,6 +12,14 @@ export class FrameService {
     return await this.prisma.frame.findMany();
   }
 
+  async getUnique() {
+    return await this.prisma.frame.findMany({
+      where: {
+        isForSale: false,
+      },
+    });
+  }
+
   async create(dto: CreateFrameDto, img: Express.Multer.File) {
     if (!img) {
       throw new BadRequestException('img is required');
@@ -27,7 +35,7 @@ export class FrameService {
       data: {
         title: dto.title,
         cost: +dto.cost,
-        frameImg: img.filename,
+        img: img.filename,
         isForSale,
       },
     });
@@ -50,7 +58,7 @@ export class FrameService {
       },
     });
 
-    removeFile(frame.frameImg);
+    removeFile(frame.img);
 
     return await this.prisma.frame.delete({
       where: {

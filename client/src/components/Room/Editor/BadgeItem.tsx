@@ -6,7 +6,7 @@ import { colorVariantsGroupHover } from '@/consts/roomColors'
 interface IBadgeItem {
 	id: number
 	title: string
-	badgeImg: string
+	img: string
 	setEditorBadges: React.Dispatch<React.SetStateAction<IEditorBadge[]>>
 	zIndexCount: number
 	setZIndexCount: React.Dispatch<React.SetStateAction<number>>
@@ -15,7 +15,7 @@ interface IBadgeItem {
 const BadgeItem: FC<IBadgeItem> = ({
 	id,
 	title,
-	badgeImg,
+	img,
 	setEditorBadges,
 	zIndexCount,
 	setZIndexCount,
@@ -29,14 +29,14 @@ const BadgeItem: FC<IBadgeItem> = ({
 						...prev,
 						{
 							badge_id: id,
-							badgeImg: badgeImg,
+							badgeImg: img,
 							zIndex: zIndexCount,
 						},
 				  ]
 				: [
 						{
 							badge_id: id,
-							badgeImg: badgeImg,
+							badgeImg: img,
 							zIndex: zIndexCount,
 						},
 				  ]
@@ -53,7 +53,7 @@ const BadgeItem: FC<IBadgeItem> = ({
 		>
 			<div className='h-[7rem] mb-2 flex justify-center items-center'>
 				<img
-					src={`${import.meta.env.VITE_SERVER_URL}/${badgeImg}`}
+					src={`${import.meta.env.VITE_SERVER_URL}/${img}`}
 					alt={title}
 				/>
 			</div>

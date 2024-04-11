@@ -97,7 +97,7 @@ const RoomEditor: FC = () => {
 
 				return {
 					badge_id: badge.badge.id,
-					badgeImg: badge.badge.badgeImg,
+					badgeImg: badge.badge.img,
 					width: badge.width,
 					height: badge.height,
 					translateX: badge.translateX,

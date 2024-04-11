@@ -12,6 +12,14 @@ export class PanopticonService {
     return await this.prisma.panopticon.findMany();
   }
 
+  async getUnique() {
+    return await this.prisma.panopticon.findMany({
+      where: {
+        isForSale: false,
+      },
+    });
+  }
+
   async create(
     dto: CreatePanopticonDto,
     img: Express.Multer.File | null,

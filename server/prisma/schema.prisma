@@ -154,6 +154,7 @@ model Panopticon {
   miniatureImg       String?
   isForSale          Boolean
   PanopticonsOnRooms PanopticonsOnRooms[]
+  AchievementAward   AchievementAward[]
 
   @@map("panopticons")
 }
@@ -287,7 +288,7 @@ model Badge {
   title            String
   type             BadgeType          @relation(fields: [typeId], references: [id])
   typeId           Int
-  badgeImg         String
+  img              String?
   isForSale        Boolean
   BadgesOnRooms    BadgesOnRooms[]
   EditorBadge      EditorBadge[]
@@ -314,13 +315,14 @@ model BadgesOnRooms {
 }
 
 model Frame {
-  id            Int             @id @default(autoincrement())
-  title         String
-  cost          Int             @default(0)
-  frameImg      String?
-  isForSale     Boolean
-  FramesOnRooms FramesOnRooms[]
-  Room          Room[]
+  id               Int                @id @default(autoincrement())
+  title            String
+  cost             Int                @default(0)
+  img              String?
+  isForSale        Boolean
+  FramesOnRooms    FramesOnRooms[]
+  Room             Room[]
+  AchievementAward AchievementAward[]
 }
 
 model FramesOnRooms {
@@ -531,8 +533,12 @@ model AchievementAward {
   achievementId Int         @unique
   Badge         Badge?      @relation(fields: [badgeId], references: [id])
   badgeId       Int?
+  Frame         Frame?      @relation(fields: [frameId], references: [id])
+  frameId       Int?
   Background    Background? @relation(fields: [backgroundId], references: [id])
   backgroundId  Int?
+  Panopticon    Panopticon? @relation(fields: [panopticonId], references: [id])
+  panopticonId  Int?
   UniqueRole    UniqueRole? @relation(fields: [uniqueRoleId], references: [id])
   uniqueRoleId  Int?
   exp           Int?

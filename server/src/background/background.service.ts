@@ -12,11 +12,19 @@ export class BackgroundService {
     return await this.prisma.background.findMany();
   }
 
+  async getUnique() {
+    return await this.prisma.background.findMany({
+      where: {
+        isForSale: false,
+      },
+    });
+  }
+
   async create(dto: CreateBgDto, img: Express.Multer.File) {
     if (!img) {
       throw new BadRequestException('img is required');
     }
-    
+
     if (!isNumber(+dto.cost)) {
       throw new BadRequestException('cost must be number');
     }

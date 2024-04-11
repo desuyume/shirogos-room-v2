@@ -2,17 +2,21 @@ import { FC, useEffect, useState } from 'react'
 import FindUser from '../FindUser'
 import { AwardType, IAchievementFetch } from '@/types/achievements.interface'
 import AwardButtons from './AwardButtons'
-import BadgeAward from './BadgeAward'
-import BackgroundAward from './BackgroundAward'
-import RoleAward from './RoleAward'
-import ExperienceAward from './ExperienceAward'
-import FrameAward from '@/components/Admin/Achievements/FrameAward.tsx'
-import AchieveBg from './AchieveBg'
+import RoleAward from './Awards/RoleAward'
+import AchieveBg from './Awards/AchieveBg'
 import { useCreateAchievement } from '@/api/useCreateAchievement'
+import Award from './Awards/Award'
+import ExperienceAward from './ExperienceAward'
+import { isNumber } from '@/utils/isNumber'
 
 interface IAchievementItem {
 	achieve?: IAchievementFetch
 	isNew?: boolean
+}
+
+export interface IRoles {
+	adjective: number | null
+	noun: number | null
 }
 
 const AchievementItem: FC<IAchievementItem> = ({ achieve, isNew = false }) => {
@@ -22,26 +26,26 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve, isNew = false }) => {
 	)
 	const [title, setTitle] = useState<string>(achieve?.title ?? '')
 	const [desc, setDesc] = useState<string>(achieve?.description ?? '')
-	const [awardType, setAwardType] = useState<AwardType[]>(['achieve-bg'])
+	const [awardTypes, setAwardTypes] = useState<AwardType[]>(['achieve-bg'])
 	const [selectedAwardType, setSelectedAwardType] = useState<AwardType | null>(
 		null
 	)
-	const [_, setBadgeImg] = useState<File | null>(null)
-	const [__, setBgImg] = useState<File | null>(null)
-	const [roleType, setRoleType] = useState<string>('noun')
-	const [role, setRole] = useState<string>('')
+	const [badgeAward, setBadgeAward] = useState<number | null>(null)
+	const [frameAward, setFrameAward] = useState<number | null>(null)
+	const [bgAward, setBgAward] = useState<number | null>(null)
+	const [panopticonAward, setPanopticonAward] = useState<number | null>(null)
+	const [roles, setRoles] = useState<IRoles | null>(null)
 	const [exp, setExp] = useState<string>('0')
-	const [___, setFrameImg] = useState<File | null>(null)
 	const [achieveBgImg, setAchieveBgImg] = useState<File | null>(null)
 
 	const { mutate: createAchieve, isSuccess: isSuccessCreate } =
 		useCreateAchievement()
 
 	const handleClickAwardType = (type: AwardType) => {
-		if (awardType.includes(type)) {
-			setAwardType(awardType.filter(item => item !== type))
+		if (awardTypes.includes(type)) {
+			setAwardTypes(awardTypes.filter(item => item !== type))
 		} else {
-			setAwardType([...awardType, type])
+			setAwardTypes([...awardTypes, type])
 		}
 		setSelectedAwardType(null)
 	}
@@ -59,6 +63,22 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve, isNew = false }) => {
 			data.append('description', desc)
 		}
 
+		if (awardTypes.includes('experience') && !isNumber(exp)) {
+			console.log('exp must be a number')
+			return
+		}
+
+		const awards = {
+			badge: awardTypes.includes('badge') ? badgeAward : null,
+			frame: awardTypes.includes('frame') ? frameAward : null,
+			background: awardTypes.includes('background') ? bgAward : null,
+			panopticon: awardTypes.includes('panopticon') ? panopticonAward : null,
+			roles: awardTypes.includes('unique-role') ? { ...roles } : null,
+			exp: awardTypes.includes('experience') ? Number(exp) : null,
+		}
+
+		data.append('awards', JSON.stringify(awards))
+
 		if (!achieveBgImg) {
 			console.log('achieveBgImg is required')
 			return
@@ -67,20 +87,22 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve, isNew = false }) => {
 
 		data.append('roomsId', JSON.stringify(selectedRooms))
 
+		console.log(data)
+
 		createAchieve(data)
 	}
 
 	const clearFields = () => {
 		setTitle('')
 		setDesc('')
-		setAwardType([])
+		setAwardTypes([])
 		setSelectedAwardType(null)
-		setBadgeImg(null)
-		setBgImg(null)
-		setRoleType('noun')
-		setRole('')
+		setBadgeAward(null)
+		setFrameAward(null)
+		setPanopticonAward(null)
+		setBgAward(null)
+		setRoles(null)
 		setExp('0')
-		setFrameImg(null)
 		setAchieveBgImg(null)
 		setSelectedRooms([])
 		setIsChooseUserVisible(false)
@@ -98,21 +120,21 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve, isNew = false }) => {
 				<input
 					value={title}
 					onChange={e => setTitle(e.target.value)}
-					className='text-[#FFF] text-xl text-center bg-transparent outline-none w-full'
+					className='text-[#FFF] text-xl text-center bg-transparent outline-none w-full h-full'
 				/>
 			</div>
 			<div className='w-[37.2%] h-full flex justify-center items-center bg-tertiary'>
 				<input
 					value={desc}
 					onChange={e => setDesc(e.target.value)}
-					className='text-[#FFF] text-[1.125rem] font-secondary font-normal text-center w-full bg-transparent outline-none'
+					className='text-[#FFF] text-[1.125rem] font-secondary font-normal text-center w-full h-full bg-transparent outline-none'
 				/>
 			</div>
-			<div className='w-[14.27%] h-full flex flex-wrap justify-center items-center bg-tertiary py-4'>
+			<div className='w-[14.27%] h-full flex flex-wrap justify-center items-center bg-tertiary py-1'>
 				<div className='w-1/2 flex justify-center items-center'>
 					<input
 						onClick={() => handleClickAwardType('badge')}
-						checked={awardType.includes('badge')}
+						checked={awardTypes.includes('badge')}
 						className='mr-2'
 						type='checkbox'
 						id={isNew ? 'new-badge' : 'badge' + achieve?.id}
@@ -123,77 +145,17 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve, isNew = false }) => {
 							(selectedAwardType === 'badge'
 								? 'text-primary '
 								: 'text-primaryText ') +
-							'text-xl font-secondary font-normal transition-all'
+							'text-base font-secondary font-normal transition-all'
 						}
 					>
 						Значок
 					</label>
 				</div>
-				<div className='w-1/2 flex justify-center items-center'>
-					<input
-						onClick={() => handleClickAwardType('background')}
-						checked={awardType.includes('background')}
-						className='mr-2'
-						type='checkbox'
-						id={isNew ? 'new-background' : 'background' + achieve?.id}
-					/>
-					<label
-						htmlFor={isNew ? 'new-background' : 'background' + achieve?.id}
-						className={
-							(selectedAwardType === 'background'
-								? 'text-primary '
-								: 'text-primaryText ') +
-							'text-xl font-secondary font-normal transition-all'
-						}
-					>
-						Фон
-					</label>
-				</div>
 
 				<div className='w-1/2 flex justify-center items-center'>
 					<input
-						onClick={() => handleClickAwardType('unique-role')}
-						checked={awardType.includes('unique-role')}
-						className='mr-2'
-						type='checkbox'
-						id={isNew ? 'new-unique-role' : 'unique-role' + achieve?.id}
-					/>
-					<label
-						htmlFor={isNew ? 'new-unique-role' : 'unique-role' + achieve?.id}
-						className={
-							(selectedAwardType === 'unique-role'
-								? 'text-primary '
-								: 'text-primaryText ') +
-							'text-xl font-secondary font-normal transition-all'
-						}
-					>
-						Роль
-					</label>
-				</div>
-				<div className='w-1/2 flex justify-center items-center'>
-					<input
-						onClick={() => handleClickAwardType('experience')}
-						checked={awardType.includes('experience')}
-						className='mr-2'
-						type='checkbox'
-						id={isNew ? 'new-experience' : 'experience' + achieve?.id}
-					/>
-					<label
-						htmlFor={isNew ? 'new-experience' : 'experience' + achieve?.id}
-						className={
-							(selectedAwardType === 'experience'
-								? 'text-primary '
-								: 'text-primaryText ') +
-							'text-xl font-secondary font-normal transition-all'
-						}
-					>
-						Опыт
-					</label>
-				</div>
-				<div className='w-1/2 flex justify-center items-center'>
-					<input
 						onClick={() => handleClickAwardType('frame')}
-						checked={awardType.includes('frame')}
+						checked={awardTypes.includes('frame')}
 						className='mr-2'
 						type='checkbox'
 						id={isNew ? 'new-frame' : 'frame' + achieve?.id}
@@ -204,12 +166,97 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve, isNew = false }) => {
 							(selectedAwardType === 'frame'
 								? 'text-primary '
 								: 'text-primaryText ') +
-							'text-xl font-secondary font-normal transition-all'
+							'text-base font-secondary font-normal transition-all'
 						}
 					>
 						Рамка
 					</label>
 				</div>
+
+				<div className='w-1/2 flex justify-center items-center'>
+					<input
+						onClick={() => handleClickAwardType('background')}
+						checked={awardTypes.includes('background')}
+						className='mr-2'
+						type='checkbox'
+						id={isNew ? 'new-background' : 'background' + achieve?.id}
+					/>
+					<label
+						htmlFor={isNew ? 'new-background' : 'background' + achieve?.id}
+						className={
+							(selectedAwardType === 'background'
+								? 'text-primary '
+								: 'text-primaryText ') +
+							'text-base font-secondary font-normal transition-all'
+						}
+					>
+						Фон
+					</label>
+				</div>
+
+				<div className='w-1/2 flex justify-center items-center'>
+					<input
+						onClick={() => handleClickAwardType('panopticon')}
+						checked={awardTypes.includes('panopticon')}
+						className='mr-2'
+						type='checkbox'
+						id={isNew ? 'new-panopticon' : 'panopticon' + achieve?.id}
+					/>
+					<label
+						htmlFor={isNew ? 'new-panopticon' : 'panopticon' + achieve?.id}
+						className={
+							(selectedAwardType === 'panopticon'
+								? 'text-primary '
+								: 'text-primaryText ') +
+							'text-base font-secondary font-normal transition-all'
+						}
+					>
+						Паноптикум
+					</label>
+				</div>
+
+				<div className='w-1/2 flex justify-center items-center'>
+					<input
+						onClick={() => handleClickAwardType('unique-role')}
+						checked={awardTypes.includes('unique-role')}
+						className='mr-2'
+						type='checkbox'
+						id={isNew ? 'new-unique-role' : 'unique-role' + achieve?.id}
+					/>
+					<label
+						htmlFor={isNew ? 'new-unique-role' : 'unique-role' + achieve?.id}
+						className={
+							(selectedAwardType === 'unique-role'
+								? 'text-primary '
+								: 'text-primaryText ') +
+							'text-base font-secondary font-normal transition-all'
+						}
+					>
+						Роль
+					</label>
+				</div>
+
+				<div className='w-1/2 flex justify-center items-center'>
+					<input
+						onClick={() => handleClickAwardType('experience')}
+						checked={awardTypes.includes('experience')}
+						className='mr-2'
+						type='checkbox'
+						id={isNew ? 'new-experience' : 'experience' + achieve?.id}
+					/>
+					<label
+						htmlFor={isNew ? 'new-experience' : 'experience' + achieve?.id}
+						className={
+							(selectedAwardType === 'experience'
+								? 'text-primary '
+								: 'text-primaryText ') +
+							'text-base font-secondary font-normal transition-all'
+						}
+					>
+						Опыт
+					</label>
+				</div>
+
 				<div className='w-1/2 flex justify-center items-center'>
 					<input
 						checked
@@ -232,33 +279,43 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve, isNew = false }) => {
 			</div>
 			<div className='w-[14.27%] h-full flex flex-col bg-tertiary'>
 				<AwardButtons
-					awardType={awardType}
+					awardType={awardTypes}
 					selectedAwardType={selectedAwardType}
 					setSelectedAwardType={setSelectedAwardType}
 				/>
-				<BadgeAward
+				<Award
+					award={frameAward}
+					setAward={setFrameAward}
+					awardType='frame'
 					selectedAwardType={selectedAwardType}
-					setBadgeImg={setBadgeImg}
 				/>
-				<BackgroundAward
+				<Award
+					award={badgeAward}
+					setAward={setBadgeAward}
+					awardType='badge'
 					selectedAwardType={selectedAwardType}
-					setBgImg={setBgImg}
+				/>
+				<Award
+					award={bgAward}
+					setAward={setBgAward}
+					awardType='background'
+					selectedAwardType={selectedAwardType}
+				/>
+				<Award
+					award={panopticonAward}
+					setAward={setPanopticonAward}
+					awardType='panopticon'
+					selectedAwardType={selectedAwardType}
 				/>
 				<RoleAward
 					selectedAwardType={selectedAwardType}
-					roleType={roleType}
-					setRoleType={setRoleType}
-					role={role}
-					setRole={setRole}
+					roles={roles}
+					setRoles={setRoles}
 				/>
 				<ExperienceAward
 					selectedAwardType={selectedAwardType}
 					exp={exp}
 					setExp={setExp}
-				/>
-				<FrameAward
-					selectedAwardType={selectedAwardType}
-					setFrameImg={setFrameImg}
 				/>
 				<AchieveBg
 					selectedAwardType={selectedAwardType}

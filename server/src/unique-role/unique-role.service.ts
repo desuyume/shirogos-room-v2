@@ -16,6 +16,15 @@ export class UniqueRoleService {
     });
   }
 
+  async getUnique(type) {
+    return await this.prisma.uniqueRole.findMany({
+      where: {
+        type: type.toUpperCase(),
+        isForSale: false,
+      },
+    });
+  }
+
   async create(dto: CreateUniqueRoleDto, type) {
     return await this.prisma.uniqueRole.create({
       data: {

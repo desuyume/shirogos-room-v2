@@ -12,7 +12,9 @@ interface IFrameItem {
 }
 
 const FrameItem: FC<IFrameItem> = ({ frame, isNew = false }) => {
-	const [isForSale, setIsForSale] = useState<boolean>(frame ? frame?.isForSale : false)
+	const [isForSale, setIsForSale] = useState<boolean>(
+		frame ? frame?.isForSale : false
+	)
 	const [price, setPrice] = useState<string>(
 		frame?.cost ? String(frame?.cost) : ''
 	)
@@ -104,13 +106,13 @@ const FrameItem: FC<IFrameItem> = ({ frame, isNew = false }) => {
 				<div className='w-[12%] h-full flex justify-center items-center'>
 					{isNew ? (
 						<CustomizationImgUpload
-							imgSrc={frame?.frameImg ?? null}
+							imgSrc={frame?.img ?? null}
 							img={frameImg}
 							setImg={setFrameImg}
 						/>
 					) : (
 						<img
-							src={`${import.meta.env.VITE_SERVER_URL}/${frame?.frameImg}`}
+							src={`${import.meta.env.VITE_SERVER_URL}/${frame?.img}`}
 							alt='frame-img'
 							className='h-full object-contain'
 						/>

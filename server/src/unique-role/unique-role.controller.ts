@@ -24,9 +24,20 @@ export class UniqueRoleController {
         throw new BadRequestException('wrong roles type');
       }
 
-      const roles = await this.uniqueRoleService.getAll(type);
+      return await this.uniqueRoleService.getAll(type);
+    } catch (e) {
+      Catch(e);
+    }
+  }
 
-      return roles;
+  @Get('unique')
+  async getUnique(@Query('type') type) {
+    try {
+      if (type !== 'adjectives' && type !== 'nouns') {
+        throw new BadRequestException('wrong roles type');
+      }
+
+      return await this.uniqueRoleService.getUnique(type);
     } catch (e) {
       Catch(e);
     }

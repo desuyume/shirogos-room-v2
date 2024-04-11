@@ -8,6 +8,10 @@ class BackgroundService {
 		return axios.get<IBackground[]>(`${this.URL}`)
 	}
 
+	async getUnique() {
+		return axios.get<IBackground[]>(`${this.URL}/unique`)
+	}
+
 	async create(data: FormData) {
 		return axios.post(`${this.URL}`, data)
 	}

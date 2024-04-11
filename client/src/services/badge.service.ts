@@ -8,6 +8,10 @@ class BadgeService {
 		return axios.get<IBadge[]>(`${this.URL}`)
 	}
 
+	async getUnique() {
+		return axios.get<IBadge[]>(`${this.URL}/unique`)
+	}
+
 	async getTypes() {
 		return axios.get<IBadgeType[]>(`${this.URL}/type`)
 	}

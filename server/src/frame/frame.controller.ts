@@ -22,6 +22,11 @@ export class FrameController {
     return this.frameService.getAll();
   }
 
+  @Get('unique')
+  async getUnique() {
+    return this.frameService.getUnique();
+  }
+
   @Post()
   @UseInterceptors(FileInterceptor('frameImg', multerOptions))
   async create(
