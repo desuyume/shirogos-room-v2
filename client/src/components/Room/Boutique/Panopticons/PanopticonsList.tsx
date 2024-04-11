@@ -4,7 +4,7 @@ import BuyPanopticon from './BuyPanopticon'
 import PanopticonPreview from './PanopticonPreview'
 import { useRoomPanopticons } from '@/api/useRoomPanopticons'
 import { IBuyedPanopticon } from '@/types/room.interface'
-import { IPanopticon } from '@/types/room-content.interface'
+import { IPanopticon } from '@/types/panopticon.interface'
 import { RoomAppearanceContext } from '@/Context'
 import { colorVariants } from '@/consts/roomColors'
 
@@ -150,7 +150,7 @@ const PanopticonsList: FC = () => {
 									}
 									className={
 										(isPanopticonBuyed(panopticon.id) ? '' : '') +
-										'bg-tertiary rounded-[1.5625rem] flex justify-center items-center cursor-pointer group'
+										'bg-tertiary rounded-[1.5625rem] flex justify-center items-center cursor-pointer aspect-[236/200] group'
 									}
 								>
 									<img
@@ -160,7 +160,9 @@ const PanopticonsList: FC = () => {
 												: 'opacity-10 blur-[2px] group-hover:opacity-30 ') +
 											'rounded-[1.5625rem] min-w-full max-w-full min-h-full max-h-full transition-all'
 										}
-										src={`${import.meta.env.VITE_SERVER_URL}/${panopticon.img}`}
+										src={`${import.meta.env.VITE_SERVER_URL}/${
+											panopticon.miniatureImg ?? panopticon.img
+										}`}
 										alt='panopticon-img'
 									/>
 									{!buyedPanopticons?.includes(panopticon.id) && (

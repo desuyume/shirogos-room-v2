@@ -4,12 +4,12 @@ import BadgesList from './BadgesList'
 import BadgesBuy from './BadgesBuy'
 import BadgesTitle from './BadgesTitle'
 import { useBoutiqueBadges } from '@/api/useBoutiqueBadges'
-import { IBadge } from '@/types/room.interface'
+import { IBadge } from '@/types/badge.interface'
 import { RoomAppearanceContext } from '@/Context'
 import { colorVariants } from '@/consts/roomColors'
 
 const Badges: FC = () => {
-	const [activeSection, setActiveSection] = useState<string>('unique-badge')
+	const [activeSection, setActiveSection] = useState<string>('unique')
 	const [activeBadge, setActiveBadge] = useState<IBadge | null>(null)
 	const roomAppearance = useContext(RoomAppearanceContext)
 

@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { UniqueRoleType } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { getRandomInt } from 'src/utils/getRandomInt';
+import { CreateUniqueRoleDto } from './dto/create-unique-role.dto';
 
 @Injectable()
 export class UniqueRoleService {
@@ -15,14 +16,16 @@ export class UniqueRoleService {
     });
   }
 
-  async create(title: string, type) {
+  async create(dto: CreateUniqueRoleDto, type) {
     return await this.prisma.uniqueRole.create({
       data: {
-        title,
+        title: dto.title,
+        cost: dto.cost,
         type:
           type === 'adjectives'
             ? UniqueRoleType.ADJECTIVES
             : UniqueRoleType.NOUNS,
+        isForSale: dto.isForSale,
       },
     });
   }
@@ -77,25 +80,31 @@ export class UniqueRoleService {
     const adjectives = await this.prisma.uniqueRole.findMany({
       where: {
         type: UniqueRoleType.ADJECTIVES,
+        isForSale: true,
       },
     });
     const nouns = await this.prisma.uniqueRole.findMany({
       where: {
         type: UniqueRoleType.NOUNS,
+        isForSale: true,
       },
     });
 
     for (const room of rooms) {
       const randomAdjectiveNum = getRandomInt(0, adjectives.length - 1);
       const randomNounNum = getRandomInt(0, nouns.length - 1);
-      
+
       await this.prisma.room.update({
         where: {
           id: room.id,
         },
         data: {
-          random_unique_role_adjective: !!adjectives.length ? adjectives[randomAdjectiveNum].title : null,
-          random_unique_role_noun: !!nouns.length ? nouns[randomNounNum].title : null,
+          random_unique_role_adjective: !!adjectives.length
+            ? adjectives[randomAdjectiveNum].title
+            : null,
+          random_unique_role_noun: !!nouns.length
+            ? nouns[randomNounNum].title
+            : null,
         },
       });
     }

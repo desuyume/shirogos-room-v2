@@ -8,16 +8,11 @@ import { ChooseFavoriteCharacterDto } from './dto/choose-favorite-character.dto'
 import { ChooseActiveRoomBackgroundDto } from './dto/choose-active-room-background.dto';
 import { ChangeRoomNameDto } from './dto/change-roomName.dto';
 import { BuyColorDto } from './dto/buy-color.dto';
-import { AwardCategory, UniqueRoleType, WidgetType } from '@prisma/client';
+import { UniqueRoleType } from '@prisma/client';
 import { getRandomInt } from 'src/utils/getRandomInt';
 import { MakeOrderDto } from './dto/make-order.dto';
 import { BuyPanopticonDto } from './dto/buy-panopticon.dto';
-import { isUrl } from 'src/utils/isUrl';
-import {
-  IEditorBadge,
-  IEditorWidget,
-  UpdateRoomEditorDto,
-} from './dto/update-room-editor';
+import { UpdateRoomEditorDto } from './dto/update-room-editor';
 
 @Injectable()
 export class RoomService {
@@ -563,7 +558,7 @@ export class RoomService {
       select: {
         buyed_backgrounds: {
           select: {
-            RoomBackground: true,
+            Background: true,
           },
         },
         selected_background: true,
@@ -580,7 +575,7 @@ export class RoomService {
         userId,
       },
       data: {
-        roomBackgroundId: dto.backgroundId,
+        backgroundId: dto.backgroundId,
       },
       select: {
         selected_background: true,
@@ -728,7 +723,11 @@ export class RoomService {
   }
 
   async getRoomPanopticons(userId: number) {
-    const panopticons = await this.prisma.panopticon.findMany();
+    const panopticons = await this.prisma.panopticon.findMany({
+      where: {
+        isForSale: true,
+      },
+    });
     const buyedPanopticons = await this.prisma.room.findUnique({
       where: {
         userId,
@@ -759,6 +758,10 @@ export class RoomService {
 
     if (!panopticon) {
       throw new BadRequestException('panopticon not found');
+    }
+
+    if (!panopticon.isForSale) {
+      throw new BadRequestException('this panopticon is not for sale');
     }
 
     const user = await this.prisma.user.findUnique({
@@ -847,14 +850,14 @@ export class RoomService {
         userId,
       },
       select: {
-        buyed_awards: {
+        buyed_badges: {
           select: {
-            Award: {
+            Badge: {
               select: {
-                award_img: true,
-                awardType: true,
-                awardTypeId: true,
-                category: true,
+                isForSale: true,
+                badgeImg: true,
+                type: true,
+                typeId: true,
                 title: true,
                 cost: true,
                 id: true,
@@ -865,40 +868,36 @@ export class RoomService {
       },
     });
 
-    return badges.buyed_awards.map((award) => award.Award);
+    return badges.buyed_badges.map((badge) => badge.Badge);
   }
 
   async getBoutiqueBadges(userId: number) {
-    const badges = await this.prisma.award.findMany({
+    const badges = await this.prisma.badge.findMany({
       where: {
-        category: AwardCategory.BOUTIQUE,
-        awardTypeId: {
-          in: [2, 3, 4],
-        },
+        isForSale: true,
       },
       select: {
-        award_img: true,
-        awardType: true,
-        awardTypeId: true,
-        category: true,
+        badgeImg: true,
+        type: true,
+        typeId: true,
         title: true,
         cost: true,
         id: true,
       },
     });
-    const buyedAwards = await this.prisma.room.findUnique({
+    const buyedBadges = await this.prisma.room.findUnique({
       where: {
         userId,
       },
       select: {
-        buyed_awards: {
+        buyed_badges: {
           select: {
-            Award: {
+            Badge: {
               select: {
-                award_img: true,
-                awardType: true,
-                awardTypeId: true,
-                category: true,
+                isForSale: true,
+                badgeImg: true,
+                type: true,
+                typeId: true,
                 title: true,
                 cost: true,
                 id: true,
@@ -909,19 +908,19 @@ export class RoomService {
       },
     });
 
-    const buyedBadges = buyedAwards?.buyed_awards
-      .filter((award) => {
+    const filteredBuyedBadges = buyedBadges?.buyed_badges
+      .filter((buyedBadge) => {
         return badges.find((badge) => {
-          return badge.id === award.Award.id;
+          return badge.id === buyedBadge.Badge.id;
         });
       })
-      .map((award) => {
-        return award.Award;
+      .map((buyedBadge) => {
+        return buyedBadge.Badge;
       });
 
     return {
       badges,
-      buyedBadges,
+      buyedBadges: filteredBuyedBadges,
     };
   }
 
@@ -934,7 +933,7 @@ export class RoomService {
         dangos: true,
       },
     });
-    const badge = await this.prisma.award.findUnique({
+    const badge = await this.prisma.badge.findUnique({
       where: {
         id: badgeId,
       },
@@ -971,24 +970,33 @@ export class RoomService {
       },
     });
 
-    return await this.prisma.awardsOnRooms.create({
+    return await this.prisma.badgesOnRooms.create({
       data: {
-        awardId: badgeId,
+        badgeId: badgeId,
         roomId: room.id,
       },
     });
   }
 
   async getBoutiqueBackgrounds(userId: number) {
-    const backgrounds = await this.prisma.roomBackground.findMany();
+    const backgrounds = await this.prisma.background.findMany({
+      where: {
+        isForSale: true,
+      },
+    });
     const buyedBackgrounds = await this.prisma.room.findUnique({
       where: {
         userId,
       },
       select: {
         buyed_backgrounds: {
+          where: {
+            Background: {
+              isForSale: true,
+            },
+          },
           select: {
-            RoomBackground: true,
+            Background: true,
           },
         },
       },
@@ -997,7 +1005,7 @@ export class RoomService {
     return {
       backgrounds,
       buyedBackgrounds: buyedBackgrounds?.buyed_backgrounds.map(
-        (bg) => bg.RoomBackground,
+        (bg) => bg.Background,
       ),
     };
   }
@@ -1011,7 +1019,7 @@ export class RoomService {
         dangos: true,
       },
     });
-    const bg = await this.prisma.roomBackground.findUnique({
+    const bg = await this.prisma.background.findUnique({
       where: {
         id: bgId,
       },
@@ -1050,7 +1058,7 @@ export class RoomService {
 
     return await this.prisma.backroundsOnRooms.create({
       data: {
-        roomBackgroundId: bgId,
+        backgroundId: bgId,
         roomId: room.id,
       },
     });

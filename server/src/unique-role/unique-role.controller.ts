@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { UniqueRoleService } from './unique-role.service';
-import { UniqueRoleDto } from './dto/unique-role.dto';
+import { CreateUniqueRoleDto } from './dto/create-unique-role.dto';
 import { Prisma } from '@prisma/client';
 
 @Controller('uniqueRole')
@@ -33,13 +33,13 @@ export class UniqueRoleController {
   }
 
   @Post()
-  async create(@Query('type') type, @Body() dto: UniqueRoleDto) {
+  async create(@Query('type') type, @Body() dto: CreateUniqueRoleDto) {
     try {
       if (type !== 'adjectives' && type !== 'nouns') {
         throw new BadRequestException('wrong roles type');
       }
 
-      const createdRole = await this.uniqueRoleService.create(dto.title, type);
+      const createdRole = await this.uniqueRoleService.create(dto, type);
 
       return createdRole;
     } catch (e) {

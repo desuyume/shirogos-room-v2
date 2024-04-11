@@ -3,8 +3,6 @@ export const CREATE_DONATE_KEY = 'create donate'
 
 export const UNIQUE_ROLES_KEY = 'unique roles'
 
-export const ROOM_CONTENT_KEY = 'room content'
-
 export const ONLINE_OPTION_KEY = 'online options'
 export const CREATE_ONLINE_OPTION_KEY = 'create online option'
 
@@ -40,8 +38,9 @@ export const USER_PROFILE_KEY = 'user profile'
 
 export const ROOM_CHARACTERS_KEY = 'room characters'
 
-export const ROOM_BACKGROUNDS_KEY = 'room backgrounds'
-export const ACTIVE_ROOM_BACKGROUND_KEY = 'active room background'
+export const BACKGROUNDS_KEY = 'room backgrounds'
+export const CREATE_BACKGROUND_KEY = 'create background'
+export const ACTIVE_BACKGROUND_KEY = 'active background'
 export const BOUTIQUE_BACKGROUNDS_KEY = 'boutique backgrounds'
 export const BUY_BACKGROUND_KEY = 'buy backround'
 
@@ -65,15 +64,17 @@ export const CREATE_ORDER_MANUALLT_KEY = 'create order manually'
 export const COMPLETE_ORDER_KEY = 'complete order'
 export const REJECT_ORDER_KEY = 'reject order'
 
+export const PANOPTICONS_KEY = 'panopticons'
+export const CREATE_PANOPTICON_KEY = 'create panopticon'
+export const PANOPTICON_KEY = 'panopticon'
 export const ROOM_PANOPTICONS_KEY = 'room panopticons'
-export const ROOM_PANOPTICON_KEY = 'room panopticon'
-export const BUY_ROOM_PANOPTICON_KEY = 'buy room panopticon'
+export const BUY_PANOPTICON_KEY = 'buy panopticon'
 
-export const AWARD_KEY = 'award'
-export const AWARD_TYPE_KEY = 'award type'
-export const CREATE_AWARD_KEY = 'create award'
+export const BADGE_KEY = 'badge'
+export const BADGE_TYPE_KEY = 'badge type'
+export const CREATE_BADGE_KEY = 'create badge'
 
-export const BOUTIQUE_BADGE_KEY = 'boutique badge' 
+export const BOUTIQUE_BADGE_KEY = 'boutique badge'
 export const BUY_BADGE_KEY = 'buy badge'
 export const BUYED_BADGE_KEY = 'buyed badge'
 
@@ -112,3 +113,6 @@ export const ROOM_BY_USERNAME = 'room by username'
 
 export const CREATE_ACHIEVEMENT_KEY = 'create achievement'
 export const ACHIEVEMENTS_KEY = 'achievements'
+
+export const FRAMES_KEY = 'frames'
+export const CREATE_FRAME_KEY = 'create frame'

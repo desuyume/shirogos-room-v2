@@ -1,5 +1,5 @@
-import { BadgeSectionType } from '@/types/badge.interface'
-import { IBadge } from '@/types/room.interface'
+import type { BadgeType } from '@/types/badge.interface'
+import { IBadge } from '@/types/badge.interface'
 import { FC, useContext, useEffect, useState } from 'react'
 import { Scrollbar } from 'react-scrollbars-custom'
 import BadgeItem from './BadgeItem'
@@ -8,7 +8,7 @@ import { RoomAppearanceContext } from '@/Context'
 
 interface IBadgesList {
 	badges: IBadge[]
-	activeBadgesSection: BadgeSectionType
+	activeBadgesSection: BadgeType
 	editorBadges: IEditorBadge[]
 	setEditorBadges: React.Dispatch<React.SetStateAction<IEditorBadge[]>>
 	zIndexCount: number
@@ -41,7 +41,7 @@ const BadgesList: FC<IBadgesList> = ({
 	}, [editorBadges])
 
 	return !filteredBadges.filter(
-		badge => badge.awardType.type === `${activeBadgesSection}-badge`
+		badge => badge.type.type === activeBadgesSection
 	).length ? (
 		<div className='w-full h-full flex justify-center items-center'>
 			<p className='text-xl text-center'>Нет значков</p>
@@ -54,9 +54,7 @@ const BadgesList: FC<IBadgesList> = ({
 		>
 			<div className='flex h-full'>
 				{filteredBadges
-					.filter(
-						badge => badge.awardType.type === `${activeBadgesSection}-badge`
-					)
+					.filter(badge => badge.type.type === activeBadgesSection)
 					.map(badge => (
 						<BadgeItem
 							key={badge.id}

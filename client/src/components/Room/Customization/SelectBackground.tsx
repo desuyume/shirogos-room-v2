@@ -13,13 +13,13 @@ const SelectBackground: FC = () => {
 		isLoading,
 		isError,
 		isSuccess,
-		data: buyedBackgrounds,
+		data: roomBackgrounds,
 	} = useBuyedRoomBackgrounds()
 
 	useEffect(() => {
 		if (!isLoading && isSuccess) {
-			if (buyedBackgrounds.selected_background) {
-				setSelectedBg(buyedBackgrounds.selected_background.id)
+			if (roomBackgrounds.selected_background) {
+				setSelectedBg(roomBackgrounds.selected_background.id)
 			}
 		}
 	}, [isLoading])
@@ -49,31 +49,31 @@ const SelectBackground: FC = () => {
 					style={{ height: '100%' }}
 				>
 					<div className='flex items-center pl-2 h-full'>
-						{buyedBackgrounds?.selected_background && (
+						{roomBackgrounds?.selected_background && (
 							<BackgroundItem
-								bgId={buyedBackgrounds.selected_background.id}
-								bgImg={buyedBackgrounds.selected_background.img}
-								bgName={buyedBackgrounds.selected_background.name}
+								id={roomBackgrounds.selected_background.id}
+								img={roomBackgrounds.selected_background.img}
+								title={roomBackgrounds.selected_background.title}
 								selectedBg={selectedBg}
 								setSelectedBg={setSelectedBg}
 							/>
 						)}
-						{buyedBackgrounds?.buyed_backgrounds
-							.filter(
-								bg =>
-									bg.RoomBackground.id !==
-									buyedBackgrounds.selected_background?.id
-							)
-							.map(bg => (
-								<BackgroundItem
-									key={bg.RoomBackground.id}
-									bgId={bg.RoomBackground.id}
-									bgImg={bg.RoomBackground.img}
-									bgName={bg.RoomBackground.name}
-									selectedBg={selectedBg}
-									setSelectedBg={setSelectedBg}
-								/>
-							))}
+						{roomBackgrounds.buyed_backgrounds &&
+							roomBackgrounds?.buyed_backgrounds
+								.filter(
+									bg =>
+										bg.Background.id !== roomBackgrounds.selected_background?.id
+								)
+								.map(bg => (
+									<BackgroundItem
+										key={bg.Background.id}
+										id={bg.Background.id}
+										img={bg.Background.img}
+										title={bg.Background.title}
+										selectedBg={selectedBg}
+										setSelectedBg={setSelectedBg}
+									/>
+								))}
 					</div>
 				</Scrollbar>
 			)}

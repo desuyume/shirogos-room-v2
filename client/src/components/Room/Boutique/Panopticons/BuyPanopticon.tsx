@@ -1,7 +1,7 @@
 import { RoomAppearanceContext } from '@/Context'
-import { useBuyRoomPanopticon } from '@/api/useBuyRoomPanopticon'
+import { useBuyPanopticon } from '@/api/useBuyPanopticon'
 import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
-import { IPanopticon } from '@/types/room-content.interface'
+import { IPanopticon } from '@/types/panopticon.interface'
 import { FC, useContext, useEffect } from 'react'
 
 interface IBuyPanopticon {
@@ -19,7 +19,7 @@ const BuyPanopticon: FC<IBuyPanopticon> = ({
 }) => {
 	const roomAppearance = useContext(RoomAppearanceContext)
 
-	const { mutate, isSuccess } = useBuyRoomPanopticon()
+	const { mutate, isSuccess } = useBuyPanopticon()
 
 	const buyPanopticon = () => {
 		if (panopticon) {
@@ -29,6 +29,8 @@ const BuyPanopticon: FC<IBuyPanopticon> = ({
 
 	useEffect(() => {
 		if (isSuccess && panopticon) {
+			console.log('gdfgfd')
+
 			setBuyedPanopticons(prev =>
 				!!prev ? [...prev, panopticon?.id] : [panopticon?.id]
 			)
@@ -51,10 +53,12 @@ const BuyPanopticon: FC<IBuyPanopticon> = ({
 				<p className='text-primaryText text-[2.5rem] text-center leading-[97.795%] mb-4'>
 					Уверен/а???
 				</p>
-				<div className='w-[12.8125rem] h-[12.8125rem] border-4 border-[#EBE984] rounded-[1.5625rem] bg-tertiary relative flex items-center justify-center mb-4'>
+				<div className='w-[12.8125rem] aspect-[236/200] border-4 border-[#EBE984] rounded-[1.5625rem] bg-tertiary relative flex items-center justify-center mb-4'>
 					<img
 						className='w-full h-full rounded-[1.5625rem] opacity-10 blur-[2px]'
-						src={`${import.meta.env.VITE_SERVER_URL}/${panopticon?.img}`}
+						src={`${import.meta.env.VITE_SERVER_URL}/${
+							panopticon?.miniatureImg ?? panopticon?.img
+						}`}
 						alt='panopticon-img'
 					/>
 					<p className='text-[#EBE984] text-xl leading-[97.795%] text-center absolute'>

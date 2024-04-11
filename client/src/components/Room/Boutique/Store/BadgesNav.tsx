@@ -1,16 +1,15 @@
+import { BadgeType } from '@/types/badge.interface'
 import { FC } from 'react'
 
-interface IBadgesNav { 
+interface IBadgesNav {
 	activeSection: string
 	setActiveSection: React.Dispatch<React.SetStateAction<string>>
 }
 
 const BadgesNav: FC<IBadgesNav> = ({ activeSection, setActiveSection }) => {
-	const sections = [
-		{ name: 'unique-badge' },
-		{ name: 'copyright-badge' },
-		{ name: 'common-badge' },
-	]
+	const sections: {
+		name: BadgeType
+	}[] = [{ name: 'unique' }, { name: 'copyright' }, { name: 'common' }]
 
 	return (
 		<nav className='w-full h-[0.5625rem] mb-4 flex justify-center items-center'>

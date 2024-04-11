@@ -1,10 +1,10 @@
-import { BadgeSectionType } from '@/types/badge.interface'
+import type { BadgeType } from '@/types/badge.interface'
 import { FC } from 'react'
 
 interface IBadgesNavBttn {
-	type: BadgeSectionType
-	activeBadgesSection: BadgeSectionType
-	setActiveBadgesSection: (activeBadgesSection: BadgeSectionType) => void
+	type: BadgeType
+	activeBadgesSection: BadgeType
+	setActiveBadgesSection: (activeBadgesSection: BadgeType) => void
 }
 
 const BadgesNavBttn: FC<IBadgesNavBttn> = ({
