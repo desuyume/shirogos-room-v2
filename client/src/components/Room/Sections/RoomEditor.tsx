@@ -27,7 +27,7 @@ export interface IEditorWidget {
 
 export interface IEditorBadge {
 	badge_id: number
-	award_img: string
+	badgeImg: string
 	width?: number
 	height?: number
 	translateX?: number
@@ -97,7 +97,7 @@ const RoomEditor: FC = () => {
 
 				return {
 					badge_id: badge.badge.id,
-					award_img: badge.badge.award_img,
+					badgeImg: badge.badge.badgeImg,
 					width: badge.width,
 					height: badge.height,
 					translateX: badge.translateX,
@@ -254,7 +254,7 @@ const RoomEditor: FC = () => {
 								<EditorElement
 									key={badge.badge_id}
 									type='badge'
-									badge_img={badge.award_img}
+									badge_img={badge.badgeImg}
 									badge_id={badge.badge_id}
 									setEditorWidgets={setEditorWidgets}
 									setEditorBadges={setEditorBadges}

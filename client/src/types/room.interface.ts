@@ -1,8 +1,8 @@
 import { RoomColor } from '@/consts/roomColors'
-import { AwardType, IAwardType } from './award.interface'
 import { IBackground } from './background.interface'
-import { IPanopticon } from './room-content.interface'
+import { IPanopticon } from './panopticon.interface'
 import { IUniqueRole } from './unique-role.interface'
+import { IBadge } from './badge.interface'
 
 export interface ICreateRoom {
 	roomName: string
@@ -105,12 +105,12 @@ export interface IActiveBackground {
 }
 
 export interface IRoomBackground {
-	RoomBackground: IBackground
+	Background: IBackground
 }
 
 export interface IBuyedRoomBackgrounds {
 	buyed_backgrounds: IRoomBackground[]
-	selected_background: IBackground
+	selected_background: IBackground | null
 }
 
 export interface IBoutiqueBackground {
@@ -151,21 +151,6 @@ export interface IRoomPanopticons {
 
 export interface IBuyRoomPanopticon {
 	panopticonId: number
-}
-
-export interface IBadge {
-	awardType: IAwardType
-	awardTypeId: number
-	award_img: string
-	category: AwardType
-	cost: number
-	id: number
-	title: string
-}
-
-export interface IBoutiqueBadge {
-	badges: IBadge[]
-	buyedBadges: IBadge[]
 }
 
 export interface IStats {

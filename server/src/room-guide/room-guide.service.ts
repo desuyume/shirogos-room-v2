@@ -99,7 +99,7 @@ export class RoomGuideService {
         selected_background: {
           select: {
             id: true,
-            name: true,
+            title: true,
             img: true,
             cost: true,
           },

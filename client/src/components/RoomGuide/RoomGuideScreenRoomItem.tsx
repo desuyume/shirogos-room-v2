@@ -2,6 +2,7 @@ import { IRoomGuideByLevel } from '@/types/room-guide.interface'
 import { FC } from 'react'
 import noProfilePic from '@/assets/no-profile-picture-icon.webp'
 import { Link } from 'react-router-dom'
+import { isUrl } from '@/utils/isUrl'
 
 interface IRoomGuideScreenRoomItem {
 	index: number
@@ -30,7 +31,11 @@ const RoomGuideScreenRoomItem: FC<IRoomGuideScreenRoomItem> = ({
 										room.user.miniature_img
 								  }`
 								: !!room.user.profile_img
-								? `${import.meta.env.VITE_SERVER_URL}/${room.user.profile_img}`
+								? isUrl(room.user.profile_img)
+									? room.user.profile_img
+									: `${import.meta.env.VITE_SERVER_URL}/${
+											room.user.profile_img
+									  }`
 								: noProfilePic
 						}
 						alt={`${room.user.username}-pic`}

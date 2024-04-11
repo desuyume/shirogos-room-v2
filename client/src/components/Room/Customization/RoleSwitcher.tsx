@@ -2,6 +2,7 @@ import { RoomAppearanceContext } from '@/Context'
 import { useChangeUniqueRole } from '@/api/useChangeUniqueRole'
 import { useUserUniqueRoles } from '@/api/useUserUniqueRoles'
 import { colorVariants } from '@/consts/roomColors'
+import { UniqueRoleType } from '@/types/unique-role.interface'
 import { FC, useContext, useEffect, useState } from 'react'
 
 interface IRoleSwitcher {
@@ -53,13 +54,13 @@ const RoleSwitcher: FC<IRoleSwitcher> = ({ type }) => {
 			if (isSuccess) {
 				if (type === 'adjective') {
 					const adjectives = uniqueRoles.unique_roles.filter(
-						role => role.UniqueRole.type === 'ADJECTIVES'
+						role => role.UniqueRole.type === UniqueRoleType.adjectives
 					)
 					setRoles(adjectives.map(role => role.UniqueRole.title))
 					setActiveRole(uniqueRoles.selected_unique_role_adjective)
 				} else {
 					const nouns = uniqueRoles.unique_roles.filter(
-						role => role.UniqueRole.type === 'NOUNS'
+						role => role.UniqueRole.type === UniqueRoleType.nouns
 					)
 					setRoles(nouns.map(role => role.UniqueRole.title))
 					setActiveRole(uniqueRoles.selected_unique_role_noun)

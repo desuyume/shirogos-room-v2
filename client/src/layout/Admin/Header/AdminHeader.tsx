@@ -10,18 +10,15 @@ const AdminHeader: FC = () => {
 		{ path: '/admin/users', title: 'Пользователи' },
 		{ path: '/admin/donates', title: 'Донаты' },
 		{ path: '/admin/achievements', title: 'Достижения' },
-		{ path: '/admin/awards', title: 'Награды' },
+		{ path: '/admin/customization', title: 'Кастомизация' },
 		{ path: '/admin/wikiteka', title: 'Вики/Тека' },
 		{ path: '/admin/orders', title: 'Заказы' },
 		{ path: '/admin/base', title: 'База' },
 		{ path: '/admin/tasks', title: 'Задания' },
-		{ path: '/admin/room', title: 'Комната' }
 	]
 
 	return (
-		<div
-			className='bg-tertiary h-[5.25rem] flex justify-center items-center z-50'
-		>
+		<div className='bg-tertiary h-[5.25rem] flex justify-center items-center z-50'>
 			<Link
 				className='absolute left-4'
 				to='/'

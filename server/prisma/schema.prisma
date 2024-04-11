@@ -21,7 +21,8 @@ model UniqueRole {
   id               Int                  @id @default(autoincrement())
   title            String               @unique
   type             UniqueRoleType
-  cost             Int                  @default(100)
+  cost             Int                  @default(0)
+  isForSale        Boolean
   rooms            UniqueRolesOnRooms[]
   AchievementAward AchievementAward[]
 
@@ -92,29 +93,6 @@ model Token {
   @@map("tokens")
 }
 
-model RoomBackground {
-  id                Int                 @id @default(autoincrement())
-  name              String?
-  cost              Int                 @default(0)
-  img               String
-  Room              Room[]
-  BackroundsOnRooms BackroundsOnRooms[]
-  AchievementAward  AchievementAward[]
-
-  @@map("room_backgrounds")
-}
-
-model Panopticon {
-  id                 Int                  @id @default(autoincrement())
-  title              String?
-  description        String?
-  cost               Int                  @default(0)
-  img                String
-  PanopticonsOnRooms PanopticonsOnRooms[]
-
-  @@map("panopticons")
-}
-
 model Room {
   id                             Int                   @id @default(autoincrement())
   name                           String
@@ -131,24 +109,53 @@ model Room {
   favorite_character             Character?            @relation(fields: [characterId], references: [id])
   characterId                    String?
   buyed_backgrounds              BackroundsOnRooms[]
-  selected_background            RoomBackground?       @relation(fields: [roomBackgroundId], references: [id])
-  roomBackgroundId               Int?
+  selected_background            Background?           @relation(fields: [backgroundId], references: [id])
+  backgroundId                   Int?
   buyed_panopticons              PanopticonsOnRooms[]
-  buyed_awards                   AwardsOnRooms[]
+  buyed_badges                   BadgesOnRooms[]
+  buyed_frames                   FramesOnRooms[]
+  selected_frame                 Frame?                @relation(fields: [frameId], references: [id])
   user                           User                  @relation(fields: [userId], references: [id])
   userId                         Int                   @unique
   Editor                         Editor[]
   AchievementsOnRooms            AchievementsOnRooms[]
+  frameId                        Int?
 
   @@map("rooms")
 }
 
+model Background {
+  id                Int                 @id @default(autoincrement())
+  title             String
+  cost              Int                 @default(0)
+  img               String
+  isForSale         Boolean
+  Room              Room[]
+  BackroundsOnRooms BackroundsOnRooms[]
+  AchievementAward  AchievementAward[]
+
+  @@map("backgrounds")
+}
+
 model BackroundsOnRooms {
-  id               Int            @id @default(autoincrement())
-  Room             Room           @relation(fields: [roomId], references: [id])
-  roomId           Int
-  RoomBackground   RoomBackground @relation(fields: [roomBackgroundId], references: [id])
-  roomBackgroundId Int
+  id           Int        @id @default(autoincrement())
+  Room         Room       @relation(fields: [roomId], references: [id])
+  roomId       Int
+  Background   Background @relation(fields: [backgroundId], references: [id])
+  backgroundId Int
+}
+
+model Panopticon {
+  id                 Int                  @id @default(autoincrement())
+  title              String
+  description        String?
+  cost               Int                  @default(0)
+  img                String
+  miniatureImg       String?
+  isForSale          Boolean
+  PanopticonsOnRooms PanopticonsOnRooms[]
+
+  @@map("panopticons")
 }
 
 model PanopticonsOnRooms {
@@ -159,14 +166,6 @@ model PanopticonsOnRooms {
   panopticonId Int
   buyed_at     DateTime   @default(now())
   buyed_cost   Int
-}
-
-model AwardsOnRooms {
-  id      Int   @id @default(autoincrement())
-  Room    Room  @relation(fields: [roomId], references: [id])
-  roomId  Int
-  Award   Award @relation(fields: [awardId], references: [id])
-  awardId Int
 }
 
 model RoomColor {
@@ -282,33 +281,54 @@ model OrderPrice {
   @@map("order_prices")
 }
 
-enum AwardCategory {
-  BOUTIQUE
-  SPECIAL
-}
-
-model Award {
+model Badge {
   id               Int                @id @default(autoincrement())
   cost             Int                @default(0)
   title            String
-  awardType        AwardType          @relation(fields: [awardTypeId], references: [id])
-  awardTypeId      Int
-  award_img        String
-  category         AwardCategory      @default(value: BOUTIQUE)
-  AwardsOnRooms    AwardsOnRooms[]
+  type             BadgeType          @relation(fields: [typeId], references: [id])
+  typeId           Int
+  badgeImg         String
+  isForSale        Boolean
+  BadgesOnRooms    BadgesOnRooms[]
   EditorBadge      EditorBadge[]
   AchievementAward AchievementAward[]
 
-  @@map("awards")
+  @@map("badges")
 }
 
-model AwardType {
+model BadgeType {
   id    Int     @id @default(autoincrement())
   title String  @unique
   type  String  @unique
-  Award Award[]
+  Badge Badge[]
 
-  @@map("award_types")
+  @@map("badge_types")
+}
+
+model BadgesOnRooms {
+  id      Int   @id @default(autoincrement())
+  Room    Room  @relation(fields: [roomId], references: [id])
+  roomId  Int
+  Badge   Badge @relation(fields: [badgeId], references: [id])
+  badgeId Int
+}
+
+model Frame {
+  id            Int             @id @default(autoincrement())
+  title         String
+  cost          Int             @default(0)
+  frameImg      String?
+  isForSale     Boolean
+  FramesOnRooms FramesOnRooms[]
+  Room          Room[]
+}
+
+model FramesOnRooms {
+  id      Int   @id @default(autoincrement())
+  Room    Room  @relation(fields: [roomId], references: [id])
+  roomId  Int
+  Frame   Frame @relation(fields: [frameId], references: [id])
+  frameId Int
 }
 
 model OnlineOption {
@@ -487,7 +507,7 @@ model EditorBadge {
   translateY Float   @default(0)
   zIndex     Int     @default(1)
   badgeId    Int
-  badge      Award   @relation(fields: [badgeId], references: [id])
+  badge      Badge   @relation(fields: [badgeId], references: [id])
   Editor     Editor? @relation(fields: [editorId], references: [id])
   editorId   Int?
 
@@ -506,16 +526,16 @@ model Achievement {
 }
 
 model AchievementAward {
-  id               Int             @id @default(autoincrement())
-  Achievement      Achievement     @relation(fields: [achievementId], references: [id])
-  achievementId    Int             @unique
-  Badge            Award?          @relation(fields: [badgeId], references: [id])
-  badgeId          Int?
-  RoomBackgorund   RoomBackground? @relation(fields: [roomBackgorundId], references: [id])
-  roomBackgorundId Int?
-  UniqueRole       UniqueRole?     @relation(fields: [uniqueRoleId], references: [id])
-  uniqueRoleId     Int?
-  exp              Int?
+  id            Int         @id @default(autoincrement())
+  Achievement   Achievement @relation(fields: [achievementId], references: [id])
+  achievementId Int         @unique
+  Badge         Badge?      @relation(fields: [badgeId], references: [id])
+  badgeId       Int?
+  Background    Background? @relation(fields: [backgroundId], references: [id])
+  backgroundId  Int?
+  UniqueRole    UniqueRole? @relation(fields: [uniqueRoleId], references: [id])
+  uniqueRoleId  Int?
+  exp           Int?
 
   @@map("achievement_awards")
 }

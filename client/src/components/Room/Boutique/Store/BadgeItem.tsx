@@ -1,4 +1,4 @@
-import { IBadge } from '@/types/room.interface'
+import { IBadge } from '@/types/badge.interface'
 import { FC } from 'react'
 
 interface IBadgeItem {
@@ -24,16 +24,19 @@ const BadgeItem: FC<IBadgeItem> = ({
 			}
 			className={
 				(badge.id === activeBadge?.id ? 'bg-tertiary bg-opacity-[0.35] ' : '') +
-				'flex justify-between items-center h-[7rem] mb-[0.63rem] last-of-type:mb-0 cursor-pointer rounded-[1.6875rem] hover:bg-tertiary hover:bg-opacity-[0.35] transition-all'
+				'flex justify-between items-center min-h-[7rem] max-h-[7rem] mb-[0.63rem] last-of-type:mb-0 cursor-pointer rounded-[1.6875rem] hover:bg-tertiary hover:bg-opacity-[0.35] transition-all'
 			}
 		>
-			<img
-				className='h-full mr-[0.62rem]'
-				src={`${import.meta.env.VITE_SERVER_URL}/${badge.award_img}`}
-				alt='badge-img'
-			/>
-			<div className='flex-1 flex flex-col items-center'>
-				<p className='text-primaryText text-[0.8125rem] leading-[100%] text-center'>
+			<div className='w-1/2 min-h-[7rem] max-h-[7rem] flex justify-center items-center mr-[0.62rem]'>
+				<img
+					src={`${import.meta.env.VITE_SERVER_URL}/${badge.badgeImg}`}
+					alt='badge-img'
+					className='min-h-[7rem] max-h-[7rem] object-contain'
+				/>
+			</div>
+
+			<div className='flex-1 min-h-[7rem] max-h-[7rem] flex flex-col items-center justify-center overflow-hidden overflow-y-auto'>
+				<p className='text-primaryText text-[0.8125rem] px-2 leading-[100%] text-center'>
 					{badge.title}
 				</p>
 				<p className='text-[#EBE984] text-[0.8125rem] leading-[100%] text-center'>

@@ -429,6 +429,40 @@
 	}
 }
 
+.badges-admin,
+.frames-admin,
+.backgrounds-admin,
+.panopticons-admin,
+.unique-roles-admin {
+	.ScrollbarsCustom-TrackY {
+		width: 0.5625rem;
+		right: 8rem;
+
+		&:hover,
+		&.dragging {
+			width: 0.5625rem;
+			right: 8rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		&:hover,
+		&.dragging {
+			width: initial;
+		}
+	}
+}
+
+.badges-admin {
+	.ScrollbarsCustom-Wrapper {
+		overflow-x: hidden !important;
+
+		.ScrollbarsCustom-Scroller {
+			overflow-x: hidden !important;
+		}
+	}
+}
+
 .pink-scrollbar {
 	.ScrollbarsCustom-Thumb {
 		background: #c34375;

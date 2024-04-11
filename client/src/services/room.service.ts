@@ -1,8 +1,6 @@
 import {
 	IActiveBackground,
-	IBadge,
 	IBoutiqueBackground,
-	IBoutiqueBadge,
 	IBoutiqueUniqueRoles,
 	IBuyRoomColor,
 	IBuyRoomPanopticon,
@@ -28,6 +26,7 @@ import {
 	IUserUniqueRoles,
 } from '@/types/room.interface'
 import $api from '@/http'
+import { IBadge, IBoutiqueBadge } from '@/types/badge.interface'
 
 class RoomContentService {
 	private URL = `${import.meta.env.VITE_API_URL}/room`
@@ -80,7 +79,9 @@ class RoomContentService {
 	}
 
 	async getFavoriteCharacter() {
-		return await $api.get<IFavoriteCharacter | null>(`${this.URL}/character/favorite`)
+		return await $api.get<IFavoriteCharacter | null>(
+			`${this.URL}/character/favorite`
+		)
 	}
 
 	async getActiveRoomBackground() {

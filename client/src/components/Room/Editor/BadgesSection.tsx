@@ -1,7 +1,7 @@
 import { useBuyedBadges } from '@/api/useBuyedBadges'
 import { FC, useState } from 'react'
 import BadgesNav from './BadgesNav'
-import { BadgeSectionType } from '@/types/badge.interface'
+import type { BadgeType } from '@/types/badge.interface'
 import BadgesList from './BadgesList'
 import { IEditorBadge } from '../Sections/RoomEditor'
 
@@ -16,10 +16,10 @@ const BadgesSection: FC<IBadgesSection> = ({
 	editorBadges,
 	setEditorBadges,
 	zIndexCount,
-	setZIndexCount
+	setZIndexCount,
 }) => {
 	const [activeBadgesSection, setActiveBadgesSection] =
-		useState<BadgeSectionType>('unique')
+		useState<BadgeType>('unique')
 
 	const { data: badges, isLoading, isError } = useBuyedBadges()
 

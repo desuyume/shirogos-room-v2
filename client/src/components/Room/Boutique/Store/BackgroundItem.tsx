@@ -37,7 +37,7 @@ const BackgroundItem: FC<IBackgroundItem> = ({
 				alt='bg-img'
 			/>
 			<p className='text-primaryText text-[1.5625rem] leading-[100%] text-center w-[88%]'>
-				{background.name ?? 'Без названия'} -{' '}
+				{background.title ?? 'Без названия'} -{' '}
 				<span className='text-[#EBE984]'>
 					{!!isBuyed ? 'Куплено' : `${background.cost} ДО`}
 				</span>

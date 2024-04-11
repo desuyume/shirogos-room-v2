@@ -1,6 +1,7 @@
 export interface IBackground {
 	id: number
-	img: string
-	name: string
+	title: string
 	cost: number
+	img: string
+	isForSale: boolean
 }

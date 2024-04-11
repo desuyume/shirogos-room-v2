@@ -1,7 +1,7 @@
 import { RoomAppearanceContext } from '@/Context'
 import { useBuyBadge } from '@/api/useBuyBadge'
 import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
-import { IBadge } from '@/types/room.interface'
+import { IBadge } from '@/types/badge.interface'
 import { FC, useContext, useEffect, useState } from 'react'
 
 interface IBadgesBuy {

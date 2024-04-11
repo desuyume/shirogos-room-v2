@@ -75,7 +75,7 @@ const RoomMainContent: FC<IRoomMainContent> = ({
 									<img
 										key={badge.id}
 										src={`${import.meta.env.VITE_SERVER_URL}/${
-											badge.badge.award_img
+											badge.badge.badgeImg
 										}`}
 										alt=''
 										className='h-full'

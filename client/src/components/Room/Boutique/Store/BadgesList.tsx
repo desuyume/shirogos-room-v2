@@ -1,4 +1,4 @@
-import { IBadge } from '@/types/room.interface'
+import { IBadge } from '@/types/badge.interface'
 import { FC, useContext } from 'react'
 import { Scrollbar } from 'react-scrollbars-custom'
 import BadgeItem from './BadgeItem'
@@ -28,7 +28,7 @@ const BadgesList: FC<IBadgesList> = ({
 		>
 			<div className='w-full px-2'>
 				{badges
-					.filter(badge => badge.awardType.type === activeSection)
+					.filter(badge => badge.type.type === activeSection)
 					.map(badge => (
 						<BadgeItem
 							key={badge.id}

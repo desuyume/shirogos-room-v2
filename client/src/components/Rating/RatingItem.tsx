@@ -2,6 +2,7 @@ import { IRatingUser } from '@/types/rating.interface'
 import { FC } from 'react'
 import noProfilePic from '@/assets/no-profile-picture-icon.webp'
 import { Link } from 'react-router-dom'
+import { isUrl } from '@/utils/isUrl'
 
 interface IRatingItem {
 	user: IRatingUser
@@ -39,7 +40,9 @@ const RatingItem: FC<IRatingItem> = ({ user, place }) => {
 						!!user.miniature_img
 							? `${import.meta.env.VITE_SERVER_URL}/${user.miniature_img}`
 							: !!user.profile_img
-							? `${import.meta.env.VITE_SERVER_URL}/${user.profile_img}`
+							? isUrl(user.profile_img)
+								? user.profile_img
+								: `${import.meta.env.VITE_SERVER_URL}/${user.profile_img}`
 							: noProfilePic
 					}
 					alt={`${user.username}-pic`}

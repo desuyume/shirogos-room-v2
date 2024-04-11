@@ -7,7 +7,6 @@ import * as path from 'path';
 import { DonateModule } from './donate/donate.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { AuthModule } from './auth/auth.module';
-import { RoomContentModule } from './room-content/room-content.module';
 import { TokenModule } from './token/token.module';
 import { UniqueRoleModule } from './unique-role/unique-role.module';
 import { UserModule } from './user/user.module';
@@ -21,7 +20,7 @@ import { UserStatsModule } from './user_stats/user_stats.module';
 import { UserInfoModule } from './user_info/user_info.module';
 import { TasksModule } from './tasks/tasks.module';
 import { ScheduleModule } from '@nestjs/schedule';
-import { AwardModule } from './award/award.module';
+import { BadgeModule } from './badge/badge.module';
 import { WikiModule } from './wiki/wiki.module';
 import { MangaModule } from './manga/manga.module';
 import { StoryModule } from './story/story.module';
@@ -29,6 +28,9 @@ import { AlmanacModule } from './almanac/almanac.module';
 import { RatingModule } from './rating/rating.module';
 import { RoomGuideModule } from './room-guide/room-guide.module';
 import { AchievementModule } from './achievement/achievement.module';
+import { FrameModule } from './frame/frame.module';
+import { BackgroundModule } from './background/background.module';
+import { PanopticonModule } from './panopticon/panopticon.module';
 
 @Module({
   imports: [
@@ -39,7 +41,6 @@ import { AchievementModule } from './achievement/achievement.module';
     MulterModule.register({ dest: process.env.UPLOAD_LOCATION }),
     DonateModule,
     AuthModule,
-    RoomContentModule,
     TokenModule,
     UniqueRoleModule,
     UserModule,
@@ -53,7 +54,7 @@ import { AchievementModule } from './achievement/achievement.module';
     UserInfoModule,
     ScheduleModule.forRoot(),
     TasksModule,
-    AwardModule,
+    BadgeModule,
     WikiModule,
     MangaModule,
     StoryModule,
@@ -61,6 +62,9 @@ import { AchievementModule } from './achievement/achievement.module';
     RatingModule,
     RoomGuideModule,
     AchievementModule,
+    FrameModule,
+    BackgroundModule,
+    PanopticonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

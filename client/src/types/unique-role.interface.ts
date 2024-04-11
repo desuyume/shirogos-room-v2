@@ -1,8 +1,18 @@
 export interface IUniqueRole {
 	id: number
 	title: string
-	type: string
+	type: UniqueRoleType
 	cost: number
+	isForSale: boolean
 }
 
-export interface ICreateUniqueRole extends Omit<IUniqueRole, 'id'> {}
+export interface ICreateUniqueRole {
+	title: string
+	cost: number
+	isForSale: boolean
+}
+
+export enum UniqueRoleType {
+	'adjectives' = 'adjectives',
+	'nouns' = 'nouns',
+}
