@@ -18,13 +18,12 @@ model Donate {
 }
 
 model UniqueRole {
-  id               Int                  @id @default(autoincrement())
-  title            String               @unique
-  type             UniqueRoleType
-  cost             Int                  @default(0)
-  isForSale        Boolean
-  rooms            UniqueRolesOnRooms[]
-  AchievementAward AchievementAward[]
+  id        Int                  @id @default(autoincrement())
+  title     String               @unique
+  type      UniqueRoleType
+  cost      Int                  @default(0)
+  isForSale Boolean
+  rooms     UniqueRolesOnRooms[]
 
   @@map("unique_roles")
 }
@@ -166,7 +165,7 @@ model PanopticonsOnRooms {
   Panopticon   Panopticon @relation(fields: [panopticonId], references: [id])
   panopticonId Int
   buyed_at     DateTime   @default(now())
-  buyed_cost   Int
+  buyed_cost   Int        @default(0)
 }
 
 model RoomColor {
@@ -539,8 +538,8 @@ model AchievementAward {
   backgroundId  Int?
   Panopticon    Panopticon? @relation(fields: [panopticonId], references: [id])
   panopticonId  Int?
-  UniqueRole    UniqueRole? @relation(fields: [uniqueRoleId], references: [id])
-  uniqueRoleId  Int?
+  adjectiveId   Int?
+  nounId        Int?
   exp           Int?
 
   @@map("achievement_awards")

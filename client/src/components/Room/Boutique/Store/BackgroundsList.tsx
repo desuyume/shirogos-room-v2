@@ -19,7 +19,13 @@ const BackgroundsList: FC<IBackgroundsList> = ({
 }) => {
 	const roomAppearance = useContext(RoomAppearanceContext)
 
-	return (
+	return !backgrounds.length ? (
+		<div className='w-full h-full flex justify-center items-center'>
+			<p className='text-primaryText text-xl leading-[97.795%] text-center'>
+				Фонов нет
+			</p>
+		</div>
+	) : (
 		<Scrollbar
 			noDefaultStyles
 			className={`w-full flex-1 ${roomAppearance.active_room_color}-scrollbar`}

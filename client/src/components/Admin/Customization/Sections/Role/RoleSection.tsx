@@ -9,12 +9,12 @@ const RoleSection: FC = () => {
 		data: adjectives,
 		isLoading: isAdjectivesLoading,
 		isError: isAdjectivesError,
-	} = useRoles(UniqueRoleType.adjectives)
+	} = useRoles(UniqueRoleType.ADJECTIVES)
 	const {
 		data: nouns,
 		isLoading: isNounsLoading,
 		isError: isNounsError,
-	} = useRoles(UniqueRoleType.nouns)
+	} = useRoles(UniqueRoleType.NOUNS)
 
 	return (
 		<div className='w-[93.3125rem] h-[50.25rem] flex justify-between unique-roles-admin'>
@@ -49,10 +49,10 @@ const RoleSection: FC = () => {
 								<RoleItem
 									key={adjective.id}
 									role={adjective}
-									type={UniqueRoleType.adjectives}
+									type={UniqueRoleType.ADJECTIVES}
 								/>
 							))}
-							<RoleItem type={UniqueRoleType.adjectives} isNew />
+							<RoleItem type={UniqueRoleType.ADJECTIVES} isNew />
 						</>
 					)}
 				</Scrollbar>
@@ -88,10 +88,10 @@ const RoleSection: FC = () => {
 								<RoleItem
 									key={noun.id}
 									role={noun}
-									type={UniqueRoleType.nouns}
+									type={UniqueRoleType.NOUNS}
 								/>
 							))}
-							<RoleItem type={UniqueRoleType.nouns} isNew />
+							<RoleItem type={UniqueRoleType.NOUNS} isNew />
 						</>
 					)}
 				</Scrollbar>

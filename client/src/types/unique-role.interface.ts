@@ -13,6 +13,6 @@ export interface ICreateUniqueRole {
 }
 
 export enum UniqueRoleType {
-	'adjectives' = 'adjectives',
-	'nouns' = 'nouns',
+	'ADJECTIVES' = 'ADJECTIVES',
+	'NOUNS' = 'NOUNS',
 }

@@ -13,6 +13,6 @@ export interface AchievementAwards {
 	roles: {
 		adjective: number | null;
 		noun: number | null;
-	};
+	} | null;
 	exp: number;
 }

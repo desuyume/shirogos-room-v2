@@ -89,6 +89,11 @@ export class BadgeService {
         badgeId: id,
       },
     });
+    await this.prisma.editorBadge.deleteMany({
+      where: {
+        badgeId: id,
+      },
+    });
 
     removeFile(badge.img);
 

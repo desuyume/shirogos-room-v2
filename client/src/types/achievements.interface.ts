@@ -21,7 +21,26 @@ export interface IAchievementFetch {
 	title: string
 	description: string | null
 	background: string | null
+}
+
+export interface IAchievementFetchWithAward {
+	id: number
+	title: string
+	description: string | null
+	background: string | null
+	AchievementAward: IAchievementAward | null
 	AchievementsOnRooms: {
 		roomId: number
 	}[]
+}
+
+export interface IAchievementAward {
+	achievementId: number
+	badgeId: number | null
+	frameId: number | null
+	backgroundId: number | null
+	panopticonId: number | null
+	adjectiveId: number | null
+	nounId: number | null
+	exp: number | null
 }

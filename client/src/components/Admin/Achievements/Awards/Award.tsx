@@ -10,6 +10,7 @@ interface IAward {
 	awardType: AwardType
 	award: number | null
 	setAward: React.Dispatch<React.SetStateAction<number | null>>
+	isNew: boolean
 }
 
 const Award: FC<IAward> = ({
@@ -17,6 +18,7 @@ const Award: FC<IAward> = ({
 	awardType,
 	award,
 	setAward,
+	isNew,
 }) => {
 	let query, items, isLoading, isError
 
@@ -35,18 +37,18 @@ const Award: FC<IAward> = ({
 		items = query.data
 		isLoading = query.isLoading
 		isError = query.isError
-	} else {
+	} else if (awardType === 'panopticon') {
 		query = useUniquePanopticons()
 		items = query.data
 		isLoading = query.isLoading
 		isError = query.isError
-	}
+	} else return <></>
 
 	return (
 		<div
 			className={
 				(selectedAwardType === awardType ? 'block ' : 'hidden ') +
-				'w-full flex-1 flex flex-col items-center transition-all overflow-y-auto relative'
+				'w-full flex-1 flex flex-col items-center transition-all overflow-y-auto relative ' + (!isNew ? 'flex-row justify-center' : '')
 			}
 		>
 			{isLoading ? (
@@ -57,16 +59,22 @@ const Award: FC<IAward> = ({
 				<div className='w-full h-full flex justify-center items-center'>
 					<p className='text-[#FFF]'>Ошибка</p>
 				</div>
-			) : (
+			) : items && !items.length ? (
+				<div className='w-full h-full flex justify-center items-center'>
+					<p>Нет данных</p>
+				</div>
+			) : isNew ? (
 				items?.map(item => (
-					<div
+					<button
 						key={item.id}
 						onClick={() =>
 							award === item.id ? setAward(null) : setAward(item.id)
 						}
+						disabled={!isNew}
 						className={
-							'w-full  px-4 flex justify-between items-center py-4 hover:bg-secondary cursor-pointer transition-all ' +
-							(award === item.id ? 'bg-secondary' : 'bg-tertiary')
+							'w-full  px-4 flex justify-between items-center py-4 transition-all ' +
+							(award === item.id ? 'bg-secondary' : 'bg-tertiary') +
+							(isNew ? ' cursor-pointer hover:bg-secondary' : 'cursor-default')
 						}
 					>
 						<div className='min-w-[50%] max-w-[50%] max-h-[80%] flex justify-center items-center mr-2'>
@@ -78,8 +86,37 @@ const Award: FC<IAward> = ({
 						<p className='text-[#FFF] text-xs text-center flex-1 overflow-y-auto max-h-12'>
 							{item.title}
 						</p>
-					</div>
+					</button>
 				))
+			) : (
+				items
+					?.filter(item => item.id === award)
+					.map(item => (
+						<button
+							key={item.id}
+							onClick={() =>
+								award === item.id ? setAward(null) : setAward(item.id)
+							}
+							disabled={!isNew}
+							className={
+								'w-full  px-4 flex justify-between items-center py-4 transition-all ' +
+								(award === item.id ? 'bg-secondary' : 'bg-tertiary') +
+								(isNew
+									? ' cursor-pointer hover:bg-secondary'
+									: 'cursor-default')
+							}
+						>
+							<div className='min-w-[50%] max-w-[50%] max-h-[80%] flex justify-center items-center mr-2'>
+								<img
+									className='max-h-12'
+									src={`${import.meta.env.VITE_SERVER_URL}/${item.img}`}
+								/>
+							</div>
+							<p className='text-[#FFF] text-xs text-center flex-1 overflow-y-auto max-h-12'>
+								{item.title}
+							</p>
+						</button>
+					))
 			)}
 		</div>
 	)

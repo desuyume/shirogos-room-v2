@@ -49,7 +49,7 @@ const PanopticonsList: FC = () => {
 			setFilteredPanopticons(prev => [
 				...prev,
 				...panopticons?.panopticons.filter(
-					p => !buyedPanopticons?.includes(p.id)
+					p => !buyedPanopticons?.includes(p.id) && !!p.isForSale
 				),
 			]) // and other panopticons then
 		}

@@ -32,12 +32,6 @@ const Backgrounds: FC = () => {
 						Ошибка
 					</p>
 				</div>
-			) : !backgrounds.backgrounds.length ? (
-				<div className='w-full h-full flex justify-center items-center'>
-					<p className='text-primaryText text-xl leading-[97.795%] text-center'>
-						Фонов нет
-					</p>
-				</div>
 			) : (
 				<>
 					<div className='bg-tertiary w-[18.3%] h-[3.6875rem] min-w-[6.25rem] rounded-[1.5625rem] flex justify-center items-center mb-[0.62rem]'>

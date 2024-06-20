@@ -723,11 +723,7 @@ export class RoomService {
   }
 
   async getRoomPanopticons(userId: number) {
-    const panopticons = await this.prisma.panopticon.findMany({
-      where: {
-        isForSale: true,
-      },
-    });
+    const panopticons = await this.prisma.panopticon.findMany();
     const buyedPanopticons = await this.prisma.room.findUnique({
       where: {
         userId,
@@ -1173,6 +1169,15 @@ export class RoomService {
       });
     }
     for (const badge of badges) {
+      const badgeOnRoom = await this.prisma.badgesOnRooms.findMany({
+        where: {
+          badgeId: badge.badgeId,
+          roomId: room.id,
+        }
+      })
+      if (!badgeOnRoom.length) {
+        continue
+      }
       await this.prisma.editorBadge.create({
         data: {
           editorId: editor.id,

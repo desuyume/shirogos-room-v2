@@ -54,13 +54,13 @@ const RoleSwitcher: FC<IRoleSwitcher> = ({ type }) => {
 			if (isSuccess) {
 				if (type === 'adjective') {
 					const adjectives = uniqueRoles.unique_roles.filter(
-						role => role.UniqueRole.type === UniqueRoleType.adjectives
+						role => role.UniqueRole.type === UniqueRoleType.ADJECTIVES
 					)
 					setRoles(adjectives.map(role => role.UniqueRole.title))
 					setActiveRole(uniqueRoles.selected_unique_role_adjective)
 				} else {
 					const nouns = uniqueRoles.unique_roles.filter(
-						role => role.UniqueRole.type === UniqueRoleType.nouns
+						role => role.UniqueRole.type === UniqueRoleType.NOUNS
 					)
 					setRoles(nouns.map(role => role.UniqueRole.title))
 					setActiveRole(uniqueRoles.selected_unique_role_noun)

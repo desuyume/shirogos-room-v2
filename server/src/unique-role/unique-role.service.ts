@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { UniqueRoleType } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { getRandomInt } from 'src/utils/getRandomInt';

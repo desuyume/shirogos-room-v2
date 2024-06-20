@@ -8,11 +8,17 @@ interface IRoleAward {
 	selectedAwardType: AwardType | null
 	roles: IRoles | null
 	setRoles: React.Dispatch<React.SetStateAction<IRoles | null>>
+	isNew: boolean
 }
 
-const RoleAward: FC<IRoleAward> = ({ selectedAwardType, roles, setRoles }) => {
+const RoleAward: FC<IRoleAward> = ({
+	selectedAwardType,
+	roles,
+	setRoles,
+	isNew,
+}) => {
 	const [activeType, setActiveType] = useState<UniqueRoleType>(
-		UniqueRoleType.adjectives
+		UniqueRoleType.ADJECTIVES
 	)
 	const [activeRoles, setActiveRoles] = useState<IUniqueRole[] | null>(null)
 
@@ -21,13 +27,13 @@ const RoleAward: FC<IRoleAward> = ({ selectedAwardType, roles, setRoles }) => {
 		isLoading: isAdjectivesLoading,
 		isError: isAdjectivesError,
 		isSuccess: isAdjectivesSuccess,
-	} = useUniqueRoles(UniqueRoleType.adjectives)
+	} = useUniqueRoles(UniqueRoleType.ADJECTIVES)
 	const {
 		data: nouns,
 		isLoading: isNounsLoading,
 		isError: isNounsError,
 		isSuccess: isNounsSuccess,
-	} = useUniqueRoles(UniqueRoleType.nouns)
+	} = useUniqueRoles(UniqueRoleType.NOUNS)
 
 	const isActiveRole = (id: number) =>
 		roles?.adjective === id || roles?.noun === id
@@ -38,7 +44,7 @@ const RoleAward: FC<IRoleAward> = ({ selectedAwardType, roles, setRoles }) => {
 			noun: roles?.noun ?? null,
 		}
 
-		if (activeType === UniqueRoleType.adjectives) {
+		if (activeType === UniqueRoleType.ADJECTIVES) {
 			newRoles.adjective = id === roles?.adjective ? null : id
 		} else {
 			newRoles.noun = id === roles?.noun ? null : id
@@ -48,9 +54,10 @@ const RoleAward: FC<IRoleAward> = ({ selectedAwardType, roles, setRoles }) => {
 	}
 
 	useEffect(() => {
-		if (activeType === UniqueRoleType.adjectives && isAdjectivesSuccess) {
+		if (activeType === UniqueRoleType.ADJECTIVES && isAdjectivesSuccess) {
 			setActiveRoles(adjectives)
-		} else if (activeType === UniqueRoleType.nouns && isNounsSuccess) {
+		}
+		if (activeType === UniqueRoleType.NOUNS && isNounsSuccess) {
 			setActiveRoles(nouns)
 		}
 	}, [activeType, isAdjectivesSuccess, isNounsSuccess])
@@ -65,26 +72,31 @@ const RoleAward: FC<IRoleAward> = ({ selectedAwardType, roles, setRoles }) => {
 			<div className='w-full flex items-center justify-around h-[25%]'>
 				<button
 					className={
-						(activeType === UniqueRoleType.adjectives
+						(activeType === UniqueRoleType.ADJECTIVES
 							? ' text-primary'
 							: 'text-primaryText hover:text-[#FFF]') + ' transition-all'
 					}
-					onClick={() => setActiveType(UniqueRoleType.adjectives)}
+					onClick={() => setActiveType(UniqueRoleType.ADJECTIVES)}
 				>
 					Прил
 				</button>
 				<button
 					className={
-						(activeType === UniqueRoleType.nouns
+						(activeType === UniqueRoleType.NOUNS
 							? ' text-primary'
 							: 'text-primaryText hover:text-[#FFF]') + ' transition-all'
 					}
-					onClick={() => setActiveType(UniqueRoleType.nouns)}
+					onClick={() => setActiveType(UniqueRoleType.NOUNS)}
 				>
 					Сущ
 				</button>
 			</div>
-			<div className='w-full h-[75%] max-h-[75%] overflow-y-auto'>
+			<div
+				className={
+					'w-full h-[75%] max-h-[75%] overflow-y-auto' +
+					(!isNew ? ' flex justify-center items-center pb-4' : '')
+				}
+			>
 				{isAdjectivesLoading || isNounsLoading ? (
 					<div className='w-full h-full flex justify-center items-center'>
 						<p className='text-primaryText'>Загрузка...</p>
@@ -93,18 +105,37 @@ const RoleAward: FC<IRoleAward> = ({ selectedAwardType, roles, setRoles }) => {
 					<div className='w-full h-full flex justify-center items-center'>
 						<p className='text-primaryText'>Ошибка</p>
 					</div>
-				) : (
+				) : isNew ? (
 					activeRoles?.map(role => (
 						<button
+							key={role.id}
 							onClick={() => clickRole(role.id)}
+							disabled={!isNew}
 							className={
-								'w-full text-[#FFF] px-1 hover:bg-secondary cursor-pointer transition-all' +
-								(isActiveRole(role.id) ? ' bg-secondary' : '')
+								'w-full text-[#FFF] px-1 transition-all' +
+								(isActiveRole(role.id) ? ' bg-secondary' : '') +
+								(isNew
+									? ' cursor-pointer hover:bg-secondary'
+									: ' cursor-default')
 							}
 						>
 							{role.title}
 						</button>
 					))
+				) : (
+					activeRoles
+						?.filter(
+							role => role.id === roles?.adjective || role.id === roles?.noun
+						)
+						.map(role => (
+							<button
+								key={role.id}
+								disabled
+								className={'w-full text-[#FFF] px-1 transition-all'}
+							>
+								{role.title}
+							</button>
+						))
 				)}
 			</div>
 		</div>

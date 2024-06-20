@@ -25,7 +25,11 @@ const UserBar: FC<IUserBar> = ({
 	guideRoomAppearance,
 }) => {
 	return (
-		<div className={'w-[14.625rem] h-full flex flex-col transition-all ' + className}>
+		<div
+			className={
+				'w-[14.625rem] h-full flex flex-col transition-all ' + className
+			}
+		>
 			<UserInfoBar
 				profile_img={profile_img}
 				username={username}
@@ -34,7 +38,12 @@ const UserBar: FC<IUserBar> = ({
 				isGuide={isGuide}
 				guideRoomAppearance={guideRoomAppearance}
 			/>
-			<UserAchievementsBar created_at={created_at} />
+			<UserAchievementsBar
+				created_at={created_at}
+				username={username}
+				isGuide={isGuide}
+				guideRoomAppearance={guideRoomAppearance}
+			/>
 		</div>
 	)
 }

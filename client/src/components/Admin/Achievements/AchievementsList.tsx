@@ -37,7 +37,7 @@ const AchievementsList: FC = () => {
 					{achievements.map(achieve => (
 						<AchievementItem key={achieve.id} achieve={achieve} />
 					))}
-					<AchievementItem isNew />
+					<AchievementItem />
 				</div>
 			)}
 		</div>

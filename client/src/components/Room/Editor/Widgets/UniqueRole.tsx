@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import uniqueRoleBgImg from '@/assets/room/unique-role-editor.png'
 import { useUserUniqueRoles } from '@/api/useUserUniqueRoles'
 import { IUserUniqueRoles } from '@/types/room.interface'
@@ -9,7 +9,34 @@ interface IUniqueRole {
 }
 
 const UniqueRole: FC<IUniqueRole> = ({ isGuide, guideUniqueRoles }) => {
+	const [isRolesEmpty, setIsRolesEmpty] = useState<boolean>(false)
+
 	const { data: roles, isLoading, isError } = useUserUniqueRoles(!isGuide)
+
+	useEffect(() => {
+		if (isGuide) {
+			if (
+				!guideUniqueRoles?.selected_unique_role_adjective &&
+				!guideUniqueRoles?.selected_unique_role_noun
+			) {
+				setIsRolesEmpty(true)
+			} else {
+				setIsRolesEmpty(false)
+			}
+			return
+		}
+
+		if (!isLoading && !isError) {
+			if (
+				!roles?.selected_unique_role_adjective &&
+				!roles?.selected_unique_role_noun
+			) {
+				setIsRolesEmpty(true)
+			} else {
+				setIsRolesEmpty(false)
+			}
+		}
+	}, [isLoading, isError, roles, isGuide, guideUniqueRoles])
 
 	return (
 		<>
@@ -28,6 +55,15 @@ const UniqueRole: FC<IUniqueRole> = ({ isGuide, guideUniqueRoles }) => {
 						<p className='text-tertiary text-[1.4vw] leading-none text-center'>
 							Ошибка
 						</p>
+					) : isRolesEmpty ? (
+						<>
+							<p className='text-tertiary text-[1.4vw] leading-none text-center pointer-events-none'>
+								Роль не
+							</p>
+							<p className='text-tertiary text-[1.4vw] leading-none text-center pointer-events-none'>
+								выбрана
+							</p>
+						</>
 					) : (
 						<>
 							<p className='text-tertiary text-[1.4vw] leading-none text-center pointer-events-none'>
@@ -35,14 +71,14 @@ const UniqueRole: FC<IUniqueRole> = ({ isGuide, guideUniqueRoles }) => {
 									? guideUniqueRoles.selected_unique_role_adjective
 									: !isGuide && roles?.selected_unique_role_adjective
 									? roles.selected_unique_role_adjective
-									: 'Роль не'}
+									: ''}
 							</p>
 							<p className='text-tertiary text-[1.4vw] leading-none text-center pointer-events-none'>
 								{isGuide && guideUniqueRoles?.selected_unique_role_noun
 									? guideUniqueRoles.selected_unique_role_noun
 									: !isGuide && roles?.selected_unique_role_noun
 									? roles.selected_unique_role_noun
-									: 'выбрана'}
+									: ''}
 							</p>
 						</>
 					)}

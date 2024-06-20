@@ -11,16 +11,16 @@ import {
 } from '@nestjs/common';
 import { UniqueRoleService } from './unique-role.service';
 import { CreateUniqueRoleDto } from './dto/create-unique-role.dto';
-import { Prisma } from '@prisma/client';
+import { Prisma, UniqueRoleType } from '@prisma/client';
 
 @Controller('uniqueRole')
 export class UniqueRoleController {
   constructor(private readonly uniqueRoleService: UniqueRoleService) {}
 
   @Get()
-  async getAll(@Query('type') type) {
+  async getAll(@Query('type') type: UniqueRoleType) {
     try {
-      if (type !== 'adjectives' && type !== 'nouns') {
+      if (type !== 'ADJECTIVES' && type !== 'NOUNS') {
         throw new BadRequestException('wrong roles type');
       }
 
@@ -33,7 +33,7 @@ export class UniqueRoleController {
   @Get('unique')
   async getUnique(@Query('type') type) {
     try {
-      if (type !== 'adjectives' && type !== 'nouns') {
+      if (type !== 'ADJECTIVES' && type !== 'NOUNS') {
         throw new BadRequestException('wrong roles type');
       }
 
@@ -46,7 +46,7 @@ export class UniqueRoleController {
   @Post()
   async create(@Query('type') type, @Body() dto: CreateUniqueRoleDto) {
     try {
-      if (type !== 'adjectives' && type !== 'nouns') {
+      if (type !== 'ADJECTIVES' && type !== 'NOUNS') {
         throw new BadRequestException('wrong roles type');
       }
 
