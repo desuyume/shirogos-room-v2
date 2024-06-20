@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { isArray } from 'class-validator';
 import { Request, Response } from 'express';
-import { removeFile } from './utils/removeFIle';
+import { removeFile } from './utils/removeFile'
 
 @Catch()
 export class DeleteFileOnErrorFilter implements ExceptionFilter {
