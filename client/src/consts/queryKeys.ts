@@ -1,8 +1,7 @@
 export const DONATES_KEY = 'donates'
 export const CREATE_DONATE_KEY = 'create donate'
 
-export const ROLES_KEY = 'roles'
-export const CREATE_ROLE_KEY = 'create role'
+export const CREATE_UNIQUE_ROLE_KEY = 'create unique role'
 export const UNIQUE_ROLES_KEY = 'unique roles'
 
 export const ONLINE_OPTION_KEY = 'online options'

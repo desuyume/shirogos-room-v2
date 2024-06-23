@@ -25,13 +25,13 @@ export class UniqueRoleService {
     });
   }
 
-  async create(dto: CreateUniqueRoleDto, type) {
+  async create(dto: CreateUniqueRoleDto, type: UniqueRoleType) {
     return await this.prisma.uniqueRole.create({
       data: {
         title: dto.title,
         cost: dto.cost,
         type:
-          type === 'adjectives'
+          type === 'ADJECTIVES'
             ? UniqueRoleType.ADJECTIVES
             : UniqueRoleType.NOUNS,
         isForSale: dto.isForSale,

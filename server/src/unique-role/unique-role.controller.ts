@@ -44,7 +44,10 @@ export class UniqueRoleController {
   }
 
   @Post()
-  async create(@Query('type') type, @Body() dto: CreateUniqueRoleDto) {
+  async create(
+    @Query('type') type: UniqueRoleType,
+    @Body() dto: CreateUniqueRoleDto,
+  ) {
     try {
       if (type !== 'ADJECTIVES' && type !== 'NOUNS') {
         throw new BadRequestException('wrong roles type');
