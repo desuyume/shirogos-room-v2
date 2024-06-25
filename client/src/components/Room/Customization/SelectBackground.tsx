@@ -11,18 +11,19 @@ const SelectBackground: FC = () => {
 
 	const {
 		isLoading,
+		isFetching,
 		isError,
 		isSuccess,
 		data: roomBackgrounds,
 	} = useBuyedRoomBackgrounds()
 
 	useEffect(() => {
-		if (!isLoading && isSuccess) {
+		if (!isLoading && !isFetching && isSuccess) {
 			if (roomBackgrounds.selected_background) {
 				setSelectedBg(roomBackgrounds.selected_background.id)
 			}
 		}
-	}, [isLoading])
+	}, [isLoading, isFetching])
 
 	return (
 		<div
@@ -30,8 +31,8 @@ const SelectBackground: FC = () => {
 				colorVariants.bgRoomGradient[roomAppearance.active_room_color]
 			} w-[78%] ml-[2%] rounded-[1.5625rem] py-[0.63rem] pl-[0.56rem] flex items-center select-bg`}
 		>
-			<p className='min-w-[14.85%] max-w-[14.85%] bg-tertiary transition-all h-full rounded-[1.0625rem] text-primaryText text-[0.9375rem] mr-8 flex justify-center items-center'>
-				Выбрать фон
+			<p className='min-w-[14.85%] max-w-[14.85%] bg-tertiary transition-all h-full rounded-[1.0625rem] text-primaryText text-[1.0625rem] mr-8 flex justify-center items-center'>
+				Фон
 			</p>
 			{isLoading ? (
 				<div className='w-full h-full flex justify-center items-center'>

@@ -3,10 +3,9 @@ import noNotificationIcon from '@/assets/no-notification.svg'
 import notificationIcon from '@/assets/notification.svg'
 import { Link } from 'react-router-dom'
 import { useUserProfile } from '@/api/useUserProfile'
-import noProfilePictureIcon from '@/assets/no-profile-picture-icon.webp'
-import { isUrl } from '@/utils/isUrl'
 import { RoomAppearanceContext } from '@/Context'
 import { colorVariants } from '@/consts/roomColors'
+import ProfileMiniature from '@/components/ProfileMiniature'
 
 const Profile: FC = () => {
 	const isHaveUnreadNotification = true
@@ -42,33 +41,13 @@ const Profile: FC = () => {
 			</div>
 
 			<Link className='w-[5.625rem] h-[4.5rem] mr-[0.62rem]' to='/room'>
-				{!!profile?.miniature_img ? (
-					<img
-						className='w-full h-full'
-						src={
-							isUrl(profile?.miniature_img)
-								? profile?.miniature_img
-								: `${import.meta.env.VITE_SERVER_URL}/${profile.miniature_img}`
-						}
-						alt='profile-img'
-					/>
-				) : !!profile.profile_img ? (
-					<img
-						className='w-full h-full'
-						src={
-							isUrl(profile?.profile_img)
-								? profile?.profile_img
-								: `${import.meta.env.VITE_SERVER_URL}/${profile.profile_img}`
-						}
-						alt='profile-img'
-					/>
-				) : (
-					<img
-						className='w-full h-full'
-						src={noProfilePictureIcon}
-						alt='profile-img'
-					/>
-				)}
+				<ProfileMiniature
+					miniature_img={profile.miniature_img}
+					profile_img={profile.profile_img}
+					username={profile.username}
+					frame={profile.frame}
+					className='w-full h-full'
+				/>
 			</Link>
 
 			<div className='flex flex-col items-center'>

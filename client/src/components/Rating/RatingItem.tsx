@@ -1,8 +1,7 @@
-import { IRatingUser } from '@/types/rating.interface'
 import { FC } from 'react'
-import noProfilePic from '@/assets/no-profile-picture-icon.webp'
 import { Link } from 'react-router-dom'
-import { isUrl } from '@/utils/isUrl'
+import ProfileMiniature from '../ProfileMiniature'
+import { IRatingUser } from '@/types/rating.interface'
 
 interface IRatingItem {
 	user: IRatingUser
@@ -34,18 +33,12 @@ const RatingItem: FC<IRatingItem> = ({ user, place }) => {
 				}
 				to={`/guide/${user.username}?from=guidePreview`}
 			>
-				<img
-					className={'h-full rounded-[0.6875rem] aspect-[85/70] object-cover'}
-					src={
-						!!user.miniature_img
-							? `${import.meta.env.VITE_SERVER_URL}/${user.miniature_img}`
-							: !!user.profile_img
-							? isUrl(user.profile_img)
-								? user.profile_img
-								: `${import.meta.env.VITE_SERVER_URL}/${user.profile_img}`
-							: noProfilePic
-					}
-					alt={`${user.username}-pic`}
+				<ProfileMiniature
+					miniature_img={user.miniature_img}
+					profile_img={user.profile_img}
+					username={user.username}
+					frame={user.frame}
+					className='h-full rounded-[0.6875rem] aspect-[85/70] object-cover'
 				/>
 			</Link>
 

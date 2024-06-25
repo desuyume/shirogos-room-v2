@@ -46,6 +46,11 @@ export const ACTIVE_BACKGROUND_KEY = 'active background'
 export const BOUTIQUE_BACKGROUNDS_KEY = 'boutique backgrounds'
 export const BUY_BACKGROUND_KEY = 'buy backround'
 
+export const FRAMES_KEY = 'frames'
+export const UNIQUE_FRAMES_KEY = 'unique frames'
+export const CREATE_FRAME_KEY = 'create frame'
+export const ACTIVE_FRAME_KEY = 'active frame'
+
 export const ROOM_NAME_KEY = 'room name'
 
 export const USER_UNQIUE_ROLES_KEY = 'user unique roles'
@@ -117,7 +122,3 @@ export const ROOM_BY_USERNAME = 'room by username'
 
 export const CREATE_ACHIEVEMENT_KEY = 'create achievement'
 export const ACHIEVEMENTS_KEY = 'achievements'
-
-export const FRAMES_KEY = 'frames'
-export const UNIQUE_FRAMES_KEY = 'unique frames'
-export const CREATE_FRAME_KEY = 'create frame'

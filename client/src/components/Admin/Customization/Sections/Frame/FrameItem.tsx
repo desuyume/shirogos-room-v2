@@ -109,12 +109,13 @@ const FrameItem: FC<IFrameItem> = ({ frame, isNew = false }) => {
 							imgSrc={frame?.img ?? null}
 							img={frameImg}
 							setImg={setFrameImg}
+							isFrame
 						/>
 					) : (
 						<img
 							src={`${import.meta.env.VITE_SERVER_URL}/${frame?.img}`}
 							alt='frame-img'
-							className='h-full object-contain'
+							className='w-[104px] h-[83px]'
 						/>
 					)}
 				</div>
