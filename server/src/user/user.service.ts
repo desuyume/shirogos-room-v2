@@ -56,7 +56,7 @@ export class UserService {
   }
 
   async getUserProfile(id: number) {
-    return await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         id,
       },
@@ -66,8 +66,14 @@ export class UserService {
         miniature_img: true,
         level: true,
         dangos: true,
+        Room: {
+          select: {
+            selected_frame: true,
+          },
+        },
       },
     });
+    return { ...user, frame: user.Room.selected_frame };
   }
 
   async logout(refreshToken: string) {

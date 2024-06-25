@@ -1,5 +1,6 @@
 import {
 	IActiveBackground,
+	IActiveFrame,
 	IBoutiqueBackground,
 	IBoutiqueUniqueRoles,
 	IBuyRoomColor,
@@ -7,10 +8,12 @@ import {
 	IBuyUniqueRole,
 	IBuyedPanopticon,
 	IBuyedRoomBackgrounds,
+	IBuyedRoomFrames,
 	IChangeRoomColor,
 	IChangeRoomName,
 	IChangeUniqueRole,
 	IChooseActiveRoomBackground,
+	IChooseActiveRoomFrame,
 	IChooseFavoriteCharacter,
 	ICreateRoom,
 	IFavoriteCharacter,
@@ -97,6 +100,18 @@ class RoomContentService {
 			`${this.URL}/background/active`,
 			data
 		)
+	}
+
+	async getActiveRoomFrame() {
+		return await $api.get<IActiveFrame>(`${this.URL}/frame/active`)
+	}
+
+	async getBuyedRoomFrames() {
+		return await $api.get<IBuyedRoomFrames>(`${this.URL}/frame`)
+	}
+
+	async chooseActiveRoomFrame(data: IChooseActiveRoomFrame) {
+		return await $api.put<IActiveFrame>(`${this.URL}/frame/active`, data)
 	}
 
 	async changeRoomName(data: IChangeRoomName) {

@@ -98,7 +98,8 @@
 }
 
 .select-color,
-.select-bg {
+.select-bg,
+.select-frame {
 	.ScrollbarsCustom-Scroller {
 		display: flex;
 		align-items: center;
@@ -125,22 +126,35 @@
 	}
 }
 
-.select-bg {
+.select-bg,
+.select-frame {
 	.ScrollbarsCustom-TrackX {
-		height: 0.5rem;
-		padding-right: 1rem;
+		height: 0.5625rem;
 
 		&:hover,
 		&.dragging {
-			height: 0.5rem;
+			height: 0.5625rem;
 		}
 	}
 
 	.ScrollbarsCustom-Thumb {
 		&:hover,
 		&.dragging {
-			height: 0.5rem;
+			height: 0.5625rem;
 		}
+	}
+}
+
+.select-bg {
+	.ScrollbarsCustom-TrackX {
+		padding-right: 1rem;
+	}
+}
+
+.select-frame {
+	.ScrollbarsCustom-TrackX {
+		padding-right: 0.5rem;
+		padding-left: 0.5rem;
 	}
 }
 

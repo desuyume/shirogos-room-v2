@@ -1,4 +1,5 @@
 import CropModal from '@/components/CropModal'
+import { cn } from '@/utils/cn'
 import { clearCanvas } from '@/utils/cropUtils'
 import previewUploadedImg from '@/utils/previewUploadedImg'
 import { FC, useEffect, useRef, useState } from 'react'
@@ -14,6 +15,7 @@ interface ICustomizationImgUpload {
 		setMiniature: React.Dispatch<React.SetStateAction<File | null>>
 		canvas: HTMLCanvasElement | null
 	}
+	isFrame?: boolean
 }
 
 const CustomizationImgUpload: FC<ICustomizationImgUpload> = ({
@@ -22,6 +24,7 @@ const CustomizationImgUpload: FC<ICustomizationImgUpload> = ({
 	setImg,
 	isHasMiniature = false,
 	miniatureProps,
+	isFrame = false
 }) => {
 	const [isImgUploaded, setIsImgUploaded] = useState<boolean>(false)
 	const inputRef = useRef<HTMLInputElement | null>(null)
@@ -46,8 +49,8 @@ const CustomizationImgUpload: FC<ICustomizationImgUpload> = ({
 		}
 
 		if (miniatureProps?.canvas) {
-			console.log('gsdfg');
-			
+			console.log('gsdfg')
+
 			clearCanvas(miniatureProps?.canvas)
 		}
 	}, [imgSrc, img])
@@ -60,7 +63,7 @@ const CustomizationImgUpload: FC<ICustomizationImgUpload> = ({
 		>
 			<input
 				ref={inputRef}
-				className='absolute z-10 bg-transparent w-full aspect-[105/69] opacity-0'
+				className='absolute z-10 bg-transparent w-full aspect-[104/83] opacity-0'
 				accept='image/*'
 				type='file'
 				onChange={e => handleFileChange(e)}
@@ -73,10 +76,13 @@ const CustomizationImgUpload: FC<ICustomizationImgUpload> = ({
 			/>
 			<img
 				ref={imgRef}
-				className={
-					(isImgUploaded ? 'visible opacity-100' : 'invisible opacity-0') +
-					' absolute h-full object-contain'
-				}
+				className={cn('absolute h-full', {
+					'visible opacity-100': isImgUploaded,
+					'invisible opacity-0': !isImgUploaded,
+				}, {
+					'w-[104px] h-[83px]': isFrame,
+					'object-contain': !isFrame
+				})}
 				src={
 					!!imgSrc
 						? imgSrc.includes('blob')

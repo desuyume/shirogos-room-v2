@@ -1,3 +1,4 @@
+import { IFrame } from './frame.interface'
 import {
 	IFavoriteCharacter,
 	IRoom,
@@ -10,6 +11,7 @@ import {
 export interface IRoomGuideRandom {
 	id: number
 	name: string
+	selected_frame: IFrame | null
 	user: {
 		id: number
 		username: string
@@ -21,6 +23,7 @@ export interface IRoomGuideRandom {
 export interface IRoomGuideByLevel {
 	id: number
 	name: string
+	selected_frame: IFrame | null
 	selected_background: {
 		id: number
 		img: string

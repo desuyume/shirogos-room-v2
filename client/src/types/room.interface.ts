@@ -3,6 +3,7 @@ import { IBackground } from './background.interface'
 import { IPanopticon } from './panopticon.interface'
 import { IUniqueRole } from './unique-role.interface'
 import { IBadge } from './badge.interface'
+import { IFrame } from './frame.interface'
 
 export interface ICreateRoom {
 	roomName: string
@@ -116,6 +117,23 @@ export interface IBuyedRoomBackgrounds {
 export interface IBoutiqueBackground {
 	backgrounds: IBackground[]
 	buyedBackgrounds: IBackground[]
+}
+
+export interface IChooseActiveRoomFrame {
+	frameId: number | null
+}
+
+export interface IActiveFrame {
+	selected_frame: IFrame
+}
+
+export interface IRoomFrame {
+	Frame: IFrame
+}
+
+export interface IBuyedRoomFrames {
+	buyed_frames: IRoomFrame[]
+	selected_frame: IFrame | null
 }
 
 export interface IChangeRoomName {

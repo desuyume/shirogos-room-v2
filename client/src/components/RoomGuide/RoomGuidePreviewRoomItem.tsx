@@ -1,8 +1,7 @@
 import { IRoomGuideRandom } from '@/types/room-guide.interface'
 import { FC } from 'react'
-import noProfilePic from '@/assets/no-profile-picture-icon.webp'
 import { Link } from 'react-router-dom'
-import { isUrl } from '@/utils/isUrl'
+import ProfileMiniature from '../ProfileMiniature'
 
 interface IRoomGuidePreviewRoomItem {
 	room: IRoomGuideRandom
@@ -24,18 +23,12 @@ const RoomGuidePreviewRoomItem: FC<IRoomGuidePreviewRoomItem> = ({
 				className='w-full order-3 peer'
 				to={`/guide/${room.user.username}?from=guidePreview`}
 			>
-				<img
+				<ProfileMiniature
+					miniature_img={room.user.miniature_img}
+					profile_img={room.user.profile_img}
+					username={room.user.username}
+					frame={room.selected_frame}
 					className='w-full rounded-[2.3125rem] aspect-[185/134] object-cover cursor-pointer outline outline-transparent outline-[3px] hover:outline-primary transition-all'
-					src={
-						!!room.user.miniature_img
-							? `${import.meta.env.VITE_SERVER_URL}/${room.user.miniature_img}`
-							: !!room.user.profile_img
-							? isUrl(room.user.profile_img)
-								? room.user.profile_img
-								: `${import.meta.env.VITE_SERVER_URL}/${room.user.profile_img}`
-							: noProfilePic
-					}
-					alt={`${room.user.username}-pic`}
 				/>
 			</Link>
 

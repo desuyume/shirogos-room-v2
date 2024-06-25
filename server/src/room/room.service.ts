@@ -5,7 +5,10 @@ import { ChangeRoomColorDto } from './dto/change-room-color.dto';
 import { ChangeUniqueRoleDto } from './dto/change-uniqueRole.dto';
 import { BuyUniqueRoleDto } from './dto/buy-uniqueRole.dto';
 import { ChooseFavoriteCharacterDto } from './dto/choose-favorite-character.dto';
-import { ChooseActiveRoomBackgroundDto } from './dto/choose-active-room-background.dto';
+import {
+  ChooseActiveRoomBackgroundDto,
+  ChooseActiveRoomFrameDto,
+} from './dto/choose-active-room-thing.dto';
 import { ChangeRoomNameDto } from './dto/change-roomName.dto';
 import { BuyColorDto } from './dto/buy-color.dto';
 import { UniqueRoleType } from '@prisma/client';
@@ -190,6 +193,7 @@ export class RoomService {
         active_room_color: true,
         active_username_color: true,
         selected_background: true,
+        selected_frame: true,
       },
     });
   }
@@ -579,6 +583,47 @@ export class RoomService {
       },
       select: {
         selected_background: true,
+      },
+    });
+  }
+
+  async getActiveRoomFrame(userId: number) {
+    return await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        selected_frame: true,
+      },
+    });
+  }
+
+  async getRoomBuyedFrames(userId: number) {
+    return await this.prisma.room.findUnique({
+      where: {
+        userId,
+      },
+      select: {
+        buyed_frames: {
+          select: {
+            Frame: true,
+          },
+        },
+        selected_frame: true,
+      },
+    });
+  }
+
+  async chooseActiveRoomFrame(userId: number, dto: ChooseActiveRoomFrameDto) {
+    return await this.prisma.room.update({
+      where: {
+        userId,
+      },
+      data: {
+        frameId: dto.frameId,
+      },
+      select: {
+        selected_frame: true,
       },
     });
   }
@@ -1173,10 +1218,10 @@ export class RoomService {
         where: {
           badgeId: badge.badgeId,
           roomId: room.id,
-        }
-      })
+        },
+      });
       if (!badgeOnRoom.length) {
-        continue
+        continue;
       }
       await this.prisma.editorBadge.create({
         data: {

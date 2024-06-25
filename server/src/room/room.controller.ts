@@ -6,9 +6,7 @@ import {
   Post,
   Put,
   Query,
-  Redirect,
   Request,
-  Res,
   UseGuards,
 } from '@nestjs/common';
 import { RoomService } from './room.service';
@@ -18,12 +16,15 @@ import { ChangeRoomColorDto } from './dto/change-room-color.dto';
 import { ChangeUniqueRoleDto } from './dto/change-uniqueRole.dto';
 import { BuyUniqueRoleDto } from './dto/buy-uniqueRole.dto';
 import { ChooseFavoriteCharacterDto } from './dto/choose-favorite-character.dto';
-import { ChooseActiveRoomBackgroundDto } from './dto/choose-active-room-background.dto';
+import {
+  ChooseActiveRoomBackgroundDto,
+  ChooseActiveRoomFrameDto,
+} from './dto/choose-active-room-thing.dto';
 import { ChangeRoomNameDto } from './dto/change-roomName.dto';
 import { BuyColorDto } from './dto/buy-color.dto';
-import { MakeOrderDto } from './dto/make-order.dto'
-import { BuyPanopticonDto } from './dto/buy-panopticon.dto'
-import { UpdateRoomEditorDto } from './dto/update-room-editor'
+import { MakeOrderDto } from './dto/make-order.dto';
+import { BuyPanopticonDto } from './dto/buy-panopticon.dto';
+import { UpdateRoomEditorDto } from './dto/update-room-editor';
 
 @Controller('room')
 export class RoomController {
@@ -170,6 +171,30 @@ export class RoomController {
   }
 
   @UseGuards(AuthGuard)
+  @Get('frame/active')
+  async getActiveRoomFrame(@Request() req) {
+    const { id } = req.user;
+    return await this.roomService.getActiveRoomFrame(+id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('frame')
+  async getRoomBuyedFrames(@Request() req) {
+    const { id } = req.user;
+    return await this.roomService.getRoomBuyedFrames(+id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Put('frame/active')
+  async chooseActiveRoomFrame(
+    @Request() req,
+    @Body() dto: ChooseActiveRoomFrameDto,
+  ) {
+    const { id } = req.user;
+    return await this.roomService.chooseActiveRoomFrame(+id, dto);
+  }
+
+  @UseGuards(AuthGuard)
   @Put('roomName')
   async changeRoomName(@Request() req, @Body() dto: ChangeRoomNameDto) {
     const { id } = req.user;
@@ -178,7 +203,11 @@ export class RoomController {
 
   @UseGuards(AuthGuard)
   @Post('order')
-  async makeOrder(@Request() req, @Body() dto: MakeOrderDto, @Query('type') type) {
+  async makeOrder(
+    @Request() req,
+    @Body() dto: MakeOrderDto,
+    @Query('type') type,
+  ) {
     const { id } = req.user;
     return await this.roomService.makeOrder(+id, dto, type);
   }
@@ -199,7 +228,10 @@ export class RoomController {
 
   @UseGuards(AuthGuard)
   @Get('panopticon/:panopticonId')
-  async getRoomPanopticon(@Request() req, @Param('panopticonId') panopticonId: number) {
+  async getRoomPanopticon(
+    @Request() req,
+    @Param('panopticonId') panopticonId: number,
+  ) {
     const { id } = req.user;
     return await this.roomService.getRoomPanopticon(+id, +panopticonId);
   }

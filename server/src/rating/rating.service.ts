@@ -6,7 +6,7 @@ export class RatingService {
   constructor(private prisma: PrismaService) {}
 
   async getThreeBestUsers() {
-    return this.prisma.user.findMany({
+    const users = await this.prisma.user.findMany({
       take: 3,
       orderBy: [
         {
@@ -22,7 +22,17 @@ export class RatingService {
         level: true,
         profile_img: true,
         miniature_img: true,
+        Room: {
+          select: {
+            selected_frame: true,
+          },
+        },
       },
     });
+
+    return users.map((user) => ({
+      ...user,
+      frame: user.Room?.selected_frame,
+    }));
   }
 }

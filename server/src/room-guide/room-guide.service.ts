@@ -14,6 +14,7 @@ export class RoomGuideService {
       select: {
         id: true,
         name: true,
+        selected_frame: true,
         user: {
           select: {
             id: true,
@@ -44,14 +45,15 @@ export class RoomGuideService {
           {
             user: {
               username: 'asc',
-            }
-          }
+            },
+          },
         ],
         take: limit,
         skip: (page - 1) * limit,
         select: {
           id: true,
           name: true,
+          selected_frame: true,
           selected_background: {
             select: {
               id: true,

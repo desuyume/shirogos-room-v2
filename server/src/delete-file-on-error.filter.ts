@@ -7,11 +7,18 @@ import {
 } from '@nestjs/common';
 import { isArray } from 'class-validator';
 import { Request, Response } from 'express';
-import { removeFile } from './utils/removeFile'
+import { removeFile } from './utils/removeFile';
+import { HttpAdapterHost } from '@nestjs/core';
 
 @Catch()
 export class DeleteFileOnErrorFilter implements ExceptionFilter {
+  constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
+
   catch(exception: unknown, host: ArgumentsHost) {
+    // In certain situations `httpAdapter` might not be available in the
+    // constructor method, thus we should resolve it here.
+    const { httpAdapter } = this.httpAdapterHost;
+
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
@@ -48,12 +55,13 @@ export class DeleteFileOnErrorFilter implements ExceptionFilter {
         ? exception.message
         : 'Internal server error';
 
-    response.status(status).json({
+    const responseBody = {
       statusCode: status,
       timestamp: new Date().toISOString(),
-      path: request.url,
+      path: httpAdapter.getRequestUrl(ctx.getRequest()),
       message,
-    });
-    return exception;
+    };
+
+    httpAdapter.reply(ctx.getResponse(), responseBody, status);
   }
 }

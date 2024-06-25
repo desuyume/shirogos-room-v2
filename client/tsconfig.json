@@ -27,6 +27,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "../rating.interface.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

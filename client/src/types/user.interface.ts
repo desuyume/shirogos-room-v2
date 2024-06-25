@@ -1,3 +1,5 @@
+import { IFrame } from './frame.interface'
+
 export interface IUser {
 	id: number
 	username: string
@@ -20,6 +22,7 @@ export interface IUserProfile {
 	level: number
 	profile_img: string | null
 	miniature_img: string | null
+	frame: IFrame | null
 }
 
 export interface IFindUser {

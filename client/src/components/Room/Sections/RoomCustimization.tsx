@@ -4,6 +4,7 @@ import SwitchRoles from '../Customization/SwitchRoles'
 import SelectColor from '../Customization/SelectColor'
 import SelectFavoriteCharacter from '../Customization/SelectFavoriteCharacter'
 import SelectBackground from '../Customization/SelectBackground'
+import SelectFrame from '../Customization/SelectFrame'
 
 const RoomCustimization: FC = () => {
 	const location = useLocation()
@@ -13,7 +14,7 @@ const RoomCustimization: FC = () => {
 		<div
 			className={
 				(isActive ? 'block' : 'hidden') +
-				' transition-all bg-secondaryHover h-[35.25rem] rounded-[2.3125rem] pt-6 pb-[1.81rem] pl-[2.13rem] pr-7'
+				' transition-all bg-secondaryHover h-[53rem] rounded-[2.3125rem] pt-6 pb-10 pl-[2.13rem] pr-7'
 			}
 		>
 			<SelectColor
@@ -26,13 +27,14 @@ const RoomCustimization: FC = () => {
 				type='username'
 				title='Цвет никнейма'
 			/>
-			<div className='flex'>
-				<div className='min-w-[20%]'>
+			<div className='flex mb-[1.125rem]'>
+				<div className='min-w-[20%] flex flex-col justify-between'>
 					<SwitchRoles />
 					<SelectFavoriteCharacter />
 				</div>
 				<SelectBackground />
 			</div>
+			<SelectFrame />
 		</div>
 	)
 }

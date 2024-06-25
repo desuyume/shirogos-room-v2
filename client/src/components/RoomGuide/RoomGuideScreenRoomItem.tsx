@@ -1,8 +1,7 @@
 import { IRoomGuideByLevel } from '@/types/room-guide.interface'
 import { FC } from 'react'
-import noProfilePic from '@/assets/no-profile-picture-icon.webp'
 import { Link } from 'react-router-dom'
-import { isUrl } from '@/utils/isUrl'
+import ProfileMiniature from '../ProfileMiniature'
 
 interface IRoomGuideScreenRoomItem {
 	index: number
@@ -15,7 +14,7 @@ const RoomGuideScreenRoomItem: FC<IRoomGuideScreenRoomItem> = ({
 }) => {
 	return (
 		<div className='w-full h-[14.75rem] flex justify-between items-center mb-[1.9375rem] last-of-type:mb-0 '>
-			<p className='max-w-[8.2%] min-w-[8.2%] text-[3.125rem] break-words text-primaryText leading-[97.8%] text-right'>
+			<p className='max-w-[8.2%] min-w-[8.2%] text-[3.125rem] break-words text-primaryText leading-[97.8%] text-right z-40'>
 				#{index}
 			</p>
 			<Link
@@ -23,22 +22,13 @@ const RoomGuideScreenRoomItem: FC<IRoomGuideScreenRoomItem> = ({
 				to={`/guide/${room.user.username}?from=guideScreen`}
 			>
 				<div className='max-w-full min-w-full h-full relative cursor-pointer flex justify-between items-center group'>
-					<img
+					<ProfileMiniature
+						miniature_img={room.user.miniature_img}
+						profile_img={room.user.profile_img}
+						username={room.user.username}
+						frame={room.selected_frame}
 						className='h-full aspect-[290/236] object-cover rounded-[2.3125rem] z-10'
-						src={
-							!!room.user.miniature_img
-								? `${import.meta.env.VITE_SERVER_URL}/${
-										room.user.miniature_img
-								  }`
-								: !!room.user.profile_img
-								? isUrl(room.user.profile_img)
-									? room.user.profile_img
-									: `${import.meta.env.VITE_SERVER_URL}/${
-											room.user.profile_img
-									  }`
-								: noProfilePic
-						}
-						alt={`${room.user.username}-pic`}
+						containerHeight='100%'
 					/>
 					<div className='flex-1 overflow-hidden h-full px-[2.6%] flex justify-between items-center z-10'>
 						<div className='min-w-[61.75%] max-w-[61.75%]'>
