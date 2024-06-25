@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import ProfileMiniature from '../ProfileMiniature'
 import { IRatingUser } from '@/types/rating.interface'
+import { cn } from '@/utils/cn'
 
 interface IRatingItem {
 	user: IRatingUser
@@ -29,7 +30,7 @@ const RatingItem: FC<IRatingItem> = ({ user, place }) => {
 			<Link
 				className={
 					(place === 'first' ? 'mr-8 ' : 'mr-[1.71875rem] ') +
-					'h-full aspect-[85/70] rounded-[0.6875rem] outline outline-transparent outline-[3px] hover:outline-primary cursor-pointer transition-all'
+					'rounded-[0.6875rem] outline outline-transparent outline-[3px] hover:outline-primary cursor-pointer transition-all'
 				}
 				to={`/guide/${user.username}?from=guidePreview`}
 			>
@@ -38,7 +39,10 @@ const RatingItem: FC<IRatingItem> = ({ user, place }) => {
 					profile_img={user.profile_img}
 					username={user.username}
 					frame={user.frame}
-					className='h-full rounded-[0.6875rem] aspect-[85/70] object-cover'
+					className={cn('rounded-[0.6875rem] aspect-[85/70] object-cover', {
+						'w-[5.3125rem]': place === 'first',
+						'w-[4.25rem]': place !== 'first',
+					})}
 				/>
 			</Link>
 

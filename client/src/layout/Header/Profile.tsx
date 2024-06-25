@@ -40,13 +40,13 @@ const Profile: FC = () => {
 				/>
 			</div>
 
-			<Link className='w-[5.625rem] h-[4.5rem] mr-[0.62rem]' to='/room'>
+			<Link className='mr-[0.62rem]' to='/room'>
 				<ProfileMiniature
 					miniature_img={profile.miniature_img}
 					profile_img={profile.profile_img}
 					username={profile.username}
 					frame={profile.frame}
-					className='w-full h-full'
+					className='w-[5.625rem] h-[4.5rem]'
 				/>
 			</Link>
 
