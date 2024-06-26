@@ -1,8 +1,8 @@
 import { FC, useContext } from 'react'
-import mainImg from '@/assets/room/boutique-main.svg'
-import ordersImg from '@/assets/room/boutique-orders.svg'
-import panopticonsImg from '@/assets/room/boutique-panopticons.svg'
-import bgsBadgesImg from '@/assets/room/boutique-bgs-badges.svg'
+import mainImg from '@/assets/room/boutique-main.png'
+import ordersImg from '@/assets/room/boutique-orders.png'
+import panopticonsImg from '@/assets/room/boutique-panopticons.png'
+import bgsBadgesImg from '@/assets/room/boutique-bgs-badges.png'
 import BoutiqueNavBttn from './BoutiqueNavBttn'
 import { RoomAppearanceContext } from '@/Context'
 import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
@@ -25,7 +25,6 @@ const BooutiqueNav: FC = () => {
 					img={link.img}
 					bgColor={colorVariants.bg[roomAppearance.active_room_color]}
 					bgColorHover={colorVariantsHover.bg[roomAppearance.active_room_color]}
-					borderColor={colorVariants.border[roomAppearance.active_room_color]}
 				/>
 			))}
 		</div>
