@@ -30,7 +30,7 @@ const FrameItem: FC<IFrameItem> = ({
 	return (
 		<button
 			className={cn(
-				'min-w-[6.75rem] max-w-[6.75rem] relative flex flex-col justify-center items-center hover:opacity-70 transition-opacity',
+				'min-w-[6.75rem] max-w-[6.75rem] h-[7rem] relative flex flex-col items-center hover:opacity-70 transition-opacity py-[0.125rem]',
 				{
 					'z-10': isSelected,
 				}
@@ -40,11 +40,14 @@ const FrameItem: FC<IFrameItem> = ({
 			<img
 				src={`${import.meta.env.VITE_SERVER_URL}/${frame.img}`}
 				alt='frame'
-				className='w-[6.5rem] h-[5.1875rem]'
+				className='h-[4.90625rem] aspect-[104/83]'
 			/>
-			<p className='text-primaryText text-[0.8125rem] line-clamp-1 max-w-full break-words'>
-				{frame.title}
-			</p>
+			<div className='w-full flex-1 flex justify-center items-center'>
+				<p className='text-primaryText text-[0.8125rem] line-clamp-1 max-w-full break-words'>
+					{frame.title}
+				</p>
+			</div>
+
 			<div
 				className={cn(
 					'absolute top-0 w-[8.25rem] h-[7rem] rounded-[1.125rem] border-2 border-primaryText bg-primaryText bg-opacity-10 transition-all',
