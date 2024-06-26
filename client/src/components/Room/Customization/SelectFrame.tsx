@@ -52,13 +52,13 @@ const SelectFrame: FC = () => {
 				>
 					<div
 						className={cn(
-							'h-full flex flex-col justify-between pl-[0.9375rem]',
+							'h-full pl-[0.9375rem]',
 							{
-								'pb-6': roomFrames.buyed_frames.length > 1,
+								'pb-2.5': roomFrames.buyed_frames.length > 1,
 							}
 						)}
 					>
-						<div className='flex gap-x-[0.9375rem]'>
+						<div className='flex gap-x-[1.1875rem] mb-[0.0625rem]'>
 							{roomFrames.buyed_frames
 								.filter((_, index) => index % 2 === 0)
 								.map(frame => (
@@ -70,7 +70,7 @@ const SelectFrame: FC = () => {
 									/>
 								))}
 						</div>
-						<div className='flex gap-x-[0.9375rem]'>
+						<div className='flex gap-x-[1.1875rem]'>
 							{roomFrames.buyed_frames
 								.filter((_, index) => index % 2 !== 0)
 								.map(frame => (

@@ -35,7 +35,7 @@ const SelectFavoriteCharacter: FC = () => {
 	return (
 		<div className='h-[9.9375rem] w-full bg-secondary rounded-t-[1.0625rem] select-character'>
 			<div className='h-[2.8125rem] bg-tertiary rounded-[1.0625rem] flex justify-center items-center'>
-				<p className='text-primaryText text-center text-lg fullhd:text-xl'>
+				<p className='text-primaryText text-center text-lg leading-none px-2 fullhd:text-xl'>
 					Любимый персонаж
 				</p>
 			</div>
