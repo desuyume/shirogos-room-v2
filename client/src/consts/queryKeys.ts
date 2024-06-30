@@ -122,3 +122,12 @@ export const ROOM_BY_USERNAME = 'room by username'
 
 export const CREATE_ACHIEVEMENT_KEY = 'create achievement'
 export const ACHIEVEMENTS_KEY = 'achievements'
+
+export const MANUAL_TASKS_KEY = 'manual tasks'
+export const CREATE_MANUAL_TASK_KEY = 'create manual task'
+export const DELETE_MANUAL_TASK_KEY = 'delete manual task'
+export const TASK_RESPONSES_KEY = 'task responses'
+export const MY_TASKS_WITH_RESPONSES_KEY = 'my tasks with responses'
+export const SEND_TASK_RESPONSE_KEY = 'send task response'
+export const ACCEPT_TASK_RESPONSE_KEY = 'accept task response'
+export const REJECT_TASK_RESPONSE_KEY = 'reject task response'

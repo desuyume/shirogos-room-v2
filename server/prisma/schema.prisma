@@ -119,6 +119,7 @@ model Room {
   Editor                         Editor[]
   AchievementsOnRooms            AchievementsOnRooms[]
   frameId                        Int?
+  TaskResponse                   TaskResponse[]
 
   @@map("rooms")
 }
@@ -551,4 +552,31 @@ model AchievementsOnRooms {
   roomId        Int
   Achievement   Achievement @relation(fields: [achievenentId], references: [id])
   achievenentId Int
+}
+
+model Task {
+  id           Int            @id @default(autoincrement())
+  title        String
+  description  String?
+  do           Int?
+  exp          Int?
+  TaskResponse TaskResponse[]
+
+  @@map("tasks")
+}
+
+enum TaskResponseStatus {
+  ACCEPTED
+  REJECTED
+  PENDING
+}
+
+model TaskResponse {
+  id     Int                @id @default(autoincrement())
+  img    String?
+  status TaskResponseStatus @default(PENDING)
+  Room   Room               @relation(fields: [roomId], references: [id])
+  roomId Int
+  Task   Task               @relation(fields: [taskId], references: [id])
+  taskId Int
 }

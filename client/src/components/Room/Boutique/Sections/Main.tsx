@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useLocation } from 'react-router-dom'
-import Tasks from '../Main/Tasks'
+import Tasks from '../Main/Tasks/Tasks'
 import ChangeRoomName from '../Main/ChangeRoomName'
 import BuyColor from '../Main/BuyColor'
 import UniqueRoles from '../Main/UniqueRoles'
