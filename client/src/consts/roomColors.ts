@@ -19,7 +19,14 @@ export type RoomColor =
 	| 'turquoise'
 	| 'crimson'
 
-type ColorType = 'bg' | 'text' | 'border' | 'caret' | 'bgRoomGradient' | 'bgRoomGradientRevert'
+type ColorType =
+	| 'bg'
+	| 'text'
+	| 'border'
+	| 'outline'
+	| 'caret'
+	| 'bgRoomGradient'
+	| 'bgRoomGradientRevert'
 type ColorTypeHover = 'bg' | 'text' | 'border' | 'outline'
 type ColorTypeFocus = 'border'
 type ColorTypeDisabled = 'bg'
@@ -88,6 +95,21 @@ export const colorVariants: Record<ColorType, Record<RoomColor, string>> = {
 		turquoise: 'border-turquoise',
 		crimson: 'border-crimson',
 	},
+	outline: {
+		pink: 'outline-pink',
+		vermilion: 'outline-vermilion',
+		orange: 'outline-orange',
+		blue: 'outline-blue',
+		purple: 'outline-purple',
+		magenta: 'outline-magenta',
+		gray: 'outline-gray',
+		green: 'outline-green',
+		yellow: 'outline-yellow',
+		aqua: 'outline-aqua',
+		red: 'outline-red',
+		turquoise: 'outline-turquoise',
+		crimson: 'outline-crimson',
+	},
 	caret: {
 		pink: 'caret-pink',
 		vermilion: 'caret-vermilion',
@@ -132,7 +154,7 @@ export const colorVariants: Record<ColorType, Record<RoomColor, string>> = {
 		red: 'bg-room-gradient-revert-red',
 		turquoise: 'bg-room-gradient-revert-turquoise',
 		crimson: 'bg-room-gradient-revert-crimson',
-	}
+	},
 }
 
 export const colorVariantsHover: Record<
@@ -198,7 +220,7 @@ export const colorVariantsHover: Record<
 		red: 'hover:outline-redHover',
 		turquoise: 'hover:outline-turquoiseHover',
 		crimson: 'hover:outline-crimsonHover',
-	}
+	},
 }
 
 export const colorVariantsFocus: Record<
@@ -276,7 +298,7 @@ export const colorVariantsGroupHover: Record<
 		red: 'group-hover:text-redHover',
 		turquoise: 'group-hover:text-turquoiseHover',
 		crimson: 'group-hover:text-crimsonHover',
-	}
+	},
 }
 
 export const colorVariantsMediumTablet: Record<

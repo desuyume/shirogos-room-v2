@@ -161,12 +161,12 @@
 .room-tasks {
 	.ScrollbarsCustom-TrackY {
 		width: 1%;
-		right: -2%;
+		right: 1%;
 
 		&:hover,
 		&.dragging {
 			width: 1%;
-			right: -2%;
+			right: 1%;
 		}
 	}
 
@@ -383,6 +383,70 @@
 		&.dragging {
 			width: 0.25rem;
 			right: 0.125rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #fffec5;
+		}
+	}
+}
+
+.manual-task-queue {
+	.ScrollbarsCustom-TrackY {
+		width: 0.5rem;
+		right: -1rem;
+
+		&:hover,
+		&.dragging {
+			width: 0.5rem;
+			right: -1rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #fffec5;
+		}
+	}
+}
+
+.manual-task-pending,
+.manual-task-no-status {
+	.ScrollbarsCustom-TrackY {
+		width: 0.2rem;
+		right: -0.5rem;
+
+		&:hover,
+		&.dragging {
+			width: 0.2rem;
+			right: -0.5rem;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #fffec5;
+		}
+	}
+}
+
+.manual-tasks-admin {
+	.ScrollbarsCustom-TrackY {
+		width: 0.5rem;
+		right: -1rem;
+
+		&:hover,
+		&.dragging {
+			width: 0.5rem;
+			right: -1rem;
 		}
 	}
 

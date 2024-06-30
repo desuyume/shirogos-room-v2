@@ -2,10 +2,13 @@ import ManualTask from '@/components/Admin/Tasks/ManualTask'
 import ManualTasksList from '@/components/Admin/Tasks/ManualTasksList'
 import TaskQueue from '@/components/Admin/Tasks/TaskQueue'
 import AdminWrapper from '@/layout/Admin/AdminWrapper'
+import { ITaskQueue } from '@/types/manual-task.interface'
 import { FC, useState } from 'react'
 
 const Tasks: FC = () => {
-	const [currentQueue, setCurrentQueue] = useState<number | null>(null)
+	const [currentTaskQueue, setCurrentTaskQueue] = useState<ITaskQueue | null>(
+		null
+	)
 
 	return (
 		<AdminWrapper>
@@ -13,11 +16,11 @@ const Tasks: FC = () => {
 				<div>
 					<ManualTask />
 					<ManualTasksList
-						currentQueue={currentQueue}
-						setCurrentQueue={setCurrentQueue}
+						currentTaskQueue={currentTaskQueue}
+						setCurrentTaskQueue={setCurrentTaskQueue}
 					/>
 				</div>
-				<TaskQueue currentQueue={currentQueue} />
+				{currentTaskQueue && <TaskQueue currentTaskQueue={currentTaskQueue} />}
 			</div>
 		</AdminWrapper>
 	)

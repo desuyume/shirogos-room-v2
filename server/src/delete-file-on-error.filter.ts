@@ -62,6 +62,7 @@ export class DeleteFileOnErrorFilter implements ExceptionFilter {
       message,
     };
 
+    console.log(exception);
     httpAdapter.reply(ctx.getResponse(), responseBody, status);
   }
 }

@@ -5,12 +5,15 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { PrismaService } from 'src/prisma.service'
+import { PrismaService } from 'src/prisma.service';
 import { TokenService } from 'src/token/token.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private readonly tokenService: TokenService, private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly tokenService: TokenService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -20,7 +23,7 @@ export class AuthGuard implements CanActivate {
     }
     try {
       const payload = await this.tokenService.validateAccessToken(token);
-      
+
       if (!payload) {
         throw new UnauthorizedException();
       }
@@ -30,7 +33,7 @@ export class AuthGuard implements CanActivate {
           userId: payload.id,
           accessToken: token,
         },
-      })
+      });
 
       if (!tokenFromDb) {
         throw new UnauthorizedException();

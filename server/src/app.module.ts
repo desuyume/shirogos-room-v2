@@ -31,6 +31,7 @@ import { AchievementModule } from './achievement/achievement.module';
 import { FrameModule } from './frame/frame.module';
 import { BackgroundModule } from './background/background.module';
 import { PanopticonModule } from './panopticon/panopticon.module';
+import { ManualTaskModule } from './manual-task/manual-task.module';
 
 @Module({
   imports: [
@@ -65,6 +66,7 @@ import { PanopticonModule } from './panopticon/panopticon.module';
     FrameModule,
     BackgroundModule,
     PanopticonModule,
+    ManualTaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],
