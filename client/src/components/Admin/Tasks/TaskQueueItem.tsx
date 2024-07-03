@@ -5,9 +5,10 @@ import { FC } from 'react'
 
 interface TaskQueueItemProps {
 	response: IManualTaskResponse
+	setZoomedImg: React.Dispatch<React.SetStateAction<string | null>>
 }
 
-const TaskQueueItem: FC<TaskQueueItemProps> = ({ response }) => {
+const TaskQueueItem: FC<TaskQueueItemProps> = ({ response, setZoomedImg }) => {
 	const { mutate: accept } = useAcceptTaskResponse(response.id)
 	const { mutate: reject } = useRejectTaskResponse(response.id)
 
@@ -24,7 +25,8 @@ const TaskQueueItem: FC<TaskQueueItemProps> = ({ response }) => {
 					<img
 						src={`${import.meta.env.VITE_SERVER_URL}/${response.img}`}
 						alt='response-screen'
-						className='w-[70%] h-[4.625rem] object-contain'
+						className='w-[70%] h-[4.625rem] object-contain cursor-zoom-in'
+						onClick={() => setZoomedImg(response.img)}
 					/>
 				) : (
 					<div className='bg-[#D9D9D9] w-[70%] h-[4.625rem] flex justify-center items-center'>

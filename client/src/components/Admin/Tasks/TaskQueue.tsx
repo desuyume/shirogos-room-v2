@@ -1,14 +1,17 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import TaskQueueItem from './TaskQueueItem'
 import { ITaskQueue } from '@/types/manual-task.interface'
 import { useTaskResponses } from '@/api/useTaskResponses'
 import { Scrollbar } from 'react-scrollbars-custom'
+import ZoomedImageModal from '@/components/ZoomedImageModal'
 
 interface TaskQueueProps {
 	currentTaskQueue: ITaskQueue
 }
 
 const TaskQueue: FC<TaskQueueProps> = ({ currentTaskQueue }) => {
+	const [zoomedImg, setZoomedImg] = useState<string | null>(null)
+
 	const {
 		data: taskResponses,
 		isLoading,
@@ -49,11 +52,21 @@ const TaskQueue: FC<TaskQueueProps> = ({ currentTaskQueue }) => {
 				>
 					<>
 						{taskResponses.responses.map(response => (
-							<TaskQueueItem key={response.id} response={response} />
+							<TaskQueueItem
+								key={response.id}
+								response={response}
+								setZoomedImg={setZoomedImg}
+							/>
 						))}
 					</>
 				</Scrollbar>
 			)}
+
+			<ZoomedImageModal
+				img={zoomedImg}
+				isVisible={!!zoomedImg}
+				onClose={() => setZoomedImg(null)}
+			/>
 		</div>
 	)
 }
