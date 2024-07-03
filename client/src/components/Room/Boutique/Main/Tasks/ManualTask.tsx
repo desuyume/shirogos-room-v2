@@ -121,7 +121,7 @@ const ManualTask: FC<IManualTask> = ({ task, activeTasks, setActiveTasks }) => {
 				)}
 			>
 				<p
-					className={`text-[0.9375rem] leading-none ${
+					className={`text-[0.9375rem] ${
 						colorVariants.text[roomAppearance.active_room_color]
 					} w-[80%] self-start line-clamp-1 break-words text-center px-2 z-10`}
 				>
@@ -129,7 +129,7 @@ const ManualTask: FC<IManualTask> = ({ task, activeTasks, setActiveTasks }) => {
 				</p>
 
 				{taskResponseStatus === TaskResponseStatus.REJECTED && (
-					<p className='text-[#827B7D] text-xs absolute top-[33px] w-[80%] self-start text-center leading-none z-10'>
+					<p className='text-[#827B7D] text-xs absolute top-10 w-[80%] self-start text-center leading-none z-10'>
 						Отказано. Попробуй еще!
 					</p>
 				)}
@@ -158,7 +158,7 @@ const ManualTask: FC<IManualTask> = ({ task, activeTasks, setActiveTasks }) => {
 				className={cn(
 					`w-[20%] h-[2.9375rem] ${
 						colorVariants.bg[roomAppearance.active_room_color]
-					} rounded-[1.5625rem] self-start flex justify-center items-center transition-all z-10`,
+					} rounded-[1.5625rem] self-start flex justify-center items-center transition-all z-10 peer`,
 					{
 						'h-full': taskResponseStatus === TaskResponseStatus.PENDING,
 						'cursor-pointer': isActive,
@@ -180,9 +180,10 @@ const ManualTask: FC<IManualTask> = ({ task, activeTasks, setActiveTasks }) => {
 						colorVariants.outline[roomAppearance.active_room_color]
 					} outline-[5px] rounded-[1.5625rem] opacity-0 invisible transition-all`,
 					{
-						'opacity-100 visible': isActive,
 						'group-hover:opacity-100 group-hover:visible':
-							taskResponseStatus !== TaskResponseStatus.ACCEPTED,
+							taskResponseStatus !== TaskResponseStatus.ACCEPTED && !isActive,
+						'peer-hover:opacity-100 peer-hover:visible':
+							taskResponseStatus !== TaskResponseStatus.ACCEPTED && isActive,
 					}
 				)}
 			/>

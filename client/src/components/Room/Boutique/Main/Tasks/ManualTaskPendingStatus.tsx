@@ -29,9 +29,9 @@ const ManualTaskPendingStatus: FC<ManualTaskPendingStatusProps> = ({
 				className={`mb-2 z-10 cursor-default ${roomAppearance.active_room_color}-scrollbar`}
 				onClick={e => e.stopPropagation()}
 				noDefaultStyles
-				style={{ width: '60%', height: '48px' }}
+				style={{ width: '60%', height: '3rem' }}
 			>
-				<p className='text-[0.9375rem] text-center leading-none break-words text-primaryText'>
+				<p className='text-[0.8125rem] text-center leading-none break-words text-primaryText'>
 					{description}
 				</p>
 			</Scrollbar>

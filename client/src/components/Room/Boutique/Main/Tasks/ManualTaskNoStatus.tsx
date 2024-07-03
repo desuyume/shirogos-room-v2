@@ -29,7 +29,7 @@ const ManualTaskNoStatus: FC<ManualTaskNoStatusProps> = ({
 	return (
 		<div
 			className={cn(
-				'w-full px-3 flex justify-between items-center mt-[1.6875rem] visible opacity-100 transition-all manual-task-no-status',
+				'w-full h-16 px-3 flex justify-between items-center mt-[1.6875rem] visible opacity-100 transition-all manual-task-no-status',
 				{
 					'invisible opacity-0':
 						taskResponseStatus === TaskResponseStatus.PENDING,
@@ -40,9 +40,9 @@ const ManualTaskNoStatus: FC<ManualTaskNoStatusProps> = ({
 				className={`z-10 cursor-default ${roomAppearance.active_room_color}-scrollbar flex-1 mr-5`}
 				onClick={e => e.stopPropagation()}
 				noDefaultStyles
-				style={{ height: '64px' }}
+				style={{ height: '4rem' }}
 			>
-				<p className='text-[0.9375rem] text-center leading-none break-words text-primaryText'>
+				<p className='text-[0.8125rem] text-center leading-none break-words text-primaryText'>
 					{description}
 				</p>
 			</Scrollbar>
@@ -50,7 +50,7 @@ const ManualTaskNoStatus: FC<ManualTaskNoStatusProps> = ({
 				imgSrc={imgSrc}
 				img={responseImg}
 				setImg={setResponseImg}
-				className='z-10 mr-5 aspect-[106/69] max-w-[120px]'
+				className='z-10 mr-5 aspect-[106/69] max-w-[7.5rem]'
 				containerSize={{ width: '25%', height: 'auto' }}
 			/>
 			<button
