@@ -1,5 +1,6 @@
 import { useDeleteManualTask } from '@/api/useDeleteManualTask'
 import { IManualTask, ITaskQueue } from '@/types/manual-task.interface'
+import { cn } from '@/utils/cn'
 import { FC, useEffect, useState } from 'react'
 
 interface IManualTaskItem {
@@ -56,20 +57,22 @@ const ManualTaskItem: FC<IManualTaskItem> = ({
 			</p>
 			<div className='bg-secondary h-full w-[20%] flex items-center'>
 				<button
-					onClick={() => deleteManualTask()}
-					className='bg-primary hover:bg-primaryHover transition-all w-full h-[2.5625rem] text-[#FFF]'
+					onClick={clickQueue}
+					className={cn(
+						'bg-primary hover:bg-primaryHover transition-all w-full h-[2.5625rem] text-[#FFF]',
+						{
+							'bg-primaryHover': isActive,
+						}
+					)}
 				>
-					Удалить
+					Очередь
 				</button>
 			</div>
 			<button
-				onClick={clickQueue}
-				className={
-					(isActive ? 'bg-[#FFF] text-tertiary' : 'text-[#FFF] bg-tertiary') +
-					' ml-[1%] w-[24%] h-[2.5625rem] hover:bg-[#FFF] hover:text-tertiary transition-all'
-				}
+				onClick={() => deleteManualTask()}
+				className='text-[#FFF] bg-tertiary ml-[1%] w-[24%] h-[2.5625rem] hover:bg-[#FFF] hover:text-tertiary transition-all'
 			>
-				Очередь
+				Удалить
 			</button>
 		</div>
 	)
