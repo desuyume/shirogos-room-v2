@@ -8,24 +8,11 @@ import {
 import AuthModal from '@/components/Auth/AuthModal'
 import closeImg from '@/assets/auth/close-bttn.gif'
 import { UserContext } from '@/Context'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
+import RoomInfo from '../MainPage/RoomInfo'
 
 const FirstScreen: FC = () => {
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 	const context = useContext(UserContext)
-
-	const logout = async () => {
-		await axios
-			.get(`${import.meta.env.VITE_API_URL}/user/logout`, {
-				withCredentials: true,
-			})
-			.then(() => {
-				context?.setUser(null)
-				localStorage.removeItem('token')
-			})
-			.catch(e => console.log(e))
-	}
 
 	return (
 		<div className='bg-primaryText h-[729px] relative overflow-hidden'>
@@ -54,41 +41,24 @@ const FirstScreen: FC = () => {
 				<MouseParallaxChild
 					factorX={0.3}
 					factorY={0.3}
-					className='absolute top-[-111px] z-10'
+					className='absolute top-[-111px] z-10 pointer-events-none'
 				>
 					<img src={shirogoImg} />
 				</MouseParallaxChild>
 			</MouseParallaxContainer>
 
 			{context?.user ? (
-				<div className='flex flex-col absolute right-5 top-3'>
-					<Link
-						to='/room'
-						className='bg-primary px-9 py-5 rounded-[37px] mb-4 text-white text-4xl hover:bg-primaryHover transition-colors z-30'
-					>
-						Комната
-					</Link>
-					<button
-						className='bg-primary px-9 py-5 rounded-[37px] text-white text-4xl hover:bg-primaryHover transition-colors z-30'
-						onClick={logout}
-					>
-						Выйти
-					</button>
+				<div className='flex flex-col absolute right-[3.8125rem] top-2.5'>
+					<RoomInfo />
 				</div>
 			) : (
-				<div className='flex flex-col absolute right-5 top-3'>
-					<Link
-						to='/room'
-						className='bg-primary px-9 py-5 rounded-[37px] mb-4 text-white text-4xl hover:bg-primaryHover transition-colors z-30'
-					>
-						Комната
-					</Link>
+				<div className='flex flex-col absolute right-[1.3125rem] top-3'>
 					<button
-					className='bg-primary px-9 py-5 rounded-[37px] text-white text-4xl hover:bg-primaryHover transition-colors z-30'
-					onClick={() => setIsModalVisible(true)}
-				>
-					Вход
-				</button>
+						className='bg-primary px-9 py-5 rounded-[37px] text-white text-4xl hover:bg-primaryHover transition-colors z-30'
+						onClick={() => setIsModalVisible(true)}
+					>
+						Вход
+					</button>
 				</div>
 			)}
 		</div>

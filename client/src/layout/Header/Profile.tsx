@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react'
-import noNotificationIcon from '@/assets/no-notification.svg'
-import notificationIcon from '@/assets/notification.svg'
+import noNotificationIcon from '@/assets/no-notification.png'
+import notificationIcon from '@/assets/notification.png'
 import { Link } from 'react-router-dom'
 import { useUserProfile } from '@/api/useUserProfile'
 import { RoomAppearanceContext } from '@/Context'
@@ -8,7 +8,7 @@ import { colorVariants } from '@/consts/roomColors'
 import ProfileMiniature from '@/components/ProfileMiniature'
 
 const Profile: FC = () => {
-	const isHaveUnreadNotification = true
+	const isHaveUnreadNotification = false
 	const roomAppearance = useContext(RoomAppearanceContext)
 
 	const { data: profile, isLoading, isError } = useUserProfile()
