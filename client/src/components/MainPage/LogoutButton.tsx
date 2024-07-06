@@ -1,44 +1,30 @@
 import { cn } from '@/utils/cn'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 import logoutIcon from '@/assets/logout-icon.png'
 import logoutHoverIcon from '@/assets/logout-icon-hover.png'
-import { UserContext } from '@/Context'
-import axios from 'axios'
 
 interface LogoutButtonProps {
 	isLogoutVisible: boolean
 	handleMouseEnter: () => void
 	handleMouseLeave: () => void
+	onClick: () => Promise<void>
 }
 
 const LogoutButton: FC<LogoutButtonProps> = ({
 	isLogoutVisible,
 	handleMouseEnter,
 	handleMouseLeave,
+	onClick,
 }) => {
-	const context = useContext(UserContext)
-
-	const logout = async () => {
-		await axios
-			.get(`${import.meta.env.VITE_API_URL}/user/logout`, {
-				withCredentials: true,
-			})
-			.then(() => {
-				context?.setUser(null)
-				localStorage.removeItem('token')
-			})
-			.catch(e => console.log(e))
-	}
-
 	return (
 		<div
-			onClick={logout}
+			onClick={onClick}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
 			className={cn(
-				'w-[2.3125rem] h-[4.5rem] bg-[#353133] cursor-pointer flex justify-center items-center absolute top-[1.625rem] right-0 translate-x-0 transition-transform group',
+				'w-[2.3125rem] h-[4.5rem] bg-[#353133] cursor-pointer flex justify-center items-center absolute top-[1.625rem] right-0 transition-all group',
 				{
-					'translate-x-full': isLogoutVisible,
+					'-right-[2.3125rem]': isLogoutVisible,
 				}
 			)}
 		>

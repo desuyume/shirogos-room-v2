@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useContext, useEffect, useRef, useState } from 'react'
 import notificationIcon from '@/assets/notification.png'
 import noNotificationIcon from '@/assets/no-notification.png'
 import notificationHoverIcon from '@/assets/notification-hover.png'
@@ -7,11 +7,14 @@ import { Link } from 'react-router-dom'
 import ProfileMiniature from '../ProfileMiniature'
 import LogoutButton from './LogoutButton'
 import { cn } from '@/utils/cn'
+import axios from 'axios'
+import { UserContext } from '@/Context'
 
 const RoomInfo: FC = () => {
 	const isHasNotification = false
 	const [isLogoutVisible, setIsLogoutVisible] = useState<boolean>(false)
 	const timeoutRef = useRef<number | null>(null)
+	const context = useContext(UserContext)
 
 	const { data: userInfo, isLoading, isError } = useUserProfile()
 
@@ -28,6 +31,18 @@ const RoomInfo: FC = () => {
 		timeoutRef.current = setTimeout(() => {
 			setIsLogoutVisible(false)
 		}, 1000)
+	}
+
+	const logout = async () => {
+		await axios
+			.get(`${import.meta.env.VITE_API_URL}/user/logout`, {
+				withCredentials: true,
+			})
+			.then(() => {
+				context?.setUser(null)
+				localStorage.removeItem('token')
+			})
+			.catch(e => console.log(e))
 	}
 
 	// Cleanup timeout on component unmount
@@ -101,10 +116,7 @@ const RoomInfo: FC = () => {
 
 							<div
 								className={cn(
-									'w-full h-full bg-[#383134] bg-opacity-60 absolute inset-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible z-40 transition-opacity duration-300 flex justify-center items-center group',
-									{
-										'opacity-100 visible': isLogoutVisible,
-									}
+									'w-full h-full bg-[#383134] bg-opacity-60 absolute inset-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible z-40 transition-opacity duration-300 flex justify-center items-center group'
 								)}
 							>
 								<p className='text-primaryText text-opacity-[0.55] invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity'>
@@ -124,6 +136,7 @@ const RoomInfo: FC = () => {
 				isLogoutVisible={isLogoutVisible}
 				handleMouseEnter={handleMouseEnter}
 				handleMouseLeave={handleMouseLeave}
+				onClick={logout}
 			/>
 
 			<div className='w-[10.125rem] h-[10.375rem] absolute bg-room-info-gray-gradient z-10 top-1.5 right-1.5' />
