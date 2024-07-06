@@ -5,6 +5,6 @@ export const cookieConfig: CookieOptions = {
   httpOnly: process.env.NODE_ENV !== 'development', // must be true in production
   path: '/',
   secure: process.env.NODE_ENV !== 'development', // must be true in production
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 1 year
-  domain: process.env.NODE_ENV === 'development' ? '' : `kurogo-room.ru`, // the period before is important and intentional
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
+  domain: process.env.NODE_ENV === 'development' ? '' : 'kurogo-room.ru'
 };
