@@ -8,8 +8,9 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Request, Response } from 'express';
-import { cookieConfig } from 'src/consts/cookieConfig'
-import { AuthGuard } from 'src/auth/guards/auth.guard'
+import { cookieConfig } from 'src/consts/cookieConfig';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
+const cookie = require('cookie');
 
 @Controller('user')
 export class UserController {
@@ -47,10 +48,24 @@ export class UserController {
     try {
       const { refreshToken } = req.cookies;
       const token = await this.userService.logout(refreshToken);
-      res.clearCookie('refreshToken', cookieConfig);
+      res.setHeader(
+        'Set-Cookie',
+        cookie.serialize('refreshToken', '', {
+          ...cookieConfig,
+          maxAge: -1, // Set maxAge to -1 to expire the cookie immediately
+          expires: new Date(0), // Alternatively, you can use expires: new Date(0)
+        }),
+      );
       return res.json({ message: 'Logout success', data: token });
     } catch (e) {
-      res.clearCookie('refreshToken', cookieConfig);
+      res.setHeader(
+        'Set-Cookie',
+        cookie.serialize('refreshToken', '', {
+          ...cookieConfig,
+          maxAge: -1, // Set maxAge to -1 to expire the cookie immediately
+          expires: new Date(0), // Alternatively, you can use expires: new Date(0)
+        }),
+      );
       throw new UnauthorizedException();
     }
   }
@@ -60,7 +75,10 @@ export class UserController {
     try {
       const { refreshToken } = req.cookies;
       const userData = await this.userService.refresh(refreshToken);
-      res.cookie('refreshToken', userData.refreshToken, cookieConfig);
+      res.setHeader(
+        'Set-Cookie',
+        cookie.serialize('refreshToken', userData.refreshToken, cookieConfig),
+      );
       return res.json(userData);
     } catch (e) {
       await this.logout(req, res);
