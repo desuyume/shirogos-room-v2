@@ -20,11 +20,11 @@ const DangotekaSectionItem: FC<IDangotekaSectionItem> = ({
 		<div className='flex flex-col items-center'>
 			<div className='flex items-center'>
 				<Link
-					className='min-w-[14.75rem] min-h-[19.4375rem] max-w-[14.75rem] max-h-[19.4375rem] inline-block'
+					className='w-[14.75rem] h-[19.4375rem] inline-block'
 					to={type === 'manga' ? '/manga/' + itemId + '/1' : '/story/' + itemId}
 				>
 					<img
-						className='w-full aspect-[236/311] rounded-[2.3125rem]'
+						className='w-full h-full object-cover rounded-[2.3125rem]'
 						src={`${import.meta.env.VITE_SERVER_URL}/${img}`}
 						alt='manga-img'
 					/>
