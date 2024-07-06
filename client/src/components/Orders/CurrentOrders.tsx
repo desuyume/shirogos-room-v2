@@ -8,7 +8,10 @@ interface ICurrentOrders {
 	setIsPastOrders: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const CurrentOrders: FC<ICurrentOrders> = ({ isPastOrders, setIsPastOrders }) => {
+const CurrentOrders: FC<ICurrentOrders> = ({
+	isPastOrders,
+	setIsPastOrders,
+}) => {
 	const [isHintVisible, setIsHintVisible] = useState<boolean>(false)
 
 	const { isLoading, isError, data: orders } = usePendingOrders()
@@ -23,7 +26,7 @@ const CurrentOrders: FC<ICurrentOrders> = ({ isPastOrders, setIsPastOrders }) =>
 			<div
 				className={
 					(isHintVisible ? 'visible opacity-100' : 'invisible opacity-0') +
-					' bg-orders-hint-bg bg-no-repeat absolute w-[16.38444rem] h-[15.9375rem] left-[5rem] top-[-11rem] flex justify-center items-center transition-all z-20'
+					' bg-orders-hint-bg bg-no-repeat absolute w-[15.9375rem] h-[15.9375rem] left-[3rem] top-[-13.0625rem] flex justify-center items-center transition-all z-20'
 				}
 			>
 				<p className='text-primaryText text-center text-[1.5625rem] max-w-[12.625rem] leading-[95.795%]'>
