@@ -1,9 +1,17 @@
-import { BadRequestException, Controller, Get, Request, Res, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  Request,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { TwitchAuthGuard } from './guards/twitch-auth.guard';
 import { UserDto } from 'src/user/dto/user.dto';
 import { Response } from 'express';
-import { cookieConfig } from 'src/consts/cookieConfig'
+import { cookieConfig } from 'src/consts/cookieConfig';
+const cookie = require('cookie');
 
 @Controller('auth')
 export class AuthController {
@@ -23,7 +31,10 @@ export class AuthController {
     const userDto = new UserDto(req.user);
     const userData = await this.authService.twitchAuth(userDto);
 
-    res.cookie('refreshToken', userData.refreshToken, cookieConfig);
+    res.setHeader(
+      'Set-Cookie',
+      cookie.serialize('refreshToken', userData.refreshToken, cookieConfig),
+    );
 
     if (userData.isRoomCreated) {
       return res.redirect(`${process.env.CLIENT_URL}/room`);
