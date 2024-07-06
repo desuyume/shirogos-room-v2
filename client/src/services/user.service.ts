@@ -18,11 +18,9 @@ class UserService {
 	}
 
 	async refresh() {
-		const userData = await axios.get<IUserTokens>(`${this.URL}/refresh`, {
+		return await axios.get<IUserTokens>(`${this.URL}/refresh`, {
 			withCredentials: true,
 		})
-		localStorage.setItem('token', userData.data.accessToken)
-		return userData
 	}
 }
 

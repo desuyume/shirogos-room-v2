@@ -33,7 +33,8 @@ export class TokenService {
   validateRefreshToken(token: string) {
     try {
       const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
-      return userData as UserPayloadDto;
+      const payload = new UserPayloadDto(userData);
+      return { ...payload };
     } catch (e) {
       return null;
     }
@@ -83,7 +84,7 @@ export class TokenService {
       });
     }
 
-    return
+    return;
   }
 
   async findToken(refreshToken: string) {

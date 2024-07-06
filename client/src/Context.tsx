@@ -6,11 +6,11 @@ import {
 	useState,
 } from 'react'
 import { IUser } from './types/user.interface'
-import { useUser } from './api/useUser'
 import { useRoomAppearance } from './api/useRoomAppearance'
 import { IRoomAppearance } from './types/room.interface'
 import { RoomColor } from './consts/roomColors'
 import { IBackground } from './types/background.interface'
+import userService from './services/user.service'
 
 interface IUserContext {
 	user: IUser | null
@@ -39,14 +39,14 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 	)
 	const [isUserFetched, setIsUserFetched] = useState<boolean>(false)
 
-	const { data: userData, isLoading: isLoadingUser } = useUser()
 	const { data: roomAppearanceData, isFetching: isFetchingRoomAppearance } =
 		useRoomAppearance(isUserFetched && !!user)
 
-	const setUserData = () => {
-		if (userData && userData?.isAuth) {
+	const checkAuth = async () => {
+		try {
+			const response = await userService.refresh()
+			const userData = response.data
 			localStorage.setItem('token', userData.accessToken)
-
 			setUser({
 				id: userData.user.id,
 				username: userData.user.username,
@@ -55,9 +55,13 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 					id: userData.user.Room.id,
 				},
 			})
+		} catch (e) {
+			localStorage.removeItem('token')
+			setUser(null)
+			console.log(e)
+		} finally {
+			setIsUserFetched(true)
 		}
-
-		setIsUserFetched(true)
 	}
 
 	const setUserActiveColors = () => {
@@ -67,16 +71,14 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 	}
 
 	useEffect(() => {
-		if (!isLoadingUser) {
-			setUserData()
-		}
-	}, [isLoadingUser])
-
-	useEffect(() => {
 		if (!isFetchingRoomAppearance && isUserFetched) {
 			setUserActiveColors()
 		}
 	}, [isFetchingRoomAppearance, isUserFetched])
+
+	useEffect(() => {
+		checkAuth()
+	}, [])
 
 	return (
 		<UserContext.Provider

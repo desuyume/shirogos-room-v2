@@ -32,6 +32,13 @@ export class TwitchStrategy extends PassportStrategy(Strategy, 'twitch') {
       where: {
         twitchId: twitchProfile.id,
       },
+      include: {
+        Room: {
+          select: {
+            id: true,
+          },
+        },
+      },
       update: {},
       create: {
         username: twitchProfile.displayName,
@@ -45,6 +52,7 @@ export class TwitchStrategy extends PassportStrategy(Strategy, 'twitch') {
       id: userFromDb.id,
       username: userFromDb.username,
       role: userFromDb.role,
+      roomId: userFromDb.Room?.id,
     };
 
     done(null, user);

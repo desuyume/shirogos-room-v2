@@ -104,6 +104,28 @@ export class UserService {
       tokens.refreshToken,
       tokens.accessToken,
     );
-    return { user: userDto, ...tokens };
+    console.log({
+      user: {
+        id: userData.id,
+        username: userData.username,
+        role: userData.role,
+        Room: {
+          id: userData.roomId,
+        },
+      },
+      ...tokens,
+    });
+
+    return {
+      user: {
+        id: userData.id,
+        username: userData.username,
+        role: userData.role,
+        Room: {
+          id: userData.roomId,
+        },
+      },
+      ...tokens,
+    };
   }
 }
