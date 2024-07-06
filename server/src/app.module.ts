@@ -37,7 +37,8 @@ import { ManualTaskModule } from './manual-task/manual-task.module';
   imports: [
     ConfigModule.forRoot(),
     ServeStaticModule.forRoot({
-      rootPath: path.join(__dirname, '..', '..', 'static'),
+      rootPath: path.join(__dirname, '../../../', 'client', 'dist'),
+      exclude: ['api/*'],
     }),
     MulterModule.register({ dest: process.env.UPLOAD_LOCATION }),
     DonateModule,
