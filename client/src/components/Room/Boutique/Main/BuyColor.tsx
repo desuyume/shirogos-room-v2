@@ -4,6 +4,8 @@ import { IRoomColor } from '@/types/room.interface'
 import { useBuyRoomColor } from '@/api/useBuyRoomColor'
 import { RoomAppearanceContext } from '@/Context'
 import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
+import { notEnoughDangoToast, successBuyToast } from '@/utils/toasts'
+import { useToastOnError, useToastOnSuccess } from '@/hooks/useToast'
 
 interface IBuyColor {
 	type: string
@@ -21,7 +23,7 @@ const BuyColor: FC<IBuyColor> = ({ type }) => {
 		isError,
 		isSuccess,
 	} = useUserRoomColors()
-	const { mutate, isSuccess: isBuySucces } = useBuyRoomColor(type)
+	const { mutate, isSuccess: isBuySucces, error } = useBuyRoomColor(type)
 
 	const checkColor = (color: IRoomColor) => {
 		if (type === 'room') {
@@ -52,6 +54,9 @@ const BuyColor: FC<IBuyColor> = ({ type }) => {
 			mutate({ roomColorId: color.id, cost })
 		}
 	}
+
+	useToastOnSuccess(isBuySucces, successBuyToast)
+	useToastOnError(error, notEnoughDangoToast)
 
 	useEffect(() => {
 		if (!isLoading) {

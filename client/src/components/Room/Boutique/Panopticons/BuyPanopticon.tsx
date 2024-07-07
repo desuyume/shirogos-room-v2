@@ -1,7 +1,9 @@
 import { RoomAppearanceContext } from '@/Context'
 import { useBuyPanopticon } from '@/api/useBuyPanopticon'
 import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
+import { useToastOnError, useToastOnSuccess } from '@/hooks/useToast'
 import { IPanopticon } from '@/types/panopticon.interface'
+import { notEnoughDangoToast, successBuyToast } from '@/utils/toasts'
 import { FC, useContext, useEffect } from 'react'
 
 interface IBuyPanopticon {
@@ -19,7 +21,7 @@ const BuyPanopticon: FC<IBuyPanopticon> = ({
 }) => {
 	const roomAppearance = useContext(RoomAppearanceContext)
 
-	const { mutate, isSuccess } = useBuyPanopticon()
+	const { mutate, isSuccess, error } = useBuyPanopticon()
 
 	const buyPanopticon = () => {
 		if (panopticon) {
@@ -27,10 +29,11 @@ const BuyPanopticon: FC<IBuyPanopticon> = ({
 		}
 	}
 
+	useToastOnSuccess(isSuccess, successBuyToast)
+	useToastOnError(error, notEnoughDangoToast)
+
 	useEffect(() => {
 		if (isSuccess && panopticon) {
-			console.log('gdfgfd')
-
 			setBuyedPanopticons(prev =>
 				!!prev ? [...prev, panopticon?.id] : [panopticon?.id]
 			)
