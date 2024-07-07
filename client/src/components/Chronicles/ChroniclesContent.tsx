@@ -3,6 +3,8 @@ import ChroniclesList from './ChroniclesList'
 import { chronicleMonths } from '@/consts/months'
 import { useChronicle } from '@/api/useChronicle'
 import { useChroniclesCount } from '@/api/useChroniclesCount'
+import { cn } from '@/utils/cn'
+import ChroniclesSwitchDateBttn from './ChroniclesSwitchDateBttn'
 
 interface IChroniclesContent {
 	isActive: boolean
@@ -31,10 +33,13 @@ const ChroniclesContent: FC<IChroniclesContent> = ({ isActive }) => {
 
 	return (
 		<div
-			className={
-				(isActive ? 'visible opacity-100' : 'invisible opacity-0') +
-				' bg-tertiary bg-opacity-40 mr-[1.7rem] w-[13.1875rem] pt-[1.25rem] pb-[0.63rem] pl-[0.4rem] pr-[0.94rem] transition-all'
-			}
+			className={cn(
+				'bg-tertiary bg-opacity-40 w-[13.1875rem] h-[15rem] mr-1 pt-5 pb-[0.6875rem] pl-[0.3125rem] pr-[0.9375rem] -mt-[0.8125rem] rounded-br-[0.8125rem] transition-all',
+				{
+					'visible opacity-100': isActive,
+					'invisible opacity-0': !isActive,
+				}
+			)}
 		>
 			{isCountLoading ? (
 				<p className='text-primaryText text-center text-[0.9375rem]'>
@@ -48,23 +53,31 @@ const ChroniclesContent: FC<IChroniclesContent> = ({ isActive }) => {
 				</p>
 			) : (
 				<>
-					<div className='w-[11.9375rem] h-[1.875rem] flex justify-center items-center bg-secondaryHover px-[0.19rem] relative mb-[0.62rem]'>
-						<button
+					<div className='w-[11.9375rem] h-[1.875rem] flex justify-center items-center bg-secondaryHover px-[0.1875rem] relative mb-[0.625rem]'>
+						<ChroniclesSwitchDateBttn
+							skip={skip}
+							count={count.count}
+							type='prev'
 							onClick={clickPrev}
-							className='bg-primary w-[4.7%] h-[77%] hover:bg-primaryHover absolute left-[0.19rem] hover:w-[0.8125rem] transition-all'
 						/>
 						{isLoading ? (
-							<p className='text-primaryText text-[0.9375rem]'>Загрузка</p>
+							<p className='text-primaryText text-[0.625rem] text-center font-pressStart'>
+								Загрузка...
+							</p>
 						) : isError ? (
-							<p className='text-primaryText text-[0.9375rem]'>Ошибка</p>
+							<p className='text-primaryText text-[0.625rem] text-center font-pressStart'>
+								Ошибка
+							</p>
 						) : (
-							<p className='text-primaryText text-[0.9375rem]'>
+							<p className='text-primaryText text-[0.625rem] text-center font-pressStart truncate px-4'>
 								{chronicleMonths[chronicle.month]} {chronicle.year}
 							</p>
 						)}
-						<button
+						<ChroniclesSwitchDateBttn
+							skip={skip}
+							count={count.count}
+							type='next'
 							onClick={clickNext}
-							className='bg-primary w-[4.7%] h-[77%] hover:bg-primaryHover absolute right-[0.19rem] hover:w-[0.8125rem] transition-all'
 						/>
 					</div>
 					<ChroniclesList

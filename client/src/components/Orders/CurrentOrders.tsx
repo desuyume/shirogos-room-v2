@@ -20,29 +20,36 @@ const CurrentOrders: FC<ICurrentOrders> = ({
 		<div
 			className={
 				(isPastOrders ? 'invisible opacity-0' : 'visible opacity-100') +
-				' w-full h-full absolute inset-0 transition-all'
+				' w-full h-full absolute inset-0'
 			}
 		>
 			<div
 				className={
 					(isHintVisible ? 'visible opacity-100' : 'invisible opacity-0') +
-					' bg-orders-hint-bg bg-no-repeat absolute w-[15.9375rem] h-[15.9375rem] left-[3rem] top-[-13.0625rem] flex justify-center items-center transition-all z-20'
+					' bg-orders-hint-bg bg-no-repeat absolute w-[15.9375rem] h-[15.9375rem] left-[3rem] top-[-13.0625rem] flex flex-col justify-center items-center transition-all z-20 pointer-events-none'
 				}
 			>
-				<p className='text-primaryText text-center text-[1.5625rem] max-w-[12.625rem] leading-[95.795%]'>
-					Заказы делаются в <span className='text-[#EBE984]'>Бутике</span>{' '}
-					<span className='text-[1.25rem] inline-block'>(личная комната)</span>.
+				<p className='text-primaryText text-center font-pressStart text-xl max-w-[12.625rem] leading-[23px]'>
+					Заказы делаются
+				</p>
+				<p className='text-[#EBE984] font-pressStart text-xl leading-[23px]'>
+					<span className='text-primaryText'>в</span> Бутике
+				</p>{' '}
+				<p className='text-primaryText font-pressStart text-[0.625rem] leading-[15px]'>
+					(личная комната).
 				</p>
 			</div>
-			<div className='bg-tertiary bg-opacity-80 h-[4.3125rem] flex justify-center items-center relative rounded-t-[2.3125rem]'>
+			<div className='bg-tertiary h-[4.3125rem] flex justify-center items-center relative rounded-t-[2.3125rem]'>
 				<img
 					onMouseOver={() => setIsHintVisible(true)}
 					onMouseLeave={() => setIsHintVisible(false)}
-					className='cursor-pointer absolute left-5'
+					className='cursor-pointer absolute left-[1.125rem]'
 					src={gamepadImg}
 					alt='gamepad-img'
 				/>
-				<h3 className='text-[#EBE984] text-[1.875rem]'>Текущие заказы</h3>
+				<h3 className='text-[#EBE984] text-xl font-pressStart'>
+					Текущие заказы
+				</h3>
 				<svg
 					className='cursor-pointer absolute right-5'
 					width='16'
@@ -56,15 +63,15 @@ const CurrentOrders: FC<ICurrentOrders> = ({
 				</svg>
 			</div>
 			{isLoading ? (
-				<div className='w-full h-[14.0625rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-80 flex justify-center items-center'>
+				<div className='w-full h-[15.1875rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-70 flex justify-center items-center'>
 					<p className='text-xl text-[#EBE984]'>Загрузка...</p>
 				</div>
 			) : isError ? (
-				<div className='w-full h-[14.0625rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-80 flex justify-center items-center'>
+				<div className='w-full h-[15.1875rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-70 flex justify-center items-center'>
 					<p className='text-xl text-[#EBE984]'>Ошибка</p>
 				</div>
 			) : !orders.length ? (
-				<div className='w-full h-[14.0625rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-80 flex justify-center items-center'>
+				<div className='w-full h-[15.1875rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-70 flex justify-center items-center'>
 					<p className='text-xl text-[#EBE984]'>Нет активных заказов</p>
 				</div>
 			) : (

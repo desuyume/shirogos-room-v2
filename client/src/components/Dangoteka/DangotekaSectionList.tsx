@@ -4,6 +4,8 @@ import { Carousel } from '@mantine/carousel'
 import { useWindowSize } from 'usehooks-ts'
 import { useAllMangas } from '@/api/useAllMangas'
 import { useStoriesGeneral } from '@/api/useStoriesGeneral'
+import { IMangaGeneral } from '@/types/manga.interface'
+import { IStoryGeneral } from '@/types/story.interface'
 
 interface IDangotekaSectionList {
 	type: string
@@ -21,7 +23,7 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 		isError: isStoryError,
 	} = useStoriesGeneral()
 
-	const [items, setItems] = useState<any[]>([])
+	const [items, setItems] = useState<IMangaGeneral[] | IStoryGeneral[]>([])
 	const { width } = useWindowSize()
 	const [isWithControls, setIsWithControls] = useState<boolean>(true)
 	const carouselRef = useRef<HTMLDivElement | null>(null)
@@ -113,7 +115,7 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 					]}
 				>
 					{items.map(item => (
-						<Carousel.Slide>
+						<Carousel.Slide key={item.id}>
 							<DangotekaSectionItem
 								key={type + item.title}
 								type={type}

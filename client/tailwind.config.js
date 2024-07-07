@@ -7,6 +7,7 @@ export default {
 			secondary: ['"Open Sans"', 'sans-serif'],
 			tertiary: ['"Russo One"', 'sans-serif'],
 			quaternary: ['"Handjet"', 'cursive'],
+			pressStart: ['"Press Start 2P"', 'cursive'],
 		},
 		extend: {
 			screens: {

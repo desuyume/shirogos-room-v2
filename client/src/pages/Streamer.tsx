@@ -12,20 +12,19 @@ const Streamer: FC = () => {
 	return (
 		<>
 			<Header isFixed={false} withLine={false} />
-			<div className='w-full aspect-[16/9] bg-streamer-bg bg-no-repeat bg-cover bg-center relative'>
+			<div className='w-full aspect-[16/9] bg-streamer-bg bg-no-repeat bg-cover bg-center relative pb-4'>
 				<DonatesMarquee />
-				<div className='w-[62.875rem] flex items-center mt-[31.125rem] ml-[21rem]'>
-					<Orders />
-				</div>
+				<Orders className='mt-[31.125rem] ml-[21rem]' />
 				<Chronicles />
 				<a
+					className='w-[103px] h-[154.33px] absolute top-[37.5rem] left-[8.125rem]'
 					onMouseOver={() => setIsDocsHover(true)}
 					onMouseLeave={() => setIsDocsHover(false)}
 					href='https://docs.google.com/spreadsheets/d/1Qa0lxGo0qPGpLf2k2HsfinIy6zfg7MYlgWGRsG88Eac/edit?usp=sharing'
 					target='_blank'
 				>
 					<img
-						className='w-[103px] absolute bottom-[20.8125rem] left-[8.125rem]'
+						className='w-[103px] h-[154.33px]'
 						src={isDocsHover ? watchTableHoverImg : watchTableImg}
 						alt='docs-icon'
 					/>
