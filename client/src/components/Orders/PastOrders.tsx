@@ -33,15 +33,15 @@ const PastOrders: FC<IPastOrders> = ({ isPastOrders, setIsPastOrders }) => {
 			</div>
 			{isLoading ? (
 				<div className='w-full h-[15.1875rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-70 flex justify-center items-center'>
-					<p className='text-xl'>Загрузка...</p>
+					<p className='font-pressStart'>Загрузка...</p>
 				</div>
 			) : isError ? (
 				<div className='w-full h-[15.1875rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-70 flex justify-center items-center'>
-					<p className='text-xl'>Ошибка</p>
+					<p className='font-pressStart'>Ошибка</p>
 				</div>
 			) : !orders.length ? (
 				<div className='w-full h-[15.1875rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-70 flex justify-center items-center'>
-					<p className='text-xl'>Нет прошлых заказов</p>
+					<p className='font-pressStart'>Нет прошлых заказов</p>
 				</div>
 			) : (
 				<OrdersList isPastOrders={isPastOrders} orders={orders} />

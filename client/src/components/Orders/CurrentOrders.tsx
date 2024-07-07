@@ -64,15 +64,15 @@ const CurrentOrders: FC<ICurrentOrders> = ({
 			</div>
 			{isLoading ? (
 				<div className='w-full h-[15.1875rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-70 flex justify-center items-center'>
-					<p className='text-xl text-[#EBE984]'>Загрузка...</p>
+					<p className='text-[#EBE984] font-pressStart'>Загрузка...</p>
 				</div>
 			) : isError ? (
 				<div className='w-full h-[15.1875rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-70 flex justify-center items-center'>
-					<p className='text-xl text-[#EBE984]'>Ошибка</p>
+					<p className='text-[#EBE984] font-pressStart'>Ошибка</p>
 				</div>
 			) : !orders.length ? (
 				<div className='w-full h-[15.1875rem] rounded-b-[2.3125rem] bg-tertiary bg-opacity-70 flex justify-center items-center'>
-					<p className='text-xl text-[#EBE984]'>Нет активных заказов</p>
+					<p className='text-[#EBE984] font-pressStart'>Нет активных заказов</p>
 				</div>
 			) : (
 				<OrdersList isPastOrders={isPastOrders} orders={orders} />
