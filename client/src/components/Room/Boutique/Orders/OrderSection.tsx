@@ -6,6 +6,9 @@ import RulesBlock from './RulesBlock'
 import { IMakeOrder } from '@/types/room.interface'
 import { useMakeOrder } from '@/api/useMakeOrder'
 import { isUrl } from '@/utils/isUrl'
+import { needUrlToast, notEnoughDangoToast } from '@/utils/toasts'
+import { toast } from 'react-toastify'
+import { useToastOnError } from '@/hooks/useToast'
 
 interface IOrderSection {
 	orderType: string
@@ -17,7 +20,7 @@ const OrderSection: FC<IOrderSection> = ({ orderType }) => {
 	const [isRulesOpened, setIsRulesOpened] = useState<boolean>(false)
 	const [finalPrice, setFinalPrice] = useState<number>(0)
 
-	const { mutate, isSuccess } = useMakeOrder(orderType)
+	const { mutate, isSuccess: isBuySucces, error } = useMakeOrder(orderType)
 
 	const clickBuy = () => {
 		if (userOrder) {
@@ -25,7 +28,12 @@ const OrderSection: FC<IOrderSection> = ({ orderType }) => {
 				userOrder?.orderPriceId === 4 || userOrder?.orderPriceId === 5
 
 			if (isVideo && !isUrl(userOrder.orderText)) {
-				console.log('video must be a url')
+				needUrlToast()
+				return
+			}
+
+			if (userOrder.orderText.length < 3) {
+				toast.warning('Описание заказа должно быть не менее 3 символов !')
 				return
 			}
 
@@ -34,7 +42,7 @@ const OrderSection: FC<IOrderSection> = ({ orderType }) => {
 				orderPriceId: userOrder.orderPriceId,
 			})
 		} else {
-			console.log('no orders')
+			toast.warning('Не указан заказ !')
 		}
 	}
 
@@ -44,11 +52,13 @@ const OrderSection: FC<IOrderSection> = ({ orderType }) => {
 		setFinalPrice(0)
 	}
 
+	useToastOnError(error, notEnoughDangoToast)
+
 	useEffect(() => {
-		if (isSuccess) {
+		if (isBuySucces) {
 			setIsOrdered(true)
 		}
-	}, [isSuccess])
+	}, [isBuySucces])
 
 	return (
 		<div

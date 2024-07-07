@@ -5,7 +5,10 @@ import {
 	colorVariantsFocus,
 	colorVariantsHover,
 } from '@/consts/roomColors'
+import { useToastOnError } from '@/hooks/useToast'
+import { usernameAlreadyExistsToast } from '@/utils/toasts'
 import { FC, useContext } from 'react'
+import { toast } from 'react-toastify'
 
 interface IChangeUsername {
 	initialValue: string
@@ -20,15 +23,17 @@ const ChangeUsername: FC<IChangeUsername> = ({
 }) => {
 	const roomAppearance = useContext(RoomAppearanceContext)
 
-	const { mutate } = useUpdateUsername()
+	const { mutate, error } = useUpdateUsername()
 
 	const updateUsername = () => {
 		if (value.length < 3 || value.length > 32) {
-			console.log('username length must be > 3 and < 32')
+			toast.warning('Никнейм должен быть от 3 до 32 символов !')
 		} else {
 			mutate({ username: value })
 		}
 	}
+
+	useToastOnError(error, usernameAlreadyExistsToast)
 
 	return (
 		<div className='h-[7.75rem] flex justify-between items-center border-b-[1px] border-[#646464]'>

@@ -1,7 +1,9 @@
 import { RoomAppearanceContext } from '@/Context'
 import { useBuyBadge } from '@/api/useBuyBadge'
 import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
+import { useToastOnError, useToastOnSuccess } from '@/hooks/useToast'
 import { IBadge } from '@/types/badge.interface'
+import { notEnoughDangoToast, successBuyToast } from '@/utils/toasts'
 import { FC, useContext, useEffect, useState } from 'react'
 
 interface IBadgesBuy {
@@ -13,7 +15,7 @@ const BadgesBuy: FC<IBadgesBuy> = ({ activeBadge, buyedBadges }) => {
 	const [isBadgeBuyed, setIsBadgeBuyed] = useState(false)
 	const roomAppearance = useContext(RoomAppearanceContext)
 
-	const { mutate: buyBadge, isSuccess } = useBuyBadge()
+	const { mutate: buyBadge, isSuccess, error } = useBuyBadge()
 
 	const handleClickBuy = () => {
 		if (activeBadge) {
@@ -28,6 +30,9 @@ const BadgesBuy: FC<IBadgesBuy> = ({ activeBadge, buyedBadges }) => {
 			setIsBadgeBuyed(false)
 		}
 	}
+
+	useToastOnSuccess(isSuccess, successBuyToast)
+	useToastOnError(error, notEnoughDangoToast)
 
 	useEffect(() => {
 		checkIsBgBuyed()

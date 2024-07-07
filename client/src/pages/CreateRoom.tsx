@@ -7,6 +7,7 @@ import { UserContext } from '@/Context'
 import { useIsRoomCreated } from '../api/useIsRoomCreated'
 import Loader from './Loader'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const CreateRoom: FC = () => {
 	const userContext = useContext(UserContext)
@@ -20,12 +21,12 @@ const CreateRoom: FC = () => {
 
 	const createRoom = () => {
 		if (username.length < 3 || username.length > 34) {
-			console.log('username length must be > 3 and < 34')
+			toast.warning('Длина никнейма должна состоять от 3 до 34 символов')
 			return
 		}
 
 		if (roomName.length < 3 || roomName.length > 34) {
-			console.log('username length must be > 3 and < 34')
+			toast.warning('Длина названия комнаты состоять от 3 до 34 символов')
 			return
 		}
 
@@ -38,7 +39,7 @@ const CreateRoom: FC = () => {
 		}
 
 		if (userContext?.isFetched && userContext.user) {
-			console.log(userContext);
+			console.log(userContext)
 			setUsername(userContext.user?.username)
 		}
 	}, [userContext?.isFetched])

@@ -1,7 +1,9 @@
 import { RoomAppearanceContext } from '@/Context'
 import { useBuyBackground } from '@/api/useBuyBackground'
 import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
+import { useToastOnError, useToastOnSuccess } from '@/hooks/useToast'
 import { IBackground } from '@/types/background.interface'
+import { notEnoughDangoToast, successBuyToast } from '@/utils/toasts'
 import { FC, useContext, useEffect, useState } from 'react'
 
 interface IBackgroundsBuy {
@@ -16,7 +18,7 @@ const BackgroundsBuy: FC<IBackgroundsBuy> = ({
 	const [isBgBuyed, setIsBgBuyed] = useState(false)
 	const roomAppearance = useContext(RoomAppearanceContext)
 
-	const { mutate: buyBg, isSuccess } = useBuyBackground()
+	const { mutate: buyBg, isSuccess, error } = useBuyBackground()
 
 	const handleBuyBg = () => {
 		if (activeBackground) {
@@ -31,6 +33,9 @@ const BackgroundsBuy: FC<IBackgroundsBuy> = ({
 			setIsBgBuyed(false)
 		}
 	}
+
+	useToastOnSuccess(isSuccess, successBuyToast)
+	useToastOnError(error, notEnoughDangoToast)
 
 	useEffect(() => {
 		checkIsBgBuyed()

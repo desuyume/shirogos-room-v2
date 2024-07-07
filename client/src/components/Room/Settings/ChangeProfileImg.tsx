@@ -15,8 +15,6 @@ const ChangeProfileImg: FC = () => {
 			const contentData = new FormData()
 			contentData.append('img', img)
 			mutate(contentData)
-		} else {
-			console.log('img is required')
 		}
 	}
 

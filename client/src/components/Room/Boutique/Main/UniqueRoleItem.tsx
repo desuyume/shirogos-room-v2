@@ -5,6 +5,8 @@ import { IUniqueRole } from '@/types/unique-role.interface'
 import { useBuyUniqueRole } from '@/api/useBuyUniqueRole'
 import { RoomAppearanceContext } from '@/Context'
 import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
+import { useToastOnError, useToastOnSuccess } from '@/hooks/useToast'
+import { notEnoughDangoToast, successBuyToast } from '@/utils/toasts'
 
 interface IUniqueRoleItem {
 	visibleRole: string
@@ -21,13 +23,16 @@ const UniqueRoleItem: FC<IUniqueRoleItem> = ({
 }) => {
 	const roomAppearance = useContext(RoomAppearanceContext)
 
-	const { mutate } = useBuyUniqueRole(type)
+	const { mutate, isSuccess: isBuySucces, error } = useBuyUniqueRole(type)
 
 	const clickBuy = () => {
 		if (role) {
 			mutate({ uniqueRoleId: role.id })
 		}
 	}
+
+	useToastOnSuccess(isBuySucces, successBuyToast)
+	useToastOnError(error, notEnoughDangoToast)
 
 	return (
 		<div
