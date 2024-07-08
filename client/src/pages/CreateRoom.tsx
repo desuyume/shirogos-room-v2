@@ -7,7 +7,12 @@ import { UserContext } from '@/Context'
 import { useIsRoomCreated } from '../api/useIsRoomCreated'
 import Loader from './Loader'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import {
+	roomNameLengthToast,
+	usernameAlreadyExistsToast,
+	usernameLengthToast,
+} from '@/utils/toasts'
+import { useToastOnError } from '@/hooks/useToast'
 
 const CreateRoom: FC = () => {
 	const userContext = useContext(UserContext)
@@ -17,21 +22,23 @@ const CreateRoom: FC = () => {
 
 	const { data: isRoomCreated, isFetched: isFetchedIsRoomCreated } =
 		useIsRoomCreated()
-	const { mutate } = useCreateRoom()
+	const { mutate, error } = useCreateRoom()
 
 	const createRoom = () => {
-		if (username.length < 3 || username.length > 34) {
-			toast.warning('Длина никнейма должна состоять от 3 до 34 символов')
+		if (username.length < 3 || username.length > 25) {
+			usernameLengthToast()
 			return
 		}
 
 		if (roomName.length < 3 || roomName.length > 34) {
-			toast.warning('Длина названия комнаты состоять от 3 до 34 символов')
+			roomNameLengthToast()
 			return
 		}
 
 		mutate({ roomName, username })
 	}
+
+	useToastOnError(error, usernameAlreadyExistsToast)
 
 	useEffect(() => {
 		if (userContext?.isFetched && !userContext.user) {

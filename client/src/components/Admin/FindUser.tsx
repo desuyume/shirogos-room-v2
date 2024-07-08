@@ -1,8 +1,9 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import searchIcon from '@/assets/search-icon.png'
 import { IUser } from '@/types/user.interface'
 import { Scrollbar } from 'react-scrollbars-custom'
 import { useUsers } from '@/api/useUsers'
+import { cn } from '@/utils/cn'
 
 interface FindUserProps {
 	multiple?: boolean
@@ -26,7 +27,9 @@ const FindUser: FC<FindUserProps> = ({
 	setSelectedRooms,
 }) => {
 	const [searchQuery, setSearchQuery] = useState<string>('')
-	const { isLoading, isError, data: users } = useUsers()
+	const [filteredUsers, setFilteredUsers] = useState<IUser[]>([])
+
+	const { isLoading, isError, data: fetchedUsers } = useUsers()
 
 	const selectUser = (user: IUser) => {
 		if (!selectedUsers || !setSelectedUsers) return
@@ -43,28 +46,58 @@ const FindUser: FC<FindUserProps> = ({
 		}
 	}
 
-	const selectRoom = (user: IUser) => {
+	const selectRoom = (roomId: number | undefined) => {
 		if (!selectedRooms || !setSelectedRooms) return
+		if (!roomId) return
 		if (multiple) {
 			setSelectedRooms(prev =>
-				selectedRooms.includes(user.Room.id)
-					? [...prev.filter(roomId => roomId !== user.Room.id)]
-					: [...prev, user.Room.id]
+				selectedRooms.includes(roomId)
+					? [...prev.filter(prevRoomId => prevRoomId !== roomId)]
+					: [...prev, roomId]
 			)
 		} else {
-			selectedRooms.includes(user.Room.id)
+			selectedRooms.includes(roomId)
 				? setSelectedRooms([])
-				: setSelectedRooms([user.Room.id])
+				: setSelectedRooms([roomId])
 		}
 	}
 
+	const isSelected = (user: IUser): boolean => {
+		if (selectType === 'users' && selectedUsers) {
+			return selectedUsers.includes(user.username)
+		} else if (selectType === 'rooms' && selectedRooms && !!user.Room?.id) {
+			return selectedRooms?.includes(user.Room.id)
+		}
+
+		return false
+	}
+
+	const filterUsers = (users: IUser[]) => {
+		setFilteredUsers(
+			users
+				.filter(user =>
+					user.username.toLowerCase().includes(searchQuery.toLowerCase())
+				)
+				.filter(user => (selectType === 'rooms' ? !!user.Room?.id : user))
+		)
+	}
+
+	useEffect(() => {
+		if (!isLoading && !isError) {
+			filterUsers(fetchedUsers)
+		}
+	}, [isLoading, searchQuery])
+
 	return (
 		<div
-			className={
-				(isVisible ? 'opacity-100 visible ' : 'opacity-0 invisible ') +
-				'w-[11.375rem] h-[9.6875rem] bg-secondary pt-[0.19rem] flex flex-col items-center transition-all find-user z-40' +
-				(!!className ? ` ${className}` : '')
-			}
+			className={cn(
+				'w-[11.375rem] h-[9.6875rem] bg-secondary pt-[0.19rem] flex flex-col items-center transition-all find-user z-40',
+				{
+					'opacity-100 visible': isVisible,
+					'opacity-0 invisible': !isVisible,
+				},
+				className
+			)}
 		>
 			<div className='w-[96.7%] min-h-[2rem] bg-tertiary flex items-center relative mb-2'>
 				<img className='w-[1.125rem] ml-3' src={searchIcon} alt='search-icon' />
@@ -88,36 +121,30 @@ const FindUser: FC<FindUserProps> = ({
 					style={{ width: '96.7%', height: '100%', marginBottom: '0.44rem' }}
 				>
 					<div className='w-[96.7%] flex flex-col'>
-						{users
-							.filter(donate =>
-								donate.username
-									.toLowerCase()
-									.includes(searchQuery.toLowerCase())
-							)
-							.map(user => (
-								<div
-									key={user.id}
-									className='min-w-full max-w-full h-4 flex items-center mb-[0.38rem] last-of-type:mb-0'
-								>
-									<button
-										onClick={() =>
-											selectType === 'users'
-												? selectUser(user)
-												: selectRoom(user)
+						{filteredUsers.map(user => (
+							<div
+								key={user.id}
+								className='min-w-full max-w-full h-4 flex items-center mb-[0.38rem] last-of-type:mb-0'
+							>
+								<button
+									onClick={() =>
+										selectType === 'users'
+											? selectUser(user)
+											: selectRoom(user.Room?.id)
+									}
+									className={cn(
+										'min-w-[1.5625rem] max-w-[1.5625rem] h-full border-[1px] border-primary mr-[0.38rem] transition-all',
+										{
+											'bg-primary': isSelected(user),
+											'bg-transparent': !isSelected(user),
 										}
-										className={
-											(selectedUsers?.includes(user.username) ||
-											selectedRooms?.includes(user.Room.id)
-												? 'bg-primary '
-												: 'bg-transparent ') +
-											'min-w-[1.5625rem] max-w-[1.5625rem] h-full border-[1px] border-primary mr-[0.38rem] transition-all'
-										}
-									/>
-									<p className='text-[#FFF] text-[0.9375rem] font-secondary font-normal pb-1 leading-none overflow-hidden'>
-										{user.username}
-									</p>
-								</div>
-							))}
+									)}
+								/>
+								<p className='text-[#FFF] text-[0.9375rem] font-secondary font-normal pb-1 leading-none overflow-hidden'>
+									{user.username}
+								</p>
+							</div>
+						))}
 					</div>
 				</Scrollbar>
 			)}

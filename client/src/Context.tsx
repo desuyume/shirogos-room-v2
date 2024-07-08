@@ -51,9 +51,11 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 				id: userData.user.id,
 				username: userData.user.username,
 				role: userData.user.role,
-				Room: {
-					id: userData.user.Room.id,
-				},
+				Room: userData.user.Room
+					? {
+							id: userData.user.Room.id,
+					  }
+					: null,
 			})
 		} catch (e) {
 			localStorage.removeItem('token')

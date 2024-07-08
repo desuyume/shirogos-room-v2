@@ -7,6 +7,6 @@ export class CreateRoomDto {
   roomName: string;
   @IsNotEmpty()
   @MinLength(3)
-  @MaxLength(34)
+  @MaxLength(25)
   username: string;
 }
