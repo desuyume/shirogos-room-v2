@@ -1,8 +1,8 @@
-import { IsNotEmpty, MaxLength, MinLength } from 'class-validator'
+import { IsNotEmpty, MaxLength, MinLength } from 'class-validator';
 
 export class UpdateUsernameDto {
-	@IsNotEmpty()
+  @IsNotEmpty()
   @MinLength(3)
-  @MaxLength(34)
-	username: string;
+  @MaxLength(25)
+  username: string;
 }

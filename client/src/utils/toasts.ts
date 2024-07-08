@@ -13,5 +13,9 @@ export const usernameAlreadyExistsToast = () =>
 // warning toasts
 export const needUrlToast = () =>
 	toast.warning('В этом поле нужна только ссылка !')
+export const usernameLengthToast = () =>
+	toast.warning('Длина никнейма должна состоять от 3 до 25 символов')
+export const roomNameLengthToast = () =>
+	toast.warning('Длина названия комнаты состоять от 3 до 34 символов')
 export const unexpectedErrorToast = () =>
 	toast.warning('Непредвиденная ошибка !')

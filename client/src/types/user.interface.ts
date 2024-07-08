@@ -6,7 +6,7 @@ export interface IUser {
 	role: string
 	Room: {
 		id: number
-	}
+	} | null
 }
 
 export interface IUserTokens {

@@ -3,7 +3,11 @@ import { useChangeRoomName } from '@/api/useChangeRoomName'
 import { colorVariants } from '@/consts/roomColors'
 import { useInputLimit } from '@/hooks/useInputLimit'
 import { useToastOnError, useToastOnSuccess } from '@/hooks/useToast'
-import { notEnoughDangoToast, successBuyToast } from '@/utils/toasts'
+import {
+	notEnoughDangoToast,
+	roomNameLengthToast,
+	successBuyToast,
+} from '@/utils/toasts'
 import { FC, useContext, useEffect, useState } from 'react'
 
 const ChangeRoomName: FC = () => {
@@ -15,6 +19,11 @@ const ChangeRoomName: FC = () => {
 	const { mutate, isSuccess, error } = useChangeRoomName()
 
 	const clickChangeRoomName = () => {
+		if (roomName.length < 3 || roomName.length > 34) {
+			roomNameLengthToast()
+			return
+		}
+
 		mutate({ roomName })
 	}
 
