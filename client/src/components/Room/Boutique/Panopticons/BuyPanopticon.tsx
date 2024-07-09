@@ -3,6 +3,7 @@ import { useBuyPanopticon } from '@/api/useBuyPanopticon'
 import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 import { useToastOnError, useToastOnSuccess } from '@/hooks/useToast'
 import { IPanopticon } from '@/types/panopticon.interface'
+import { cn } from '@/utils/cn'
 import { notEnoughDangoToast, successBuyToast } from '@/utils/toasts'
 import { FC, useContext, useEffect } from 'react'
 
@@ -43,18 +44,18 @@ const BuyPanopticon: FC<IBuyPanopticon> = ({
 
 	return (
 		<div
-			className={
-				(isVisible ? 'opacity-100 visible ' : 'opacity-0 invisible ') +
-				'w-full h-full absolute inset-0 transition-all z-40'
-			}
+			className={cn('w-full h-full absolute inset-0 transition-all z-40', {
+				'opacity-100 visible': isVisible,
+				'opacity-0 invisible': !isVisible,
+			})}
 		>
 			<div
-				className={`w-full h-[24rem] ${
+				className={`w-full h-[22rem] ${
 					colorVariants.bgRoomGradientRevert[roomAppearance.active_room_color]
-				} transition-all z-30 top-[50%] translate-y-[50%] pt-6 flex flex-col items-center`}
+				} transition-all z-30 top-[50%] translate-y-[50%] pt-7 flex flex-col items-center`}
 			>
-				<p className='text-primaryText text-[2.5rem] text-center leading-[97.795%] mb-4'>
-					Уверен/а???
+				<p className='text-primaryText text-[2.5rem] text-center leading-7 mb-[1.0625rem]'>
+					Покупаем?
 				</p>
 				<div className='w-[12.8125rem] aspect-[236/200] border-4 border-[#EBE984] rounded-[1.5625rem] bg-tertiary relative flex items-center justify-center mb-4'>
 					<img
@@ -64,24 +65,24 @@ const BuyPanopticon: FC<IBuyPanopticon> = ({
 						}`}
 						alt='panopticon-img'
 					/>
-					<p className='text-[#EBE984] text-xl leading-[97.795%] text-center absolute'>
+					<p className='text-[#EBE984] text-xl leading-none text-center absolute px-2'>
 						{panopticon?.cost} ДО
 					</p>
 				</div>
 				<div className='w-full flex justify-center'>
 					<button
 						onClick={buyPanopticon}
-						className={`w-[12.45%] min-w-[9rem] h-[3.73rem] ${
+						className={`w-[12.6%] min-w-[7rem] h-[3.75rem] ${
 							colorVariants.bg[roomAppearance.active_room_color]
 						} ${
 							colorVariantsHover.bg[roomAppearance.active_room_color]
-						} text-primaryText text-[1.5625rem] transition-all mr-[0.64rem]`}
+						} text-primaryText hover:text-white text-[1.5625rem] rounded-l-[2.125rem] transition-all mr-2.5`}
 					>
 						ДАН
 					</button>
 					<button
 						onClick={() => setIsVisible(false)}
-						className='w-[12.45%] min-w-[9rem] h-[3.73rem] bg-tertiary hover:bg-secondaryHover text-primaryText text-[1.5625rem] transition-all'
+						className='w-[12.6%] min-w-[7rem] h-[3.75rem] bg-tertiary hover:bg-secondaryHover text-primaryText hover:text-white text-[1.5625rem] text-center leading-none px-2 rounded-r-[2.125rem] transition-all'
 					>
 						НЕ ДАН
 					</button>

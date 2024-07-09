@@ -54,9 +54,11 @@ const SelectFavoriteCharacter: FC = () => {
 					className={`${roomAppearance.active_room_color}-scrollbar`}
 				>
 					{characters?.characterNames.map(character => (
-						<div className='w-full flex justify-center first-of-type:pt-1 last-of-type:pb-1 '>
+						<div
+							key={character.id}
+							className='w-full flex justify-center first-of-type:pt-1 last-of-type:pb-1 '
+						>
 							<p
-								key={character.id}
 								onClick={() => clickCharacter(character)}
 								className={
 									(selectedCharacter === character.id

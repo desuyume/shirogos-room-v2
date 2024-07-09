@@ -1,8 +1,9 @@
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
+import type { DangotekaItemType } from './DangotekaSection'
 
 interface IDangotekaSectionItem {
-	type: string
+	type: DangotekaItemType
 	itemId: string
 	img: string
 	title: string

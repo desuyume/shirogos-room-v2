@@ -1,6 +1,7 @@
 import {
 	BUY_PANOPTICON_KEY,
 	PANOPTICONS_KEY,
+	ROOM_PANOPTICONS_KEY,
 	ROOM_STATS_KEY,
 	USER_PROFILE_KEY,
 } from '@/consts/queryKeys'
@@ -16,6 +17,7 @@ export const useBuyPanopticon = () => {
 		(data: IBuyRoomPanopticon) => roomService.buyRoomPanopticon(data),
 		{
 			onSettled: () => {
+				queryClient.invalidateQueries([ROOM_PANOPTICONS_KEY])
 				queryClient.invalidateQueries([PANOPTICONS_KEY])
 				queryClient.invalidateQueries([USER_PROFILE_KEY])
 				queryClient.invalidateQueries([ROOM_STATS_KEY])

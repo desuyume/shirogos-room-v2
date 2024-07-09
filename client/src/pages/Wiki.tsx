@@ -23,7 +23,7 @@ const Wiki = () => {
 
 	return (
 		<div className='bg-wiki min-h-screen pb-[10rem]'>
-			<Header isFixed={false} withLine={false} />
+			<Header isFixed={false} withLine={true} />
 			{isCategoriesLoading || isCharactersLoading ? (
 				<div className='w-full h-[calc(100vh-15.25rem)] flex justify-center items-center pt-20'>
 					<p className='text-2xl'>Загрузка...</p>

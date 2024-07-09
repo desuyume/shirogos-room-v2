@@ -6,9 +6,10 @@ import { useAllMangas } from '@/api/useAllMangas'
 import { useStoriesGeneral } from '@/api/useStoriesGeneral'
 import { IMangaGeneral } from '@/types/manga.interface'
 import { IStoryGeneral } from '@/types/story.interface'
+import type { DangotekaItemType } from './DangotekaSection'
 
 interface IDangotekaSectionList {
-	type: string
+	type: DangotekaItemType
 }
 
 const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {

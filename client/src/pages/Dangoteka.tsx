@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react'
 import Header from '@/layout/Header/Header'
 import DangotekaSection from '@/components/Dangoteka/DangotekaSection'
 import { useLocation } from 'react-router-dom'
@@ -6,9 +6,9 @@ import { useLocation } from 'react-router-dom'
 const Dangoteka: FC = () => {
 	const { pathname } = useLocation()
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [pathname])
 
 	return (
 		<>
@@ -16,7 +16,7 @@ const Dangoteka: FC = () => {
 			<DangotekaSection title='Манга' type='manga' />
 			<DangotekaSection title='Рассказы' type='story' />
 		</>
-	);
-};
+	)
+}
 
-export default Dangoteka;
+export default Dangoteka

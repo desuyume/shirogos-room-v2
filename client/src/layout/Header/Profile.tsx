@@ -6,6 +6,7 @@ import { useUserProfile } from '@/api/useUserProfile'
 import { RoomAppearanceContext } from '@/Context'
 import { colorVariants } from '@/consts/roomColors'
 import ProfileMiniature from '@/components/ProfileMiniature'
+import { cn } from '@/utils/cn'
 
 const Profile: FC = () => {
 	const isHaveUnreadNotification = false
@@ -19,22 +20,24 @@ const Profile: FC = () => {
 		<div className='absolute right-8 flex items-center'>
 			<div className='w-[2.1875rem] h-[2.1875rem] relative mr-8'>
 				<img
-					className={
-						(!isHaveUnreadNotification
-							? 'opacity-100 visible'
-							: 'opacity-0 invisible') +
-						' absolute inset-0 cursor-pointer hover:scale-110 transition-all'
-					}
+					className={cn(
+						'absolute inset-0 cursor-pointer hover:scale-110 transition-all',
+						{
+							'opacity-0 invisible': isHaveUnreadNotification,
+							'opacity-100 visible': !isHaveUnreadNotification,
+						}
+					)}
 					src={noNotificationIcon}
 					alt='notification-icon'
 				/>
 				<img
-					className={
-						(isHaveUnreadNotification
-							? 'opacity-100 visible'
-							: 'opacity-0 invisible') +
-						' absolute inset-0 cursor-pointer hover:scale-110 transition-all'
-					}
+					className={cn(
+						'absolute inset-0 cursor-pointer hover:scale-110 transition-all',
+						{
+							'opacity-100 visible': isHaveUnreadNotification,
+							'opacity-0 invisible': !isHaveUnreadNotification,
+						}
+					)}
 					src={notificationIcon}
 					alt='notification-icon'
 				/>

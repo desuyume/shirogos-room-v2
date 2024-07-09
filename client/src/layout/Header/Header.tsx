@@ -7,6 +7,7 @@ import { UserContext } from '@/Context'
 import Profile from './Profile'
 import PrimaryHeaderBttn from './PrimaryHeaderBttn'
 import { RoomColor } from '@/consts/roomColors'
+import { cn } from '@/utils/cn'
 
 interface IHeader {
 	withLine: boolean
@@ -21,10 +22,12 @@ const Header: FC<IHeader> = ({ withLine, isFixed, room_color }) => {
 
 	return (
 		<div
-			className={
-				(isFixed ? 'fixed top-0 w-full' : '') +
-				' bg-tertiary h-[5.25rem] flex justify-center items-center z-50'
-			}
+			className={cn(
+				'bg-tertiary h-[5.25rem] flex justify-center items-center z-50',
+				{
+					'fixed top-0 w-full': isFixed,
+				}
+			)}
 		>
 			<div className='absolute left-4 w-[3.58rem] h-[3.58rem]'>
 				<Link
@@ -34,18 +37,18 @@ const Header: FC<IHeader> = ({ withLine, isFixed, room_color }) => {
 					onMouseLeave={() => setIsLogoHover(false)}
 				>
 					<img
-						className={
-							(!!isLogoHover ? 'opacity-0 invisible' : 'opacity-100 visible') +
-							' w-full h-full absolute inset-0 transition-all'
-						}
+						className={cn('w-full h-full absolute inset-0 transition-all', {
+							'opacity-0 invisible': isLogoHover,
+							'opacity-100 visible': !isLogoHover,
+						})}
 						src={logo}
 						alt='logo'
 					/>
 					<img
-						className={
-							(!isLogoHover ? 'opacity-0 invisible' : 'opacity-100 visible') +
-							' w-full h-full absolute inset-0 transition-all'
-						}
+						className={cn('w-full h-full absolute inset-0 transition-all', {
+							'opacity-100 visible': isLogoHover,
+							'opacity-0 invisible': !isLogoHover,
+						})}
 						src={logoHover}
 						alt='logo'
 					/>
@@ -54,7 +57,11 @@ const Header: FC<IHeader> = ({ withLine, isFixed, room_color }) => {
 
 			<nav className='w-full flex justify-center items-center'>
 				<HeaderBttn path='/wiki' title='Википедия' />
-				<PrimaryHeaderBttn path='/streamer' title='Стримерская' room_color={room_color} />
+				<PrimaryHeaderBttn
+					path='/streamer'
+					title='Стримерская'
+					room_color={room_color}
+				/>
 				<HeaderBttn path='/dangoteka' title='Данготека' />
 			</nav>
 			{userContext?.isFetched && userContext.user && <Profile />}

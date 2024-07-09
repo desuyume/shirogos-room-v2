@@ -48,7 +48,7 @@ const Guide: FC = () => {
 			  guideError instanceof AxiosError &&
 			  guideError.response?.status === 400 ? (
 				<div className='w-full h-[calc(100vh-5.25rem)] flex flex-col justify-center items-center'>
-					<p className='text-4xl mb-6'>Комната не найдена</p>
+					<p className='text-4xl mb-6'>Комната не создана</p>
 					<Link
 						to={
 							fromSection === 'screen'

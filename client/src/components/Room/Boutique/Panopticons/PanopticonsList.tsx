@@ -7,6 +7,7 @@ import { IBuyedPanopticon } from '@/types/room.interface'
 import { IPanopticon } from '@/types/panopticon.interface'
 import { RoomAppearanceContext } from '@/Context'
 import { colorVariants } from '@/consts/roomColors'
+import { cn } from '@/utils/cn'
 
 const PanopticonsList: FC = () => {
 	const [chosenBuyPanopticon, setChosenBuyPanopticon] =
@@ -64,17 +65,13 @@ const PanopticonsList: FC = () => {
 	}
 
 	const openPanopticonPreview = (panopticon: IPanopticon) => {
-		try {
-			const findedPanopticon = panopticons?.buyedPanopticons.find(
-				p => p.Panopticon.id === panopticon.id
-			)
+		const findedPanopticon = panopticons?.buyedPanopticons.find(
+			p => p.Panopticon.id === panopticon.id
+		)
 
-			if (findedPanopticon) {
-				setChosenPreviewPanopticon(findedPanopticon)
-				setIsPanopticonPreviewVisible(true)
-			}
-		} catch (e) {
-			console.log('panopticon is not buyed')
+		if (findedPanopticon) {
+			setChosenPreviewPanopticon(findedPanopticon)
+			setIsPanopticonPreviewVisible(true)
 		}
 	}
 
@@ -148,24 +145,31 @@ const PanopticonsList: FC = () => {
 											? openPanopticonPreview(panopticon)
 											: openBuyPanopticon(panopticon)
 									}
-									className={
-										(isPanopticonBuyed(panopticon.id) ? '' : '') +
-										'bg-tertiary rounded-[1.5625rem] flex justify-center items-center cursor-pointer aspect-[236/200] group'
-									}
+									className='bg-tertiary rounded-[1.5625rem] flex justify-center items-center cursor-pointer aspect-[236/200] relative group'
 								>
 									<img
-										className={
-											(buyedPanopticons?.includes(panopticon.id)
-												? 'group-hover:blur-[1px] '
-												: 'opacity-10 blur-[2px] group-hover:opacity-30 ') +
-											'rounded-[1.5625rem] min-w-full max-w-full min-h-full max-h-full transition-all'
-										}
+										className={cn(
+											'rounded-[1.5625rem] min-w-full max-w-full min-h-full max-h-full transition-all',
+											{
+												'opacity-10 blur-[2px] group-hover:opacity-30':
+													!isPanopticonBuyed(panopticon.id),
+											}
+										)}
 										src={`${import.meta.env.VITE_SERVER_URL}/${
 											panopticon.miniatureImg ?? panopticon.img
 										}`}
 										alt='panopticon-img'
 									/>
-									{!buyedPanopticons?.includes(panopticon.id) && (
+
+									{isPanopticonBuyed(panopticon.id) && (
+										<div className='w-full h-full rounded-[1.5625rem] bg-black bg-opacity-70 absolute inset-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all flex justify-center items-center'>
+											<p className='text-primaryText text-[1.3vw] text-opacity-[0.55] text-center max-w-full break-words'>
+												ПОСМОТРЕТЬ
+											</p>
+										</div>
+									)}
+
+									{!isPanopticonBuyed(panopticon.id) && (
 										<p className='text-[#EBE984] text-xl text-center leading-[97.795%] absolute'>
 											{panopticon.cost} ДО
 										</p>

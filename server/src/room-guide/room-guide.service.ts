@@ -141,14 +141,15 @@ export class RoomGuideService {
       },
     });
 
+    if (!room) {
+      throw new BadRequestException('Room not found');
+    }
+
     const panopticons = await this.prisma.client.panopticonsOnRooms.findMany({
       where: {
         roomId: room.id,
       },
     });
-    if (!room) {
-      throw new BadRequestException('Room not found');
-    }
 
     const editor = await this.prisma.client.editor.findUnique({
       where: {
