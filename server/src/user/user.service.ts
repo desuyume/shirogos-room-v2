@@ -22,6 +22,9 @@ export class UserService {
           },
         },
       },
+      orderBy: {
+        id: 'asc'
+      }
     });
   }
 

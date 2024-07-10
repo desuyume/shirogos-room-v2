@@ -44,7 +44,7 @@ export class RoomGuideService {
           },
           {
             user: {
-              username: 'asc',
+              id: 'asc',
             },
           },
         ],

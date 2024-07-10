@@ -3,20 +3,33 @@
 @tailwind utilities;
 
 @font-face {
-	font-family: "Days One";
+	font-family: 'Days One';
 	font-style: normal;
 	font-weight: 400;
-	src: url("/fonts/DaysOne/DaysOne-Regular.ttf")
+	src: url('/fonts/DaysOne/DaysOne-Regular.ttf');
 }
 
 @layer base {
-  html {
-    font-family: Days One, sans-serif;
+	html {
+		font-family:
+			Days One,
+			sans-serif;
 		background-color: #181818;
-		color: #C34375;
-  }
+		color: #c34375;
+	}
 
 	body {
 		overflow-x: hidden;
+	}
+
+	.hide-overflow-rounded-corners {
+		mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+		-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); /* this fixes the overflow:hidden in Chrome/Opera */
+	}
+
+	.transition-outline {
+		transition-property: outline-color;
+		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		transition-duration: 150ms;
 	}
 }

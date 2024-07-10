@@ -531,6 +531,28 @@
 	}
 }
 
+.notifications {
+	.ScrollbarsCustom-TrackY {
+		width: 4.67px;
+		right: 2.33px;
+
+		&:hover,
+		&.dragging {
+			width: 4.67px;
+			right: 2.33px;
+		}
+	}
+
+	.ScrollbarsCustom-Thumb {
+		background: #dedede;
+		&:hover,
+		&.dragging {
+			width: initial;
+			background: #fff;
+		}
+	}
+}
+
 .badges-admin {
 	.ScrollbarsCustom-Wrapper {
 		overflow-x: hidden !important;

@@ -1,7 +1,4 @@
 import { FC, useContext, useEffect, useRef, useState } from 'react'
-import notificationIcon from '@/assets/notification.png'
-import noNotificationIcon from '@/assets/no-notification.png'
-import notificationHoverIcon from '@/assets/notification-hover.png'
 import { useUserProfile } from '@/api/useUserProfile'
 import { Link } from 'react-router-dom'
 import ProfileMiniature from '../ProfileMiniature'
@@ -9,9 +6,9 @@ import LogoutButton from './LogoutButton'
 import { cn } from '@/utils/cn'
 import axios from 'axios'
 import { UserContext } from '@/Context'
+import Notification from '../Notification/Notification'
 
 const RoomInfo: FC = () => {
-	const isHasNotification = false
 	const [isLogoutVisible, setIsLogoutVisible] = useState<boolean>(false)
 	const timeoutRef = useRef<number | null>(null)
 	const context = useContext(UserContext)
@@ -58,29 +55,9 @@ const RoomInfo: FC = () => {
 		<div className='w-[16.3125rem] h-[8.5625rem] pl-5 pr-1.5 flex justify-between items-center z-30'>
 			<div className='w-full h-full bg-room-info-pink-gradient absolute inset-0 z-10' />
 
-			<div className='w-[3.5rem] h-[3.5rem] cursor-pointer relative group z-20'>
-				{isHasNotification ? (
-					<img
-						src={notificationIcon}
-						alt='notification'
-						className='w-full h-full'
-					/>
-				) : (
-					<img
-						src={noNotificationIcon}
-						alt='notification'
-						className='w-full h-full'
-					/>
-				)}
+			<Notification className='w-[3.5rem] h-[3.5rem]' />
 
-				<img
-					src={notificationHoverIcon}
-					alt='notification'
-					className='w-full h-full absolute inset-0 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity'
-				/>
-			</div>
-
-			<div className='w-[10.125rem] h-[8.1875rem] self-end relative z-20 flex flex-col'>
+			<div className='min-w-[10.125rem] max-w-[10.125rem] h-[8.1875rem] self-end relative z-20 flex flex-col'>
 				{isLoading ? (
 					<div className='w-full h-full flex justify-center items-center'>
 						<p className='text-primaryText'>Загрузка...</p>

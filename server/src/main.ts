@@ -25,7 +25,6 @@ async function bootstrap() {
     credentials: true,
   });
   app.use(cookieParser());
-  app.set('trust proxy', 1);
 
   await app.listen(PORT);
 }

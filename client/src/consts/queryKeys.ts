@@ -131,3 +131,8 @@ export const MY_TASKS_WITH_RESPONSES_KEY = 'my tasks with responses'
 export const SEND_TASK_RESPONSE_KEY = 'send task response'
 export const ACCEPT_TASK_RESPONSE_KEY = 'accept task response'
 export const REJECT_TASK_RESPONSE_KEY = 'reject task response'
+
+export const CREATE_NOTIFICATION_KEY = 'create notification'
+export const READ_NOTIFICATION_KEY = 'read notification'
+export const NOTIFICATIONS_KEY = 'notifications'
+export const USER_NOTIFICATIONS_KEY = 'user notifications'

@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { DonateDto } from './dto/donate.dto';
 import { PrismaService } from 'src/prisma.service';
 import {
   UpdateAmountDonateDto,
   UpdateGiftsDonateDto,
 } from './dto/update-donate.dto';
+import { isNumber } from 'src/utils/isNumber';
 
 @Injectable()
 export class DonateService {
@@ -33,13 +34,16 @@ export class DonateService {
   }
 
   async updateAmount(id: number, dto: UpdateAmountDonateDto) {
+    if (!isNumber(dto.addAmount)) {
+      throw new BadRequestException('add amount must be a number');
+    }
     return await this.prisma.donate.update({
       where: {
         id,
       },
       data: {
         amount: {
-          increment: dto.addAmount,
+          increment: +dto.addAmount,
         },
       },
     });
