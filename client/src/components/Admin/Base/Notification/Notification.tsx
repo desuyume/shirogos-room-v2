@@ -1,6 +1,8 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import FindUser from '../../FindUser'
 import previewUploadedImg from '@/utils/previewUploadedImg'
+import { useCreateNotification } from '@/api/useCreateNotification'
+import { toast } from 'react-toastify'
 
 const Notification: FC = () => {
 	const [text, setText] = useState<string>('')
@@ -10,6 +12,8 @@ const Notification: FC = () => {
 	const inputRef = useRef<HTMLInputElement | null>(null)
 	const imgRef = useRef<HTMLImageElement | null>(null)
 
+	const { mutate: createNotification, isSuccess } = useCreateNotification()
+
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files) {
 			setImg(e.target.files[0])
@@ -17,12 +21,35 @@ const Notification: FC = () => {
 	}
 
 	const clickSend = () => {
-		console.log(img, text, selectedUsers)
+		const data = new FormData()
+		if (!text) {
+			toast.warning('Текст оповещения обязателен !')
+			return
+		}
+		data.append('text', text)
+		if (img) {
+			data.append('img', img)
+		}
+		data.append('usernames', JSON.stringify(selectedUsers))
+		createNotification(data)
+	}
+
+	const clearFields = () => {
+		setText('')
+		setSelectedUsers([])
+		setIsImgUploaded(false)
+		setImg(null)
 	}
 
 	useEffect(() => {
 		previewUploadedImg(inputRef, imgRef, setIsImgUploaded)
 	}, [])
+
+	useEffect(() => {
+		if (isSuccess) {
+			clearFields()
+		}
+	}, [isSuccess])
 
 	return (
 		<div className='w-[37.58%] h-full flex flex-col'>
@@ -48,7 +75,7 @@ const Notification: FC = () => {
 									(isImgUploaded
 										? 'visible opacity-100'
 										: 'invisible opacity-0') +
-									' absolute w-full h-full inset-0 rounded-[0.4375rem]'
+									' absolute w-full h-full inset-0 rounded-[0.4375rem] object-cover'
 								}
 								src='#'
 								alt='panopticon-img'

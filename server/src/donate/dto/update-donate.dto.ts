@@ -1,8 +1,7 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class UpdateAmountDonateDto {
-	@IsNumber()
-	addAmount: number
+	addAmount: string
 }
 
 export class UpdateGiftsDonateDto {

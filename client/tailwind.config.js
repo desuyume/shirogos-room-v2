@@ -57,7 +57,7 @@ export default {
 			backgroundImage: {
 				'room-info-gray-gradient':
 					'linear-gradient(to bottom, #323232 0%, rgba(0, 0, 0, 0) 88%)',
-					'room-info-pink-gradient':
+				'room-info-pink-gradient':
 					'linear-gradient(to left, #C34375 0%, rgba(255, 255, 255, 0) 98%)',
 				'orders-hint-bg': "url('/images/orders-about-bg.svg')",
 				wiki: 'linear-gradient(to right, #323232 43.23%, #181818 100%)',

@@ -26,6 +26,9 @@ export class AchievementService {
           },
         },
       },
+      orderBy: {
+        id: 'asc'
+      }
     });
   }
 

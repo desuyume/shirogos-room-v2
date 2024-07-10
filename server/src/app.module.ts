@@ -32,6 +32,7 @@ import { FrameModule } from './frame/frame.module';
 import { BackgroundModule } from './background/background.module';
 import { PanopticonModule } from './panopticon/panopticon.module';
 import { ManualTaskModule } from './manual-task/manual-task.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -68,6 +69,7 @@ import { ManualTaskModule } from './manual-task/manual-task.module';
     BackgroundModule,
     PanopticonModule,
     ManualTaskModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

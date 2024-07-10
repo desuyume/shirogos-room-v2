@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 import { TwitchAuthGuard } from './guards/twitch-auth.guard';
 import { UserDto } from 'src/user/dto/user.dto';
 import { Response } from 'express';
-import { cookieConfig } from 'src/consts/cookieConfig';
+import { cookieConfig } from 'src/config/cookieConfig';
 const cookie = require('cookie');
 
 @Controller('auth')

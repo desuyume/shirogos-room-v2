@@ -15,6 +15,9 @@ export class RatingService {
         {
           exp: 'desc',
         },
+        {
+          id: 'asc',
+        },
       ],
       select: {
         id: true,

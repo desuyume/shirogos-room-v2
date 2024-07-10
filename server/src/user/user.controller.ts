@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Request, Response } from 'express';
-import { cookieConfig } from 'src/consts/cookieConfig';
+import { cookieConfig } from 'src/config/cookieConfig';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 const cookie = require('cookie');
 
