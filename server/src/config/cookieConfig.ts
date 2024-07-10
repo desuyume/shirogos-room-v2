@@ -6,5 +6,4 @@ export const cookieConfig: CookieOptions = {
   path: '/',
   secure: process.env.NODE_ENV !== 'development', // must be true in production
   maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
-  domain: process.env.NODE_ENV === 'development' ? '' : 'kurogo-room.ru'
 };
