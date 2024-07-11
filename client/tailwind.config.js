@@ -134,6 +134,9 @@ export default {
 				'room-gradient-revert-crimson':
 					'linear-gradient(180deg, rgba(164, 17, 74, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
 			},
+			boxShadow: {
+				'notification': '0 2px 40px -13px #000'
+			}
 		},
 	},
 	plugins: [],

@@ -23,7 +23,7 @@ const Notification: FC<NotificationProps> = ({ className }) => {
 
 			<div
 				className={cn(
-					'w-[22rem] h-[27.25rem] rounded-[2.3125rem] rounded-tr-none absolute -bottom-[7.67px] right-[73.5%] translate-y-full transition-opacity notifications',
+					'w-[22rem] h-[27.25rem] rounded-[2.3125rem] rounded-tr-none absolute -bottom-[7.67px] right-[73.5%] translate-y-full transition-opacity shadow-notification notifications',
 					{
 						'opacity-100 visible': isPopupVisible,
 						'opacity-0 invisible': !isPopupVisible,

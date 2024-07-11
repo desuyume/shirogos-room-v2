@@ -22,7 +22,7 @@ const NotificationButton: FC<NotificationButtonProps> = ({
 		>
 			<img
 				className={cn(
-					'absolute inset-0 opacity-100 visible group-hover:opacity-0 group-hover:invisible transition-opacity duration-300',
+					'absolute inset-0 opacity-100 visible group-hover:opacity-0 group-hover:invisible',
 					{
 						'invisible opacity-0': isPopupVisible || isHaveUnread,
 					}
@@ -33,7 +33,7 @@ const NotificationButton: FC<NotificationButtonProps> = ({
 
 			<img
 				className={cn(
-					'absolute inset-0 opacity-100 visible group-hover:opacity-0 group-hover:invisible transition-opacity duration-300',
+					'absolute inset-0 opacity-100 visible group-hover:opacity-0 group-hover:invisible',
 					{
 						'invisible opacity-0': isPopupVisible || !isHaveUnread,
 					}
@@ -44,7 +44,7 @@ const NotificationButton: FC<NotificationButtonProps> = ({
 
 			<img
 				className={cn(
-					'absolute inset-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300',
+					'absolute inset-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible',
 					{
 						'visible opacity-100': isPopupVisible,
 					}
