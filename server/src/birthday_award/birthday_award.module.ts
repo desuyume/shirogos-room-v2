@@ -7,5 +7,6 @@ import { DateService } from 'src/date/date.service';
 @Module({
   controllers: [BirthdayAwardController],
   providers: [BirthdayAwardService, PrismaService, DateService],
+  exports: [BirthdayAwardService],
 })
 export class BirthdayAwardModule {}

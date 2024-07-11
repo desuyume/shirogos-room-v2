@@ -74,4 +74,40 @@ export class BirthdayAwardService {
       });
     }
   }
+
+  async giveBirthdayAwardToUser(userId: number) {
+    const currentDateStr = this.dateService.getCurrentDateInMoscow();
+
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+    if (!user) return;
+
+    if (user.birthday !== currentDateStr) return;
+
+    const birthdayAward = await this.prisma.birthdayAward.findFirst();
+    if (!birthdayAward) return;
+
+    // if user last received award not older than a year then dont give award
+    if (
+      user.lastRecievedBirthdayAwardDay &&
+      !this.dateService.isDateOlderThanAYear(user.lastRecievedBirthdayAwardDay)
+    ) {
+      return;
+    }
+
+    await this.prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        dangos: {
+          increment: birthdayAward.award,
+        },
+        lastRecievedBirthdayAwardDay: currentDateStr,
+      },
+    });
+  }
 }

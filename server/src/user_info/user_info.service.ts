@@ -6,10 +6,14 @@ import { UpdateGenderDto } from './dto/update-gender.dto';
 import { Gender } from '@prisma/client';
 import { isUrl } from 'src/utils/isUrl';
 import { removeFile } from 'src/utils/removeFile';
+import { BirthdayAwardService } from 'src/birthday_award/birthday_award.service';
 
 @Injectable()
 export class UserInfoService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private birthdayAwardService: BirthdayAwardService,
+  ) {}
 
   async getUserInfo(id: number) {
     return await this.prisma.user.findUnique({
@@ -66,7 +70,7 @@ export class UserInfoService {
   }
 
   async updateBirthday(userId: number, dto: UpdateBirthdayDto) {
-    return await this.prisma.user.update({
+    const user = await this.prisma.user.update({
       where: {
         id: userId,
       },
@@ -74,6 +78,8 @@ export class UserInfoService {
         birthday: dto.birthday,
       },
     });
+    await this.birthdayAwardService.giveBirthdayAwardToUser(user.id);
+    return user;
   }
 
   async updateGender(userId: number, dto: UpdateGenderDto) {
