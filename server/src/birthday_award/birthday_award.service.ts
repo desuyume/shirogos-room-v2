@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { UpdateBirthdayAwardDto } from './dto/update-birthday-award';
-import * as moment from 'moment-timezone';
 import { DateService } from 'src/date/date.service';
 
 @Injectable()
@@ -10,7 +9,6 @@ export class BirthdayAwardService {
     private prisma: PrismaService,
     private dateService: DateService,
   ) {}
-  private readonly moscowTimezone: string = 'Europe/Moscow';
 
   async getOne() {
     return await this.prisma.birthdayAward.findUnique({
@@ -38,10 +36,13 @@ export class BirthdayAwardService {
 
   async giveBirthdayAwards() {
     const currentDateStr = this.dateService.getCurrentDateInMoscow();
+    const currentMonthAndDay = this.dateService.getCurrentMonthAndDayInMoscow();
 
     const users = await this.prisma.user.findMany({
       where: {
-        birthday: currentDateStr,
+        birthday: {
+          startsWith: currentMonthAndDay,
+        },
       },
     });
     const birthdayAward = await this.prisma.birthdayAward.findFirst();
@@ -77,6 +78,7 @@ export class BirthdayAwardService {
 
   async giveBirthdayAwardToUser(userId: number) {
     const currentDateStr = this.dateService.getCurrentDateInMoscow();
+    const currentMonthAndDay = this.dateService.getCurrentMonthAndDayInMoscow();
 
     const user = await this.prisma.user.findUnique({
       where: {
@@ -85,7 +87,7 @@ export class BirthdayAwardService {
     });
     if (!user) return;
 
-    if (user.birthday !== currentDateStr) return;
+    if (!user.birthday.startsWith(currentMonthAndDay)) return;
 
     const birthdayAward = await this.prisma.birthdayAward.findFirst();
     if (!birthdayAward) return;
