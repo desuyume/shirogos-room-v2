@@ -5,10 +5,14 @@ import { useUserNotifications } from '@/api/useUserNotifications'
 import NotificationList from './NotificationList'
 
 interface NotificationProps {
+	withDot?: boolean
 	className?: string
 }
 
-const Notification: FC<NotificationProps> = ({ className }) => {
+const Notification: FC<NotificationProps> = ({
+	withDot = false,
+	className,
+}) => {
 	const [isPopupVisible, setIsPopupVisible] = useState<boolean>(false)
 	const popupRef = useRef<HTMLDivElement>(null)
 	const buttonRef = useRef<HTMLButtonElement>(null)
@@ -40,6 +44,7 @@ const Notification: FC<NotificationProps> = ({ className }) => {
 				isPopupVisible={isPopupVisible}
 				setIsPopupVisible={setIsPopupVisible}
 				isHaveUnread={notifications ? notifications.unreadCount > 0 : false}
+				withDot={withDot}
 			/>
 
 			<div

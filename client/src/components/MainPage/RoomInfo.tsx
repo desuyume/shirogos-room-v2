@@ -55,7 +55,7 @@ const RoomInfo: FC = () => {
 		<div className='w-[16.3125rem] h-[8.5625rem] pl-5 pr-1.5 flex justify-between items-center z-30'>
 			<div className='w-full h-full bg-room-info-pink-gradient absolute inset-0 z-10' />
 
-			<Notification className='w-[3.5rem] h-[3.5rem]' />
+			<Notification withDot className='w-[3.5rem] h-[3.5rem]' />
 
 			<div className='min-w-[10.125rem] max-w-[10.125rem] h-[8.1875rem] self-end relative z-20 flex flex-col'>
 				{isLoading ? (
