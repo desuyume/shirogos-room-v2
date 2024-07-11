@@ -275,6 +275,7 @@ const RoomEditor: FC = () => {
 						username={roomInfo.user.username}
 						created_at={roomInfo.created_at}
 						level={roomInfo.user.level}
+						exp={roomInfo.user.level}
 						past_usernames={roomInfo.user.past_usernames}
 						className={!!activeSection ? 'mt-[14.25rem]' : ''}
 					/>
