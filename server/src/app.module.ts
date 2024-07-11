@@ -33,6 +33,7 @@ import { BackgroundModule } from './background/background.module';
 import { PanopticonModule } from './panopticon/panopticon.module';
 import { ManualTaskModule } from './manual-task/manual-task.module';
 import { NotificationModule } from './notification/notification.module';
+import { DateModule } from './date/date.module';
 
 @Module({
   imports: [
@@ -70,6 +71,7 @@ import { NotificationModule } from './notification/notification.module';
     PanopticonModule,
     ManualTaskModule,
     NotificationModule,
+    DateModule,
   ],
   controllers: [AppController],
   providers: [AppService],

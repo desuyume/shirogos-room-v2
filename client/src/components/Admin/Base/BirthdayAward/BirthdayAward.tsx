@@ -2,18 +2,22 @@ import { useBirthdayAward } from '@/api/useBirthdayAward'
 import { useUpdateBirthdayAward } from '@/api/useUpdateBirthdayAward'
 import { isNumber } from '@/utils/isNumber'
 import { FC, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 const BirthdayAward: FC = () => {
 	const { isLoading, isError, data: awardData } = useBirthdayAward()
-	const { mutate } = useUpdateBirthdayAward()
+	const { mutate, isSuccess } = useUpdateBirthdayAward()
 	const [award, setAward] = useState<string>('')
 
 	const onBlurHandler = () => {
+		if (!award) {
+			setAward('0')
+		}
+
 		if (isNumber(award)) {
 			mutate({ award: +award })
-			console.log(`${award} ДО`)
 		} else {
-			console.log('Награда должна быть числом')
+			toast.warning('Награда должна быть числом !')
 		}
 	}
 
@@ -22,6 +26,12 @@ const BirthdayAward: FC = () => {
 			setAward(String(awardData.award))
 		}
 	}, [isLoading, isError])
+
+	useEffect(() => {
+		if (isSuccess) {
+			toast.success(`Установлена награда в ${award} ДО !`)
+		}
+	}, [isSuccess])
 
 	return (
 		<div className='w-[33.6%] h-full flex flex-col'>
