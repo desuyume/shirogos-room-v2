@@ -26,7 +26,7 @@ const ProfileMiniature: FC<IProfileMiniature> = ({
 	return (
 		<div style={{ height: containerHeight }} className='relative z-30'>
 			<img
-				className={cn(className)}
+				className={cn('object-cover', className)}
 				src={
 					!!miniature_img
 						? `${import.meta.env.VITE_SERVER_URL}/${miniature_img}`

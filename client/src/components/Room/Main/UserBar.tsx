@@ -8,6 +8,7 @@ interface IUserBar {
 	username: string
 	past_usernames: IPastUsername[]
 	level: number
+	exp: number
 	created_at: Date
 	className?: string
 	isGuide?: boolean
@@ -19,6 +20,7 @@ const UserBar: FC<IUserBar> = ({
 	username,
 	past_usernames,
 	level,
+	exp,
 	created_at,
 	className,
 	isGuide,
@@ -35,6 +37,7 @@ const UserBar: FC<IUserBar> = ({
 				username={username}
 				past_usernames={past_usernames}
 				level={level}
+				exp={exp}
 				isGuide={isGuide}
 				guideRoomAppearance={guideRoomAppearance}
 			/>

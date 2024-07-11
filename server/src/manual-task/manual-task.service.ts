@@ -7,10 +7,14 @@ import { CreateManualTaskDto } from './dto/create-manual-task.dto';
 import { PrismaService } from 'src/prisma.service';
 import { removeFile } from 'src/utils/removeFile';
 import { TaskResponseStatus } from '@prisma/client';
+import { UserStatsService } from 'src/user_stats/user_stats.service';
 
 @Injectable()
 export class ManualTaskService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private userStatsService: UserStatsService,
+  ) {}
 
   async getAll() {
     return await this.prisma.task.findMany({
@@ -189,16 +193,20 @@ export class ManualTaskService {
       throw new NotFoundException('room not found');
     }
 
+    if (!!taskResponse.Task.exp) {
+      await this.userStatsService.changeUserExperience(
+        room.userId,
+        taskResponse.Task.exp,
+      );
+    }
+
     await this.prisma.user.update({
       where: {
         id: room.userId,
       },
       data: {
         dangos: {
-          increment: taskResponse.Task.do,
-        },
-        exp: {
-          increment: taskResponse.Task.exp,
+          increment: taskResponse.Task.do ?? 0,
         },
       },
     });

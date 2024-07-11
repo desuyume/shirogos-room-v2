@@ -11,6 +11,7 @@ interface IUserInfoBar {
 	username: string
 	past_usernames?: IPastUsername[]
 	level: number
+	exp: number
 	isGuide?: boolean
 	guideRoomAppearance?: IRoomAppearance
 }
@@ -20,6 +21,7 @@ const UserInfoBar: FC<IUserInfoBar> = ({
 	username,
 	past_usernames,
 	level,
+	exp,
 	isGuide,
 	guideRoomAppearance,
 }) => {
@@ -98,10 +100,15 @@ const UserInfoBar: FC<IUserInfoBar> = ({
 					guideRoomAppearance={guideRoomAppearance}
 				/>
 			</div>
-			<div className='bg-[#4A9648] w-[calc(100%-4px)] h-[6.4375rem] absolute bottom-[2px] rounded-[1.5625rem]'>
-				<p className='text-primaryText text-[0.9375rem] w-full text-center absolute bottom-[0.45rem]'>
+			<div className='bg-[#4A9648] w-[calc(100%-4px)] h-[6.4375rem] absolute bottom-[2px] rounded-[1.5625rem] overflow-hidden'>
+				<p className='text-primaryText text-[0.9375rem] w-full text-center absolute bottom-[0.45rem] z-10'>
 					Уровень {level}
 				</p>
+
+				<div
+					style={{ width: `${exp}%` }}
+					className='bg-[#79C677] h-[6.4375rem] absolute'
+				/>
 			</div>
 		</div>
 	)

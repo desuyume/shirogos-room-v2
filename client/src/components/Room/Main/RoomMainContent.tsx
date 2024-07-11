@@ -186,6 +186,7 @@ const RoomMainContent: FC<IRoomMainContent> = ({
 				username={room.user.username}
 				created_at={room.created_at}
 				level={room.user.level}
+				exp={room.user.exp}
 				past_usernames={room.user.past_usernames}
 				isGuide={isGuide}
 				guideRoomAppearance={guideRoomAppearance}

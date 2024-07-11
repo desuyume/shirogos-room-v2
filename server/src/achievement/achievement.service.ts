@@ -7,10 +7,14 @@ import {
 import { UpdateAchievementDto } from './dto/update-achievement.dto';
 import getArrayDifferences from 'src/utils/getArrayDifferences';
 import { removeFile } from 'src/utils/removeFile';
+import { UserStatsService } from 'src/user_stats/user_stats.service';
 
 @Injectable()
 export class AchievementService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private userStatsService: UserStatsService,
+  ) {}
 
   async getAll() {
     return await this.prisma.achievement.findMany({
@@ -27,8 +31,8 @@ export class AchievementService {
         },
       },
       orderBy: {
-        id: 'asc'
-      }
+        id: 'asc',
+      },
     });
   }
 
@@ -297,16 +301,22 @@ export class AchievementService {
       }
 
       if (awards.exp) {
-        await this.prisma.user.update({
+        const room = await this.prisma.room.findUnique({
           where: {
             id: roomId,
           },
-          data: {
-            exp: {
-              increment: awards.exp,
+          select: {
+            user: {
+              select: {
+                id: true,
+              },
             },
           },
         });
+        await this.userStatsService.changeUserExperience(
+          room.user.id,
+          awards.exp,
+        );
       }
     }
   }
@@ -471,16 +481,22 @@ export class AchievementService {
       }
 
       if (awards.exp) {
-        await this.prisma.user.update({
+        const room = await this.prisma.room.findUnique({
           where: {
             id: roomId,
           },
-          data: {
-            exp: {
-              decrement: awards.exp,
+          select: {
+            user: {
+              select: {
+                id: true,
+              },
             },
           },
         });
+        await this.userStatsService.decrementUserExperience(
+          room.user.id,
+          -awards.exp,
+        );
       }
     }
   }

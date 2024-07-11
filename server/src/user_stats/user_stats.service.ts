@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { AddUserStatsDto } from './dto/add-user-stats.dto';
 
@@ -96,17 +100,7 @@ export class UserStatsService {
         });
 
       case 'exp':
-        return await this.prisma.user.update({
-          where: {
-            id,
-          },
-          data: {
-            exp: {
-              increment: dto.value,
-            },
-          },
-        });
-
+        return await this.changeUserExperience(id, dto.value);
       case 'clips':
         return await this.prisma.user.update({
           where: {
@@ -146,5 +140,67 @@ export class UserStatsService {
       default:
         throw new BadRequestException('invalid type');
     }
+  }
+
+  async changeUserExperience(userId: number, exp: number) {
+    if (exp < 0) {
+      return await this.decrementUserExperience(userId, exp);
+    } else {
+      return await this.incrementUserExperience(userId, exp);
+    }
+  }
+
+  async incrementUserExperience(userId: number, exp: number) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
+
+    let newExp = user.exp + exp;
+    let newLevel = user.level;
+
+    while (newExp >= 100) {
+      newExp -= 100;
+      newLevel++;
+    }
+
+    return await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        exp: newExp,
+        level: newLevel,
+      },
+    });
+  }
+
+  async decrementUserExperience(userId: number, exp: number) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
+
+    let newExp = user.exp + exp;
+    let newLevel = user.level;
+
+    while (newExp < 0) {
+      newExp += 100;
+      newLevel--;
+    }
+
+    return await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        exp: newExp,
+        level: newLevel,
+      },
+    });
   }
 }
