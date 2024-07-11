@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import NotificationButton from './NotificationButton'
 import { cn } from '@/utils/cn'
 import { useUserNotifications } from '@/api/useUserNotifications'
@@ -10,18 +10,40 @@ interface NotificationProps {
 
 const Notification: FC<NotificationProps> = ({ className }) => {
 	const [isPopupVisible, setIsPopupVisible] = useState<boolean>(false)
+	const popupRef = useRef<HTMLDivElement>(null)
+	const buttonRef = useRef<HTMLButtonElement>(null)
 
 	const { data: notifications, isLoading, isError } = useUserNotifications()
+
+	const handleClickOutside = (event: MouseEvent) => {
+		if (
+			popupRef.current &&
+			!popupRef.current.contains(event.target as Node) &&
+			buttonRef.current &&
+			!buttonRef.current.contains(event.target as Node)
+		) {
+			setIsPopupVisible(false)
+		}
+	}
+
+	useEffect(() => {
+		document.addEventListener('mousedown', handleClickOutside)
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside)
+		}
+	}, [])
 
 	return (
 		<div className={cn('w-[2.1875rem] h-[2.1875rem] relative z-50', className)}>
 			<NotificationButton
+				ref={buttonRef}
 				isPopupVisible={isPopupVisible}
 				setIsPopupVisible={setIsPopupVisible}
 				isHaveUnread={notifications ? notifications.unreadCount > 0 : false}
 			/>
 
 			<div
+				ref={popupRef}
 				className={cn(
 					'w-[22rem] h-[27.25rem] rounded-[2.3125rem] rounded-tr-none absolute -bottom-[7.67px] right-[73.5%] translate-y-full transition-opacity shadow-notification notifications',
 					{

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { forwardRef } from 'react'
 import noNotificationIcon from '@/assets/no-notification.png'
 import notificationIcon from '@/assets/notification.png'
 import notificationHoverIcon from '@/assets/notification-hover.png'
@@ -10,14 +10,17 @@ interface NotificationButtonProps {
 	isHaveUnread: boolean
 }
 
-const NotificationButton: FC<NotificationButtonProps> = ({
-	isPopupVisible,
-	setIsPopupVisible,
-	isHaveUnread,
-}) => {
+const NotificationButton = forwardRef<
+	HTMLButtonElement,
+	NotificationButtonProps
+>(({ isPopupVisible, setIsPopupVisible, isHaveUnread }, ref) => {
 	return (
 		<button
-			onClick={() => setIsPopupVisible(prev => !prev)}
+			ref={ref}
+			onClick={e => {
+				e.stopPropagation()
+				setIsPopupVisible(!isPopupVisible)
+			}}
 			className='w-full h-full relative group'
 		>
 			<img
@@ -54,6 +57,6 @@ const NotificationButton: FC<NotificationButtonProps> = ({
 			/>
 		</button>
 	)
-}
+})
 
 export default NotificationButton
