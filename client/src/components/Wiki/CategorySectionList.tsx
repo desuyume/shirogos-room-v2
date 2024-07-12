@@ -1,7 +1,7 @@
 import { Carousel } from '@mantine/carousel'
 import { FC } from 'react'
-import CategorySectionItem from './CategorySectionItem'
 import { ICharacterPreview } from '@/types/wiki.interface'
+import WikiCharacterItem from './WikiCharacterItem'
 
 interface ICategorySectionList {
 	characters: ICharacterPreview[]
@@ -21,11 +21,12 @@ const CategorySectionList: FC<ICategorySectionList> = ({ characters }) => {
 		>
 			{characters.map(character => (
 				<Carousel.Slide key={character.id}>
-					<CategorySectionItem
+					<WikiCharacterItem
 						key={character.id}
 						id={character.id}
 						name={character.name}
 						img={character.miniature_img ?? character.original_img}
+						inCategory
 					/>
 				</Carousel.Slide>
 			))}
