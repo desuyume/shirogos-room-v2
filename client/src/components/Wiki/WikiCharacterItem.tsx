@@ -35,7 +35,6 @@ const WikiCharacterItem: FC<WikiCharacterItemProps> = ({
 					className={cn(
 						'w-full rounded-[1.25rem] object-cover border-2 border-[#DEDEDE] transition-all aspect-[179/240]',
 						{
-							'brightness-125': isItemHovered,
 							'scale-110': isItemHovered && !inCategory,
 						}
 					)}
