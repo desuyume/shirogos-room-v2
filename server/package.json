@@ -6,14 +6,17 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "pnpm exec prisma generate && pnpm exec prisma migrate deploy && pnpm run seed && nest build",
+    "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "dev": "nest start --watch",
+    "predev": "pnpm run prisma:migrate:deploy",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
-    "prisma": "pnpm run prisma:migrate && pnpm run seed",
-    "prisma:migrate": "pnpm exec prisma migrate dev",
+    "prisma:migrate:dev": "pnpm exec prisma migrate dev",
+    "prisma:migrate:deploy": "pnpm exec prisma migrate deploy",
+    "prisma:generate": "prisma generate",
+    "db:prepare": "pnpm run prisma:generate && pnpm run prisma:migrate:deploy && pnpm run seed",
     "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
