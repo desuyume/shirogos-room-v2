@@ -44,7 +44,7 @@ const Profile: FC = () => {
 						(isLinkHover
 							? `${colorVariants.text[roomAppearance.active_username_color]}`
 							: 'text-primaryText') +
-						' text-base leading-[1.0625rem] mb-[0.13rem] transition-colors duration-300'
+						' text-base leading-[1.0625rem] mb-[0.13rem]'
 					}
 				>
 					{profile?.username}

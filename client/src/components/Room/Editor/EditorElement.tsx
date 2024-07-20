@@ -31,6 +31,7 @@ interface IEditorElement {
 	isActiveEditor: boolean
 	isCancelEdit: boolean
 	containerSize: { width: number; height: number }
+	setIsUnsaved: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const EditorElement: FC<IEditorElement> = ({
@@ -50,6 +51,7 @@ const EditorElement: FC<IEditorElement> = ({
 	isActiveEditor,
 	isCancelEdit,
 	containerSize,
+	setIsUnsaved,
 }) => {
 	const [translate, setTranslate] = useState({
 		x: 0,
@@ -285,6 +287,7 @@ const EditorElement: FC<IEditorElement> = ({
 			scale={1}
 			bounds='parent'
 			onStop={(e, data) => onStopHandler(e, data)}
+			onStart={() => setIsUnsaved(true)}
 		>
 			<div
 				ref={elementRef}
@@ -319,6 +322,7 @@ const EditorElement: FC<IEditorElement> = ({
 							)
 							recalculateTranslation()
 						}}
+						onResizeStart={() => setIsUnsaved(true)}
 						lockAspectRatio
 						className={`outline outline-transparent ${
 							colorVariantsHover.outline[roomAppearance.active_room_color]

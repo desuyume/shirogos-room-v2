@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react'
+import { FC, useContext, useEffect } from 'react'
 
 import {
 	EditorSection,
@@ -14,6 +14,7 @@ import { useUpdateRoomEditor } from '@/api/useUpdateRoomEditor'
 import { IEditorBadgeFetch, IEditorWidgetFetch } from '@/types/room.interface'
 import { RoomAppearanceContext } from '@/Context'
 import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
+import { cn } from '@/utils/cn'
 
 interface IEditorNav {
 	activeSection: EditorSection | null
@@ -22,6 +23,8 @@ interface IEditorNav {
 	editorBadges: IEditorBadge[]
 	notepadText: string
 	setIsCancelEdit: React.Dispatch<React.SetStateAction<boolean>>
+	isUnsaved: boolean
+	setIsUnsaved: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const EditorNav: FC<IEditorNav> = ({
@@ -31,10 +34,12 @@ const EditorNav: FC<IEditorNav> = ({
 	editorBadges,
 	notepadText,
 	setIsCancelEdit,
+	isUnsaved,
+	setIsUnsaved,
 }) => {
 	const roomAppearance = useContext(RoomAppearanceContext)
 
-	const { mutate: updateEditor } = useUpdateRoomEditor()
+	const { mutate: updateEditor, isSuccess } = useUpdateRoomEditor()
 
 	const clickSave = () => {
 		const widgets: IEditorWidgetFetch[] = []
@@ -87,6 +92,12 @@ const EditorNav: FC<IEditorNav> = ({
 		updateEditor(data)
 	}
 
+	useEffect(() => {
+		if (isSuccess) {
+			setIsUnsaved(false)
+		}
+	}, [isSuccess])
+
 	return (
 		<div className='w-full flex justify-center items-center h-[4.875rem] mb-[1.13rem]'>
 			<div className='flex items-center'>
@@ -95,7 +106,7 @@ const EditorNav: FC<IEditorNav> = ({
 					activeSection={activeSection}
 					setActiveSection={setActiveSection}
 				/>
-				<div className='w-[27.8125rem] h-[3.6875rem] bg-secondaryHover rounded-[2.0625rem] flex justify-center items-center'>
+				<div className='w-[27.8125rem] h-[3.6875rem] bg-secondaryHover rounded-[2.0625rem] flex justify-center items-center relative'>
 					<button
 						onClick={() => setIsCancelEdit(prev => !prev)}
 						className='bg-secondary hover:bg-opacity-70 text-primaryText rounded-[2.3125rem] transition-all w-[12.25rem] h-[2.0625rem] mr-[0.8125rem]'
@@ -103,13 +114,26 @@ const EditorNav: FC<IEditorNav> = ({
 						Отмена
 					</button>
 					<button
+						disabled={!isUnsaved}
 						onClick={clickSave}
-						className={`${colorVariants.bg[roomAppearance.active_room_color]} ${
-							colorVariantsHover.bg[roomAppearance.active_room_color]
-						} text-primaryText rounded-[2.3125rem] transition-all w-[12.25rem] h-[2.0625rem]`}
+						className={cn(
+							`${
+								colorVariants.bg[roomAppearance.active_room_color]
+							}  text-primaryText rounded-[2.3125rem] transition-all w-[12.25rem] h-[2.0625rem]`,
+							{
+								[colorVariantsHover.bg[roomAppearance.active_room_color]]:
+									isUnsaved,
+							}
+						)}
 					>
 						Сохранить
 					</button>
+
+					<div className='w-1/2 absolute -bottom-[0.3125rem] right-0 translate-y-full'>
+						<p className='text-[0.625rem] leading-[0.4375rem] text-center'>
+							{isUnsaved ? 'Изменения не сохранены.' : 'Сохранено!'}
+						</p>
+					</div>
 				</div>
 				<EditorNavBttn
 					type={'badges'}

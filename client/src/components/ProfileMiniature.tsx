@@ -47,7 +47,7 @@ const ProfileMiniature: FC<IProfileMiniature> = ({
 			)}
 
 			{withHoverEffect && (
-				<div className='w-full h-full absolute inset-0 bg-[#383134] bg-opacity-70 opacity-0 invisible transition-opacity group-hover:opacity-100 group-hover:visible flex justify-center items-center duration-300 pointer-events-none'>
+				<div className='w-full h-full absolute inset-0 bg-[#383134] bg-opacity-70 opacity-0 invisible group-hover:opacity-100 group-hover:visible flex justify-center items-center pointer-events-none'>
 					<p className='text-primaryText text-opacity-[0.55] text-[0.9375rem]'>
 						ГОУ!
 					</p>

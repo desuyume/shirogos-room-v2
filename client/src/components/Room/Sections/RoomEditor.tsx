@@ -13,6 +13,7 @@ import { editorWidgetsProps } from '@/consts/editorElements'
 import { useScreenObserver } from '@/hooks/useScreenObserver'
 import { RoomAppearanceContext } from '@/Context'
 import { colorVariants } from '@/consts/roomColors'
+import { compareObjectArrays } from '@/utils/isDeepEqual'
 
 export type EditorSection = 'badges' | 'widgets'
 
@@ -41,6 +42,12 @@ const RoomEditor: FC = () => {
 
 	const { isLoading, isError, data: roomInfo } = useRoom()
 
+	const [isUnsaved, setIsUnsaved] = useState<boolean>(false)
+	const [initialEditorElements, setInitialEditorElements] = useState<{
+		widgets: IEditorWidget[]
+		badges: IEditorBadge[]
+		notepadText: string
+	}>({ widgets: [], badges: [], notepadText: '' })
 	const [editorWidgets, setEditorWidgets] = useState<IEditorWidget[]>([])
 	const [editorBadges, setEditorBadges] = useState<IEditorBadge[]>([])
 
@@ -69,8 +76,8 @@ const RoomEditor: FC = () => {
 
 		let maxZIndex = 0
 
-		setEditorWidgets(
-			editorElements.widgets.map(widget => {
+		const fetchedWidgets: IEditorWidget[] = editorElements.widgets.map(
+			widget => {
 				const newWidget = editorWidgetsProps.find(
 					e => e.type === widget.widgetType
 				)
@@ -87,28 +94,50 @@ const RoomEditor: FC = () => {
 					translateY: widget.translateY,
 					zIndex: widget.zIndex,
 				}
-			})
+			}
 		)
-		setEditorBadges(
-			editorElements.badges.map(badge => {
-				if (badge.zIndex > maxZIndex) {
-					maxZIndex = badge.zIndex
-				}
+		const fetchedBadges: IEditorBadge[] = editorElements.badges.map(badge => {
+			if (badge.zIndex > maxZIndex) {
+				maxZIndex = badge.zIndex
+			}
 
-				return {
-					badge_id: badge.badge.id,
-					badgeImg: badge.badge.img,
-					width: badge.width,
-					height: badge.height,
-					translateX: badge.translateX,
-					translateY: badge.translateY,
-					zIndex: badge.zIndex,
-				}
-			})
-		)
+			return {
+				badge_id: badge.badge.id,
+				badgeImg: badge.badge.img,
+				width: badge.width,
+				height: badge.height,
+				translateX: badge.translateX,
+				translateY: badge.translateY,
+				zIndex: badge.zIndex,
+			}
+		})
 
-		setNotepadText(editorElements.notepad_text)
+		setEditorWidgets(fetchedWidgets)
+		setEditorBadges(fetchedBadges)
+
+		setNotepadText(editorElements.notepad_text ?? '')
 		setZIndexCount(maxZIndex + 1)
+
+		setInitialEditorElements({
+			widgets: fetchedWidgets,
+			badges: fetchedBadges,
+			notepadText: editorElements.notepad_text ?? '',
+		})
+	}
+
+	const compareEditorWithInitial = () => {
+		if (!initialEditorElements) return
+
+		const isEqual =
+			compareObjectArrays(editorBadges, initialEditorElements.badges) &&
+			compareObjectArrays(editorWidgets, initialEditorElements.widgets) &&
+			notepadText === initialEditorElements.notepadText
+
+		if (isEqual) {
+			setIsUnsaved(false)
+		} else {
+			setIsUnsaved(true)
+		}
 	}
 
 	useEffect(() => {
@@ -143,6 +172,12 @@ const RoomEditor: FC = () => {
 		})
 	}, [isActiveEditor, containerRef.current])
 
+	useEffect(() => {
+		if (isEditorSuccess) {
+			compareEditorWithInitial()
+		}
+	}, [editorBadges, editorWidgets, notepadText, initialEditorElements])
+
 	return (
 		<div
 			className={
@@ -164,6 +199,8 @@ const RoomEditor: FC = () => {
 							editorBadges={editorBadges}
 							notepadText={notepadText}
 							setIsCancelEdit={setIsCancelEdit}
+							isUnsaved={isUnsaved}
+							setIsUnsaved={setIsUnsaved}
 						/>
 
 						<div
@@ -220,6 +257,7 @@ const RoomEditor: FC = () => {
 									isActiveEditor={isActiveEditor}
 									isCancelEdit={isCancelEdit}
 									containerSize={containerSize}
+									setIsUnsaved={setIsUnsaved}
 								/>
 							)}
 							{editorWidgets
@@ -248,6 +286,7 @@ const RoomEditor: FC = () => {
 										isActiveEditor={isActiveEditor}
 										isCancelEdit={isCancelEdit}
 										containerSize={containerSize}
+										setIsUnsaved={setIsUnsaved}
 									/>
 								))}
 							{editorBadges.map(badge => (
@@ -266,6 +305,7 @@ const RoomEditor: FC = () => {
 									isActiveEditor={isActiveEditor}
 									isCancelEdit={isCancelEdit}
 									containerSize={containerSize}
+									setIsUnsaved={setIsUnsaved}
 								/>
 							))}
 						</div>
