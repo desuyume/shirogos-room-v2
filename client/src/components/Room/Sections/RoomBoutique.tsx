@@ -11,7 +11,7 @@ const RoomBoutique: FC = () => {
 		<div
 			className={
 				(isActive ? 'block' : 'hidden') +
-				' transition-all w-full bg-secondaryHover bg-opacity-50 rounded-[2.3125rem] relative'
+				' transition-all w-full bg-black bg-opacity-25 rounded-[2.3125rem] relative'
 			}
 		>
 			<BooutiqueNav />

@@ -25,6 +25,7 @@ type ColorType =
 	| 'border'
 	| 'outline'
 	| 'caret'
+	| 'bgRoomGradientBg'
 	| 'bgRoomGradient'
 	| 'bgRoomGradientRevert'
 type ColorTypeHover = 'bg' | 'text' | 'border' | 'outline'
@@ -124,6 +125,21 @@ export const colorVariants: Record<ColorType, Record<RoomColor, string>> = {
 		red: 'caret-red',
 		turquoise: 'caret-turquoise',
 		crimson: 'caret-crimson',
+	},
+	bgRoomGradientBg: {
+		pink: 'bg-room-gradient-bg-pink',
+		vermilion: 'bg-room-gradient-bg-vermilion',
+		orange: 'bg-room-gradient-bg-orange',
+		blue: 'bg-room-gradient-bg-blue',
+		purple: 'bg-room-gradient-bg-purple',
+		magenta: 'bg-room-gradient-bg-magenta',
+		gray: 'bg-room-gradient-bg-gray',
+		green: 'bg-room-gradient-bg-green',
+		yellow: 'bg-room-gradient-bg-yellow',
+		aqua: 'bg-room-gradient-bg-aqua',
+		red: 'bg-room-gradient-bg-red',
+		turquoise: 'bg-room-gradient-bg-turquoise',
+		crimson: 'bg-room-gradient-bg-crimson',
 	},
 	bgRoomGradient: {
 		pink: 'bg-room-gradient-pink',

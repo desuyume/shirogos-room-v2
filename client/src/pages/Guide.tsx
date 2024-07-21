@@ -2,6 +2,7 @@ import { useRoomByUsername } from '@/api/useRoomByUsername'
 import RoomMainContent from '@/components/Room/Main/RoomMainContent'
 import { colorVariants } from '@/consts/roomColors'
 import Header from '@/layout/Header/Header'
+import { cn } from '@/utils/cn'
 import { AxiosError } from 'axios'
 import { FC, useEffect, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
@@ -70,22 +71,30 @@ const Guide: FC = () => {
 				</div>
 			) : (
 				<div
-					style={{
-						backgroundImage: !!guideRoom.roomAppearance.selected_background
-							? `url(${import.meta.env.VITE_SERVER_URL}/${guideRoom
-									.roomAppearance.selected_background?.img})`
-							: "url('/images/room-default-bg.webp')",
-					}}
-					className={
-						(!!guideRoom?.roomAppearance.selected_background
-							? 'bg-cover bg-no-repeat bg-center '
-							: '') +
-						`min-h-[calc(100vh-5.25rem)] relative z-10 ${
-							colorVariants.text[guideRoom.roomAppearance.active_room_color]
-						}`
-					}
+					className={`min-h-[calc(100vh-5.25rem)] bg-tertiary relative z-10 ${
+						colorVariants.text[guideRoom.roomAppearance.active_room_color]
+					}`}
 				>
-					<div className='w-full h-full bg-tertiary absolute inset-0 opacity-80 -z-10' />
+					<div
+						style={{
+							backgroundImage: !!guideRoom.roomAppearance.selected_background
+								? `url(${import.meta.env.VITE_SERVER_URL}/${guideRoom
+										.roomAppearance.selected_background?.img})`
+								: "url('/images/room-default-bg.webp')",
+						}}
+						className={cn(`w-full h-full opacity-30 absolute inset-0 -z-20`, {
+							'bg-cover bg-no-repeat bg-center':
+								!!guideRoom.roomAppearance.selected_background,
+						})}
+					/>
+					<div
+						className={`w-full h-full ${
+							colorVariants.bgRoomGradientBg[
+								guideRoom.roomAppearance.active_room_color
+							]
+						} absolute inset-0 -z-10`}
+					/>
+
 					<div className='pt-[0.9375rem] w-[73.85vw] mx-auto pb-[6.8125rem]'>
 						<div className='flex justify-between w-full h-full'>
 							<RoomMainContent

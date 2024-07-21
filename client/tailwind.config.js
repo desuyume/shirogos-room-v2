@@ -55,6 +55,33 @@ export default {
 				crimsonHover: '#DE5389',
 			},
 			backgroundImage: {
+				'room-gradient-bg-pink':
+					'linear-gradient(180deg, rgba(195, 67, 117, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%)',
+				'room-gradient-bg-vermilion':
+					'linear-gradient(180deg, rgba(195, 67, 67, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%)',
+				'room-gradient-bg-orange':
+					'linear-gradient(180deg, rgba(195, 113, 67, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%)',
+				'room-gradient-bg-blue':
+					'linear-gradient(180deg, rgba(67, 103, 195, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%)',
+				'room-gradient-bg-purple':
+					'linear-gradient(180deg, rgba(123, 67, 195, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%)',
+				'room-gradient-bg-magenta':
+					'linear-gradient(180deg, rgba(195, 67, 182, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%)',
+				'room-gradient-bg-gray':
+					'linear-gradient(180deg, rgba(113, 113, 113, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%)',
+				'room-gradient-bg-green':
+					'linear-gradient(180deg, rgba(74, 150, 72, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%)',
+				'room-gradient-bg-yellow':
+					'linear-gradient(180deg, rgba(190, 156, 37, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%)',
+				'room-gradient-bg-aqua':
+					'linear-gradient(180deg, rgba(52, 163, 170, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%)',
+				'room-gradient-bg-red':
+					'linear-gradient(180deg, rgba(168, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%)',
+				'room-gradient-bg-turquoise':
+					'linear-gradient(180deg, rgba(0, 168, 128, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%)',
+				'room-gradient-bg-crimson':
+					'linear-gradient(180deg, rgba(164, 17, 74, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%)',
+
 				'room-info-gray-gradient':
 					'linear-gradient(to bottom, #323232 0%, rgba(0, 0, 0, 0) 88%)',
 				'room-info-pink-gradient':
@@ -66,8 +93,6 @@ export default {
 				'wiki-character-gradient-second':
 					'linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, 1))',
 				'room-default-bg': "url('/images/room-default-bg.png')",
-				'room-gradient':
-					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(195, 67, 117, 0.50) 100%)',
 				'room-gameOrder-bg':
 					'linear-gradient(180deg, rgba(24, 24, 24, 0.50) 0%, rgba(36, 36, 36, 0.50) 100%)',
 				'room-orderDone-bg':
@@ -135,8 +160,8 @@ export default {
 					'linear-gradient(180deg, rgba(164, 17, 74, 0.90) -82.24%, rgba(36, 36, 36, 0.90) 70.58%)',
 			},
 			boxShadow: {
-				'notification': '0 2px 40px -13px #000'
-			}
+				notification: '0 2px 40px -13px #000',
+			},
 		},
 	},
 	plugins: [],

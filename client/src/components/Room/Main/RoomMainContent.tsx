@@ -58,7 +58,7 @@ const RoomMainContent: FC<IRoomMainContent> = ({
 						{room.name}
 					</p>
 				</div>
-				<div className='bg-secondaryHover bg-opacity-75 rounded-[2.3125rem] w-full aspect-[1163/953] relative'>
+				<div className='bg-black bg-opacity-25 rounded-[2.3125rem] w-full aspect-[1163/953] relative'>
 					{!!editor && (
 						<>
 							{editor.badges.map(badge => (
