@@ -15,8 +15,9 @@ const FirstScreen: FC = () => {
 	const context = useContext(UserContext)
 
 	return (
-		<div className='bg-primaryText h-[729px] relative overflow-hidden'>
+		<div className='h-[45.5625rem] relative overflow-hidden'>
 			<AuthModal visible={isModalVisible} setVisible={setIsModalVisible} />
+
 			<img
 				className={
 					(isModalVisible ? 'visible opacity-100' : 'invisible opacity-0') +
@@ -25,13 +26,16 @@ const FirstScreen: FC = () => {
 				src={closeImg}
 				alt='close-img'
 			/>
+
 			<Socials />
+
 			<h1 className='font-secondary text-[6.25rem] font-bold leading-[95.5%] absolute top-[159px] left-[50%] tracking-[-0.375rem]'>
 				КОМНАТА <br />
 				<span className='leading-none text-[8.125rem] tracking-[-0.4875rem]'>
 					ШИРОГО
 				</span>
 			</h1>
+
 			<MouseParallaxContainer
 				containerStyle={{ overflow: 'visible' }}
 				className='flex justify-center w-screen h-full select-none'
