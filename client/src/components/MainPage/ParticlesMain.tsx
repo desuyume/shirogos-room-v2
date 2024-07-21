@@ -21,14 +21,14 @@ const ParticlesMain: FC = () => {
 		})
 	}, [])
 
-	return (
-		init && (
-			<Particles
-				id='tsparticles'
-				className='w-full h-[45.5625rem] absolute'
-				{...pariclesPropsMain}
-			/>
-		)
+	return init ? (
+		<Particles
+			id='tsparticles'
+			className='w-full h-[45.5625rem] absolute'
+			{...pariclesPropsMain}
+		/>
+	) : (
+		<></>
 	)
 }
 
