@@ -4,6 +4,7 @@ import telegramIcon from '@/assets/room/telegram.png'
 import twitchIcon from '@/assets/room/twitch.png'
 import vkIcon from '@/assets/room/vk.png'
 import { IConnection } from '@/types/user.interface'
+import Connection from './Connection'
 
 interface IConnections {
 	discord: IConnection
@@ -20,60 +21,31 @@ const Connections: FC<IConnections> = ({ discord, telegram, twitch, vk }) => {
 			</h3>
 			<div className='flex w-full'>
 				<div className='flex flex-col items-center mx-auto w-full'>
-					<div
-						className={
-							(discord
-								? ''
-								: 'cursor-pointer opacity-50 hover:opacity-100 ') +
-							'flex items-center cursor-pointer transition-all mb-4'
-						}
-					>
-						<img className='mr-4' src={discordIcon} alt='discord-icon' />
-						<p className='text-primaryText text-xl'>
-							{discord ? discord.displayName : 'не подключено'}
-						</p>
-					</div>
-					<div
-						className={
-							(twitch
-								? ''
-								: 'cursor-pointer opacity-50 hover:opacity-100 ') +
-							'flex items-center cursor-pointer transition-all ml-2.5'
-						}
-					>
-						<img className='mr-4' src={twitchIcon} alt='twitch-icon' />
-						<p className='text-primaryText text-xl'>
-							{twitch ? twitch.displayName : 'не подключено'}
-						</p>
-					</div>
+					<Connection
+						service='Discord'
+						connectionData={discord}
+						icon={discordIcon}
+						isDisabled
+					/>
+					<Connection
+						service='Twitch'
+						connectionData={twitch}
+						icon={twitchIcon}
+					/>
 				</div>
 				<div className='flex flex-col w-full ml-10'>
-					<div
-						className={
-							(telegram
-								? ''
-								: 'cursor-pointer opacity-50 hover:opacity-100 ') +
-							'flex items-center cursor-pointer transition-all mb-4'
-						}
-					>
-						<img className='mr-4' src={telegramIcon} alt='telegram-icon' />
-						<p className='text-primaryText text-xl'>
-							{telegram ? telegram.displayName : 'не подключено'}
-						</p>
-					</div>
-					<div
-						className={
-							(vk
-								? ''
-								: 'cursor-pointer opacity-50 hover:opacity-100 ') +
-							'flex items-center transition-all'
-						}
-					>
-						<img className='mr-4' src={vkIcon} alt='vk-icon' />
-						<p className='text-primaryText text-xl'>
-							{vk ? vk.displayName : 'не подключено'}
-						</p>
-					</div>
+					<Connection
+						service='Telegram'
+						connectionData={telegram}
+						icon={telegramIcon}
+						isDisabled
+					/>
+					<Connection
+						service='Vk'
+						connectionData={vk}
+						icon={vkIcon}
+						isDisabled
+					/>
 				</div>
 			</div>
 		</div>

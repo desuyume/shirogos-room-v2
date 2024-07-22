@@ -1,33 +1,36 @@
-import { FC, useState } from 'react';
+import { FC, useState } from 'react'
 import twitchHoveredIcon from '@/assets/auth/twitch-hover.png'
+import { IAuthBttn } from './AuthModal'
+import { cn } from '@/utils/cn'
 
-interface IAuthBttn {
-	service: string
-	icon: string
-	clickEvent: () => void
+interface AuthBttnProps {
+	bttn: IAuthBttn
 }
 
-const AuthBttn: FC<IAuthBttn> = ({ service, icon, clickEvent }) => {
+const AuthBttn: FC<AuthBttnProps> = ({
+	bttn: { service, icon, clickEvent, isDisabled },
+}) => {
 	const [isTwtichHovered, setIsTwtichHovered] = useState<boolean>(false)
 
-	return service === 'Twitch' ? (
+	return (
 		<button
-			className='mb-3'
+			className={cn(
+				'mb-3 last:mb-0 [&:nth-last-child(2)]:mb-0 transition-opacity',
+				{
+					'opacity-50': service !== 'Twitch',
+					'hover:opacity-100': service !== 'Twitch' && !isDisabled,
+				}
+			)}
+			disabled={isDisabled}
 			onClick={clickEvent}
 			onMouseOver={() => setIsTwtichHovered(true)}
 			onMouseLeave={() => setIsTwtichHovered(false)}
 		>
-			<img src={isTwtichHovered ? twitchHoveredIcon : icon} alt='auth-icon' />
-		</button>
-	) : (
-		<button
-			className={
-				(service !== 'Twitch' && 'opacity-50 hover:opacity-100') +
-				' mb-3 last:mb-0 [&:nth-last-child(2)]:mb-0 transition-opacity'
-			}
-			onClick={clickEvent}
-		>
-			<img src={icon} alt='auth-icon' />
+			{service === 'Twitch' ? (
+				<img src={isTwtichHovered ? twitchHoveredIcon : icon} alt='auth-icon' />
+			) : (
+				<img src={icon} alt='auth-icon' />
+			)}
 		</button>
 	)
 }

@@ -100,7 +100,23 @@ const UserInfoBar: FC<IUserInfoBar> = ({
 					guideRoomAppearance={guideRoomAppearance}
 				/>
 			</div>
-			<div className='bg-[#4A9648] w-[calc(100%-4px)] h-[6.4375rem] absolute bottom-[2px] rounded-[1.5625rem] overflow-hidden'>
+			<div className='bg-[#4A9648] w-[calc(100%-77px)] mx-[2px] h-[6.4375rem] absolute bottom-[2px] rounded-l-[1.5625rem] self-start overflow-hidden'>
+				<div className='w-full h-full relative'>
+					<svg
+						width='77'
+						height='151'
+						viewBox='0 0 77 151'
+						fill='none'
+						xmlns='http://www.w3.org/2000/svg'
+						className='absolute right-0'
+					>
+						<path
+							d='M77 75.5L0.500001 150.411L0.500007 0.588803L77 75.5Z'
+							fill='#4A9648'
+						/>
+					</svg>
+				</div>
+
 				<p className='text-primaryText text-[0.9375rem] w-full text-center absolute bottom-[0.45rem] z-10'>
 					Уровень {level}
 				</p>
