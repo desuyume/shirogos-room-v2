@@ -40,8 +40,8 @@ enum Gender {
 
 model User {
   id                           Int                    @id @default(autoincrement())
-  username                     String                 @unique
-  email                        String
+  username                     String?                @unique
+  email                        String?
   gender                       Gender                 @default(value: MALE)
   birthday                     String?
   lastRecievedBirthdayAwardDay String?
@@ -202,7 +202,7 @@ model TwitchProfile {
   id          Int     @id @default(autoincrement())
   login       String
   displayName String
-  email       String
+  email       String?
   profile_img String?
   User        User?
 
