@@ -37,15 +37,20 @@ const UsersList: FC<IUsersList> = ({
 				>
 					<div className='pt-[0.1875rem] pr-[1.31rem]'>
 						{users
-							.filter(donate =>
-								donate.username
+							.filter(user =>
+								user.twitch.displayName
 									.toLowerCase()
 									.includes(searchQuery.toLowerCase())
 							)
 							.map(user => (
 								<div
 									key={user.id}
-									onClick={() => setSelectedUser(user)}
+									onClick={() =>
+										setSelectedUser({
+											id: user.id,
+											userDisplayName: user.twitch.displayName,
+										})
+									}
 									className={
 										(selectedUser?.id === user.id
 											? 'bg-primary '
@@ -54,7 +59,7 @@ const UsersList: FC<IUsersList> = ({
 									}
 								>
 									<p className='text-[#FFF] text-center text-xl'>
-										{user.username}
+										{user.twitch.displayName}
 									</p>
 								</div>
 							))}

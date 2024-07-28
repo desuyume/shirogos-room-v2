@@ -46,16 +46,15 @@ const CreateRoom: FC = () => {
 		}
 
 		if (userContext?.isFetched && userContext.user) {
-			console.log(userContext)
-			setUsername(userContext.user?.username)
+			setUsername(userContext.user?.username ?? '')
 		}
-	}, [userContext?.isFetched])
+	}, [userContext?.isFetched, userContext?.user, navigate])
 
 	useEffect(() => {
 		if (isRoomCreated) {
 			window.location.href = '/room'
 		}
-	}, [isFetchedIsRoomCreated])
+	}, [isFetchedIsRoomCreated, isRoomCreated])
 
 	return !isFetchedIsRoomCreated || isRoomCreated ? (
 		<Loader />

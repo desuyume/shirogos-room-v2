@@ -18,7 +18,7 @@ const OrdersList: FC<IOrdersList> = ({ orders }) => {
 					key={order.id}
 					index={index + 1}
 					id={order.id}
-					nickname={order.user.username}
+					nickname={order.user.twitch.displayName}
 					order={order.orderText}
 					time={order.orderPrice.text}
 				/>

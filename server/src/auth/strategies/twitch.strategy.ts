@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-twitch-strategy';
 import { PrismaService } from 'src/prisma.service';
+import { UserPayloadDto } from 'src/user/dto/user-payload.dto';
 
 @Injectable()
 export class TwitchStrategy extends PassportStrategy(Strategy, 'twitch') {
@@ -19,7 +20,12 @@ export class TwitchStrategy extends PassportStrategy(Strategy, 'twitch') {
       where: {
         id: +profile.id,
       },
-      update: {},
+      update: {
+        email: profile.email,
+        login: profile.login,
+        profile_img: profile.profile_image_url,
+        displayName: profile.displayName,
+      },
       create: {
         id: +profile.id,
         email: profile.email,
@@ -39,18 +45,22 @@ export class TwitchStrategy extends PassportStrategy(Strategy, 'twitch') {
           },
         },
       },
-      update: {},
+      update: {
+        email: twitchProfile.email || null,
+        profile_img: twitchProfile.profile_img || null,
+        twitchId: twitchProfile.id,
+      },
       create: {
-        username: twitchProfile.displayName,
-        email: twitchProfile.email,
-        profile_img: twitchProfile.profile_img,
+        email: twitchProfile.email || null,
+        profile_img: twitchProfile.profile_img || null,
         twitchId: twitchProfile.id,
       },
     });
 
-    const user = {
+    const user: UserPayloadDto = {
       id: userFromDb.id,
       username: userFromDb.username,
+      displayName: twitchProfile.displayName,
       role: userFromDb.role,
       roomId: userFromDb.Room?.id,
     };

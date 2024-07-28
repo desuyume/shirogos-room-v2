@@ -1,6 +1,6 @@
 export class CreateNotificationDto {
 	text: string;
-	usernames: string;
+	usersId: string;
 }
 
 export interface IFetchedNotification {

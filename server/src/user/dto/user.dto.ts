@@ -1,8 +1,9 @@
 export class UserDto {
   id: number;
-  username: string;
-  email: string;
+  username: string | null;
+  email: string | null;
   role: string;
+  displayName: string;
   roomId: number;
   profile_img?: string;
   twitchId: number;
@@ -14,6 +15,7 @@ export class UserDto {
     this.id = model.id;
     this.username = model.username;
     this.role = model.role;
+    this.displayName = model.displayName;
     this.roomId = model.roomId;
   }
 }

@@ -14,10 +14,10 @@ import { removeFile } from 'src/utils/removeFile';
 export class NotificationService {
   constructor(private prisma: PrismaService) {}
 
-  async getUserNotifications(username: string) {
+  async getUserNotifications(userId: number) {
     const notifications = await this.prisma.notificationsOnUsers.findMany({
       where: {
-        username,
+        userId,
       },
       select: {
         isRead: true,
@@ -46,7 +46,10 @@ export class NotificationService {
       });
     }
 
-    return { unreadCount: result.filter((n) => !n.isRead).length, notifications: result };
+    return {
+      unreadCount: result.filter((n) => !n.isRead).length,
+      notifications: result,
+    };
   }
 
   async create(dto: CreateNotificationDto, img: Express.Multer.File | null) {
@@ -59,13 +62,13 @@ export class NotificationService {
         img: !!img ? img.filename : null,
       },
     });
-    const usernames = JSON.parse(dto.usernames) as string[];
+    const usersId = JSON.parse(dto.usersId) as number[];
 
-    for (const username of usernames) {
+    for (const userId of usersId) {
       await this.prisma.notificationsOnUsers.create({
         data: {
           notificationId: notification.id,
-          username,
+          userId,
         },
       });
     }
@@ -73,10 +76,10 @@ export class NotificationService {
     return notification;
   }
 
-  async readNotification(username: string, notificationId: number) {
+  async readNotification(userId: number, notificationId: number) {
     return await this.prisma.notificationsOnUsers.updateMany({
       where: {
-        username,
+        userId,
         notificationId,
       },
       data: {

@@ -4,7 +4,7 @@ export class CreateOrderManuallyDto {
 	@IsNumber()
 	orderPriceId: number
 	@IsNotEmpty()
-	username: string
+	userId: number
 	@IsString()
 	orderText: string
 }

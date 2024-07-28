@@ -2,8 +2,11 @@ import { IFrame } from './frame.interface'
 
 export interface IUser {
 	id: number
-	username: string
+	username: string | null
 	role: string
+	twitch: {
+		displayName: string
+	}
 	Room: {
 		id: number
 	} | null
@@ -17,7 +20,10 @@ export interface IUserTokens {
 }
 
 export interface IUserProfile {
-	username: string
+	username: string | null
+	twitch: {
+		displayName: string
+	}
 	dangos: number
 	level: number
 	profile_img: string | null
@@ -27,12 +33,12 @@ export interface IUserProfile {
 
 export interface IFindUser {
 	id: number
-	username: string
+	userDisplayName: string
 }
 
 export interface IUserStats {
 	id: number
-	username: string
+	username: string | null
 	panopticons: number
 	games_ordered: number
 	viewing_ordered: number
@@ -75,7 +81,7 @@ export interface IConnection {
 
 export interface IUserInfo {
 	id: number
-	username: string
+	username: string | null
 	birthday: Date
 	gender: Gender
 	profile_img: string | null

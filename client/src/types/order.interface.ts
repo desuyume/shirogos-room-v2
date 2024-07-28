@@ -23,7 +23,7 @@ export interface IOrderRules {
 
 export interface ICreateOrderManually {
 	orderPriceId: number
-	username: string
+	userId: number
 	orderText: string
 }
 
@@ -74,5 +74,8 @@ export interface IUserOrder {
 	status: OrderStatus
 	user: {
 		username: string
+		twitch: {
+			displayName: string
+		}
 	}
 }

@@ -28,7 +28,7 @@ const Profile: FC = () => {
 				<ProfileMiniature
 					miniature_img={profile.miniature_img}
 					profile_img={profile.profile_img}
-					username={profile.username}
+					username={profile.username ?? profile.twitch.displayName}
 					frame={profile.frame}
 					className='w-[5.625rem] h-[4.5rem]'
 					withHoverEffect

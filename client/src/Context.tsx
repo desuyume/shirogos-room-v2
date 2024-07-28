@@ -56,6 +56,9 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 							id: userData.user.Room.id,
 					  }
 					: null,
+				twitch: {
+					displayName: userData.user.twitch.displayName,
+				},
 			})
 		} catch (e) {
 			localStorage.removeItem('token')

@@ -594,8 +594,8 @@ model Notification {
 model NotificationsOnUsers {
   id             Int          @id @default(autoincrement())
   isRead         Boolean      @default(false)
-  User           User         @relation(fields: [username], references: [username])
-  username       String
+  User           User         @relation(fields: [userId], references: [id])
+  userId         Int
   Notification   Notification @relation(fields: [notificationId], references: [id])
   notificationId Int
 }

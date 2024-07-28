@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import searchIcon from '@/assets/search-icon.png'
-import { IUser } from '@/types/user.interface'
+import { IFindUser, IUser } from '@/types/user.interface'
 import { Scrollbar } from 'react-scrollbars-custom'
 import { useUsers } from '@/api/useUsers'
 import { cn } from '@/utils/cn'
@@ -10,8 +10,8 @@ interface FindUserProps {
 	isVisible: boolean
 	className?: string
 	selectType: 'users' | 'rooms'
-	selectedUsers?: string[]
-	setSelectedUsers?: React.Dispatch<React.SetStateAction<string[]>>
+	selectedUsers?: IFindUser[]
+	setSelectedUsers?: React.Dispatch<React.SetStateAction<IFindUser[]>>
 	selectedRooms?: number[]
 	setSelectedRooms?: React.Dispatch<React.SetStateAction<number[]>>
 }
@@ -34,16 +34,20 @@ const FindUser: FC<FindUserProps> = ({
 
 	const selectUser = (user: IUser) => {
 		if (!selectedUsers || !setSelectedUsers) return
+		const userObj: IFindUser = {
+			id: user.id,
+			userDisplayName: user.twitch.displayName,
+		}
+		const isSelected =
+			selectedUsers.filter(user => user.id === userObj.id).length > 0
 		if (multiple) {
 			setSelectedUsers(prev =>
-				selectedUsers.includes(user.username)
-					? [...prev.filter(username => username !== user.username)]
-					: [...prev, user.username]
+				isSelected
+					? [...prev.filter(user => user.id !== userObj.id)]
+					: [...prev, userObj]
 			)
 		} else {
-			selectedUsers.includes(user.username)
-				? setSelectedUsers([])
-				: setSelectedUsers([user.username])
+			isSelected ? setSelectedUsers([]) : setSelectedUsers([userObj])
 		}
 	}
 
@@ -65,7 +69,7 @@ const FindUser: FC<FindUserProps> = ({
 
 	const isSelected = (user: IUser): boolean => {
 		if (selectType === 'users' && selectedUsers) {
-			return selectedUsers.includes(user.username)
+			return selectedUsers.filter(u => u.id === user.id).length > 0
 		} else if (selectType === 'rooms' && selectedRooms && !!user.Room?.id) {
 			return selectedRooms?.includes(user.Room.id)
 		}
@@ -87,7 +91,12 @@ const FindUser: FC<FindUserProps> = ({
 		}
 
 		if (selectType === 'users' && setSelectedUsers) {
-			setSelectedUsers(filteredUsers.map(user => user.username))
+			setSelectedUsers(
+				filteredUsers.map(user => ({
+					id: user.id,
+					userDisplayName: user.twitch.displayName,
+				}))
+			)
 		}
 
 		if (selectType === 'rooms' && setSelectedRooms) {
@@ -145,15 +154,19 @@ const FindUser: FC<FindUserProps> = ({
 					onChange={e => setSearchQuery(e.target.value)}
 				/>
 			</div>
-			<button
-				onClick={selectAll}
-				className={cn('w-full text-sm my-1 transition-colors', {
-					'text-primary': isAllSelected,
-					'text-primaryText': !isAllSelected,
-				})}
-			>
-				Выбрать всех
-			</button>
+
+			{multiple && (
+				<button
+					onClick={selectAll}
+					className={cn('w-full text-sm mt-1 transition-colors', {
+						'text-primary': isAllSelected,
+						'text-primaryText': !isAllSelected,
+					})}
+				>
+					Выбрать всех
+				</button>
+			)}
+
 			{isLoading ? (
 				<div className='w-[96.7%] h-full flex justify-center items-center'>
 					<p>Загрузка...</p>
@@ -165,12 +178,14 @@ const FindUser: FC<FindUserProps> = ({
 			) : (
 				<Scrollbar
 					noDefaultStyles
-					style={{ width: '96.7%', height: '100%', marginBottom: '0.44rem' }}
+					style={{ width: '96.7%', height: '100%', marginTop: '0.25rem', marginBottom: '0.44rem' }}
 				>
 					<div className='w-[96.7%] flex flex-col'>
 						{filteredUsers
 							.filter(user =>
-								user.username.toLowerCase().includes(searchQuery.toLowerCase())
+								user.twitch.displayName
+									.toLowerCase()
+									.includes(searchQuery.toLowerCase())
 							)
 							.map(user => (
 								<div
@@ -192,7 +207,7 @@ const FindUser: FC<FindUserProps> = ({
 										)}
 									/>
 									<p className='text-[#FFF] text-[0.9375rem] font-secondary font-normal pb-1 leading-none overflow-hidden'>
-										{user.username}
+										{user.twitch.displayName}
 									</p>
 								</div>
 							))}

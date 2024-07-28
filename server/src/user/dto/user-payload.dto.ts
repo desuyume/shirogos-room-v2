@@ -4,10 +4,12 @@ export class UserPayloadDto {
     this.username = payload.username;
     this.role = payload.role;
     this.roomId = payload.roomId;
+    this.displayName = payload.displayName;
   }
 
   id: number;
   username: string;
   role: string;
+  displayName: string;
   roomId: number;
 }

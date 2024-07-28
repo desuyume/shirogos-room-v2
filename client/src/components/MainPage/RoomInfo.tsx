@@ -86,7 +86,7 @@ const RoomInfo: FC = () => {
 							<ProfileMiniature
 								miniature_img={userInfo.miniature_img}
 								profile_img={userInfo.profile_img}
-								username={userInfo.username}
+								username={userInfo.username ?? userInfo.twitch.displayName}
 								frame={null}
 								className='w-full h-[4.5rem] object-cover'
 							/>

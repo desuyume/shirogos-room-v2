@@ -52,7 +52,7 @@ export class OrderService {
   async createOrderManually(dto: CreateOrderManuallyDto) {
     const user = await this.prisma.user.findUnique({
       where: {
-        username: dto.username,
+        id: dto.userId,
       },
       select: {
         id: true,
@@ -218,6 +218,11 @@ export class OrderService {
         user: {
           select: {
             username: true,
+            twitch: {
+              select: {
+                displayName: true
+              }
+            }
           },
         },
       },
@@ -247,6 +252,11 @@ export class OrderService {
         user: {
           select: {
             username: true,
+            twitch: {
+              select: {
+                displayName: true
+              }
+            }
           },
         },
       },
@@ -276,6 +286,11 @@ export class OrderService {
         user: {
           select: {
             username: true,
+            twitch: {
+              select: {
+                displayName: true
+              }
+            }
           },
         },
       },
@@ -305,6 +320,11 @@ export class OrderService {
         user: {
           select: {
             username: true,
+            twitch: {
+              select: {
+                displayName: true
+              }
+            }
           },
         },
       },

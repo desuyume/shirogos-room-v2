@@ -23,7 +23,7 @@ const RoomSettings: FC = () => {
 	useEffect(() => {
 		if (!isLoading) {
 			if (isSuccess) {
-				setUsername(userInfo?.username)
+				setUsername(userInfo?.username ?? '')
 				setBirthday(userInfo?.birthday ? new Date(userInfo?.birthday) : null)
 				setGender(String(userInfo?.gender))
 			}
@@ -57,7 +57,7 @@ const RoomSettings: FC = () => {
 		>
 			<div className='rounded-tl-[1.25rem] border-[1px] border-[#646464] w-[66%] h-[36.375rem] pb-7 px-4'>
 				<ChangeUsername
-					initialValue={userInfo.username}
+					initialValue={userInfo.username ?? ''}
 					value={username}
 					setValue={setUsername}
 				/>

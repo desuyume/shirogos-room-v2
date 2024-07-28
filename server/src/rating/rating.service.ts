@@ -25,6 +25,11 @@ export class RatingService {
         level: true,
         profile_img: true,
         miniature_img: true,
+        twitch: {
+          select: {
+            displayName: true,
+          },
+        },
         Room: {
           select: {
             selected_frame: true,

@@ -24,8 +24,8 @@ export class NotificationController {
   @Get()
   @UseGuards(AuthGuard)
   async getUserNotifications(@Req() req) {
-    const { username } = req.user;
-    return await this.notificationService.getUserNotifications(username);
+    const { id: userId } = req.user;
+    return await this.notificationService.getUserNotifications(userId);
   }
 
   @Post()
@@ -40,9 +40,9 @@ export class NotificationController {
   @Patch('read/:id')
   @UseGuards(AuthGuard)
   async readNotification(@Req() req, @Param('id') notificationId: number) {
-    const { username } = req.user;
+    const { id: userId } = req.user;
     return await this.notificationService.readNotification(
-      username,
+      userId,
       notificationId,
     );
   }

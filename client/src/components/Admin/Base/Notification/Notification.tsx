@@ -3,10 +3,11 @@ import FindUser from '../../FindUser'
 import previewUploadedImg from '@/utils/previewUploadedImg'
 import { useCreateNotification } from '@/api/useCreateNotification'
 import { toast } from 'react-toastify'
+import { IFindUser } from '@/types/user.interface'
 
 const Notification: FC = () => {
 	const [text, setText] = useState<string>('')
-	const [selectedUsers, setSelectedUsers] = useState<string[]>([])
+	const [selectedUsers, setSelectedUsers] = useState<IFindUser[]>([])
 	const [isImgUploaded, setIsImgUploaded] = useState<boolean>(false)
 	const [img, setImg] = useState<File | null>(null)
 	const inputRef = useRef<HTMLInputElement | null>(null)
@@ -30,7 +31,8 @@ const Notification: FC = () => {
 		if (img) {
 			data.append('img', img)
 		}
-		data.append('usernames', JSON.stringify(selectedUsers))
+		const usersId = selectedUsers.map(user => user.id)
+		data.append('usersId', JSON.stringify(usersId))
 		createNotification(data)
 	}
 

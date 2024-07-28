@@ -16,6 +16,11 @@ export class UserService {
         id: true,
         username: true,
         role: true,
+        twitch: {
+          select: {
+            displayName: true,
+          },
+        },
         Room: {
           select: {
             id: true,
@@ -23,8 +28,8 @@ export class UserService {
         },
       },
       orderBy: {
-        id: 'asc'
-      }
+        id: 'asc',
+      },
     });
   }
 
@@ -50,6 +55,9 @@ export class UserService {
         id: userData.id,
         username: userData.username,
         role: userData.role,
+        twitch: {
+          displayName: userData.displayName,
+        },
         Room: {
           id: userData.roomId,
         },
@@ -69,6 +77,11 @@ export class UserService {
         miniature_img: true,
         level: true,
         dangos: true,
+        twitch: {
+          select: {
+            displayName: true,
+          },
+        },
         Room: {
           select: {
             selected_frame: true,
@@ -99,7 +112,11 @@ export class UserService {
         id: userData.id,
       },
     });
-    const userDto = new UserDto({ ...user, roomId: userData.roomId });
+    const userDto = new UserDto({
+      ...user,
+      roomId: userData.roomId,
+      displayName: userData.displayName,
+    });
     const tokens = this.tokenService.generateTokens({ ...userDto });
 
     await this.tokenService.saveToken(
@@ -115,6 +132,9 @@ export class UserService {
         role: userData.role,
         Room: {
           id: userData.roomId,
+        },
+        twitch: {
+          displayName: userData.displayName,
         },
       },
       ...tokens,

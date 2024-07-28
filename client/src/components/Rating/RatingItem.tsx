@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { Link } from 'react-router-dom'
 import ProfileMiniature from '../ProfileMiniature'
 import { IRatingUser } from '@/types/rating.interface'
 import { cn } from '@/utils/cn'
@@ -27,24 +26,17 @@ const RatingItem: FC<IRatingItem> = ({ user, place }) => {
 			>
 				#{place === 'first' ? 1 : place === 'second' ? 2 : 3}
 			</p>
-			<Link
-				className={
-					(place === 'first' ? 'mr-8 ' : 'mr-[1.71875rem] ') +
-					'rounded-[0.6875rem] outline outline-transparent outline-[3px] hover:outline-primary cursor-pointer transition-all'
-				}
-				to={`/guide/${user.username}?from=guidePreview`}
-			>
-				<ProfileMiniature
-					miniature_img={user.miniature_img}
-					profile_img={user.profile_img}
-					username={user.username}
-					frame={user.frame}
-					className={cn('rounded-[0.6875rem] aspect-[85/70] object-cover', {
-						'w-[5.3125rem]': place === 'first',
-						'w-[4.25rem]': place !== 'first',
-					})}
-				/>
-			</Link>
+
+			<ProfileMiniature
+				miniature_img={user.miniature_img}
+				profile_img={user.profile_img}
+				username={user.username ?? user.twitch.displayName}
+				frame={user.frame}
+				className={cn('rounded-[0.6875rem] aspect-[85/70] object-cover', {
+					'w-[5.3125rem] mr-8': place === 'first',
+					'w-[4.25rem] mr-[1.71875rem]': place !== 'first',
+				})}
+			/>
 
 			<div
 				className={
@@ -59,7 +51,7 @@ const RatingItem: FC<IRatingItem> = ({ user, place }) => {
 						'font-secondary font-bold leading-none break-words'
 					}
 				>
-					{user.username}
+					{user.username ?? user.twitch.displayName}
 				</p>
 				<p
 					className={

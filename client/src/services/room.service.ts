@@ -39,11 +39,11 @@ class RoomContentService {
 	}
 
 	async isCreated() {
-		return await $api.get(`${this.URL}/isCreated`)
+		return await $api.get<boolean>(`${this.URL}/isCreated`)
 	}
 
 	async create({ roomName, username }: ICreateRoom) {
-		return await $api.post<any, any, ICreateRoom>(`${this.URL}`, {
+		return await $api.post(`${this.URL}`, {
 			roomName,
 			username,
 		})

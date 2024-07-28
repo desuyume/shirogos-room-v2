@@ -4,6 +4,7 @@ import FindUser from '../FindUser'
 import { useOrderPrices } from '@/api/useOrderPrices'
 import { isUrl } from '@/utils/isUrl'
 import { useCreateOrderManually } from '@/api/useCreateOrderManually'
+import { IFindUser } from '@/types/user.interface'
 
 interface IAddOrder {
 	index: number
@@ -15,7 +16,7 @@ const AddOrder: FC<IAddOrder> = ({ index }) => {
 	const [isChooseUserVisible, setIsChooseUserVisible] = useState<boolean>(false)
 	const { limit, setLimit, changeNameHandler, keyDownHandler } =
 		useInputLimit(setOrderText)
-	const [selectedUsers, setSelectedUsers] = useState<string[]>([])
+	const [selectedUsers, setSelectedUsers] = useState<IFindUser[]>([])
 	const [isVideo, setIsVideo] = useState<boolean>(false)
 
 	const { data: prices, isLoading, isError } = useOrderPrices()
@@ -45,7 +46,7 @@ const AddOrder: FC<IAddOrder> = ({ index }) => {
 		createOrder({
 			orderPriceId: selecetedTime,
 			orderText,
-			username: selectedUsers[0],
+			userId: selectedUsers[0].id,
 		})
 	}
 
@@ -87,7 +88,9 @@ const AddOrder: FC<IAddOrder> = ({ index }) => {
 						onClick={() => setIsChooseUserVisible(!isChooseUserVisible)}
 						className='w-full h-full hover:bg-secondary transition-all overflow-hidden'
 					>
-						{selectedUsers.length > 0 ? selectedUsers[0] : 'выбрать никнейм'}
+						{selectedUsers.length > 0
+							? selectedUsers[0].userDisplayName
+							: 'выбрать никнейм'}
 					</button>
 					<FindUser
 						isVisible={isChooseUserVisible}
