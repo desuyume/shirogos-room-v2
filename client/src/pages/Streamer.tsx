@@ -18,7 +18,7 @@ const Streamer: FC = () => {
 				<Orders className='mt-[31.125rem] ml-[21rem]' />
 				<Chronicles />
 				<a
-					className='w-[103px] h-[154.33px] absolute top-[37.5rem] left-[8.125rem] hover:scale-[1.6] transition-all'
+					className='w-[103px] h-[154.33px] absolute top-[37.5rem] left-[8.125rem] hover:scale-[1.3]'
 					onMouseOver={() => setIsDocsHover(true)}
 					onMouseLeave={() => setIsDocsHover(false)}
 					href='https://docs.google.com/spreadsheets/d/1Qa0lxGo0qPGpLf2k2HsfinIy6zfg7MYlgWGRsG88Eac/edit?usp=sharing'
@@ -26,7 +26,7 @@ const Streamer: FC = () => {
 				>
 					<div className='relative'>
 						<img
-							className={cn('w-[103px] h-[154.33px] absolute transition-all', {
+							className={cn('w-[103px] h-[154.33px] absolute', {
 								'visible opacity-100': !isDocsHover,
 								'invisible opacity-0': isDocsHover,
 							})}
@@ -34,7 +34,7 @@ const Streamer: FC = () => {
 							alt='docs-icon'
 						/>
 						<img
-							className={cn('w-[103px] h-[154.33px] absolute transition-all', {
+							className={cn('w-[103px] h-[154.33px] absolute', {
 								'visible opacity-100': isDocsHover,
 								'invisible opacity-0': !isDocsHover,
 							})}

@@ -41,6 +41,7 @@ const FirstScreen: FC = () => {
 				className='flex justify-center w-screen h-full select-none'
 				globalFactorX={0.2}
 				globalFactorY={0.2}
+				useWindowMouseEvents
 			>
 				<MouseParallaxChild
 					factorX={0.2}
