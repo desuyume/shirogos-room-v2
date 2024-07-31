@@ -16,7 +16,7 @@ const HeaderBttn: FC<IHeaderBttn> = ({ path, title }) => {
 				'rounded-[2.3125rem] text-xl w-[15rem] h-[3.58rem] flex justify-center items-center text-center mr-[0.69rem] last:mr-0 transition-colors',
 				{
 					'bg-transparent text-primary cursor-default': isActive,
-					'bg-secondary hover:bg-secondaryHover text-primaryText hover:text-[#FFF]':
+					'bg-secondary hover:bg-secondaryHover text-primaryText hover:text-white':
 						!isActive,
 				}
 			)}

@@ -38,7 +38,7 @@ const ReaderFooter: FC<IReaderFooter> = ({
 					src={zoomIcon}
 					alt='zoom-img'
 				/>
-				<p className='font-tertiary text-[0.9375rem] text-[#FFF]'>
+				<p className='font-tertiary text-[0.9375rem] text-primaryText'>
 					-{' '}
 					{itemType === 'manga'
 						? 'Увеличить размер страницы'
@@ -52,7 +52,7 @@ const ReaderFooter: FC<IReaderFooter> = ({
 						className='w-[0.25rem] h-5 bg-[#E14177] absolute right-[125%] hover:w-[1.625rem] transition-all'
 					/>
 				)}
-				<p className='font-tertiary text-2xl text-[#FFF]'>
+				<p className='font-tertiary text-2xl text-primaryText'>
 					{currentPage}/{pages}
 				</p>
 				{+currentPage < pages && type === 'story' && (

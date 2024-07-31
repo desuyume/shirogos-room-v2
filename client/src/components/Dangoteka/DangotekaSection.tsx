@@ -14,7 +14,7 @@ const DangotekaSection: FC<IDangotekaSection> = ({ title, type }) => {
 		<div>
 			<h2
 				className={cn(
-					'text-[#FFF] text-[1.5625rem] h-[2.125rem] flex justify-center items-center',
+					'text-primaryText text-[1.5625rem] h-[2.125rem] flex justify-center items-center',
 					{
 						'bg-secondary': type === 'manga',
 						'bg-primary': type === 'story',

@@ -7,6 +7,7 @@ import { RoomAppearanceContext } from '@/Context'
 import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 import { useToastOnError, useToastOnSuccess } from '@/hooks/useToast'
 import { notEnoughDangoToast, successBuyToast } from '@/utils/toasts'
+import { cn } from '@/utils/cn'
 
 interface IUniqueRoleItem {
 	visibleRole: string
@@ -80,9 +81,14 @@ const UniqueRoleItem: FC<IUniqueRoleItem> = ({
 					<button
 						onClick={clickBuy}
 						disabled={!role}
-						className={`${colorVariants.bg[roomAppearance.active_room_color]} ${
-							colorVariantsHover.bg[roomAppearance.active_room_color]
-						} transition-all w-[6.32rem] h-[2.75rem] text-primaryText text-xl rounded-br-[1.2rem] self-end disabled:bg-secondary disabled:text-opacity-80`}
+						className={cn(
+							`${colorVariants.bg[roomAppearance.active_room_color]} ${
+								colorVariantsHover.bg[roomAppearance.active_room_color]
+							} transition-all w-[6.32rem] h-[2.75rem] text-primaryText text-xl rounded-br-[1.2rem] self-end disabled:bg-secondary disabled:text-opacity-80`,
+							{
+								'hover:text-white': !!role,
+							}
+						)}
 					>
 						Купить
 					</button>

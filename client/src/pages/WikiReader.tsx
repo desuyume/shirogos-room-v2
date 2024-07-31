@@ -24,11 +24,11 @@ const WikiReader: FC = () => {
 			<Header withLine={true} isFixed={true} />
 			{isLoading ? (
 				<div className='w-screen h-screen flex justify-center items-center pt-[5.25rem]'>
-					<p className='text-xl text-[#FFF]'>Загрузка...</p>
+					<p className='text-xl text-primaryText'>Загрузка...</p>
 				</div>
 			) : isError ? (
 				<div className='w-screen h-screen flex justify-center items-center pt-[5.25rem]'>
-					<p className='text-xl text-[#FFF]'>Ошибка</p>
+					<p className='text-xl text-primaryText'>Ошибка</p>
 				</div>
 			) : (
 				!!character && (

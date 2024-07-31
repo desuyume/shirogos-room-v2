@@ -41,7 +41,7 @@ const OrderDone: FC<IOrderDone> = ({ clickDanBttn, isOrdered, userOrder }) => {
 				onClick={clickDanBttn}
 				className={`${colorVariants.bg[roomAppearance.active_room_color]} ${
 					colorVariantsHover.bg[roomAppearance.active_room_color]
-				} transition-all w-[12.48%] h-[3.6875rem] text-primaryText text-[2.1875rem] mb-[0.63rem] min-w-[6.25rem]`}
+				} transition-all w-[12.48%] h-[3.6875rem] text-primaryText hover:text-white text-[2.1875rem] mb-[0.63rem] min-w-[6.25rem]`}
 			>
 				ДАН
 			</button>

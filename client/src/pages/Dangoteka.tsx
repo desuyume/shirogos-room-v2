@@ -14,7 +14,7 @@ const Dangoteka: FC = () => {
 		<>
 			<Header withLine={true} isFixed={false} />
 			<DangotekaSection title='Манга' type='manga' />
-			<DangotekaSection title='Рассказы' type='story' />
+			<DangotekaSection title='Некриминальное Чтиво' type='story' />
 		</>
 	)
 }

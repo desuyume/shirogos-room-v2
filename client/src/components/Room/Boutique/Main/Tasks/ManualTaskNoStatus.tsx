@@ -55,7 +55,7 @@ const ManualTaskNoStatus: FC<ManualTaskNoStatusProps> = ({
 			/>
 			<button
 				onClick={clickApplyHandler}
-				className='text-primaryText text-[0.6vw] w-[27%] aspect-[114/26] bg-[#4A9648] hover:bg-opacity-80 rounded-r-[1.5625rem] text-left pl-[3%] z-10'
+				className='text-primaryText hover:text-white text-[0.6vw] w-[27%] aspect-[114/26] bg-[#4A9648] hover:bg-opacity-80 rounded-r-[1.5625rem] text-left pl-[3%] z-10 transition-all'
 			>
 				ПРИНЯТЬ
 			</button>

@@ -33,7 +33,7 @@ const ChangeProfileImg: FC = () => {
 					colorVariants.bg[roomAppearance.active_room_color]
 				} ${
 					colorVariantsHover.bg[roomAppearance.active_room_color]
-				} text-primaryText text-xl transition-all`}
+				} text-primaryText hover:text-white text-xl transition-all`}
 			>
 				Изменить аватарку
 			</button>

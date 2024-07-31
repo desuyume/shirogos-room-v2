@@ -135,7 +135,7 @@ const BuyColor: FC<IBuyColor> = ({ type }) => {
 						colorVariants.bg[roomAppearance.active_room_color]
 					} ${
 						colorVariantsHover.bg[roomAppearance.active_room_color]
-					} transition-all flex justify-center items-center text-primaryText text-xs disabled:bg-tertiary rounded-br-[1.2rem]`}
+					} transition-all flex justify-center items-center text-primaryText hover:text-white hover:disabled:text-primaryText text-xs disabled:bg-tertiary rounded-br-[1.2rem]`}
 				>
 					Купить
 				</button>

@@ -24,7 +24,7 @@ const BadgesTitle: FC = () => {
 			<button
 				onClick={() => setIsDescOpen(!isDescOpen)}
 				style={{ marginBottom: isDescOpen ? '8px' : `-${descHeight - 10}px` }}
-				className='bg-tertiary text-primaryText text-xl w-[63%] h-[3.6875rem] rounded-[1.5625rem] flex flex-col justify-center items-center relative transition-all hover:bg-opacity-90'
+				className='bg-tertiary text-primaryText hover:text-white text-xl w-[63%] h-[3.6875rem] rounded-[1.5625rem] flex flex-col justify-center items-center relative transition-all hover:bg-opacity-80'
 			>
 				Значки
 				<span

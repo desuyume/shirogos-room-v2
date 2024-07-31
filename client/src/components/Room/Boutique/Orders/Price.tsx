@@ -28,7 +28,7 @@ const Price: FC<IPrice> = ({ clickBuy, finalPrice, isDisabled }) => {
 					colorVariants.bg[roomAppearance.active_room_color]
 				} ${
 					colorVariantsHover.bg[roomAppearance.active_room_color]
-				} transition-all text-primaryText text-[1.0625rem] rounded-br-[1.5625rem] disabled:bg-tertiary`}
+				} transition-all text-primaryText hover:text-white hover:disabled:text-primaryText text-[1.0625rem] rounded-br-[1.5625rem] disabled:bg-tertiary`}
 			>
 				Купить
 			</button>

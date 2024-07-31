@@ -33,7 +33,7 @@ const WikiCharacterItem: FC<WikiCharacterItemProps> = ({
 			{!!img ? (
 				<img
 					className={cn(
-						'w-full rounded-[1.25rem] object-cover border-2 border-[#DEDEDE] transition-all aspect-[179/240]',
+						'w-full rounded-[1.25rem] object-cover border-2 border-primaryText transition-all aspect-[179/240]',
 						{
 							'scale-110': isItemHovered && !inCategory,
 						}
@@ -44,7 +44,7 @@ const WikiCharacterItem: FC<WikiCharacterItemProps> = ({
 			) : (
 				<div
 					className={cn(
-						'w-full rounded-[1.25rem] border-2 border-[#DEDEDE] transition-all aspect-[179/240] bg-tertiary',
+						'w-full rounded-[1.25rem] border-2 border-primaryText transition-all aspect-[179/240] bg-tertiary',
 						{
 							'scale-110': isItemHovered && !inCategory,
 						}
@@ -60,7 +60,7 @@ const WikiCharacterItem: FC<WikiCharacterItemProps> = ({
 							'text-primary translate-y-[0.715625rem]':
 								isItemHovered && !inCategory,
 							'text-primary ': isItemHovered && inCategory,
-							'text-[#FFF]': !isItemHovered,
+							'text-primaryText': !isItemHovered,
 						}
 					)}
 				>

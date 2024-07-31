@@ -69,7 +69,7 @@ const WidgetBttn: FC<IWidgetBttn> = ({
 					  } ${
 							colorVariantsHover.border[roomAppearance.active_room_color]
 					  } `) +
-				'medium-desktop:w-[23.1875rem] min-desktop:w-[20rem] leading-none px-4 h-[5.3125rem] text-[1.5625rem] text-primaryText transition-all rounded-[1.8125rem] odd:mb-[0.875rem]'
+				'medium-desktop:w-[23.1875rem] min-desktop:w-[20rem] leading-none px-4 h-[5.3125rem] text-[1.5625rem] text-primaryText hover:text-white transition-all rounded-[1.8125rem] odd:mb-[0.875rem]'
 			}
 		>
 			{title}

@@ -108,8 +108,9 @@ const EditorNav: FC<IEditorNav> = ({
 				/>
 				<div className='w-[27.8125rem] h-[3.6875rem] bg-secondaryHover rounded-[2.0625rem] flex justify-center items-center relative'>
 					<button
+						disabled={!isUnsaved}
 						onClick={() => setIsCancelEdit(prev => !prev)}
-						className='bg-secondary hover:bg-opacity-70 text-primaryText rounded-[2.3125rem] transition-all w-[12.25rem] h-[2.0625rem] mr-[0.8125rem]'
+						className='bg-secondary hover:bg-opacity-70 text-primaryText hover:text-white hover:disabled:text-primaryText hover:disabled:bg-opacity-100 rounded-[2.3125rem] transition-all w-[12.25rem] h-[2.0625rem] mr-[0.8125rem]'
 					>
 						Отмена
 					</button>
@@ -119,7 +120,7 @@ const EditorNav: FC<IEditorNav> = ({
 						className={cn(
 							`${
 								colorVariants.bg[roomAppearance.active_room_color]
-							}  text-primaryText rounded-[2.3125rem] transition-all w-[12.25rem] h-[2.0625rem]`,
+							}  text-primaryText hover:text-white hover:disabled:text-primaryText rounded-[2.3125rem] transition-all w-[12.25rem] h-[2.0625rem]`,
 							{
 								[colorVariantsHover.bg[roomAppearance.active_room_color]]:
 									isUnsaved,

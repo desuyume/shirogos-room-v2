@@ -29,7 +29,7 @@ const TaskQueueItem: FC<TaskQueueItemProps> = ({ response, setZoomedImg }) => {
 						onClick={() => setZoomedImg(response.img)}
 					/>
 				) : (
-					<div className='bg-[#D9D9D9] w-[70%] h-[4.625rem] flex justify-center items-center'>
+					<div className='bg-primaryText w-[70%] h-[4.625rem] flex justify-center items-center'>
 						<p className='text-center leading-none'>скрин не прикреплен</p>
 					</div>
 				)}

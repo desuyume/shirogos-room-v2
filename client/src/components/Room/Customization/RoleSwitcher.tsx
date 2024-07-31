@@ -102,7 +102,7 @@ const RoleSwitcher: FC<IRoleSwitcher> = ({ type }) => {
 						onClick={switchPrevRole}
 						className={
 							(type === 'adjective'
-								? 'bg-[#DEDEDE] '
+								? 'bg-primaryText '
 								: `${colorVariants.bg[roomAppearance.active_room_color]} `) +
 							'h-full w-[2%] hover:w-[5%] absolute left-0 transition-all disabled:opacity-50 disabled:hover:w-[2%]'
 						}
@@ -115,7 +115,7 @@ const RoleSwitcher: FC<IRoleSwitcher> = ({ type }) => {
 						onClick={switchNextRole}
 						className={
 							(type === 'adjective'
-								? 'bg-[#DEDEDE] '
+								? 'bg-primaryText '
 								: `${colorVariants.bg[roomAppearance.active_room_color]} `) +
 							'h-full w-[2%] hover:w-[5%] absolute right-0 transition-all disabled:opacity-50 disabled:hover:w-[2%]'
 						}

@@ -53,7 +53,7 @@ const Wiki = () => {
 							<input
 								value={searchQuery}
 								onChange={e => setSearchQuery(e.target.value)}
-								className='w-[47.34375vw] h-[4.375rem] bg-tertiary rounded-[1.25rem] outline-none text-[#FFF] font-secondary text-[1.875rem] font-bold pl-[4.81rem] caret-primary'
+								className='w-[47.34375vw] h-[4.375rem] bg-tertiary rounded-[1.25rem] outline-none text-primaryText font-secondary text-[1.875rem] font-bold pl-[4.81rem] caret-primary'
 							/>
 							<img
 								className='pointer-events-none absolute top-[1.13rem] left-6'

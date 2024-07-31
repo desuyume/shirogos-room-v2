@@ -31,8 +31,8 @@ const UserInfoBar: FC<IUserInfoBar> = ({
 	const roomAppearance = useContext(RoomAppearanceContext)
 
 	return (
-		<div className='bg-[#D9D9D9] h-[24.375rem] relative flex flex-col items-center rounded-[1.5625rem] mb-[0.5625rem]'>
-			<div className='w-full h-[80%] rounded-t-[1.5625rem] bg-[#D9D9D9] z-30'>
+		<div className='bg-primaryText h-[24.375rem] relative flex flex-col items-center rounded-[1.5625rem] mb-[0.5625rem]'>
+			<div className='w-full h-[80%] rounded-t-[1.5625rem] bg-primaryText z-30'>
 				{!!profile_img ? (
 					<img
 						className='rounded-[1.5rem] w-full h-full object-cover'
@@ -51,7 +51,7 @@ const UserInfoBar: FC<IUserInfoBar> = ({
 					/>
 				)}
 			</div>
-			<div className='w-full h-[2.4375rem] flex justify-center items-center bg-[#D9D9D9] rounded-b-[1.5625rem] z-20 relative'>
+			<div className='w-full h-[2.4375rem] flex justify-center items-center bg-primaryText rounded-b-[1.5625rem] z-20 relative'>
 				<p
 					className={
 						(isGuide

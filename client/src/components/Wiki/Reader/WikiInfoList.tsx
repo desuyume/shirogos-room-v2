@@ -8,7 +8,7 @@ interface IWikiInfoList {
 
 const WikiInfoList: FC<IWikiInfoList> = ({ descriptions }) => {
 	return (
-		<div className='ml-[2.69rem] mt-[4.5rem] transition-all duration-1000 ease-out z-10'>
+		<div className='ml-[2.6875rem] mt-[4.5rem] transition-all duration-1000 ease-out z-10'>
 			{descriptions.map(description => (
 				<WikiInfoItem
 					key={description.id}

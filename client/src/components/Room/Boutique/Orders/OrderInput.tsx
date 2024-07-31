@@ -111,7 +111,8 @@ const OrderInput: FC<IOrderInput> = ({
 								colorVariants.bg[roomAppearance.active_room_color]
 						  } ${
 								colorVariantsHover.bg[roomAppearance.active_room_color]
-						  } text-xs `) + 'h-full transition-all text-primaryText'
+						  } text-xs `) +
+					'h-full transition-all text-primaryText hover:text-white'
 				}
 			>
 				{isInputActive ? 'Отмена' : 'Выбрать'}

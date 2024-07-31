@@ -54,7 +54,7 @@ const AchieveBg: FC<IAchieveBg> = ({
 			<div
 				className={
 					(isImgUploaded ? 'invisible opacity-0' : 'visible opacity-100') +
-					' w-full aspect-[213/30] bg-[#D9D9D9] transition-all'
+					' w-full aspect-[213/30] bg-primaryText transition-all'
 				}
 			/>
 			<img

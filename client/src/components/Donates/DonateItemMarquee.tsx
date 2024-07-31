@@ -18,7 +18,7 @@ const DonateItemMarquee: FC<IDonateItemMarquee> = ({
 			<img className='mr-3' src={heartIcon} alt='heart-icon' />
 			<p>
 				<span className='text-[#EBE984] text-xl'>{username}</span>
-				<span className='text-xl text-[#D9D9D9]'>
+				<span className='text-xl text-primaryText'>
 					{' '}
 					- {!!amount && <>{formatMoney(amount)}р</>}
 					{!amount && !!gifts && <>{gifts}</>}{' '}

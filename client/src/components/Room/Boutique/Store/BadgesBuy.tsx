@@ -65,7 +65,7 @@ const BadgesBuy: FC<IBadgesBuy> = ({ activeBadge, buyedBadges }) => {
 				onClick={handleClickBuy}
 				className={`${colorVariants.bg[roomAppearance.active_room_color]} ${
 					colorVariantsHover.bg[roomAppearance.active_room_color]
-				} transition-all text-primaryText text-xs w-[21.15%] rounded-br-[1.2rem] min-w-[3.5rem] disabled:bg-tertiary`}
+				} transition-all text-primaryText hover:text-white hover:disabled:text-primaryText text-xs w-[21.15%] rounded-br-[1.2rem] min-w-[3.5rem] disabled:bg-tertiary`}
 			>
 				Купить
 			</button>

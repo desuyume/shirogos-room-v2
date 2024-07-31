@@ -24,7 +24,7 @@ const CustomizationImgUpload: FC<ICustomizationImgUpload> = ({
 	setImg,
 	isHasMiniature = false,
 	miniatureProps,
-	isFrame = false
+	isFrame = false,
 }) => {
 	const [isImgUploaded, setIsImgUploaded] = useState<boolean>(false)
 	const inputRef = useRef<HTMLInputElement | null>(null)
@@ -71,18 +71,22 @@ const CustomizationImgUpload: FC<ICustomizationImgUpload> = ({
 			<div
 				className={
 					(isImgUploaded ? 'invisible opacity-0' : 'visible opacity-100') +
-					' w-full aspect-[105/69] bg-[#D9D9D9] transition-all'
+					' w-full aspect-[105/69] bg-primaryText transition-all'
 				}
 			/>
 			<img
 				ref={imgRef}
-				className={cn('absolute h-full', {
-					'visible opacity-100': isImgUploaded,
-					'invisible opacity-0': !isImgUploaded,
-				}, {
-					'w-[104px] h-[83px]': isFrame,
-					'object-contain': !isFrame
-				})}
+				className={cn(
+					'absolute h-full',
+					{
+						'visible opacity-100': isImgUploaded,
+						'invisible opacity-0': !isImgUploaded,
+					},
+					{
+						'w-[104px] h-[83px]': isFrame,
+						'object-contain': !isFrame,
+					}
+				)}
 				src={
 					!!imgSrc
 						? imgSrc.includes('blob')

@@ -32,7 +32,7 @@ const ChangeMiniature: FC<IChangeMiniature> = ({ profileImg, isDisabled }) => {
 				onClick={() => setIsMiniauteModalVisible(true)}
 				className={
 					(isDisabled ? 'hidden ' : 'block ') +
-					'w-full bg-secondaryHover h-[3.1875rem] text-xl text-primaryText mb-[0.62rem] hover:bg-secondary transition-all'
+					'w-full bg-secondaryHover h-[3.1875rem] text-xl text-primaryText hover:text-white mb-[0.62rem] hover:bg-secondary transition-all'
 				}
 			>
 				Изменить миниатюру

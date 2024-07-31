@@ -414,7 +414,7 @@ const AchievementItem: FC<IAchievementItem> = ({ achieve }) => {
 			<div className='w-[13.84%] h-full flex justify-center items-center bg-tertiary relative'>
 				<button
 					onClick={() => setIsChooseUserVisible(!isChooseUserVisible)}
-					className='w-full h-full hover:bg-secondary transition-all text-xl font-secondary font-normal text-[#D9D9D9]'
+					className='w-full h-full hover:bg-secondary transition-all text-xl font-secondary font-normal text-primaryText hover:text-white'
 				>
 					тык
 				</button>

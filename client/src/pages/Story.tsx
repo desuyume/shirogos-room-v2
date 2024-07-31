@@ -146,7 +146,7 @@ const Story: FC = () => {
 									(!isContentLoaded
 										? 'opacity-0 invisible '
 										: 'opacity-100 visible ') +
-									'story-container leading-normal text-[#FFF] font-secondary w-[66.1875rem] [&_img]:w-[80%] [&_img]:mx-auto [&_img]:my-8 ql-editor [&_h1]:text-4xl [&_a]:text-primary [&_a:hover]:text-primaryHover' +
+									'story-container leading-normal text-primaryText font-secondary w-[66.1875rem] [&_img]:w-[80%] [&_img]:mx-auto [&_img]:my-8 ql-editor [&_h1]:text-4xl [&_a]:text-primary [&_a:hover]:text-primaryHover' +
 									(isZoomed ? ' zoomed' : '')
 								}
 							>

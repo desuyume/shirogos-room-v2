@@ -126,7 +126,7 @@ const CropModal: FC<ICropModal> = ({
 				<div className='w-full flex justify-center items-center'>
 					<button
 						onClick={() => setIsVisible(false)}
-						className='bg-tertiary w-52 h-10 hover:bg-opacity-80 transition-all text-primaryText mr-6'
+						className='bg-tertiary w-52 h-10 hover:bg-opacity-80 transition-all text-primaryText hover:text-white mr-6'
 					>
 						Отмена
 					</button>
@@ -134,7 +134,7 @@ const CropModal: FC<ICropModal> = ({
 						onClick={clickSave}
 						className={`${colorVariants.bg[roomAppearance.active_room_color]} ${
 							colorVariantsHover.bg[roomAppearance.active_room_color]
-						} w-52 h-10 text-primaryText transition-all`}
+						} w-52 h-10 text-primaryText hover:text-white transition-all`}
 					>
 						Сохранить
 					</button>

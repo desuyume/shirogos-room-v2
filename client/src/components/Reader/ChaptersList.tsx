@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import ChapterItem from './ChapterItem'
 
-interface IChaptersList { 
+interface IChaptersList {
 	isVisible: boolean
 	setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
 	currentChapter?: number
@@ -9,17 +9,36 @@ interface IChaptersList {
 	path: string
 }
 
-const ChaptersList: FC<IChaptersList> = ({ isVisible, setIsVisible, currentChapter, chaptersCount, path}) => {
-	const list = [];
+const ChaptersList: FC<IChaptersList> = ({
+	isVisible,
+	setIsVisible,
+	currentChapter,
+	chaptersCount,
+	path,
+}) => {
+	const list = []
 	for (let i = 1; i <= chaptersCount; i++) {
 		if (i === currentChapter) {
 			continue
 		}
 
-		list.push(<ChapterItem key={i} chapter={i} path={path} setIsVisible={setIsVisible} />)
+		list.push(
+			<ChapterItem
+				key={i}
+				chapter={i}
+				path={path}
+				setIsVisible={setIsVisible}
+			/>
+		)
 	}
 	return (
-		<div onClick={e => e.stopPropagation()} className={(isVisible ? 'visible opacity-100' : 'invisible opacity-0') + ' cursor-default absolute w-full top-[7.8125rem] bg-primary pb-[0.3rem] z-30 transition-all'}>
+		<div
+			onClick={e => e.stopPropagation()}
+			className={
+				(isVisible ? 'visible opacity-100' : 'invisible opacity-0') +
+				' cursor-default absolute w-full top-[7.8125rem] bg-primary z-30 transition-all'
+			}
+		>
 			{list}
 		</div>
 	)
