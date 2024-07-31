@@ -20,14 +20,14 @@ const ChangeGender: FC<IChangeGender> = ({ gender, setGender }) => {
 
 	return (
 		<div className='h-[7.75rem] border-b-[1px] border-[#646464] flex flex-col justify-center items-center'>
-			<h3 className='text-[#FFF] text-[1.875rem] leading-[97.795%] mb-1'>
+			<h3 className='text-primaryText text-[1.875rem] leading-[97.795%] mb-1'>
 				Пол
 			</h3>
 			<div className='flex justify-around w-full'>
 				<button
 					onClick={() => handleChangeGender('MALE')}
 					disabled={gender === 'MALE'}
-					className={`w-[20.8%] h-[2.4375rem] bg-transparent hover:bg-secondaryHover text-[#FFF] text-xl ${
+					className={`w-[20.8%] h-[2.4375rem] bg-transparent hover:bg-secondaryHover text-primaryText hover:text-white disabled:text-white text-xl ${
 						colorVariantsDisabled.bg[roomAppearance.active_room_color]
 					} transition-all`}
 				>
@@ -36,7 +36,7 @@ const ChangeGender: FC<IChangeGender> = ({ gender, setGender }) => {
 				<button
 					onClick={() => handleChangeGender('FEMALE')}
 					disabled={gender === 'FEMALE'}
-					className={`w-[20.8%] h-[2.4375rem] bg-transparent hover:bg-secondaryHover text-[#FFF] text-xl ${
+					className={`w-[20.8%] h-[2.4375rem] bg-transparent hover:bg-secondaryHover text-primaryText hover:text-white disabled:text-white text-xl ${
 						colorVariantsDisabled.bg[roomAppearance.active_room_color]
 					} transition-all`}
 				>

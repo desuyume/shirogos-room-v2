@@ -58,7 +58,7 @@ const FirstScreen: FC = () => {
 			) : (
 				<div className='flex flex-col absolute right-[1.3125rem] top-3'>
 					<button
-						className='bg-primary px-9 py-5 rounded-[37px] text-white text-4xl hover:bg-primaryHover transition-colors z-30'
+						className='bg-primary px-9 py-5 rounded-[37px] text-primaryText hover:text-white text-4xl hover:bg-primaryHover transition-colors z-30'
 						onClick={() => setIsModalVisible(true)}
 					>
 						Вход

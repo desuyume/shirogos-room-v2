@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC } from 'react'
 import PageLink from './PageLink'
 
 const PagesLinks: FC = () => {
@@ -9,7 +9,7 @@ const PagesLinks: FC = () => {
 			<PageLink type='primary' path='/streamer' title='Стримерская' />
 			<PageLink type='secondary' path='/dangoteka' title='Данготека' />
 		</div>
-	);
-};
+	)
+}
 
-export default PagesLinks;
+export default PagesLinks

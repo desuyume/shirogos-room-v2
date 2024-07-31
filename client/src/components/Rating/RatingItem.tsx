@@ -32,9 +32,13 @@ const RatingItem: FC<IRatingItem> = ({ user, place }) => {
 				profile_img={user.profile_img}
 				username={user.username ?? user.twitch.displayName}
 				frame={user.frame}
+				containerClassName={cn({
+					'mr-8': place === 'first',
+					'mr-[1.71875rem]': place !== 'first',
+				})}
 				className={cn('rounded-[0.6875rem] aspect-[85/70] object-cover', {
-					'w-[5.3125rem] mr-8': place === 'first',
-					'w-[4.25rem] mr-[1.71875rem]': place !== 'first',
+					'w-[5.3125rem]': place === 'first',
+					'w-[4.25rem]': place !== 'first',
 				})}
 			/>
 

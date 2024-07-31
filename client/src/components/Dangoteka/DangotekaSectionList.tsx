@@ -89,11 +89,12 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 									type === 'manga'
 										? '#323232 !important'
 										: '#FF75AB !important',
+								color: '#FFF',
 							},
 							transition: 'background-color 150ms cubic-bezier(0.4, 0, 0.2, 1)',
 							border: 'none',
 							borderTop: '1px solid #181818',
-							color: '#FFF',
+							color: '#DEDEDE',
 							backgroundColor:
 								type === 'manga' ? '#242424 !important' : '#C34375 !important',
 							height: '100%',

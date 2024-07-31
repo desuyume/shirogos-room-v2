@@ -27,8 +27,8 @@ const RoomGuideScreenRoomItem: FC<IRoomGuideScreenRoomItem> = ({
 						profile_img={room.user.profile_img}
 						username={room.user.username}
 						frame={room.selected_frame}
+						containerClassName='h-full'
 						className='h-full aspect-[290/236] object-cover rounded-[2.3125rem] z-10'
-						containerHeight='100%'
 					/>
 					<div className='flex-1 overflow-hidden h-full px-[2.6%] flex justify-between items-center z-10'>
 						<div className='min-w-[61.75%] max-w-[61.75%]'>

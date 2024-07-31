@@ -37,7 +37,7 @@ const ChangeUsername: FC<IChangeUsername> = ({
 	return (
 		<div className='h-[7.75rem] flex justify-between items-center border-b-[1px] border-[#646464]'>
 			<div className='flex flex-1 flex-col justify-center items-center'>
-				<h3 className='text-[1.875rem] leading-[97.795%] text-[#FFF] mb-5'>
+				<h3 className='text-[1.875rem] leading-[97.795%] text-primaryText mb-5'>
 					Никнейм
 				</h3>
 				<input

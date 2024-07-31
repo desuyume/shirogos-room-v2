@@ -10,7 +10,7 @@ interface IProfileMiniature {
 	username: string
 	frame: IFrame | null
 	className?: string
-	containerHeight?: string
+	containerClassName?: string
 	withHoverEffect?: boolean
 }
 
@@ -20,11 +20,11 @@ const ProfileMiniature: FC<IProfileMiniature> = ({
 	username,
 	frame,
 	className,
-	containerHeight,
+	containerClassName,
 	withHoverEffect = false,
 }) => {
 	return (
-		<div style={{ height: containerHeight }} className='relative z-30'>
+		<div className={cn('relative z-30', containerClassName)}>
 			<img
 				className={cn('object-cover', className)}
 				src={

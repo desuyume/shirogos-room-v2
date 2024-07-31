@@ -16,7 +16,7 @@ interface IConnections {
 const Connections: FC<IConnections> = ({ discord, telegram, twitch, vk }) => {
 	return (
 		<div className='h-[13.25rem] flex flex-col items-center justify-center'>
-			<h3 className='text-[#FFF] text-[1.875rem] leading-[97.795%] mb-[1.69rem]'>
+			<h3 className='text-primaryText text-[1.875rem] leading-[97.795%] mb-[1.69rem]'>
 				Подключения
 			</h3>
 			<div className='flex w-full'>
