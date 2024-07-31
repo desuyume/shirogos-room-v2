@@ -335,13 +335,6 @@ model FramesOnRooms {
   frameId Int
 }
 
-model OnlineOption {
-  id    Int    @id @default(autoincrement())
-  title String
-
-  @@map("online_options")
-}
-
 model BirthdayAward {
   id    Int @id @default(autoincrement())
   award Int

@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import bgVideo from '@/assets/shirogo.mp4'
 import Almanac from '@/components/Almanac/Almanac'
-import OnlineUser from '@/components/OnlineUser/OnlineUser'
 import News from '@/components/News/News'
 import Rating from '../Rating/Rating'
 import RoomGuidePreview from '../RoomGuide/RoomGuidePreview'
@@ -43,23 +42,22 @@ const SecondScreen: FC = () => {
 	return (
 		<div className='h-[65.0625rem] relative overflow-hidden'>
 			<video
-				className='w-full h-full object-cover'
+				className='w-full h-full object-cover absolute -z-10'
 				src={bgVideo}
 				autoPlay
 				loop
 				muted
 			/>
-			<div className='w-[66rem] h-full flex flex-col items-center absolute right-6 top-[3.81rem]'>
-				<News />
+
+			<div className='w-[66rem] h-full flex flex-col justify-center items-center ml-auto mr-6'>
+				<News className='mb-[0.9375rem]' />
 				<RoomGuidePreview
 					setIsRoomGuideScreenVisible={setIsRoomGuideScreenVisible}
+					className='mb-[3.875rem]'
 				/>
-				<div className='w-full flex flex-col justify-between items-center flex-1'>
-					<div className='w-full flex pl-[3.5rem]'>
-						<Rating className='mr-[0.9375rem]' />
-						<Almanac />
-					</div>
-					<OnlineUser />
+				<div className='w-full flex items-center pl-[3.5rem]'>
+					<Rating className='mr-[0.9375rem]' />
+					<Almanac />
 				</div>
 			</div>
 

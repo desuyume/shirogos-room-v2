@@ -4,9 +4,6 @@ export const CREATE_DONATE_KEY = 'create donate'
 export const CREATE_UNIQUE_ROLE_KEY = 'create unique role'
 export const UNIQUE_ROLES_KEY = 'unique roles'
 
-export const ONLINE_OPTION_KEY = 'online options'
-export const CREATE_ONLINE_OPTION_KEY = 'create online option'
-
 export const BIRTHDAY_AWARD_KEY = 'birthday award'
 
 export const NEWS_KEY = 'news'

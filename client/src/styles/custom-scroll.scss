@@ -331,27 +331,6 @@
 	}
 }
 
-.online-options-admin {
-	.ScrollbarsCustom-TrackY {
-		width: 0.15rem;
-		right: -0.25rem;
-
-		&:hover,
-		&.dragging {
-			width: 0.15rem;
-			right: -0.25rem;
-		}
-	}
-
-	.ScrollbarsCustom-Thumb {
-		&:hover,
-		&.dragging {
-			width: initial;
-			background: #fffec5;
-		}
-	}
-}
-
 .past_usernames {
 	.ScrollbarsCustom-TrackY {
 		width: 0.25rem;

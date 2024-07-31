@@ -3,8 +3,13 @@ import { useNews } from '@/api/useNews'
 import { formatDateNews } from '@/utils/formatDate'
 import { useNewsCount } from '@/api/useNewsCount'
 import { Scrollbar } from 'react-scrollbars-custom'
+import { cn } from '@/utils/cn'
 
-const News: FC = () => {
+interface NewsProps {
+	className?: string
+}
+
+const News: FC<NewsProps> = ({ className }) => {
 	const [skip, setSkip] = useState<number>(0)
 	const { isLoading, isFetching, isError, data: news, refetch } = useNews(skip)
 	const { data: newsCount } = useNewsCount()
@@ -34,7 +39,12 @@ const News: FC = () => {
 	}, [textRef, isFetching])
 
 	return (
-		<div className='w-full h-[9.375rem] bg-tertiary bg-opacity-40 rounded-[2.3125rem] flex justify-between items-center pr-[0.94rem] transition-all mb-[0.94rem] news'>
+		<div
+			className={cn(
+				'w-full h-[9.375rem] bg-tertiary bg-opacity-40 rounded-[2.3125rem] flex justify-between items-center pr-[0.9375rem] transition-all news',
+				className
+			)}
+		>
 			{isLoading || isFetching ? (
 				<p className='w-full h-full flex justify-center items-center text-xl text-primaryText'>
 					Загрузка...

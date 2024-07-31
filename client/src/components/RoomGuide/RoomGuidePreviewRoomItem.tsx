@@ -15,7 +15,7 @@ const RoomGuidePreviewRoomItem: FC<IRoomGuidePreviewRoomItem> = ({
 	return (
 		<div
 			className={
-				'w-[22%] flex flex-col items-center mr-[4%] last-of-type:mr-0 room-guide-preview-item ' +
+				'w-[11.5625rem] flex flex-col items-center mr-[1.3125rem] last-of-type:mr-0 room-guide-preview-item ' +
 				(!!order ? `anim-order-${order}` : '')
 			}
 		>

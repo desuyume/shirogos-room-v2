@@ -11,7 +11,6 @@ import { TokenModule } from './token/token.module';
 import { UniqueRoleModule } from './unique-role/unique-role.module';
 import { UserModule } from './user/user.module';
 import { OrderModule } from './order/order.module';
-import { OnlineOptionModule } from './online_option/online_option.module';
 import { BirthdayAwardModule } from './birthday_award/birthday_award.module';
 import { NewsModule } from './news/news.module';
 import { ChronicleModule } from './chronicle/chronicle.module';
@@ -49,7 +48,6 @@ import { DateModule } from './date/date.module';
     UniqueRoleModule,
     UserModule,
     OrderModule,
-    OnlineOptionModule,
     BirthdayAwardModule,
     NewsModule,
     ChronicleModule,
