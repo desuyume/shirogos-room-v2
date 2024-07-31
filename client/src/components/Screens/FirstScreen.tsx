@@ -40,11 +40,11 @@ const FirstScreen: FC = () => {
 				containerStyle={{ overflow: 'visible' }}
 				className='flex justify-center w-screen h-full select-none'
 				globalFactorX={0.2}
-				globalFactorY={0}
+				globalFactorY={0.2}
 			>
 				<MouseParallaxChild
-					factorX={0.3}
-					factorY={0.3}
+					factorX={0.2}
+					factorY={0.2}
 					className='absolute top-[-111px] z-10 pointer-events-none'
 				>
 					<img src={shirogoImg} />
