@@ -8,7 +8,6 @@ export const useManga = (id: string, chapter: number) => {
 		() => mangaService.getOne(id, chapter),
 		{
 			select: ({ data }) => data,
-			refetchOnWindowFocus: false,
 		}
 	)
 }

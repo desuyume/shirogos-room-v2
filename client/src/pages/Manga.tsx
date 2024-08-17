@@ -6,7 +6,6 @@ import { useManga } from '@/api/useManga'
 import { IFetchMangaPage } from '@/types/manga.interface'
 import { isNumber } from '@/utils/isNumber'
 import { cn } from '@/utils/cn'
-import loadImage from '@/utils/loadImage'
 
 const Manga: FC = () => {
 	const params = useParams()
@@ -22,13 +21,6 @@ const Manga: FC = () => {
 
 	const [pagesCount, setPagesCount] = useState<number>(0)
 	const [pages, setPages] = useState<IFetchMangaPage[]>([])
-	const [mangaImages, setMangaImages] = useState<
-		{
-			page: number
-			img: string
-			isLoaded: boolean
-		}[]
-	>([])
 
 	const mangaRef = useRef<HTMLDivElement | null>(null)
 	const [offset, setOffset] = useState<number | undefined>(0)
@@ -36,6 +28,7 @@ const Manga: FC = () => {
 	const [mangaWidth, setMangaWidth] = useState<number>(47)
 	const [isNextBttnHovered, setIsNextBttnHovered] = useState<boolean>(false)
 	const [isPrevBttnHovered, setIsPrevBttnHovered] = useState<boolean>(false)
+	const [isImageLoading, setIsImageLoading] = useState<boolean>(false)
 
 	const {
 		data: manga,
@@ -88,6 +81,7 @@ const Manga: FC = () => {
 
 	useLayoutEffect(() => {
 		window.scrollTo(0, 0)
+		setIsImageLoading(true)
 	}, [currentPageNum])
 
 	useEffect(() => {
@@ -95,15 +89,6 @@ const Manga: FC = () => {
 			setPagesCount(manga.pages.length)
 			setChaptersCount(manga.chaptersCount)
 			setPages(manga.pages)
-			for (let i = 0; i < manga.pages.length; i++) {
-				const isLoaded = loadImage(
-					`${import.meta.env.VITE_SERVER_URL}/${manga.pages[i].page_img}`
-				)
-				setMangaImages(prev => [
-					...prev,
-					{ page: i + 1, img: manga.pages[i].page_img, isLoaded },
-				])
-			}
 		}
 	}, [isLoading])
 
@@ -116,7 +101,7 @@ const Manga: FC = () => {
 		return () => {
 			observer.unobserve(document.documentElement)
 		}
-	}, [mangaWidth])
+	}, [mangaWidth, isImageLoading])
 
 	return (
 		<div className='h-screen flex flex-col'>
@@ -169,30 +154,27 @@ const Manga: FC = () => {
 						) : (
 							<div
 								className={cn('w-full', {
-									'aspect-[5/8]': mangaImages[+currentPageNum - 1]?.isLoaded,
+									'aspect-[5/8]': isImageLoading,
 								})}
 							>
 								<img
 									style={{ width: mangaWidth + 'vw' }}
 									className={cn('select-none transition-all', {
-										'opacity-100 visible':
-											mangaImages[+currentPageNum - 1]?.isLoaded,
-										'opacity-0 invisible':
-											!mangaImages[+currentPageNum - 1]?.isLoaded,
+										'opacity-100 visible': !isImageLoading,
+										'opacity-0 invisible': isImageLoading,
 									})}
 									src={`${import.meta.env.VITE_SERVER_URL}/${pages[
 										+currentPageNum - 1
 									]?.page_img}`}
 									alt='manga-img'
+									onLoad={() => setIsImageLoading(false)}
 								/>
 								<div
 									className={cn(
 										'w-full h-full bg-primaryText absolute inset-0 transition-all',
 										{
-											'opacity-0 invisible':
-												mangaImages[+currentPageNum - 1]?.isLoaded,
-											'opacity-100 visible':
-												!mangaImages[+currentPageNum - 1]?.isLoaded,
+											'opacity-0 invisible': !isImageLoading,
+											'opacity-100 visible': isImageLoading,
 										}
 									)}
 								/>
@@ -205,7 +187,7 @@ const Manga: FC = () => {
 									onClick={clickNextPage}
 									onMouseOver={() => setIsNextBttnHovered(true)}
 									onMouseLeave={() => setIsNextBttnHovered(false)}
-									className='h-full absolute top-0 right-0 w-[20%] bg-transparent select-none'
+									className='h-full absolute top-0 right-0 w-[20%] bg-transparent'
 								/>
 								<button
 									onClick={clickNextPage}
@@ -213,7 +195,7 @@ const Manga: FC = () => {
 									onMouseLeave={() => setIsNextBttnHovered(false)}
 									className={
 										(isNextBttnHovered && 'w-[1.6875rem] bg-primaryHover') +
-										' left-full top-0 w-[0.9375rem] h-[6.5625rem] absolute bg-primary transition-all select-none'
+										' left-full top-0 w-[0.9375rem] h-[6.5625rem] absolute bg-primary transition-all'
 									}
 								/>
 							</>
