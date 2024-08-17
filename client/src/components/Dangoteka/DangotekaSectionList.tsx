@@ -50,7 +50,7 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 	}, [isMangaLoading, isStoryLoading])
 
 	return (
-		<div className='flex w-full h-[25.6rem]'>
+		<div className='flex w-full h-[25.5625rem]'>
 			{(type === 'manga' && isMangaLoading) ||
 			(type === 'story' && isStoryLoading) ? (
 				<div className='w-full h-full flex justify-center items-center'>
@@ -64,7 +64,7 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 			) : (
 				<Carousel
 					ref={carouselRef}
-					className='w-full pt-[1.3rem]'
+					className='w-full'
 					align='start'
 					draggable={false}
 					loop
@@ -74,14 +74,23 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 					styles={{
 						root: {
 							height: '100%',
+							display: 'flex',
+						},
+						viewport: {
+							flex: 1,
+							paddingTop: '1.3125rem',
+						},
+						slide: {
+							display: 'flex',
+							justifyContent: 'center',
 						},
 						controls: {
 							height: '100%',
 							display: 'flex',
-							position: 'absolute',
 							top: 0,
 							border: 'none',
 							padding: '0',
+							position: 'static',
 						},
 						control: {
 							'&:hover': {
@@ -91,6 +100,12 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 										: '#FF75AB !important',
 								color: '#FFF',
 							},
+							'&:active': {
+								transform: 'none',
+							},
+							'&:first-of-type': {
+								display: 'none',
+							},
 							transition: 'background-color 150ms cubic-bezier(0.4, 0, 0.2, 1)',
 							border: 'none',
 							borderTop: '1px solid #181818',
@@ -99,11 +114,12 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 								type === 'manga' ? '#242424 !important' : '#C34375 !important',
 							height: '100%',
 							borderRadius: '0',
-							width: '3.1875rem',
+							width: '2.25rem',
 							fontSize: '2.1875rem',
 							fontFamily: 'Days One',
 							opacity: '100',
 							right: '0',
+							userSelect: 'none',
 						},
 					}}
 					nextControlIcon={<p>{'>'}</p>}

@@ -1,10 +1,11 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import ReaderHeader from '@/components/Reader/ReaderHeader'
 import ReaderFooter from '@/components/Reader/ReaderFooter'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useManga } from '@/api/useManga'
 import { IFetchMangaPage } from '@/types/manga.interface'
 import { isNumber } from '@/utils/isNumber'
+import { cn } from '@/utils/cn'
 
 const Manga: FC = () => {
 	const params = useParams()
@@ -27,7 +28,7 @@ const Manga: FC = () => {
 	const [mangaWidth, setMangaWidth] = useState<number>(47)
 	const [isNextBttnHovered, setIsNextBttnHovered] = useState<boolean>(false)
 	const [isPrevBttnHovered, setIsPrevBttnHovered] = useState<boolean>(false)
-	const [isImagesLoaded, setIsImagesLoaded] = useState<boolean>(false)
+	const [isImageLoading, setIsImageLoading] = useState<boolean>(false)
 
 	const {
 		data: manga,
@@ -78,9 +79,9 @@ const Manga: FC = () => {
 		setPageParams()
 	}, [pagesCount])
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		window.scrollTo(0, 0)
-		setIsImagesLoaded(false)
+		setIsImageLoading(true)
 	}, [currentPageNum])
 
 	useEffect(() => {
@@ -91,7 +92,7 @@ const Manga: FC = () => {
 		}
 	}, [isLoading])
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const observer = new ResizeObserver(() => {
 			setOffset(((mangaRef.current?.offsetLeft ?? 0) / window.innerWidth) * 100)
 		})
@@ -100,7 +101,7 @@ const Manga: FC = () => {
 		return () => {
 			observer.unobserve(document.documentElement)
 		}
-	}, [mangaWidth, isImagesLoaded])
+	}, [mangaWidth, isImageLoading])
 
 	return (
 		<div className='h-screen flex flex-col'>
@@ -151,30 +152,32 @@ const Manga: FC = () => {
 								<p className='text-xl'>Страниц нет</p>
 							</div>
 						) : (
-							<div>
+							<div
+								className={cn('w-full', {
+									'aspect-[5/8]': isImageLoading,
+								})}
+							>
 								<img
 									style={{ width: mangaWidth + 'vw' }}
-									className={
-										(isImagesLoaded
-											? 'opacity-100 visible '
-											: 'opacity-0 invisible ') + 'select-none transition-all'
-									}
+									className={cn('select-none transition-all', {
+										'opacity-100 visible': !isImageLoading,
+										'opacity-0 invisible': isImageLoading,
+									})}
 									src={`${import.meta.env.VITE_SERVER_URL}/${pages[
 										+currentPageNum - 1
 									]?.page_img}`}
 									alt='manga-img'
-									onLoad={() => setIsImagesLoaded(true)}
+									onLoad={() => setIsImageLoading(false)}
 								/>
-								<p
-									className={
-										(isImagesLoaded
-											? 'opacity-0 invisible '
-											: 'opacity-100 visible ') +
-										'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl transition-all'
-									}
-								>
-									Загрузка...
-								</p>
+								<div
+									className={cn(
+										'w-full h-full bg-primaryText absolute inset-0 transition-all',
+										{
+											'opacity-0 invisible': !isImageLoading,
+											'opacity-100 visible': isImageLoading,
+										}
+									)}
+								/>
 							</div>
 						)}
 
