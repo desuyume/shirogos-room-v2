@@ -190,6 +190,9 @@ module.exports = {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 			},
+			transitionTimingFunction: {
+				dangoteka: 'cubic-bezier(0.22,0.66,0.56,0.96)',
+			},
 		},
 	},
 	plugins: [require('tailwindcss-animate')],
