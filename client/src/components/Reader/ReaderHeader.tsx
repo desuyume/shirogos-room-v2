@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ChaptersList from './ChaptersList'
 import { cn } from '@/utils/cn'
-import { DangotekaItemType } from '../Dangoteka/DangotekaSection'
+import { DangotekaItemType } from '@/pages/Dangoteka'
 
 interface IReaderHeader {
 	title: string
