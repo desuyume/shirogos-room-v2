@@ -1,7 +1,9 @@
 import { FC, useEffect } from 'react'
 import Header from '@/layout/Header/Header'
-import DangotekaSection from '@/components/Dangoteka/DangotekaSection'
 import { useLocation } from 'react-router-dom'
+import DangotekaSectionList from '@/components/Dangoteka/DangotekaSectionList'
+
+export type DangotekaItemType = 'manga' | 'story'
 
 const Dangoteka: FC = () => {
 	const { pathname } = useLocation()
@@ -13,8 +15,10 @@ const Dangoteka: FC = () => {
 	return (
 		<>
 			<Header withLine={true} isFixed={false} />
-			<DangotekaSection title='Манга' type='manga' />
-			<DangotekaSection title='Некриминальное Чтиво' type='story' />
+			<div className='py-2'>
+				<DangotekaSectionList type='manga' className='mb-[1.1875rem]' />
+				<DangotekaSectionList type='story' />
+			</div>
 		</>
 	)
 }

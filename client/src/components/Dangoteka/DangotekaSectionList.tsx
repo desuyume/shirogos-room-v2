@@ -1,18 +1,28 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import DangotekaSectionItem from './DangotekaSectionItem'
-import { Carousel } from '@mantine/carousel'
-import { useWindowSize } from 'usehooks-ts'
 import { useAllMangas } from '@/api/useAllMangas'
 import { useStoriesGeneral } from '@/api/useStoriesGeneral'
 import { IMangaGeneral } from '@/types/manga.interface'
 import { IStoryGeneral } from '@/types/story.interface'
-import type { DangotekaItemType } from './DangotekaSection'
+import {
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
+} from '../ui/carousel'
+import { cn } from '@/utils/cn'
+import type { DangotekaItemType } from '@/pages/Dangoteka'
 
-interface IDangotekaSectionList {
+interface DangotekaSectionListProps {
 	type: DangotekaItemType
+	className?: string
 }
 
-const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
+const DangotekaSectionList: FC<DangotekaSectionListProps> = ({
+	type,
+	className,
+}) => {
 	const {
 		data: mangas,
 		isLoading: isMangaLoading,
@@ -25,32 +35,38 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 	} = useStoriesGeneral()
 
 	const [items, setItems] = useState<IMangaGeneral[] | IStoryGeneral[]>([])
-	const { width } = useWindowSize()
-	const [isWithControls, setIsWithControls] = useState<boolean>(true)
-	const carouselRef = useRef<HTMLDivElement | null>(null)
-
-	useEffect(() => {
-		if (items.length * 666.7 <= width) {
-			setIsWithControls(false)
-		} else {
-			setIsWithControls(true)
-		}
-	}, [width, items])
 
 	useEffect(() => {
 		if (type === 'manga') {
 			if (!isMangaLoading && !isMangaError) {
 				setItems(mangas)
 			}
-		} else {
+		}
+
+		if (type === 'story') {
 			if (!isStoryLoading && !isStoryError) {
 				setItems(stories)
 			}
 		}
-	}, [isMangaLoading, isStoryLoading])
+	}, [isMangaLoading, isStoryLoading, isMangaError, isStoryError])
 
 	return (
-		<div className='flex w-full h-[25.5625rem]'>
+		<div
+			className={cn(
+				'flex w-full bg-repeat-x bg-[left_3.25rem_top]',
+				{
+					'h-[27.0625rem]': type === 'manga',
+					'h-[29.1875rem]': type === 'story',
+				},
+				className
+			)}
+			style={{
+				backgroundImage:
+					type === 'manga'
+						? "url('/images/manga-bg.png')"
+						: "url('/images/story-bg.png')",
+			}}
+		>
 			{(type === 'manga' && isMangaLoading) ||
 			(type === 'story' && isStoryLoading) ? (
 				<div className='w-full h-full flex justify-center items-center'>
@@ -63,87 +79,61 @@ const DangotekaSectionList: FC<IDangotekaSectionList> = ({ type }) => {
 				</div>
 			) : (
 				<Carousel
-					ref={carouselRef}
-					className='w-full'
-					align='start'
-					draggable={false}
-					loop
-					initialSlide={0}
-					slideGap={0}
-					withControls={isWithControls}
-					styles={{
-						root: {
-							height: '100%',
-							display: 'flex',
-						},
-						viewport: {
-							flex: 1,
-							paddingTop: '1.3125rem',
-						},
-						slide: {
-							display: 'flex',
-							justifyContent: 'center',
-						},
-						controls: {
-							height: '100%',
-							display: 'flex',
-							top: 0,
-							border: 'none',
-							padding: '0',
-							position: 'static',
-						},
-						control: {
-							'&:hover': {
-								backgroundColor:
-									type === 'manga'
-										? '#323232 !important'
-										: '#FF75AB !important',
-								color: '#FFF',
-							},
-							'&:active': {
-								transform: 'none',
-							},
-							'&:first-of-type': {
-								display: 'none',
-							},
-							transition: 'background-color 150ms cubic-bezier(0.4, 0, 0.2, 1)',
-							border: 'none',
-							borderTop: '1px solid #181818',
-							color: '#DEDEDE',
-							backgroundColor:
-								type === 'manga' ? '#242424 !important' : '#C34375 !important',
-							height: '100%',
-							borderRadius: '0',
-							width: '2.25rem',
-							fontSize: '2.1875rem',
-							fontFamily: 'Days One',
-							opacity: '100',
-							right: '0',
-							userSelect: 'none',
-						},
+					className='w-full flex [&>div]:w-full'
+					opts={{
+						align: 'start',
+						loop: true,
 					}}
-					nextControlIcon={<p>{'>'}</p>}
-					previousControlIcon={<p>{'<'}</p>}
-					breakpoints={[
-						{ minWidth: '3500', slideSize: '20%' },
-						{ minWidth: '2800', slideSize: '25%' },
-						{ minWidth: '2100', slideSize: '33.34%' },
-						{ minWidth: '1350', slideSize: '50%' },
-						{ minWidth: '800', slideSize: '100%' },
-					]}
 				>
-					{items.map(item => (
-						<Carousel.Slide key={item.id}>
-							<DangotekaSectionItem
-								key={type + item.title}
-								type={type}
-								itemId={item.id}
-								img={item.cover_img}
-								title={item.title}
-								description={item.description}
-							/>
-						</Carousel.Slide>
-					))}
+					<CarouselContent
+						className={cn('mx-[2.25rem]', {
+							'pt-[2.6875rem]': type === 'manga',
+							'pt-[3.125rem]': type === 'story',
+						})}
+					>
+						{items.map(item => (
+							<>
+								<CarouselItem
+									key={item.id}
+									className='min-desktop:basis-1/2 basis-full flex justify-center p-0 min-desktop:pl-[34px] relative'
+								>
+									<DangotekaSectionItem
+										type={type}
+										itemId={item.id}
+										img={item.cover_img}
+										title={item.title}
+										description={item.description}
+									/>
+									<div className='w-[0.25rem] h-[10.1875rem] bg-primaryText absolute right-0 top-16 translate-x-0.5 hidden min-desktop:block' />
+								</CarouselItem>
+							</>
+						))}
+					</CarouselContent>
+
+					<CarouselPrevious
+						className={cn(
+							'left-0 w-[2.5rem] h-[16.75rem] text-[2.1875rem] text-primaryText rounded-none outline-none border-none transition-colors disabled:opacity-0 disabled:invisible',
+							{
+								'bg-primary hover:bg-primaryHover hover:text-white':
+									type === 'story',
+								'bg-secondaryHover hover:bg-[#414141] hover:text-white':
+									type === 'manga',
+							}
+						)}
+						content='<'
+					/>
+					<CarouselNext
+						className={cn(
+							'right-0 w-[2.5rem] h-[16.75rem] text-[2.1875rem] text-primaryText rounded-none outline-none border-none transition-colors disabled:opacity-0 disabled:invisible',
+							{
+								'bg-primary hover:bg-primaryHover hover:text-white':
+									type === 'story',
+								'bg-secondaryHover hover:bg-[#414141] hover:text-white':
+									type === 'manga',
+							}
+						)}
+						content='>'
+					/>
 				</Carousel>
 			)}
 		</div>

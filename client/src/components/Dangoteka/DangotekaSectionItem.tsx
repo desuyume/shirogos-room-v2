@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
-import type { DangotekaItemType } from './DangotekaSection'
 import { cn } from '@/utils/cn'
+import type { DangotekaItemType } from '@/pages/Dangoteka'
 
 interface IDangotekaSectionItem {
 	type: DangotekaItemType
@@ -23,22 +23,24 @@ const DangotekaSectionItem: FC<IDangotekaSectionItem> = ({
 	return (
 		<div
 			onMouseLeave={() => setIsHovered(false)}
-			className='w-[32.25rem] h-[24.25rem] flex flex-col justify-center items-center relative'
+			className='w-[32.25rem] h-[24.25rem] relative'
 		>
 			<div
 				className={cn(
-					'absolute top-0 left-0 transition-all duration-1000 flex items-center',
+					'absolute top-0 left-0 transition-all duration-500 flex items-center',
 					{
-						'left-[7.375rem]': isHovered,
+						'left-[7.375rem] duration-1000': isHovered,
+						'-top-[1.0625rem]': isHovered && type === 'manga',
+						'-top-[0.4375rem]': isHovered && type === 'story',
 					}
 				)}
 			>
 				<Link
 					onMouseEnter={() => setIsHovered(true)}
 					className={cn(
-						'w-[14.75rem] h-[19.4375rem] transition-all duration-1000 inline-block z-10',
+						'w-[14.75rem] h-[19.4375rem] transition-all duration-500 inline-block z-10',
 						{
-							'w-[18.0625rem] h-[23.8125rem]': isHovered,
+							'w-[18.0625rem] h-[23.8125rem] duration-1000': isHovered,
 						}
 					)}
 					to={type === 'manga' ? '/manga/' + itemId + '/1' : '/story/' + itemId}
@@ -51,9 +53,9 @@ const DangotekaSectionItem: FC<IDangotekaSectionItem> = ({
 				</Link>
 				<div
 					className={cn(
-						'w-[15.6875rem] h-full absolute top-0 left-[16.5625rem] flex justify-center items-center transition-all duration-1000',
+						'w-[15.6875rem] h-full absolute top-0 left-[16.5625rem] flex justify-center items-center transition-all duration-500',
 						{
-							'left-0': isHovered,
+							'left-0 duration-1000': isHovered,
 						}
 					)}
 				>
@@ -64,9 +66,9 @@ const DangotekaSectionItem: FC<IDangotekaSectionItem> = ({
 			</div>
 			<div
 				className={cn(
-					'w-[14.75rem] h-14 absolute bottom-4 left-0 flex justify-center items-center transition-all duration-1000',
+					'w-[14.75rem] h-14 absolute bottom-4 left-0 flex justify-center items-center transition-all duration-500',
 					{
-						'left-[7.375rem] bottom-6': isHovered,
+						'left-[7.375rem] bottom-16 duration-1000': isHovered,
 					}
 				)}
 			>
