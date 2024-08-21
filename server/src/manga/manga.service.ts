@@ -141,8 +141,8 @@ export class MangaService {
       select: {
         id: true,
         title: true,
-        _count: true
-      }
+        _count: true,
+      },
     });
 
     if (!manga) {
@@ -161,10 +161,13 @@ export class MangaService {
           select: {
             id: true,
             page_img: true,
-            page_number: true
-          }
-        }
-      }
+            page_number: true,
+          },
+          orderBy: {
+            page_number: 'asc',
+          },
+        },
+      },
     });
 
     if (!mangaChapter) {
@@ -182,8 +185,8 @@ export class MangaService {
       title: manga.title,
       chaptersCount,
       chapter: mangaChapter.chapter,
-      pages: mangaChapter.MangaPage
-    }
+      pages: mangaChapter.MangaPage,
+    };
   }
 
   async getAllWithChapters() {

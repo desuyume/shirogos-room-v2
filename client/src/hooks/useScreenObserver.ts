@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect } from 'react'
 
 export const useScreenObserver = (
 	fn: () => void,
-	deps: any[],
+	deps: any[] | undefined,
 	isLayoutEffect = false
 ) => {
 	if (isLayoutEffect) {

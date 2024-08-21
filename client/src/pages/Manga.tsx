@@ -5,30 +5,32 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useManga } from '@/api/useManga'
 import { IFetchMangaPage } from '@/types/manga.interface'
 import { isNumber } from '@/utils/isNumber'
-import { cn } from '@/utils/cn'
+import sortPagesByCurrent from '@/utils/sortPagesByCurrent'
+import loadImage from '@/utils/loadImage'
+import MangaPage from '@/components/Reader/MangaPage'
 
 const Manga: FC = () => {
 	const params = useParams()
+	const [searchParams] = useSearchParams()
+	const navigate = useNavigate()
 
 	const mangaId = params.id ?? ''
-	const [searchParams] = useSearchParams()
+	const currentChapter = params.chapter ?? 1
 	const [currentPageNum, setCurrentPageNum] = useState<string>(
 		searchParams.get('page') ?? '1'
 	)
-
-	const currentChapter = params.chapter ?? 1
-	const [chaptersCount, setChaptersCount] = useState<number>(1)
-
 	const [pagesCount, setPagesCount] = useState<number>(0)
 	const [pages, setPages] = useState<IFetchMangaPage[]>([])
+	const [loadedPageNumbers, setLoadedPageNumbers] = useState<number[]>([])
 
 	const mangaRef = useRef<HTMLDivElement | null>(null)
+
 	const [offset, setOffset] = useState<number | undefined>(0)
 	const [isZoomed, setIsZoomed] = useState<boolean>(false)
 	const [mangaWidth, setMangaWidth] = useState<number>(47)
+
 	const [isNextBttnHovered, setIsNextBttnHovered] = useState<boolean>(false)
 	const [isPrevBttnHovered, setIsPrevBttnHovered] = useState<boolean>(false)
-	const [isImageLoading, setIsImageLoading] = useState<boolean>(false)
 
 	const {
 		data: manga,
@@ -46,8 +48,6 @@ const Manga: FC = () => {
 			setMangaWidth(mangaWidth - 30)
 		}
 	}
-
-	const navigate = useNavigate()
 
 	const clickNextPage = () => {
 		navigate(location.pathname + '?page=' + (+currentPageNum + 1))
@@ -75,22 +75,49 @@ const Manga: FC = () => {
 		}
 	}
 
+	const loadImagesSequentially = async (
+		pages: IFetchMangaPage[]
+	): Promise<void> => {
+		const sortedPages = sortPagesByCurrent(pages, +currentPageNum)
+		for (const page of sortedPages) {
+			try {
+				await loadImage(`${import.meta.env.VITE_SERVER_URL}/${page.page_img}`)
+				setLoadedPageNumbers(prev => [...prev, page.page_number])
+			} catch (error) {
+				console.error(
+					`Failed to load image for page ${page.page_number}:`,
+					error
+				)
+			}
+		}
+	}
+
 	useEffect(() => {
-		setPageParams()
+		if (isSuccess) {
+			setPageParams()
+		}
 	}, [pagesCount])
 
 	useLayoutEffect(() => {
 		window.scrollTo(0, 0)
-		setIsImageLoading(true)
 	}, [currentPageNum])
 
 	useEffect(() => {
 		if (isSuccess) {
 			setPagesCount(manga.pages.length)
-			setChaptersCount(manga.chaptersCount)
 			setPages(manga.pages)
 		}
 	}, [isLoading])
+
+	useEffect(() => {
+		if (isSuccess && pages.length) {
+			loadImagesSequentially(pages)
+		}
+	}, [pages.length, currentPageNum])
+
+	useEffect(() => {
+		setOffset(((mangaRef.current?.offsetLeft ?? 0) / window.innerWidth) * 100)
+	}, [isZoomed])
 
 	useLayoutEffect(() => {
 		const observer = new ResizeObserver(() => {
@@ -101,11 +128,11 @@ const Manga: FC = () => {
 		return () => {
 			observer.unobserve(document.documentElement)
 		}
-	}, [mangaWidth, isImageLoading])
+	})
 
 	return (
 		<div className='h-screen flex flex-col'>
-			{isLoading ? (
+			{isLoading || !currentPageNum ? (
 				<div className='w-full h-full flex justify-center items-center'>
 					<p className='text-xl'>Загрузка...</p>
 				</div>
@@ -121,7 +148,7 @@ const Manga: FC = () => {
 						pages={pagesCount}
 						type='manga'
 						currentChapter={+currentChapter}
-						chapters={chaptersCount}
+						chapters={manga.chaptersCount}
 						itemId={mangaId}
 					/>
 					<div
@@ -152,33 +179,14 @@ const Manga: FC = () => {
 								<p className='text-xl'>Страниц нет</p>
 							</div>
 						) : (
-							<div
-								className={cn('w-full', {
-									'aspect-[5/8]': isImageLoading,
-								})}
-							>
-								<img
-									style={{ width: mangaWidth + 'vw' }}
-									className={cn('select-none transition-all', {
-										'opacity-100 visible': !isImageLoading,
-										'opacity-0 invisible': isImageLoading,
-									})}
-									src={`${import.meta.env.VITE_SERVER_URL}/${pages[
-										+currentPageNum - 1
-									]?.page_img}`}
-									alt='manga-img'
-									onLoad={() => setIsImageLoading(false)}
-								/>
-								<div
-									className={cn(
-										'w-full h-full bg-primaryText absolute inset-0 transition-all',
-										{
-											'opacity-0 invisible': !isImageLoading,
-											'opacity-100 visible': isImageLoading,
-										}
-									)}
-								/>
-							</div>
+							<MangaPage
+								mangaWidth={mangaWidth}
+								img={
+									pages.find(page => page.page_number === +currentPageNum)
+										?.page_img ?? null
+								}
+								isLoading={!loadedPageNumbers.includes(+currentPageNum)}
+							/>
 						)}
 
 						{+currentPageNum < pagesCount && (
