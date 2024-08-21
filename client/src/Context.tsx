@@ -11,12 +11,19 @@ import { IRoomAppearance } from './types/room.interface'
 import { RoomColor } from './consts/roomColors'
 import { IBackground } from './types/background.interface'
 import userService from './services/user.service'
+import axios from 'axios'
+import roomService from './services/room.service'
+
+interface IUserForContext extends Omit<IUser, 'Room'> {}
 
 interface IUserContext {
-	user: IUser | null
-	setUser: React.Dispatch<React.SetStateAction<IUser | null>>
+	user: IUserForContext | null
+	setUser: React.Dispatch<React.SetStateAction<IUserForContext | null>>
+	isRoomCreated: boolean
+	setIsRoomCreated: React.Dispatch<React.SetStateAction<boolean>>
 	isFetched: boolean
 	setIsFetched: React.Dispatch<React.SetStateAction<boolean>>
+	logout: () => Promise<void>
 }
 
 interface IRoomAppearanceContext {
@@ -33,7 +40,8 @@ export const RoomAppearanceContext = createContext<IRoomAppearanceContext>({
 })
 
 const Context: FC<PropsWithChildren> = ({ children }) => {
-	const [user, setUser] = useState<IUser | null>(null)
+	const [user, setUser] = useState<IUserForContext | null>(null)
+	const [isRoomCreated, setIsRoomCreated] = useState<boolean>(false)
 	const [roomAppearance, setRoomAppearance] = useState<IRoomAppearance | null>(
 		null
 	)
@@ -51,15 +59,12 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 				id: userData.user.id,
 				username: userData.user.username,
 				role: userData.user.role,
-				Room: userData.user.Room
-					? {
-							id: userData.user.Room.id,
-					  }
-					: null,
 				twitch: {
 					displayName: userData.user.twitch.displayName,
 				},
 			})
+			const isRoomCreatedRes = await roomService.isCreated()
+			setIsRoomCreated(isRoomCreatedRes.data)
 		} catch (e) {
 			localStorage.removeItem('token')
 			setUser(null)
@@ -67,6 +72,19 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 		} finally {
 			setIsUserFetched(true)
 		}
+	}
+
+	const logout = async () => {
+		await axios
+			.get(`${import.meta.env.VITE_API_URL}/user/logout`, {
+				withCredentials: true,
+			})
+			.then(() => {
+				setUser(null)
+				localStorage.removeItem('token')
+				setIsRoomCreated(false)
+			})
+			.catch(e => console.log(e))
 	}
 
 	const setUserActiveColors = () => {
@@ -92,6 +110,9 @@ const Context: FC<PropsWithChildren> = ({ children }) => {
 				setUser,
 				isFetched: isUserFetched,
 				setIsFetched: setIsUserFetched,
+				logout,
+				isRoomCreated,
+				setIsRoomCreated,
 			}}
 		>
 			<RoomAppearanceContext.Provider

@@ -5,8 +5,7 @@ import {
 	colorVariantsFocus,
 	colorVariantsHover,
 } from '@/consts/roomColors'
-import { useToastOnError } from '@/hooks/useToast'
-import { usernameAlreadyExistsToast, usernameLengthToast } from '@/utils/toasts'
+import { usernameLengthToast } from '@/utils/toasts'
 import { FC, useContext } from 'react'
 
 interface IChangeUsername {
@@ -22,7 +21,7 @@ const ChangeUsername: FC<IChangeUsername> = ({
 }) => {
 	const roomAppearance = useContext(RoomAppearanceContext)
 
-	const { mutate, error } = useUpdateUsername()
+	const { mutate } = useUpdateUsername()
 
 	const updateUsername = () => {
 		if (value.length < 3 || value.length > 25) {
@@ -31,8 +30,6 @@ const ChangeUsername: FC<IChangeUsername> = ({
 			mutate({ username: value })
 		}
 	}
-
-	useToastOnError(error, usernameAlreadyExistsToast)
 
 	return (
 		<div className='h-[7.75rem] flex justify-between items-center border-b-[1px] border-[#646464]'>

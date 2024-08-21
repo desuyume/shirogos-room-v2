@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import ProfileMiniature from '../ProfileMiniature'
 import LogoutButton from './LogoutButton'
 import { cn } from '@/utils/cn'
-import axios from 'axios'
 import { UserContext } from '@/Context'
 import Notification from '../Notification/Notification'
 
@@ -28,18 +27,6 @@ const RoomInfo: FC = () => {
 		timeoutRef.current = setTimeout(() => {
 			setIsLogoutVisible(false)
 		}, 1000)
-	}
-
-	const logout = async () => {
-		await axios
-			.get(`${import.meta.env.VITE_API_URL}/user/logout`, {
-				withCredentials: true,
-			})
-			.then(() => {
-				context?.setUser(null)
-				localStorage.removeItem('token')
-			})
-			.catch(e => console.log(e))
 	}
 
 	// Cleanup timeout on component unmount
@@ -113,7 +100,9 @@ const RoomInfo: FC = () => {
 				isLogoutVisible={isLogoutVisible}
 				handleMouseEnter={handleMouseEnter}
 				handleMouseLeave={handleMouseLeave}
-				onClick={logout}
+				onClick={async () => {
+					await context?.logout()
+				}}
 			/>
 
 			<div className='w-[10.125rem] h-[10.375rem] absolute bg-room-info-gray-gradient z-10 top-1.5 right-1.5' />

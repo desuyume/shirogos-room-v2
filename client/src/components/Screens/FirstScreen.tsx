@@ -29,13 +29,6 @@ const FirstScreen: FC = () => {
 
 			<Socials />
 
-			<h1 className='font-secondary text-[6.25rem] font-bold leading-[95.5%] absolute top-[159px] left-[50%] tracking-[-0.375rem]'>
-				КОМНАТА <br />
-				<span className='leading-none text-[8.125rem] tracking-[-0.4875rem]'>
-					ШИРОГО
-				</span>
-			</h1>
-
 			<MouseParallaxContainer
 				containerStyle={{ overflow: 'visible' }}
 				className='flex justify-center w-screen h-full select-none'
@@ -52,7 +45,7 @@ const FirstScreen: FC = () => {
 				</MouseParallaxChild>
 			</MouseParallaxContainer>
 
-			{context?.user ? (
+			{context?.user && context.isRoomCreated ? (
 				<div className='flex flex-col absolute right-[3.8125rem] top-2.5'>
 					<RoomInfo />
 				</div>

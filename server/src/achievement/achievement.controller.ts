@@ -48,8 +48,8 @@ export class AchievementController {
     return await this.achievementService.remove(id);
   }
 
-  @Get(':username')
-  async getByUsername(@Param('username') username: string) {
-    return await this.achievementService.getByUsername(username);
+  @Get(':twitchLogin')
+  async getByTwitchLogin(@Param('twitchLogin') twitchLogin: string) {
+    return await this.achievementService.getByTwitchLogin(twitchLogin);
   }
 }

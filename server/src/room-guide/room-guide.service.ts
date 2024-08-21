@@ -19,6 +19,11 @@ export class RoomGuideService {
           select: {
             id: true,
             username: true,
+            twitch: {
+              select: {
+                login: true,
+              },
+            },
             profile_img: true,
             miniature_img: true,
           },
@@ -64,6 +69,11 @@ export class RoomGuideService {
             select: {
               id: true,
               username: true,
+              twitch: {
+                select: {
+                  login: true,
+                },
+              },
               level: true,
               profile_img: true,
               miniature_img: true,
@@ -79,10 +89,20 @@ export class RoomGuideService {
     };
   }
 
-  async getRoomByUsername(username: string) {
+  async getRoomByTwitchLogin(twitchLogin: string) {
+    const twitchProfile = await this.prisma.client.twitchProfile.findUnique({
+      where: {
+        login: twitchLogin,
+      },
+    });
+
+    if (!twitchProfile) {
+      throw new BadRequestException('User not found');
+    }
+
     const user = await this.prisma.client.user.findUnique({
       where: {
-        username,
+        twitchId: twitchProfile.id,
       },
     });
 
@@ -120,6 +140,11 @@ export class RoomGuideService {
         user: {
           select: {
             username: true,
+            twitch: {
+              select: {
+                login: true,
+              },
+            },
             dangos: true,
             level: true,
             exp: true,

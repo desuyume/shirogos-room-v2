@@ -1,27 +1,27 @@
-import { useIsRoomCreated } from '@/api/useIsRoomCreated'
 import RoomNav from '@/components/Room/RoomNav'
 import RoomSections from '@/components/Room/RoomSections'
 import Header from '@/layout/Header/Header'
 import { useContext, useEffect } from 'react'
 import Loader from './Loader'
-import { useLocation } from 'react-router-dom'
-import { RoomAppearanceContext } from '@/Context'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { RoomAppearanceContext, UserContext } from '@/Context'
 import { colorVariants } from '@/consts/roomColors'
 import { cn } from '@/utils/cn'
 
 const Room = () => {
-	const { data: isRoomCreated, isFetched: isFetchedIsRoomCreated } =
-		useIsRoomCreated()
 	const { pathname } = useLocation()
+	const navigate = useNavigate()
+
+	const userContext = useContext(UserContext)
 	const roomAppearance = useContext(RoomAppearanceContext)
 
 	useEffect(() => {
-		if (isRoomCreated === false) {
-			window.location.href = '/room/create'
+		if (!userContext?.isRoomCreated) {
+			navigate('/')
 		}
-	}, [isFetchedIsRoomCreated])
+	}, [userContext?.isFetched, userContext?.isRoomCreated])
 
-	return !isFetchedIsRoomCreated || !isRoomCreated ? (
+	return !userContext?.isFetched || !userContext.isRoomCreated ? (
 		<Loader />
 	) : (
 		<>

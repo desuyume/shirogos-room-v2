@@ -15,6 +15,9 @@ export interface IRoomGuideRandom {
 	user: {
 		id: number
 		username: string
+		twitch: {
+			login: string
+		}
 		profile_img: string
 		miniature_img: string
 	}
@@ -31,6 +34,9 @@ export interface IRoomGuideByLevel {
 	user: {
 		id: number
 		username: string
+		twitch: {
+			login: string
+		}
 		level: number
 		profile_img: string
 		miniature_img: string

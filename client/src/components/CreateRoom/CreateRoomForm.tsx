@@ -3,23 +3,24 @@ import { useNavigate } from 'react-router-dom'
 
 interface ICreateRoomForm {
 	username: string
-	setUsername: React.Dispatch<React.SetStateAction<string>>
 	roomName: string
 	setRoomName: React.Dispatch<React.SetStateAction<string>>
 	createRoom: () => void
+	logout?: () => Promise<void>
 }
 
 const CreateRoomForm: FC<ICreateRoomForm> = ({
 	username,
-	setUsername,
 	roomName,
 	setRoomName,
 	createRoom,
+	logout,
 }) => {
 	const navigate = useNavigate()
 
-	const cancel = () => {
+	const cancel = async () => {
 		navigate('/')
+		if (logout) await logout()
 	}
 
 	return (
@@ -50,9 +51,9 @@ const CreateRoomForm: FC<ICreateRoomForm> = ({
 				</label>
 				<input
 					value={username}
-					onChange={e => setUsername(e.target.value)}
 					className='w-[27rem] h-[2.75rem] outline-none text-tertiary bg-primaryText text-[2.1875rem] font-quaternary leading-[100%] text-center mb-[0.31rem]'
 					id='nickname'
+					disabled
 				/>
 			</div>
 			<button

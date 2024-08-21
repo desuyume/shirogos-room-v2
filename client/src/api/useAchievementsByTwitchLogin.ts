@@ -2,12 +2,13 @@ import { ACHIEVEMENTS_KEY } from '@/consts/queryKeys'
 import achievementService from '@/services/achievement.service'
 import { useQuery } from '@tanstack/react-query'
 
-export const useAchievementsByUsername = (username: string) => {
+export const useAchievementsByTwitchLogin = (twitchLogin: string) => {
 	return useQuery(
-		[ACHIEVEMENTS_KEY, username],
-		() => achievementService.getByUsername(username),
+		[ACHIEVEMENTS_KEY, twitchLogin],
+		() => achievementService.getByTwitchLogin(twitchLogin),
 		{
 			select: ({ data }) => data,
+			enabled: !!twitchLogin,
 		}
 	)
 }

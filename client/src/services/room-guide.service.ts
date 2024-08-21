@@ -18,8 +18,8 @@ class RoomGuideService {
 		)
 	}
 
-	async getRoomByUsername(username: string) {
-		return await axios.get<IRoomGuide>(`${this.URL}/${username}`)
+	async useRoomByTwitchLogin(twitchLogin: string) {
+		return await axios.get<IRoomGuide>(`${this.URL}/${twitchLogin}`)
 	}
 }
 

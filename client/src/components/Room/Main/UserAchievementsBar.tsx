@@ -1,26 +1,26 @@
 import { FC, useContext } from 'react'
 import { formatDate } from '@/utils/formatDate'
-import { useAchievementsByUsername } from '@/api/useAchievementsByUsername'
 import { Scrollbar } from 'react-scrollbars-custom'
 import { IRoomAppearance } from '@/types/room.interface'
 import { RoomAppearanceContext } from '@/Context'
+import { useAchievementsByTwitchLogin } from '@/api/useAchievementsByTwitchLogin'
 
 interface IUserAchievementsBar {
 	created_at: Date
-	username: string
+	twitchLogin: string
 	isGuide?: boolean
 	guideRoomAppearance?: IRoomAppearance
 }
 
 const UserAchievementsBar: FC<IUserAchievementsBar> = ({
 	created_at,
-	username,
+	twitchLogin,
 	isGuide,
 	guideRoomAppearance,
 }) => {
 	const roomAppearance = useContext(RoomAppearanceContext)
 
-	const { data: achievements } = useAchievementsByUsername(username)
+	const { data: achievements } = useAchievementsByTwitchLogin(twitchLogin)
 
 	return (
 		<div className='bg-tertiary min-h-[40.625rem] flex-1 flex flex-col justify-end rounded-b-[1.5625rem]'>

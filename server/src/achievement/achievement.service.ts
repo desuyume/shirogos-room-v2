@@ -188,10 +188,22 @@ export class AchievementService {
     });
   }
 
-  async getByUsername(username: string) {
+  async getByTwitchLogin(twitchLogin: string) {
+    const twitchProfile = await this.prisma.twitchProfile.findUnique({
+      where: {
+        login: twitchLogin,
+      },
+      select: {
+        id: true,
+      },
+    });
+    if (!twitchProfile) {
+      throw new BadRequestException('User not found');
+    }
+
     const user = await this.prisma.user.findUnique({
       where: {
-        username,
+        twitchId: twitchProfile.id,
       },
       select: {
         id: true,
@@ -200,6 +212,7 @@ export class AchievementService {
     if (!user) {
       throw new BadRequestException('User not found');
     }
+
     return await this.prisma.achievement.findMany({
       where: {
         AchievementsOnRooms: {

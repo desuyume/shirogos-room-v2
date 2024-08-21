@@ -92,21 +92,19 @@ const DangotekaSectionList: FC<DangotekaSectionListProps> = ({
 						})}
 					>
 						{items.map(item => (
-							<>
-								<CarouselItem
-									key={item.id}
-									className='min-desktop:basis-1/2 basis-full flex justify-center p-0 min-desktop:pl-[34px] relative'
-								>
-									<DangotekaSectionItem
-										type={type}
-										itemId={item.id}
-										img={item.cover_img}
-										title={item.title}
-										description={item.description}
-									/>
-									<div className='w-[0.25rem] h-[10.1875rem] bg-primaryText absolute right-0 top-16 translate-x-0.5 hidden min-desktop:block' />
-								</CarouselItem>
-							</>
+							<CarouselItem
+								key={item.id}
+								className='min-desktop:basis-1/2 basis-full flex justify-center p-0 min-desktop:pl-[34px] relative'
+							>
+								<DangotekaSectionItem
+									type={type}
+									itemId={item.id}
+									img={item.cover_img}
+									title={item.title}
+									description={item.description}
+								/>
+								<div className='w-[0.25rem] h-[10.1875rem] bg-primaryText absolute right-0 top-16 translate-x-0.5 hidden min-desktop:block' />
+							</CarouselItem>
 						))}
 					</CarouselContent>
 

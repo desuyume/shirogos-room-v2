@@ -22,6 +22,9 @@ export interface IRoom {
 	created_at: Date
 	user: {
 		username: string
+		twitch: {
+			login: string
+		}
 		dangos: number
 		level: number
 		exp: number

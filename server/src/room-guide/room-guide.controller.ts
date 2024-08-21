@@ -11,12 +11,15 @@ export class RoomGuideController {
   }
 
   @Get('byLevel')
-  async getRoomsByLevel(@Query('limit') limit: string, @Query('page') page: string) {
+  async getRoomsByLevel(
+    @Query('limit') limit: string,
+    @Query('page') page: string,
+  ) {
     return await this.roomGuideService.getRoomsByLevel(+limit, +page);
   }
 
-  @Get(':username')
-  async getRoomByUsername(@Param('username') username: string) {
-    return await this.roomGuideService.getRoomByUsername(username);
+  @Get(':twitchLogin')
+  async getRoomByTwitchLogin(@Param('twitchLogin') twitchLogin: string) {
+    return await this.roomGuideService.getRoomByTwitchLogin(twitchLogin);
   }
 }

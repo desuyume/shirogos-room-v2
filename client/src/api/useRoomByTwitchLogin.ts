@@ -2,10 +2,10 @@ import { ROOM_BY_USERNAME } from '@/consts/queryKeys'
 import roomGuideService from '@/services/room-guide.service'
 import { useQuery } from '@tanstack/react-query'
 
-export const useRoomByUsername = (username: string) => {
+export const useRoomByTwitchLogin = (twitchLogin: string) => {
 	return useQuery(
-		[ROOM_BY_USERNAME, username],
-		() => roomGuideService.getRoomByUsername(username),
+		[ROOM_BY_USERNAME, twitchLogin],
+		() => roomGuideService.useRoomByTwitchLogin(twitchLogin),
 		{
 			select: ({ data }) => data,
 			refetchOnWindowFocus: false,

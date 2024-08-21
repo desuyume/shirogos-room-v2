@@ -6,6 +6,7 @@ import { IPastUsername, IRoomAppearance } from '@/types/room.interface'
 interface IUserBar {
 	profile_img: string | null
 	username: string
+	twitchLogin: string
 	past_usernames: IPastUsername[]
 	level: number
 	exp: number
@@ -19,6 +20,7 @@ const UserBar: FC<IUserBar> = ({
 	profile_img,
 	username,
 	past_usernames,
+	twitchLogin,
 	level,
 	exp,
 	created_at,
@@ -43,7 +45,7 @@ const UserBar: FC<IUserBar> = ({
 			/>
 			<UserAchievementsBar
 				created_at={created_at}
-				username={username}
+				twitchLogin={twitchLogin}
 				isGuide={isGuide}
 				guideRoomAppearance={guideRoomAppearance}
 			/>

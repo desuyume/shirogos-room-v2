@@ -313,6 +313,7 @@ const RoomEditor: FC = () => {
 					<UserBar
 						profile_img={roomInfo.user.profile_img}
 						username={roomInfo.user.username}
+						twitchLogin={roomInfo.user.twitch.login}
 						created_at={roomInfo.created_at}
 						level={roomInfo.user.level}
 						exp={roomInfo.user.level}

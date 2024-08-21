@@ -184,6 +184,7 @@ const RoomMainContent: FC<IRoomMainContent> = ({
 			<UserBar
 				profile_img={room.user.profile_img}
 				username={room.user.username}
+				twitchLogin={room.user.twitch.login}
 				created_at={room.created_at}
 				level={room.user.level}
 				exp={room.user.exp}

@@ -1,4 +1,4 @@
-import { useRoomByUsername } from '@/api/useRoomByUsername'
+import { useRoomByTwitchLogin } from '@/api/useRoomByTwitchLogin'
 import RoomMainContent from '@/components/Room/Main/RoomMainContent'
 import { colorVariants } from '@/consts/roomColors'
 import Header from '@/layout/Header/Header'
@@ -8,7 +8,7 @@ import { FC, useEffect, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 
 const Guide: FC = () => {
-	const { username } = useParams()
+	const { twitchLogin } = useParams()
 	const [searchParams, setSearchParams] = useSearchParams()
 	const [fromSection, setFromSection] = useState<'screen' | 'preview' | null>(
 		null
@@ -19,7 +19,7 @@ const Guide: FC = () => {
 		isLoading: isGuideLoading,
 		isError: isGuideError,
 		error: guideError,
-	} = useRoomByUsername(username ?? '')
+	} = useRoomByTwitchLogin(twitchLogin ?? '')
 
 	useEffect(() => {
 		if (searchParams.get('from') === 'guideScreen') {

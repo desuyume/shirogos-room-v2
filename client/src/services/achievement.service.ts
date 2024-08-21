@@ -25,8 +25,8 @@ class AchievementService {
 		return await axios.delete(`${this.URL}/${id}`)
 	}
 
-	async getByUsername(username: string) {
-		return await axios.get<IAchievementFetch[]>(`${this.URL}/${username}`)
+	async getByTwitchLogin(twitchLogin: string) {
+		return await axios.get<IAchievementFetch[]>(`${this.URL}/${twitchLogin}`)
 	}
 }
 

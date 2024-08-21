@@ -33,6 +33,11 @@ export class RoomService {
             exp: true,
             level: true,
             username: true,
+            twitch: {
+              select: {
+                login: true,
+              },
+            },
             profile_img: true,
             past_usernames: {
               orderBy: {
@@ -74,16 +79,6 @@ export class RoomService {
 
     if (room) {
       throw new BadRequestException('room already created');
-    }
-
-    const user = await this.prisma.user.findUnique({
-      where: {
-        username: dto.username,
-      },
-    });
-
-    if (user && user.id !== userId) {
-      throw new BadRequestException('user with this username already exists');
     }
 
     const updatedUser = await this.prisma.user.update({

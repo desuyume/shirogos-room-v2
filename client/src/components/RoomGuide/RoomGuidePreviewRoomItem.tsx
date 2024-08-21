@@ -21,7 +21,7 @@ const RoomGuidePreviewRoomItem: FC<IRoomGuidePreviewRoomItem> = ({
 		>
 			<Link
 				className='w-full order-3 peer'
-				to={`/guide/${room.user.username}?from=guidePreview`}
+				to={`/guide/${room.user.twitch.login}?from=guidePreview`}
 			>
 				<ProfileMiniature
 					miniature_img={room.user.miniature_img}

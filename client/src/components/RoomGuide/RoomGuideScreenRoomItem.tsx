@@ -19,7 +19,7 @@ const RoomGuideScreenRoomItem: FC<IRoomGuideScreenRoomItem> = ({
 			</p>
 			<Link
 				className='w-[90.5%] min-w-[90.5%] h-full'
-				to={`/guide/${room.user.username}?from=guideScreen`}
+				to={`/guide/${room.user.twitch.login}?from=guideScreen`}
 			>
 				<div className='max-w-full min-w-full h-full relative cursor-pointer flex justify-between items-center group'>
 					<ProfileMiniature
