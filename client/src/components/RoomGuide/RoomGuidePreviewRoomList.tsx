@@ -31,7 +31,7 @@ const RoomGuidePreviewRoomList: FC = () => {
 			</div>
 
 			<div className='flex-1 h-full flex flex-col justify-between'>
-				<div className='w-full h-[12.5rem] bg-secondary bg-opacity-90 z-10'>
+				<div className='w-full h-[12.5rem] bg-secondary bg-opacity-90'>
 					<div className='w-full h-full bg-tertiary bg-opacity-40 pl-[0.5rem] pr-[2.5625rem] flex items-center'>
 						{rooms[0] && <RoomGuidePreviewRoomItem room={rooms[0]} order={1} />}
 						{rooms[2] && <RoomGuidePreviewRoomItem room={rooms[2]} order={3} />}
@@ -40,7 +40,7 @@ const RoomGuidePreviewRoomList: FC = () => {
 					</div>
 				</div>
 
-				<div className='w-full h-[12.5rem] bg-secondary bg-opacity-90 z-10'>
+				<div className='w-full h-[12.5rem] bg-secondary bg-opacity-90'>
 					<div className='w-full h-full bg-tertiary bg-opacity-40 pl-[0.5rem] pr-[2.5625rem] flex items-center'>
 						{rooms[1] && <RoomGuidePreviewRoomItem room={rooms[1]} order={2} />}
 						{rooms[3] && <RoomGuidePreviewRoomItem room={rooms[3]} order={4} />}

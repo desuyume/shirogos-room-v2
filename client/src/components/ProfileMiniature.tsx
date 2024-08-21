@@ -40,7 +40,7 @@ const ProfileMiniature: FC<IProfileMiniature> = ({
 			/>
 			{!!frame && (
 				<img
-					className='min-w-[calc(100%*1.155)] max-w-[calc(100%+14px)] aspect-[104/83] absolute -top-[2px] -right-[2px] z-10 select-none pointer-events-none'
+					className='min-w-[calc(100%+14px)] max-w-[calc(100%+14px)] h-[calc(100%+11px)] absolute -top-[2px] -right-[2px] z-10 inline select-none pointer-events-none'
 					src={`${import.meta.env.VITE_SERVER_URL}/${frame.img}`}
 					alt='frame'
 				/>
