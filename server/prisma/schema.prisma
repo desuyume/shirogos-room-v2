@@ -145,6 +145,8 @@ model BackroundsOnRooms {
   roomId       Int
   Background   Background @relation(fields: [backgroundId], references: [id])
   backgroundId Int
+
+  @@map("backgrounds_on_rooms")
 }
 
 model Panopticon {
@@ -169,6 +171,8 @@ model PanopticonsOnRooms {
   panopticonId Int
   buyed_at     DateTime   @default(now())
   buyed_cost   Int        @default(0)
+
+  @@map("panopticons_on_rooms")
 }
 
 model RoomColor {
@@ -196,6 +200,7 @@ model UniqueRolesOnRooms {
   uniqueRoleId Int
 
   @@id([roomId, uniqueRoleId])
+  @@map("unique_roles_on_rooms")
 }
 
 model TwitchProfile {
@@ -314,6 +319,8 @@ model BadgesOnRooms {
   roomId  Int
   Badge   Badge @relation(fields: [badgeId], references: [id])
   badgeId Int
+
+  @@map("badges_on_rooms")
 }
 
 model Frame {
@@ -325,6 +332,8 @@ model Frame {
   FramesOnRooms    FramesOnRooms[]
   Room             Room[]
   AchievementAward AchievementAward[]
+
+  @@map("frames")
 }
 
 model FramesOnRooms {
@@ -333,6 +342,8 @@ model FramesOnRooms {
   roomId  Int
   Frame   Frame @relation(fields: [frameId], references: [id])
   frameId Int
+
+  @@map("frames_on_rooms")
 }
 
 model BirthdayAward {
@@ -547,6 +558,8 @@ model AchievementsOnRooms {
   roomId        Int
   Achievement   Achievement @relation(fields: [achievenentId], references: [id])
   achievenentId Int
+
+  @@map("achievements_on_rooms")
 }
 
 model Task {
@@ -574,6 +587,8 @@ model TaskResponse {
   roomId Int
   Task   Task               @relation(fields: [taskId], references: [id])
   taskId Int
+
+  @@map("task_responses")
 }
 
 model Notification {
@@ -582,6 +597,8 @@ model Notification {
   img                  String?
   date_created         DateTime               @default(now())
   NotificationsOnUsers NotificationsOnUsers[]
+
+  @@map("notifications")
 }
 
 model NotificationsOnUsers {
@@ -591,4 +608,6 @@ model NotificationsOnUsers {
   userId         Int
   Notification   Notification @relation(fields: [notificationId], references: [id])
   notificationId Int
+
+  @@map("notifications_on_users")
 }
