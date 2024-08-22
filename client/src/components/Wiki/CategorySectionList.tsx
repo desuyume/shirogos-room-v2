@@ -1,7 +1,7 @@
-import { Carousel } from '@mantine/carousel'
 import { FC } from 'react'
 import { ICharacterPreview } from '@/types/wiki.interface'
 import WikiCharacterItem from './WikiCharacterItem'
+import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel'
 
 interface ICategorySectionList {
   characters: ICharacterPreview[]
@@ -9,27 +9,23 @@ interface ICategorySectionList {
 
 const CategorySectionList: FC<ICategorySectionList> = ({ characters }) => {
   return (
-    <Carousel
-      className='z-20 ml-5 flex flex-1 justify-center pr-1'
-      slideGap='xl'
-      slideSize='16.6666%'
-      slidesToScroll={1}
-      align='start'
-      draggable={true}
-      loop
-      withControls={false}
-    >
-      {characters.map((character) => (
-        <Carousel.Slide key={character.id}>
-          <WikiCharacterItem
-            key={character.id}
-            id={character.id}
-            name={character.name}
-            img={character.miniature_img ?? character.original_img}
-            inCategory
-          />
-        </Carousel.Slide>
-      ))}
+    <Carousel opts={{
+      align: 'start',
+      loop: true,
+    }} className='z-20 ml-5 flex-1'>
+      <CarouselContent className='m-0'>
+        {characters.map((character) => (
+          <CarouselItem key={character.id} className='p-0 basis-1/6'>
+            <WikiCharacterItem
+              key={character.id}
+              id={character.id}
+              name={character.name}
+              img={character.miniature_img ?? character.original_img}
+              inCategory
+            />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
     </Carousel>
   )
 }
