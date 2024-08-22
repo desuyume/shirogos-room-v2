@@ -86,10 +86,6 @@ const Manga: FC = () => {
     }
   }, [pagesCount])
 
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0)
-  }, [currentPageNum])
-
   useEffect(() => {
     if (isSuccess) {
       setPagesCount(manga.pages.length)

@@ -1,5 +1,5 @@
 import { cn } from '@/utils/cn'
-import { FC } from 'react'
+import { FC, useLayoutEffect, useRef } from 'react'
 
 interface MangaPageProps {
   mangaWidth: number
@@ -9,6 +9,15 @@ interface MangaPageProps {
 
 const MangaPage: FC<MangaPageProps> = ({ mangaWidth, img, isLoading }) => {
   const isAvailable = !!img && !isLoading
+  const imgRef = useRef<HTMLImageElement | null>(null)
+
+  useLayoutEffect(() => {
+    if (!img) return
+    window.requestAnimationFrame(() => {
+      imgRef.current?.setAttribute('src', `${import.meta.env.VITE_SERVER_URL}/${img}`)
+      window.scrollTo(0, 0)
+    })
+  }, [img])
 
   return (
     <div
@@ -17,12 +26,12 @@ const MangaPage: FC<MangaPageProps> = ({ mangaWidth, img, isLoading }) => {
       })}
     >
       <img
+        ref={imgRef}
         style={{ width: mangaWidth + 'vw' }}
         className={cn('select-none transition-all', {
           'visible opacity-100': isAvailable,
           'invisible opacity-0': !isAvailable
         })}
-        src={`${import.meta.env.VITE_SERVER_URL}/${img}`}
         alt='manga-img'
       />
       <div
