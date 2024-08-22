@@ -3,11 +3,11 @@ import donateService from '@/services/donate.service'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useDeleteDonate = (id: number) => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation([DONATES_KEY, id], (id: number) => donateService.delete(id), {
-		onSettled: () => {
-			queryClient.invalidateQueries([DONATES_KEY])
-		}
-	})
+  return useMutation([DONATES_KEY, id], (id: number) => donateService.delete(id), {
+    onSettled: () => {
+      queryClient.invalidateQueries([DONATES_KEY])
+    }
+  })
 }

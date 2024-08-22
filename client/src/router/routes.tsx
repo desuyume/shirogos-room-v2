@@ -21,32 +21,32 @@ import Customization from '@/pages/Admin/Customization'
 import { RouteObject } from 'react-router-dom'
 
 export const publicRouter: RouteObject[] = [
-	{ path: '/', element: <Main /> },
-	{ path: '/wiki/:id', element: <WikiReader /> },
-	{ path: '/wiki', element: <Wiki /> },
-	{ path: '/dangoteka', element: <Dangoteka /> },
-	{ path: '/streamer', element: <Streamer /> },
-	{ path: '/youtubes', element: <Youtubes /> },
-	{ path: '/manga/:id/:chapter?', element: <Manga /> },
-	{ path: '/story/:id/:chapter?', element: <Story /> },
-	{ path: '/guide/:twitchLogin', element: <Guide /> },
+  { path: '/', element: <Main /> },
+  { path: '/wiki/:id', element: <WikiReader /> },
+  { path: '/wiki', element: <Wiki /> },
+  { path: '/dangoteka', element: <Dangoteka /> },
+  { path: '/streamer', element: <Streamer /> },
+  { path: '/youtubes', element: <Youtubes /> },
+  { path: '/manga/:id/:chapter?', element: <Manga /> },
+  { path: '/story/:id/:chapter?', element: <Story /> },
+  { path: '/guide/:twitchLogin', element: <Guide /> }
 ]
 
 export const privateRouter: RouteObject[] = [
-	{ path: '/room', element: <Room /> },
-	{ path: '/room/create', element: <CreateRoom /> },
-	{ path: '/room/:section', element: <Room /> },
-	{ path: '/room/boutique/:section', element: <Room /> },
+  { path: '/room', element: <Room /> },
+  { path: '/room/create', element: <CreateRoom /> },
+  { path: '/room/:section', element: <Room /> },
+  { path: '/room/boutique/:section', element: <Room /> }
 ]
 
 export const adminRouter: RouteObject[] = [
-	{ path: '/admin', element: <Admin /> },
-	{ path: '/admin/users', element: <Users /> },
-	{ path: '/admin/donates', element: <Donates /> },
-	{ path: '/admin/achievements', element: <Achievements /> },
-	{ path: '/admin/customization', element: <Customization /> },
-	{ path: '/admin/wikiteka', element: <Wikiteka /> },
-	{ path: '/admin/orders', element: <Orders /> },
-	{ path: '/admin/base', element: <Base /> },
-	{ path: '/admin/tasks', element: <Tasks /> },
+  { path: '/admin', element: <Admin /> },
+  { path: '/admin/users', element: <Users /> },
+  { path: '/admin/donates', element: <Donates /> },
+  { path: '/admin/achievements', element: <Achievements /> },
+  { path: '/admin/customization', element: <Customization /> },
+  { path: '/admin/wikiteka', element: <Wikiteka /> },
+  { path: '/admin/orders', element: <Orders /> },
+  { path: '/admin/base', element: <Base /> },
+  { path: '/admin/tasks', element: <Tasks /> }
 ]

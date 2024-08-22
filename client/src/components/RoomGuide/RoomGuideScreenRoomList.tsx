@@ -6,78 +6,65 @@ import { IRoomGuideByLevel } from '@/types/room-guide.interface'
 import { useInView } from 'react-intersection-observer'
 
 const RoomGuideScreenRoomList: FC = () => {
-	const [rooms, setRooms] = useState<IRoomGuideByLevel[]>([])
-	const [limit, _] = useState<number>(10)
-	const [page, setPage] = useState<number>(1)
-	const [totalPages, setTotalPages] = useState<number | null>(null)
-	const { ref, inView } = useInView({
-		threshold: .2,
-	})
+  const [rooms, setRooms] = useState<IRoomGuideByLevel[]>([])
+  const [limit, _] = useState<number>(10)
+  const [page, setPage] = useState<number>(1)
+  const [totalPages, setTotalPages] = useState<number | null>(null)
+  const { ref, inView } = useInView({
+    threshold: 0.2
+  })
 
-	const {
-		data: roomsData,
-		isLoading,
-		isError,
-		isSuccess,
-		isFetched,
-	} = useRoomsByLevel(limit, page)
+  const { data: roomsData, isLoading, isError, isSuccess, isFetched } = useRoomsByLevel(limit, page)
 
-	useEffect(() => {
-		if (isSuccess) {
-			setRooms([...rooms, ...roomsData.rooms])
-			setTotalPages(roomsData.totalPages)
-		}
-	}, [isSuccess])
+  useEffect(() => {
+    if (isSuccess) {
+      setRooms([...rooms, ...roomsData.rooms])
+      setTotalPages(roomsData.totalPages)
+    }
+  }, [isSuccess])
 
-	useEffect(() => {
-		if (isLoading) return
+  useEffect(() => {
+    if (isLoading) return
 
-		if (inView && totalPages && page < totalPages) {
-			setPage(page + 1)
-		}
-	}, [inView, isLoading])
+    if (inView && totalPages && page < totalPages) {
+      setPage(page + 1)
+    }
+  }, [inView, isLoading])
 
-	return (
-		<Scrollbar className='w-full h-full relative flex flex-col' noDefaultStyles>
-			<div className='w-full h-full pr-[5.5rem] my-[1.9375rem] flex flex-col items-center relative'>
-				{rooms.map((room, index) => (
-					<RoomGuideScreenRoomItem
-						key={room.id}
-						index={index + 1}
-						room={room}
-					/>
-				))}
-				<span
-					ref={ref}
-					className={
-						'w-full h-[14.75rem] absolute bottom-0 ' +
-						(isFetched ? 'block' : 'hidden')
-					}
-				/>
-			</div>
-			{isLoading ? (
-				<div
-					className={
-						'w-full flex justify-center items-center ' +
-						(!rooms.length ? 'absolute top-[50%]' : 'my-8')
-					}
-				>
-					<p className='text-xl text-primaryText'>Загрузка...</p>
-				</div>
-			) : isError ? (
-				<div
-					className={
-						'w-full flex justify-center items-center ' +
-						(!rooms.length ? 'absolute top-[50%]' : 'my-8')
-					}
-				>
-					<p className='text-xl text-primaryText'>Произошла ошибка</p>
-				</div>
-			) : (
-				<></>
-			)}
-		</Scrollbar>
-	)
+  return (
+    <Scrollbar className='relative flex h-full w-full flex-col' noDefaultStyles>
+      <div className='relative my-[1.9375rem] flex h-full w-full flex-col items-center pr-[5.5rem]'>
+        {rooms.map((room, index) => (
+          <RoomGuideScreenRoomItem key={room.id} index={index + 1} room={room} />
+        ))}
+        <span
+          ref={ref}
+          className={'absolute bottom-0 h-[14.75rem] w-full ' + (isFetched ? 'block' : 'hidden')}
+        />
+      </div>
+      {isLoading ? (
+        <div
+          className={
+            'flex w-full items-center justify-center ' +
+            (!rooms.length ? 'absolute top-[50%]' : 'my-8')
+          }
+        >
+          <p className='text-xl text-primaryText'>Загрузка...</p>
+        </div>
+      ) : isError ? (
+        <div
+          className={
+            'flex w-full items-center justify-center ' +
+            (!rooms.length ? 'absolute top-[50%]' : 'my-8')
+          }
+        >
+          <p className='text-xl text-primaryText'>Произошла ошибка</p>
+        </div>
+      ) : (
+        <></>
+      )}
+    </Scrollbar>
+  )
 }
 
 export default RoomGuideScreenRoomList

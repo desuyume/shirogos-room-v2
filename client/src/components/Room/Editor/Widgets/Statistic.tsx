@@ -3,78 +3,72 @@ import { useRoomStats } from '@/api/useRoomStats'
 import { IStats } from '@/types/room.interface'
 
 interface IStatistic {
-	isGuide?: boolean
-	guideStats?: IStats
+  isGuide?: boolean
+  guideStats?: IStats
 }
 
 const Statistic: FC<IStatistic> = ({ isGuide, guideStats }) => {
-	const { data: stats, isLoading, isError } = useRoomStats(!isGuide)
+  const { data: stats, isLoading, isError } = useRoomStats(!isGuide)
 
-	return (
-		<>
-			<div className='w-full h-full relative flex flex-col items-center handle'>
-				<div className='bg-tertiary w-[51.77%] aspect-[233.77/39] flex justify-center items-center rounded-[1.5625rem] my-[4.15%]'>
-					<p className='text-primaryText leading-[97.8%] text-[1vw] pointer-events-none'>
-						Статистика
-					</p>
-				</div>
-				{isLoading && !isGuide ? (
-					<div className='w-full h-full flex justify-center items-center'>
-						<p className='text-primaryText text-center text-[0.73vw] leading-none'>
-							Загрузка...
-						</p>
-					</div>
-				) : isError && !isGuide ? (
-					<div className='w-full h-full flex justify-center items-center'>
-						<p className='text-primaryText text-center text-[0.73vw] leading-none'>
-							Ошибка
-						</p>
-					</div>
-				) : (
-					<div className='w-full px-[3.1%] flex flex-col items-center [&>div]:mb-[1.278%] [&>div:last-of-type]:mb-0'>
-						<div className='w-full aspect-[424/47] bg-tertiary bg-opacity-50 rounded-[1.5625rem] flex'>
-							<div className='flex-1 h-full flex justify-center items-center'>
-								<p className='text-primaryText text-center text-[0.73vw] leading-none pointer-events-none'>
-									Открыто картинок в Паноптикуме
-								</p>
-							</div>
-							<div className='h-full aspect-[86.05/47] bg-[#8CAFB1] rounded-[1.5625rem] flex justify-center items-center pointer-events-none'>
-								<p className='text-primaryText text-center text-[0.65vw]'>
-									{isGuide
-										? guideStats?.panopticons_count
-										: stats?.panopticons_count}
-								</p>
-							</div>
-						</div>
-						<div className='w-full aspect-[424/47] bg-tertiary bg-opacity-50 rounded-[1.5625rem] flex'>
-							<div className='flex-1 h-full flex justify-center items-center'>
-								<p className='text-primaryText text-center text-[0.73vw] leading-none pointer-events-none'>
-									Сделано клипов для Нарезок
-								</p>
-							</div>
-							<div className='h-full aspect-[86.05/47] bg-[#67B8BD] rounded-[1.5625rem] flex justify-center items-center'>
-								<p className='text-primaryText text-center text-[0.65vw] pointer-events-none'>
-									{isGuide ? guideStats?.clips : stats?.clips}
-								</p>
-							</div>
-						</div>
-						<div className='w-full aspect-[424/47] bg-tertiary bg-opacity-50 rounded-[1.5625rem] flex'>
-							<div className='flex-1 h-full flex justify-center items-center'>
-								<p className='text-primaryText text-center text-[0.73vw] leading-none pointer-events-none'>
-									Игр заказано
-								</p>
-							</div>
-							<div className='h-full aspect-[86.05/47] bg-[#7FB5B8] rounded-[1.5625rem] flex justify-center items-center'>
-								<p className='text-primaryText text-center text-[0.65vw] pointer-events-none'>
-									{isGuide ? guideStats?.games_ordered : stats?.games_ordered}
-								</p>
-							</div>
-						</div>
-					</div>
-				)}
-			</div>
-		</>
-	)
+  return (
+    <>
+      <div className='handle relative flex h-full w-full flex-col items-center'>
+        <div className='my-[4.15%] flex aspect-[233.77/39] w-[51.77%] items-center justify-center rounded-[1.5625rem] bg-tertiary'>
+          <p className='pointer-events-none text-[1vw] leading-[97.8%] text-primaryText'>
+            Статистика
+          </p>
+        </div>
+        {isLoading && !isGuide ? (
+          <div className='flex h-full w-full items-center justify-center'>
+            <p className='text-center text-[0.73vw] leading-none text-primaryText'>Загрузка...</p>
+          </div>
+        ) : isError && !isGuide ? (
+          <div className='flex h-full w-full items-center justify-center'>
+            <p className='text-center text-[0.73vw] leading-none text-primaryText'>Ошибка</p>
+          </div>
+        ) : (
+          <div className='flex w-full flex-col items-center px-[3.1%] [&>div:last-of-type]:mb-0 [&>div]:mb-[1.278%]'>
+            <div className='flex aspect-[424/47] w-full rounded-[1.5625rem] bg-tertiary bg-opacity-50'>
+              <div className='flex h-full flex-1 items-center justify-center'>
+                <p className='pointer-events-none text-center text-[0.73vw] leading-none text-primaryText'>
+                  Открыто картинок в Паноптикуме
+                </p>
+              </div>
+              <div className='pointer-events-none flex aspect-[86.05/47] h-full items-center justify-center rounded-[1.5625rem] bg-[#8CAFB1]'>
+                <p className='text-center text-[0.65vw] text-primaryText'>
+                  {isGuide ? guideStats?.panopticons_count : stats?.panopticons_count}
+                </p>
+              </div>
+            </div>
+            <div className='flex aspect-[424/47] w-full rounded-[1.5625rem] bg-tertiary bg-opacity-50'>
+              <div className='flex h-full flex-1 items-center justify-center'>
+                <p className='pointer-events-none text-center text-[0.73vw] leading-none text-primaryText'>
+                  Сделано клипов для Нарезок
+                </p>
+              </div>
+              <div className='flex aspect-[86.05/47] h-full items-center justify-center rounded-[1.5625rem] bg-[#67B8BD]'>
+                <p className='pointer-events-none text-center text-[0.65vw] text-primaryText'>
+                  {isGuide ? guideStats?.clips : stats?.clips}
+                </p>
+              </div>
+            </div>
+            <div className='flex aspect-[424/47] w-full rounded-[1.5625rem] bg-tertiary bg-opacity-50'>
+              <div className='flex h-full flex-1 items-center justify-center'>
+                <p className='pointer-events-none text-center text-[0.73vw] leading-none text-primaryText'>
+                  Игр заказано
+                </p>
+              </div>
+              <div className='flex aspect-[86.05/47] h-full items-center justify-center rounded-[1.5625rem] bg-[#7FB5B8]'>
+                <p className='pointer-events-none text-center text-[0.65vw] text-primaryText'>
+                  {isGuide ? guideStats?.games_ordered : stats?.games_ordered}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  )
 }
 
 export default Statistic

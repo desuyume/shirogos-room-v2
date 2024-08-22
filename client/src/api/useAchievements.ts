@@ -3,7 +3,7 @@ import achievementService from '@/services/achievement.service'
 import { useQuery } from '@tanstack/react-query'
 
 export const useAchievements = () => {
-	return useQuery([ACHIEVEMENTS_KEY], () => achievementService.getAll(), {
-		select: ({ data }) => data,
-	})
+  return useQuery([ACHIEVEMENTS_KEY], () => achievementService.getAll(), {
+    select: ({ data }) => data
+  })
 }

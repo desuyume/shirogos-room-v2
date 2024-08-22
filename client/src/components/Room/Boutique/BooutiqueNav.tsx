@@ -8,27 +8,27 @@ import { RoomAppearanceContext } from '@/Context'
 import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 
 const BooutiqueNav: FC = () => {
-	const links = [
-		{ path: '', img: mainImg },
-		{ path: '/orders', img: ordersImg },
-		{ path: '/panopticons', img: panopticonsImg },
-		{ path: '/store', img: bgsBadgesImg },
-	]
-	const roomAppearance = useContext(RoomAppearanceContext)
+  const links = [
+    { path: '', img: mainImg },
+    { path: '/orders', img: ordersImg },
+    { path: '/panopticons', img: panopticonsImg },
+    { path: '/store', img: bgsBadgesImg }
+  ]
+  const roomAppearance = useContext(RoomAppearanceContext)
 
-	return (
-		<div className='flex flex-col absolute top-[0.94rem] left-[1.12rem]'>
-			{links.map(link => (
-				<BoutiqueNavBttn
-					key={link.path}
-					path={link.path}
-					img={link.img}
-					bgColor={colorVariants.bg[roomAppearance.active_room_color]}
-					bgColorHover={colorVariantsHover.bg[roomAppearance.active_room_color]}
-				/>
-			))}
-		</div>
-	)
+  return (
+    <div className='absolute left-[1.12rem] top-[0.94rem] flex flex-col'>
+      {links.map((link) => (
+        <BoutiqueNavBttn
+          key={link.path}
+          path={link.path}
+          img={link.img}
+          bgColor={colorVariants.bg[roomAppearance.active_room_color]}
+          bgColorHover={colorVariantsHover.bg[roomAppearance.active_room_color]}
+        />
+      ))}
+    </div>
+  )
 }
 
 export default BooutiqueNav

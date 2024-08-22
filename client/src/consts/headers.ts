@@ -1,9 +1,9 @@
 export const getAuthorizationHeaders = () => {
-	const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token')
 
-	if (!token) {
-		return null
-	}
+  if (!token) {
+    return null
+  }
 
-	return { Authorization: `Bearer ${localStorage.getItem('token')}` }
+  return { Authorization: `Bearer ${localStorage.getItem('token')}` }
 }

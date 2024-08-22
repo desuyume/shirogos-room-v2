@@ -8,44 +8,44 @@ import Orders from '@/components/Orders/Orders'
 import { cn } from '@/utils/cn'
 
 const Streamer: FC = () => {
-	const [isDocsHover, setIsDocsHover] = useState<boolean>(false)
+  const [isDocsHover, setIsDocsHover] = useState<boolean>(false)
 
-	return (
-		<>
-			<Header isFixed={false} withLine={false} />
-			<div className='w-full aspect-[16/9] bg-streamer-bg bg-no-repeat bg-cover bg-center relative pb-4'>
-				<DonatesMarquee />
-				<Orders className='mt-[31.125rem] ml-[21rem]' />
-				<Chronicles />
-				<a
-					className='w-[103px] h-[154.33px] absolute top-[37.5rem] left-[8.125rem] hover:scale-[1.3]'
-					onMouseOver={() => setIsDocsHover(true)}
-					onMouseLeave={() => setIsDocsHover(false)}
-					href='https://docs.google.com/spreadsheets/d/1Qa0lxGo0qPGpLf2k2HsfinIy6zfg7MYlgWGRsG88Eac/edit?usp=sharing'
-					target='_blank'
-				>
-					<div className='relative'>
-						<img
-							className={cn('w-[103px] h-[154.33px] absolute', {
-								'visible opacity-100': !isDocsHover,
-								'invisible opacity-0': isDocsHover,
-							})}
-							src={watchTableImg}
-							alt='docs-icon'
-						/>
-						<img
-							className={cn('w-[103px] h-[154.33px] absolute', {
-								'visible opacity-100': isDocsHover,
-								'invisible opacity-0': !isDocsHover,
-							})}
-							src={watchTableHoverImg}
-							alt='docs-icon'
-						/>
-					</div>
-				</a>
-			</div>
-		</>
-	)
+  return (
+    <>
+      <Header isFixed={false} withLine={false} />
+      <div className='relative aspect-[16/9] w-full bg-streamer-bg bg-cover bg-center bg-no-repeat pb-4'>
+        <DonatesMarquee />
+        <Orders className='ml-[21rem] mt-[31.125rem]' />
+        <Chronicles />
+        <a
+          className='absolute left-[8.125rem] top-[37.5rem] h-[154.33px] w-[103px] hover:scale-[1.3]'
+          onMouseOver={() => setIsDocsHover(true)}
+          onMouseLeave={() => setIsDocsHover(false)}
+          href='https://docs.google.com/spreadsheets/d/1Qa0lxGo0qPGpLf2k2HsfinIy6zfg7MYlgWGRsG88Eac/edit?usp=sharing'
+          target='_blank'
+        >
+          <div className='relative'>
+            <img
+              className={cn('absolute h-[154.33px] w-[103px]', {
+                'visible opacity-100': !isDocsHover,
+                'invisible opacity-0': isDocsHover
+              })}
+              src={watchTableImg}
+              alt='docs-icon'
+            />
+            <img
+              className={cn('absolute h-[154.33px] w-[103px]', {
+                'visible opacity-100': isDocsHover,
+                'invisible opacity-0': !isDocsHover
+              })}
+              src={watchTableHoverImg}
+              alt='docs-icon'
+            />
+          </div>
+        </a>
+      </div>
+    </>
+  )
 }
 
 export default Streamer

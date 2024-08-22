@@ -3,7 +3,7 @@ import donateService from '@/services/donate.service'
 import { useQuery } from '@tanstack/react-query'
 
 export const useDonates = () => {
-	return useQuery([DONATES_KEY], () => donateService.getAll(), {
-		select: ({ data }) => data,
-	})
+  return useQuery([DONATES_KEY], () => donateService.getAll(), {
+    select: ({ data }) => data
+  })
 }

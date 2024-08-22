@@ -4,69 +4,66 @@ import { RoomAppearanceContext } from '@/Context'
 import { colorVariantsGroupHover } from '@/consts/roomColors'
 
 interface IBadgeItem {
-	id: number
-	title: string
-	img: string
-	setEditorBadges: React.Dispatch<React.SetStateAction<IEditorBadge[]>>
-	zIndexCount: number
-	setZIndexCount: React.Dispatch<React.SetStateAction<number>>
+  id: number
+  title: string
+  img: string
+  setEditorBadges: React.Dispatch<React.SetStateAction<IEditorBadge[]>>
+  zIndexCount: number
+  setZIndexCount: React.Dispatch<React.SetStateAction<number>>
 }
 
 const BadgeItem: FC<IBadgeItem> = ({
-	id,
-	title,
-	img,
-	setEditorBadges,
-	zIndexCount,
-	setZIndexCount,
+  id,
+  title,
+  img,
+  setEditorBadges,
+  zIndexCount,
+  setZIndexCount
 }) => {
-	const roomAppearance = useContext(RoomAppearanceContext)
+  const roomAppearance = useContext(RoomAppearanceContext)
 
-	const clickHandler = () => {
-		setEditorBadges(prev =>
-			prev.length > 0
-				? [
-						...prev,
-						{
-							badge_id: id,
-							badgeImg: img,
-							zIndex: zIndexCount,
-						},
-				  ]
-				: [
-						{
-							badge_id: id,
-							badgeImg: img,
-							zIndex: zIndexCount,
-						},
-				  ]
-		)
+  const clickHandler = () => {
+    setEditorBadges((prev) =>
+      prev.length > 0
+        ? [
+            ...prev,
+            {
+              badge_id: id,
+              badgeImg: img,
+              zIndex: zIndexCount
+            }
+          ]
+        : [
+            {
+              badge_id: id,
+              badgeImg: img,
+              zIndex: zIndexCount
+            }
+          ]
+    )
 
-		setZIndexCount(prev => prev + 1)
-	}
+    setZIndexCount((prev) => prev + 1)
+  }
 
-	return (
-		<div
-			key={id}
-			className='min-w-[7rem] max-w-[7rem] h-full flex flex-col items-center mr-[0.5625rem] last-of-type:mr-0 cursor-pointer transition-all group'
-			onClick={clickHandler}
-		>
-			<div className='h-[7rem] mb-2 flex justify-center items-center'>
-				<img
-					src={`${import.meta.env.VITE_SERVER_URL}/${img}`}
-					alt={title}
-				/>
-			</div>
+  return (
+    <div
+      key={id}
+      className='group mr-[0.5625rem] flex h-full min-w-[7rem] max-w-[7rem] cursor-pointer flex-col items-center transition-all last-of-type:mr-0'
+      onClick={clickHandler}
+    >
+      <div className='mb-2 flex h-[7rem] items-center justify-center'>
+        <img src={`${import.meta.env.VITE_SERVER_URL}/${img}`} alt={title} />
+      </div>
 
-			<p
-				className={`max-h-[2.7rem] max-w-full text-[0.8125rem] text-primaryText leading-[0.9rem] px-3 text-center overflow-hidden text-ellipsis ${
-					colorVariantsGroupHover.text[roomAppearance.active_room_color]
-				} transition-all`}
-			>
-				{title}
-			</p>
-		</div>
-	)
+      <p
+        className={`max-h-[2.7rem] max-w-full overflow-hidden text-ellipsis px-3 text-center text-[0.8125rem] leading-[0.9rem] text-primaryText ${
+          colorVariantsGroupHover.text[roomAppearance.active_room_color]
+        } transition-all`}
+      >
+        {title}
+      </p>
+    </div>
+  )
 }
 
 export default BadgeItem

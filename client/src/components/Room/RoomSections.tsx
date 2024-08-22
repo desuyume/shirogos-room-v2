@@ -6,15 +6,15 @@ import RoomSettings from './Sections/RoomSettings'
 import RoomEditor from './Sections/RoomEditor'
 
 const RoomSections: FC = () => {
-	return (
-		<div className='mt-[1.6rem] w-[73.85vw] mx-auto pb-12'>
-			<RoomMain />
-			<RoomCustimization />
-			<RoomBoutique />
-			<RoomSettings />
-			<RoomEditor />
-		</div>
-	)
+  return (
+    <div className='mx-auto mt-[1.6rem] w-[73.85vw] pb-12'>
+      <RoomMain />
+      <RoomCustimization />
+      <RoomBoutique />
+      <RoomSettings />
+      <RoomEditor />
+    </div>
+  )
 }
 
 export default RoomSections

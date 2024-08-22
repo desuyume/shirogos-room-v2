@@ -4,15 +4,11 @@ import { IUpdateGender } from '@/types/user.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useUpdateGender = () => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation(
-		[USER_INFO_KEY],
-		(data: IUpdateGender) => userInfoService.updateGender(data),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries([USER_INFO_KEY])
-			},
-		}
-	)
+  return useMutation([USER_INFO_KEY], (data: IUpdateGender) => userInfoService.updateGender(data), {
+    onSuccess: () => {
+      queryClient.invalidateQueries([USER_INFO_KEY])
+    }
+  })
 }

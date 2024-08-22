@@ -4,15 +4,15 @@ import { IAddUserStats } from '@/types/user.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useAddUserStats = (id: number | null, type: string) => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation(
-		[USER_STATS_KEY, id],
-		(stats: IAddUserStats) => userStatsService.add(id, type, stats),
-		{
-			onSettled: () => {
-				queryClient.invalidateQueries([USER_STATS_KEY, id])
-			},
-		}
-	)
+  return useMutation(
+    [USER_STATS_KEY, id],
+    (stats: IAddUserStats) => userStatsService.add(id, type, stats),
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries([USER_STATS_KEY, id])
+      }
+    }
+  )
 }

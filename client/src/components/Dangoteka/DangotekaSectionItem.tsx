@@ -4,80 +4,75 @@ import { cn } from '@/utils/cn'
 import type { DangotekaItemType } from '@/pages/Dangoteka'
 
 interface IDangotekaSectionItem {
-	type: DangotekaItemType
-	itemId: string
-	img: string
-	title: string
-	description: string | null
+  type: DangotekaItemType
+  itemId: string
+  img: string
+  title: string
+  description: string | null
 }
 
 const DangotekaSectionItem: FC<IDangotekaSectionItem> = ({
-	type,
-	itemId,
-	img,
-	title,
-	description,
+  type,
+  itemId,
+  img,
+  title,
+  description
 }) => {
-	const [isHovered, setIsHovered] = useState<boolean>(false)
+  const [isHovered, setIsHovered] = useState<boolean>(false)
 
-	return (
-		<div
-			onMouseLeave={() => setIsHovered(false)}
-			className='w-[32.25rem] h-[24.25rem] relative'
-		>
-			<div
-				className={cn(
-					'absolute top-0 left-0 transition-all duration-500 ease-dangoteka flex items-center',
-					{
-						'left-[7.375rem] duration-1000': isHovered,
-						'-top-[1.0625rem]': isHovered && type === 'manga',
-						'-top-[0.4375rem]': isHovered && type === 'story',
-					}
-				)}
-			>
-				<Link
-					onMouseEnter={() => setIsHovered(true)}
-					className={cn(
-						'w-[14.75rem] h-[19.4375rem] transition-all duration-500 ease-dangoteka inline-block z-10',
-						{
-							'w-[18.0625rem] h-[23.8125rem] duration-1000': isHovered,
-						}
-					)}
-					to={type === 'manga' ? '/manga/' + itemId + '/1' : '/story/' + itemId}
-				>
-					<img
-						className='w-full h-full object-cover rounded-[2.3125rem]'
-						src={`${import.meta.env.VITE_SERVER_URL}/${img}`}
-						alt='manga-img'
-					/>
-				</Link>
-				<div
-					className={cn(
-						'w-[15.6875rem] h-full absolute top-0 left-[16.5625rem] flex justify-center items-center transition-all duration-500 ease-dangoteka',
-						{
-							'left-0 duration-1000': isHovered,
-						}
-					)}
-				>
-					<p className='text-primaryText text-[0.9375rem] text-center break-words line-clamp-[13] '>
-						{description}
-					</p>
-				</div>
-			</div>
-			<div
-				className={cn(
-					'w-[14.75rem] h-14 absolute bottom-4 left-0 flex justify-center items-center transition-all duration-500 ease-dangoteka',
-					{
-						'left-[7.375rem] bottom-16 duration-1000': isHovered,
-					}
-				)}
-			>
-				<h3 className='text-primaryText text-xl text-center line-clamp-2 break-words'>
-					{title}
-				</h3>
-			</div>
-		</div>
-	)
+  return (
+    <div onMouseLeave={() => setIsHovered(false)} className='relative h-[24.25rem] w-[32.25rem]'>
+      <div
+        className={cn(
+          'absolute left-0 top-0 flex items-center transition-all duration-500 ease-dangoteka',
+          {
+            'left-[7.375rem] duration-1000': isHovered,
+            '-top-[1.0625rem]': isHovered && type === 'manga',
+            '-top-[0.4375rem]': isHovered && type === 'story'
+          }
+        )}
+      >
+        <Link
+          onMouseEnter={() => setIsHovered(true)}
+          className={cn(
+            'z-10 inline-block h-[19.4375rem] w-[14.75rem] transition-all duration-500 ease-dangoteka',
+            {
+              'h-[23.8125rem] w-[18.0625rem] duration-1000': isHovered
+            }
+          )}
+          to={type === 'manga' ? '/manga/' + itemId + '/1' : '/story/' + itemId}
+        >
+          <img
+            className='h-full w-full rounded-[2.3125rem] object-cover'
+            src={`${import.meta.env.VITE_SERVER_URL}/${img}`}
+            alt='manga-img'
+          />
+        </Link>
+        <div
+          className={cn(
+            'absolute left-[16.5625rem] top-0 flex h-full w-[15.6875rem] items-center justify-center transition-all duration-500 ease-dangoteka',
+            {
+              'left-0 duration-1000': isHovered
+            }
+          )}
+        >
+          <p className='line-clamp-[13] break-words text-center text-[0.9375rem] text-primaryText '>
+            {description}
+          </p>
+        </div>
+      </div>
+      <div
+        className={cn(
+          'absolute bottom-4 left-0 flex h-14 w-[14.75rem] items-center justify-center transition-all duration-500 ease-dangoteka',
+          {
+            'bottom-16 left-[7.375rem] duration-1000': isHovered
+          }
+        )}
+      >
+        <h3 className='line-clamp-2 break-words text-center text-xl text-primaryText'>{title}</h3>
+      </div>
+    </div>
+  )
 }
 
 export default DangotekaSectionItem

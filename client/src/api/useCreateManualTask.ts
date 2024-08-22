@@ -4,15 +4,15 @@ import { ICreateManualTasK } from '@/types/manual-task.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useCreateManualTask = () => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation(
-		[CREATE_MANUAL_TASK_KEY],
-		(task: ICreateManualTasK) => manualTaskService.create(task),
-		{
-			onSettled: () => {
-				queryClient.invalidateQueries([MANUAL_TASKS_KEY])
-			},
-		}
-	)
+  return useMutation(
+    [CREATE_MANUAL_TASK_KEY],
+    (task: ICreateManualTasK) => manualTaskService.create(task),
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries([MANUAL_TASKS_KEY])
+      }
+    }
+  )
 }

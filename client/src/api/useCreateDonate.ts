@@ -4,7 +4,5 @@ import { ICreateDonate } from '@/types/donate.interface'
 import { useMutation } from '@tanstack/react-query'
 
 export const useCreateDonate = () => {
-	return useMutation([CREATE_DONATE_KEY], (donate: ICreateDonate) =>
-		donateService.create(donate)
-	)
+  return useMutation([CREATE_DONATE_KEY], (donate: ICreateDonate) => donateService.create(donate))
 }

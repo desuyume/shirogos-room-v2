@@ -9,9 +9,9 @@ import Context from './Context.tsx'
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-	<QueryClientProvider client={queryClient}>
-		<Context>
-			<App />
-		</Context>
-	</QueryClientProvider>
+  <QueryClientProvider client={queryClient}>
+    <Context>
+      <App />
+    </Context>
+  </QueryClientProvider>
 )

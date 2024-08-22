@@ -1,119 +1,119 @@
 .mantine-DatePickerInput-input {
-	font-size: 0.9375rem;
-	outline: none;
-	border: none;
-	text-align: center;
-	color: #fff;
-	font-family: 'Days One', sans-serif;
-	border-radius: 0;
-	padding-bottom: 0.75rem;
-	padding-top: 0.75rem;
-	line-height: 97.795%;
+  font-size: 0.9375rem;
+  outline: none;
+  border: none;
+  text-align: center;
+  color: #fff;
+  font-family: 'Days One', sans-serif;
+  border-radius: 0;
+  padding-bottom: 0.75rem;
+  padding-top: 0.75rem;
+  line-height: 97.795%;
 }
 
 .mantine-Popover-dropdown {
-	background-color: #242424;
-	border: #242424;
+  background-color: #242424;
+  border: #242424;
 
-	& * {
-		color: white;
-	}
+  & * {
+    color: white;
+  }
 
-	.mantine-DatePickerInput-day[data-selected] {
-		background-color: #c34375;
-	}
+  .mantine-DatePickerInput-day[data-selected] {
+    background-color: #c34375;
+  }
 }
 
 .mantine-DatePicker-calendarHeaderControlIcon {
-	background-color: #fff;
-	color: white;
+  background-color: #fff;
+  color: white;
 }
 
 .mantine-CalendarHeader-calendarHeaderControl:hover,
 .mantine-CalendarHeader-calendarHeaderLevel:hover,
 .mantine-DatePickerInput-day:hover,
 .mantine-PickerControl-pickerControl:hover {
-	background-color: #363636;
+  background-color: #363636;
 }
 
 .mantine-DatePickerInput-placeholder {
-	color: white;
+  color: white;
 }
 
 .mantine-DatePickerInput-root.pink-datepicker
-	.mantine-Popover-dropdown
-	.mantine-DatePickerInput-day[data-selected] {
-	background-color: #c34375;
+  .mantine-Popover-dropdown
+  .mantine-DatePickerInput-day[data-selected] {
+  background-color: #c34375;
 }
 
 .mantine-DatePickerInput-root.vermilion-datepicker
-	.mantine-Popover-dropdown
-	.mantine-DatePickerInput-day[data-selected] {
-	background-color: #C34343;
+  .mantine-Popover-dropdown
+  .mantine-DatePickerInput-day[data-selected] {
+  background-color: #c34343;
 }
 
 .mantine-DatePickerInput-root.orange-datepicker
-	.mantine-Popover-dropdown
-	.mantine-DatePickerInput-day[data-selected] {
-	background-color: #C37143;
+  .mantine-Popover-dropdown
+  .mantine-DatePickerInput-day[data-selected] {
+  background-color: #c37143;
 }
 
 .mantine-DatePickerInput-root.blue-datepicker
-	.mantine-Popover-dropdown
-	.mantine-DatePickerInput-day[data-selected] {
-	background-color: #4367C3;
+  .mantine-Popover-dropdown
+  .mantine-DatePickerInput-day[data-selected] {
+  background-color: #4367c3;
 }
 
 .mantine-DatePickerInput-root.purple-datepicker
-	.mantine-Popover-dropdown
-	.mantine-DatePickerInput-day[data-selected] {
-	background-color: #7B43C3;
+  .mantine-Popover-dropdown
+  .mantine-DatePickerInput-day[data-selected] {
+  background-color: #7b43c3;
 }
 
 .mantine-DatePickerInput-root.magenta-datepicker
-	.mantine-Popover-dropdown
-	.mantine-DatePickerInput-day[data-selected] {
-	background-color: #C343B6;
+  .mantine-Popover-dropdown
+  .mantine-DatePickerInput-day[data-selected] {
+  background-color: #c343b6;
 }
 
 .mantine-DatePickerInput-root.gray-datepicker
-	.mantine-Popover-dropdown
-	.mantine-DatePickerInput-day[data-selected] {
-	background-color: #717171;
+  .mantine-Popover-dropdown
+  .mantine-DatePickerInput-day[data-selected] {
+  background-color: #717171;
 }
 
 .mantine-DatePickerInput-root.green-datepicker
-	.mantine-Popover-dropdown
-	.mantine-DatePickerInput-day[data-selected] {
-	background-color: #4A9648;
+  .mantine-Popover-dropdown
+  .mantine-DatePickerInput-day[data-selected] {
+  background-color: #4a9648;
 }
 
 .mantine-DatePickerInput-root.yellow-datepicker
-	.mantine-Popover-dropdown
-	.mantine-DatePickerInput-day[data-selected] {
-	background-color: #BE9C25;
+  .mantine-Popover-dropdown
+  .mantine-DatePickerInput-day[data-selected] {
+  background-color: #be9c25;
 }
 
 .mantine-DatePickerInput-root.aqua-datepicker
-	.mantine-Popover-dropdown
-	.mantine-DatePickerInput-day[data-selected] {
-	background-color: #34A3AA;
+  .mantine-Popover-dropdown
+  .mantine-DatePickerInput-day[data-selected] {
+  background-color: #34a3aa;
 }
 
 .mantine-DatePickerInput-root.red-datepicker
-	.mantine-Popover-dropdown
-	.mantine-DatePickerInput-day[data-selected] {
-	background-color: #A80000;
+  .mantine-Popover-dropdown
+  .mantine-DatePickerInput-day[data-selected] {
+  background-color: #a80000;
 }
 
 .mantine-DatePickerInput-root.turquoise-datepicker
-	.mantine-Popover-dropdown
-	.mantine-DatePickerInput-day[data-selected] {
-	background-color: #00A880;
+  .mantine-Popover-dropdown
+  .mantine-DatePickerInput-day[data-selected] {
+  background-color: #00a880;
 }
 
 .mantine-DatePickerInput-root.crimson-datepicker
-	.mantine-Popover-dropdown
-	.mantine-DatePickerInput-day[data-selected] {
-	background-color: #A4114A;
+  .mantine-Popover-dropdown
+  .mantine-DatePickerInput-day[data-selected] {
+  background-color: #a4114a;
 }

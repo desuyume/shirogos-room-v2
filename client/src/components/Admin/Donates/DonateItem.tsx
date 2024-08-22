@@ -7,69 +7,69 @@ import { isNumber } from '@/utils/isNumber'
 import { FC, useState } from 'react'
 
 const DonateItem: FC<IDonate> = ({ id, username, amount, gifts }) => {
-	const { mutate: mutateDonate } = useUpdateDonateAmount(id)
-	const { mutate: mutateGifts } = useUpdateDonateGifts(id)
-	const { mutate: mutateDelete } = useDeleteDonate(id)
+  const { mutate: mutateDonate } = useUpdateDonateAmount(id)
+  const { mutate: mutateGifts } = useUpdateDonateGifts(id)
+  const { mutate: mutateDelete } = useDeleteDonate(id)
 
-	const [addAmount, setAddAmount] = useState<string>('')
-	const [resAmount, setResAmount] = useState<number>(amount ? +amount : 0)
-	const [giftsValue, setGiftsValue] = useState<string>(!!gifts ? gifts : '')
+  const [addAmount, setAddAmount] = useState<string>('')
+  const [resAmount, setResAmount] = useState<number>(amount ? +amount : 0)
+  const [giftsValue, setGiftsValue] = useState<string>(!!gifts ? gifts : '')
 
-	const updateAmountHandler = () => {
-		if (!isNumber(addAmount)) {
-			console.log('addAmount must be number')
-		} else {
-			mutateDonate({ id, addAmount })
-			setResAmount(prev => prev + +addAmount)
-			setAddAmount('')
-		}
-	}
+  const updateAmountHandler = () => {
+    if (!isNumber(addAmount)) {
+      console.log('addAmount must be number')
+    } else {
+      mutateDonate({ id, addAmount })
+      setResAmount((prev) => prev + +addAmount)
+      setAddAmount('')
+    }
+  }
 
-	const updateGiftsHandler = () => {
-		mutateGifts({ id, gifts: giftsValue })
-	}
+  const updateGiftsHandler = () => {
+    mutateGifts({ id, gifts: giftsValue })
+  }
 
-	const deleteDonateHandler = () => {
-		mutateDelete(id)
-	}
+  const deleteDonateHandler = () => {
+    mutateDelete(id)
+  }
 
-	return (
-		<div className='flex items-center'>
-			<div className='bg-tertiary h-[3.16rem] flex justify-center items-center w-[11.40625vw] mr-[0.8vw]'>
-				<p className='text-xl text-[#FFF] text-center'>{username}</p>
-			</div>
-			<div className='bg-tertiary h-[3.16rem] flex justify-center items-center w-[7.65625vw] mr-[0.8vw]'>
-				<p className='text-xl text-[#FFF] text-center'>{formatMoney(resAmount)}р</p>
-			</div>
-			<div className='bg-tertiary h-[3.16rem] flex justify-center items-center w-[7.65625vw] mr-[0.7vw]'>
-				<input
-					value={addAmount}
-					onChange={e => setAddAmount(e.target.value)}
-					className='text-xl bg-tertiary w-full h-full outline-none text-[#FFF] text-center'
-				/>
-			</div>
-			<button
-				onClick={updateAmountHandler}
-				className='bg-primary hover:bg-primaryHover transition-all text-[#FFF] text-[0.9375rem] mr-[0.7vw] min-w-[5.1vw] max-w-[5.1vw] h-[2.5rem]'
-			>
-				Добавить
-			</button>
-			<div className='bg-tertiary h-[3.16rem] flex justify-center items-center w-[37.03125vw] mr-[0.7vw]'>
-				<input
-					value={giftsValue}
-					onChange={e => setGiftsValue(e.target.value)}
-					onBlur={updateGiftsHandler}
-					className='text-xl bg-tertiary w-full h-full outline-none text-[#FFF] text-center'
-				/>
-			</div>
-			<button
-				onClick={deleteDonateHandler}
-				className='bg-tertiary hover:bg-secondary transition-all text-[#FFF] text-[0.9375rem] min-w-[5.1vw] max-w-[5.1vw] h-[2.5rem]'
-			>
-				Удалить
-			</button>
-		</div>
-	)
+  return (
+    <div className='flex items-center'>
+      <div className='mr-[0.8vw] flex h-[3.16rem] w-[11.40625vw] items-center justify-center bg-tertiary'>
+        <p className='text-center text-xl text-[#FFF]'>{username}</p>
+      </div>
+      <div className='mr-[0.8vw] flex h-[3.16rem] w-[7.65625vw] items-center justify-center bg-tertiary'>
+        <p className='text-center text-xl text-[#FFF]'>{formatMoney(resAmount)}р</p>
+      </div>
+      <div className='mr-[0.7vw] flex h-[3.16rem] w-[7.65625vw] items-center justify-center bg-tertiary'>
+        <input
+          value={addAmount}
+          onChange={(e) => setAddAmount(e.target.value)}
+          className='h-full w-full bg-tertiary text-center text-xl text-[#FFF] outline-none'
+        />
+      </div>
+      <button
+        onClick={updateAmountHandler}
+        className='mr-[0.7vw] h-[2.5rem] min-w-[5.1vw] max-w-[5.1vw] bg-primary text-[0.9375rem] text-[#FFF] transition-all hover:bg-primaryHover'
+      >
+        Добавить
+      </button>
+      <div className='mr-[0.7vw] flex h-[3.16rem] w-[37.03125vw] items-center justify-center bg-tertiary'>
+        <input
+          value={giftsValue}
+          onChange={(e) => setGiftsValue(e.target.value)}
+          onBlur={updateGiftsHandler}
+          className='h-full w-full bg-tertiary text-center text-xl text-[#FFF] outline-none'
+        />
+      </div>
+      <button
+        onClick={deleteDonateHandler}
+        className='h-[2.5rem] min-w-[5.1vw] max-w-[5.1vw] bg-tertiary text-[0.9375rem] text-[#FFF] transition-all hover:bg-secondary'
+      >
+        Удалить
+      </button>
+    </div>
+  )
 }
 
 export default DonateItem

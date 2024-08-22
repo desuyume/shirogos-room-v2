@@ -4,15 +4,15 @@ import { IUpdateRoomEditor } from '@/types/room.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useUpdateRoomEditor = () => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation(
-		[UPDATE_ROOM_EDITOR_KEY],
-		(data: IUpdateRoomEditor) => roomService.updateEditor(data),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries([ROOM_EDITOR_KEY])
-			},
-		}
-	)
+  return useMutation(
+    [UPDATE_ROOM_EDITOR_KEY],
+    (data: IUpdateRoomEditor) => roomService.updateEditor(data),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([ROOM_EDITOR_KEY])
+      }
+    }
+  )
 }

@@ -3,11 +3,11 @@ import { BACKGROUNDS_KEY } from '../consts/queryKeys'
 import backgroundService from '@/services/background.service'
 
 export const useDeleteBackground = (id: number | null) => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation([BACKGROUNDS_KEY, id], () => backgroundService.delete(id), {
-		onSettled: () => {
-			queryClient.invalidateQueries([BACKGROUNDS_KEY])
-		},
-	})
+  return useMutation([BACKGROUNDS_KEY, id], () => backgroundService.delete(id), {
+    onSettled: () => {
+      queryClient.invalidateQueries([BACKGROUNDS_KEY])
+    }
+  })
 }

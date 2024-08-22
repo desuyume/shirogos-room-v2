@@ -5,42 +5,41 @@ import { FC, useContext } from 'react'
 import { Scrollbar } from 'react-scrollbars-custom'
 
 interface ManualTaskPendingStatusProps {
-	taskResponseStatus: TaskResponseStatus | null
-	description: string | null
+  taskResponseStatus: TaskResponseStatus | null
+  description: string | null
 }
 
 const ManualTaskPendingStatus: FC<ManualTaskPendingStatusProps> = ({
-	taskResponseStatus,
-	description,
+  taskResponseStatus,
+  description
 }) => {
-	const roomAppearance = useContext(RoomAppearanceContext)
+  const roomAppearance = useContext(RoomAppearanceContext)
 
-	return (
-		<div
-			className={cn(
-				'flex flex-col justify-between items-center w-[80%] mt-5 self-start invisible opacity-0 transition-all manual-task-pending',
-				{
-					'visible opacity-100':
-						taskResponseStatus === TaskResponseStatus.PENDING,
-				}
-			)}
-		>
-			<Scrollbar
-				className={`mb-2 z-10 cursor-default ${roomAppearance.active_room_color}-scrollbar`}
-				onClick={e => e.stopPropagation()}
-				noDefaultStyles
-				style={{ width: '60%', height: '3rem' }}
-			>
-				<p className='text-[0.8125rem] text-center leading-none break-words text-primaryText'>
-					{description}
-				</p>
-			</Scrollbar>
+  return (
+    <div
+      className={cn(
+        'manual-task-pending invisible mt-5 flex w-[80%] flex-col items-center justify-between self-start opacity-0 transition-all',
+        {
+          'visible opacity-100': taskResponseStatus === TaskResponseStatus.PENDING
+        }
+      )}
+    >
+      <Scrollbar
+        className={`z-10 mb-2 cursor-default ${roomAppearance.active_room_color}-scrollbar`}
+        onClick={(e) => e.stopPropagation()}
+        noDefaultStyles
+        style={{ width: '60%', height: '3rem' }}
+      >
+        <p className='break-words text-center text-[0.8125rem] leading-none text-primaryText'>
+          {description}
+        </p>
+      </Scrollbar>
 
-			<div className='w-[9.5rem] max-w-full text-center h-[1.625rem] bg-[#4B4B4B] rounded-r-[1.5625rem] z-10 flex justify-center items-center'>
-				<p className='text-primaryText text-xs leading-none'>НА ПРОВЕРКЕ</p>
-			</div>
-		</div>
-	)
+      <div className='z-10 flex h-[1.625rem] w-[9.5rem] max-w-full items-center justify-center rounded-r-[1.5625rem] bg-[#4B4B4B] text-center'>
+        <p className='text-xs leading-none text-primaryText'>НА ПРОВЕРКЕ</p>
+      </div>
+    </div>
+  )
 }
 
 export default ManualTaskPendingStatus

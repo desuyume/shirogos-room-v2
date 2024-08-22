@@ -3,15 +3,11 @@ import frameService from '@/services/frame.service'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useCreateFrame = () => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation(
-		[CREATE_FRAME_KEY],
-		(frame: FormData) => frameService.create(frame),
-		{
-			onSettled: () => {
-				queryClient.invalidateQueries([FRAMES_KEY])
-			},
-		}
-	)
+  return useMutation([CREATE_FRAME_KEY], (frame: FormData) => frameService.create(frame), {
+    onSettled: () => {
+      queryClient.invalidateQueries([FRAMES_KEY])
+    }
+  })
 }

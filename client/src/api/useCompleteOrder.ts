@@ -3,15 +3,12 @@ import orderService from '@/services/order.service'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useCompleteOrder = () => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation([COMPLETE_ORDER_KEY], (id: number) =>
-		orderService.completeOrder(id),
-		{
-			onSettled: () => {
-				queryClient.invalidateQueries([COMPLETED_ORDERS_KEY])
-				queryClient.invalidateQueries([PENDING_ORDERS_KEY])
-			}
-		}
-	)
+  return useMutation([COMPLETE_ORDER_KEY], (id: number) => orderService.completeOrder(id), {
+    onSettled: () => {
+      queryClient.invalidateQueries([COMPLETED_ORDERS_KEY])
+      queryClient.invalidateQueries([PENDING_ORDERS_KEY])
+    }
+  })
 }

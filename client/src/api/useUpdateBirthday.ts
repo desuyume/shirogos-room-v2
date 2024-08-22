@@ -4,16 +4,16 @@ import { IUpdateBirthday } from '@/types/user.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useUpdateBirthday = () => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation(
-		[USER_INFO_KEY],
-		(data: IUpdateBirthday) => userInfoService.updateBirthday(data),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries([USER_INFO_KEY])
-				queryClient.invalidateQueries([USER_PROFILE_KEY])
-			},
-		}
-	)
+  return useMutation(
+    [USER_INFO_KEY],
+    (data: IUpdateBirthday) => userInfoService.updateBirthday(data),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([USER_INFO_KEY])
+        queryClient.invalidateQueries([USER_PROFILE_KEY])
+      }
+    }
+  )
 }

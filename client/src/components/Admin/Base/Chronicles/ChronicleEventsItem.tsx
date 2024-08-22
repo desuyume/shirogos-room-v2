@@ -2,56 +2,56 @@ import { useDeleteChronicleEvent } from '@/api/useDeleteChronicleEvent'
 import { FC } from 'react'
 
 interface IChronicleEventsItem {
-	id: number
-	chronicleId: number
-	day: number
-	prefix: string
-	text?: string
-	img?: string
+  id: number
+  chronicleId: number
+  day: number
+  prefix: string
+  text?: string
+  img?: string
 }
 
 const ChronicleEventsItem: FC<IChronicleEventsItem> = ({
-	id,
-	chronicleId,
-	day,
-	prefix,
-	text,
-	img,
+  id,
+  chronicleId,
+  day,
+  prefix,
+  text,
+  img
 }) => {
-	const { mutate } = useDeleteChronicleEvent(id, chronicleId)
+  const { mutate } = useDeleteChronicleEvent(id, chronicleId)
 
-	const clickDelete = () => {
-		mutate()
-	}
+  const clickDelete = () => {
+    mutate()
+  }
 
-	return (
-		<div className='w-full min-h-[2.875rem] flex items-center mb-[0.7rem] last-of-type:mb-0 relative'>
-			<div className='w-[12%] h-full flex justify-center items-center'>
-				<p className='text-[#FFF] text-[0.9375rem]'>
-					{!!prefix && prefix}
-					{day}
-				</p>
-			</div>
-			<div className='flex-1 h-full flex justify-center items-center px-2'>
-				<p className='text-[#FFF] text-center text-[0.9375rem]'>{text}</p>
-			</div>
-			<div className='w-[2.875rem] h-[2.875rem] border-[1px] border-[#FFF] bg-primaryText bg-opacity-10'>
-				{img && (
-					<img
-						src={`${import.meta.env.VITE_SERVER_URL}/${img}`}
-						alt='chronicles-img'
-						className='w-full h-full'
-					/>
-				)}
-			</div>
-			<button
-				onClick={clickDelete}
-				className='px-2 h-[2.875rem] text-[#FFF] hover:bg-primary transition-all'
-			>
-				-
-			</button>
-		</div>
-	)
+  return (
+    <div className='relative mb-[0.7rem] flex min-h-[2.875rem] w-full items-center last-of-type:mb-0'>
+      <div className='flex h-full w-[12%] items-center justify-center'>
+        <p className='text-[0.9375rem] text-[#FFF]'>
+          {!!prefix && prefix}
+          {day}
+        </p>
+      </div>
+      <div className='flex h-full flex-1 items-center justify-center px-2'>
+        <p className='text-center text-[0.9375rem] text-[#FFF]'>{text}</p>
+      </div>
+      <div className='h-[2.875rem] w-[2.875rem] border-[1px] border-[#FFF] bg-primaryText bg-opacity-10'>
+        {img && (
+          <img
+            src={`${import.meta.env.VITE_SERVER_URL}/${img}`}
+            alt='chronicles-img'
+            className='h-full w-full'
+          />
+        )}
+      </div>
+      <button
+        onClick={clickDelete}
+        className='h-[2.875rem] px-2 text-[#FFF] transition-all hover:bg-primary'
+      >
+        -
+      </button>
+    </div>
+  )
 }
 
 export default ChronicleEventsItem

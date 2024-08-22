@@ -3,11 +3,7 @@ import backgroundService from '@/services/background.service'
 import { useQuery } from '@tanstack/react-query'
 
 export const useUniqueBackgrounds = () => {
-	return useQuery(
-		[UNIQUE_BACKGROUNDS_KEY],
-		() => backgroundService.getUnique(),
-		{
-			select: ({ data }) => data,
-		}
-	)
+  return useQuery([UNIQUE_BACKGROUNDS_KEY], () => backgroundService.getUnique(), {
+    select: ({ data }) => data
+  })
 }

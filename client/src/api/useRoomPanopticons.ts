@@ -3,11 +3,7 @@ import roomService from '@/services/room.service'
 import { useQuery } from '@tanstack/react-query'
 
 export const useRoomPanopticons = () => {
-	return useQuery(
-		[ROOM_PANOPTICONS_KEY],
-		() => roomService.getRoomPanopticons(),
-		{
-			select: ({ data }) => data,
-		}
-	)
+  return useQuery([ROOM_PANOPTICONS_KEY], () => roomService.getRoomPanopticons(), {
+    select: ({ data }) => data
+  })
 }

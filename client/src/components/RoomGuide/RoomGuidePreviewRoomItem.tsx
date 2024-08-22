@@ -4,42 +4,39 @@ import { Link } from 'react-router-dom'
 import ProfileMiniature from '../ProfileMiniature'
 
 interface IRoomGuidePreviewRoomItem {
-	room: IRoomGuideRandom
-	order?: number
+  room: IRoomGuideRandom
+  order?: number
 }
 
-const RoomGuidePreviewRoomItem: FC<IRoomGuidePreviewRoomItem> = ({
-	room,
-	order,
-}) => {
-	return (
-		<div
-			className={
-				'w-[11.5625rem] flex flex-col items-center mr-[1.3125rem] last-of-type:mr-0 room-guide-preview-item ' +
-				(!!order ? `anim-order-${order}` : '')
-			}
-		>
-			<Link
-				className='w-full order-3 peer'
-				to={`/guide/${room.user.twitch.login}?from=guidePreview`}
-			>
-				<ProfileMiniature
-					miniature_img={room.user.miniature_img}
-					profile_img={room.user.profile_img}
-					username={room.user.username}
-					frame={room.selected_frame}
-					className='w-full rounded-[2.3125rem] aspect-[185/134] object-cover cursor-pointer outline outline-transparent outline-[3px] hover:outline-primary transition-all'
-				/>
-			</Link>
+const RoomGuidePreviewRoomItem: FC<IRoomGuidePreviewRoomItem> = ({ room, order }) => {
+  return (
+    <div
+      className={
+        'room-guide-preview-item mr-[1.3125rem] flex w-[11.5625rem] flex-col items-center last-of-type:mr-0 ' +
+        (!!order ? `anim-order-${order}` : '')
+      }
+    >
+      <Link
+        className='peer order-3 w-full'
+        to={`/guide/${room.user.twitch.login}?from=guidePreview`}
+      >
+        <ProfileMiniature
+          miniature_img={room.user.miniature_img}
+          profile_img={room.user.profile_img}
+          username={room.user.username}
+          frame={room.selected_frame}
+          className='aspect-[185/134] w-full cursor-pointer rounded-[2.3125rem] object-cover outline outline-[3px] outline-transparent transition-all hover:outline-primary'
+        />
+      </Link>
 
-			<p className='text-[#EBE984] font-secondary font-bold text-[0.625rem] order-1 peer-hover:text-primary transition-all px-2 max-w-full truncate'>
-				{room.user.username}
-			</p>
-			<p className='text-primaryText text-xs mb-1 leading-4 font-secondary font-bold text-center order-2 max-h-12 break-words max-w-full overflow-hidden'>
-				Комната «{room.name}»
-			</p>
-		</div>
-	)
+      <p className='order-1 max-w-full truncate px-2 font-secondary text-[0.625rem] font-bold text-[#EBE984] transition-all peer-hover:text-primary'>
+        {room.user.username}
+      </p>
+      <p className='order-2 mb-1 max-h-12 max-w-full overflow-hidden break-words text-center font-secondary text-xs font-bold leading-4 text-primaryText'>
+        Комната «{room.name}»
+      </p>
+    </div>
+  )
 }
 
 export default RoomGuidePreviewRoomItem

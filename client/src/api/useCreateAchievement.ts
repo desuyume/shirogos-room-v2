@@ -3,15 +3,15 @@ import achievementService from '@/services/achievement.service'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useCreateAchievement = () => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation(
-		[CREATE_ACHIEVEMENT_KEY],
-		(achieve: FormData) => achievementService.create(achieve),
-		{
-			onSettled: () => {
-				queryClient.invalidateQueries([ACHIEVEMENTS_KEY])
-			},
-		}
-	)
+  return useMutation(
+    [CREATE_ACHIEVEMENT_KEY],
+    (achieve: FormData) => achievementService.create(achieve),
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries([ACHIEVEMENTS_KEY])
+      }
+    }
+  )
 }

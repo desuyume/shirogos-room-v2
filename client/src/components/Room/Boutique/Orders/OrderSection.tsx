@@ -11,92 +11,86 @@ import { toast } from 'react-toastify'
 import { useToastOnError } from '@/hooks/useToast'
 
 interface IOrderSection {
-	orderType: string
+  orderType: string
 }
 
 const OrderSection: FC<IOrderSection> = ({ orderType }) => {
-	const [userOrder, setUserOrder] = useState<IMakeOrder | null>(null)
-	const [isOrdered, setIsOrdered] = useState<boolean>(false)
-	const [isRulesOpened, setIsRulesOpened] = useState<boolean>(false)
-	const [finalPrice, setFinalPrice] = useState<number>(0)
+  const [userOrder, setUserOrder] = useState<IMakeOrder | null>(null)
+  const [isOrdered, setIsOrdered] = useState<boolean>(false)
+  const [isRulesOpened, setIsRulesOpened] = useState<boolean>(false)
+  const [finalPrice, setFinalPrice] = useState<number>(0)
 
-	const { mutate, isSuccess: isBuySucces, error } = useMakeOrder(orderType)
+  const { mutate, isSuccess: isBuySucces, error } = useMakeOrder(orderType)
 
-	const clickBuy = () => {
-		if (userOrder) {
-			const isVideo =
-				userOrder?.orderPriceId === 4 || userOrder?.orderPriceId === 5
+  const clickBuy = () => {
+    if (userOrder) {
+      const isVideo = userOrder?.orderPriceId === 4 || userOrder?.orderPriceId === 5
 
-			if (isVideo && !isUrl(userOrder.orderText)) {
-				needUrlToast()
-				return
-			}
+      if (isVideo && !isUrl(userOrder.orderText)) {
+        needUrlToast()
+        return
+      }
 
-			if (userOrder.orderText.length < 3) {
-				toast.warning('Описание заказа должно быть не менее 3 символов !')
-				return
-			}
+      if (userOrder.orderText.length < 3) {
+        toast.warning('Описание заказа должно быть не менее 3 символов !')
+        return
+      }
 
-			mutate({
-				orderText: userOrder.orderText,
-				orderPriceId: userOrder.orderPriceId,
-			})
-		} else {
-			toast.warning('Не указан заказ !')
-		}
-	}
+      mutate({
+        orderText: userOrder.orderText,
+        orderPriceId: userOrder.orderPriceId
+      })
+    } else {
+      toast.warning('Не указан заказ !')
+    }
+  }
 
-	const clickDanBttn = () => {
-		setUserOrder(null)
-		setIsOrdered(false)
-		setFinalPrice(0)
-	}
+  const clickDanBttn = () => {
+    setUserOrder(null)
+    setIsOrdered(false)
+    setFinalPrice(0)
+  }
 
-	useToastOnError(error, notEnoughDangoToast)
+  useToastOnError(error, notEnoughDangoToast)
 
-	useEffect(() => {
-		if (isBuySucces) {
-			setIsOrdered(true)
-		}
-	}, [isBuySucces])
+  useEffect(() => {
+    if (isBuySucces) {
+      setIsOrdered(true)
+    }
+  }, [isBuySucces])
 
-	return (
-		<div
-			className={
-				(orderType === 'game'
-					? 'bg-room-gameOrder-bg rounded-[1.5625rem] '
-					: '') + 'w-full h-[21.75rem] py-[0.94rem] pl-[0.69rem] flex relative'
-			}
-		>
-			<div
-				className={
-					(isOrdered ? 'opacity-0 invisible ' : 'opacity-100 visible ') +
-					'w-full h-full flex transition-all'
-				}
-			>
-				<OrderRules
-					type={orderType}
-					isRulesOpened={isRulesOpened}
-					setIsRulesOpened={setIsRulesOpened}
-				/>
-				<Order
-					finalPrice={finalPrice}
-					setFinalPrice={setFinalPrice}
-					clickBuy={clickBuy}
-					isOrdered={isOrdered}
-					userOrder={userOrder}
-					setUserOrder={setUserOrder}
-					type={orderType}
-				/>
-			</div>
-			<OrderDone
-				clickDanBttn={clickDanBttn}
-				isOrdered={isOrdered}
-				userOrder={userOrder}
-			/>
-			<RulesBlock type={orderType} isRulesOpened={isRulesOpened} />
-		</div>
-	)
+  return (
+    <div
+      className={
+        (orderType === 'game' ? 'rounded-[1.5625rem] bg-room-gameOrder-bg ' : '') +
+        'relative flex h-[21.75rem] w-full py-[0.94rem] pl-[0.69rem]'
+      }
+    >
+      <div
+        className={
+          (isOrdered ? 'invisible opacity-0 ' : 'visible opacity-100 ') +
+          'flex h-full w-full transition-all'
+        }
+      >
+        <OrderRules
+          type={orderType}
+          isRulesOpened={isRulesOpened}
+          setIsRulesOpened={setIsRulesOpened}
+        />
+        <Order
+          finalPrice={finalPrice}
+          setFinalPrice={setFinalPrice}
+          clickBuy={clickBuy}
+          isOrdered={isOrdered}
+          userOrder={userOrder}
+          setUserOrder={setUserOrder}
+          type={orderType}
+        />
+      </div>
+      <OrderDone clickDanBttn={clickDanBttn} isOrdered={isOrdered} userOrder={userOrder} />
+      <RulesBlock type={orderType} isRulesOpened={isRulesOpened} />
+    </div>
+  )
 }
 
 export default OrderSection

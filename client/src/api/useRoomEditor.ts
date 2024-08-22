@@ -3,8 +3,8 @@ import roomService from '@/services/room.service'
 import { useQuery } from '@tanstack/react-query'
 
 export const useRoomEditor = (isEnabled: boolean = true) => {
-	return useQuery([ROOM_EDITOR_KEY], () => roomService.getRoomEditor(), {
-		select: ({ data }) => data,
-		enabled: isEnabled,
-	})
+  return useQuery([ROOM_EDITOR_KEY], () => roomService.getRoomEditor(), {
+    select: ({ data }) => data,
+    enabled: isEnabled
+  })
 }

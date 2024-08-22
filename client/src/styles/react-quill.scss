@@ -1,38 +1,38 @@
 .quill {
-	color: #FFF;
-	height: 100%;
-	width: 100%;
+  color: #fff;
+  height: 100%;
+  width: 100%;
 
-	.ql-toolbar {
-		height: 9%;
-		border: none;
-		border-bottom: 5px solid #181818;
+  .ql-toolbar {
+    height: 9%;
+    border: none;
+    border-bottom: 5px solid #181818;
 
-		.ql-picker-options {
-			background-color: gray;
-			width: 153px;
-		}
-	}
+    .ql-picker-options {
+      background-color: gray;
+      width: 153px;
+    }
+  }
 
-	.ql-container {
-		border: none;
-		height: 91%;
+  .ql-container {
+    border: none;
+    height: 91%;
 
-		.ql-editor {
-			outline: none;
-		}
-	}
+    .ql-editor {
+      outline: none;
+    }
+  }
 }
 
 .story .quill {
-	.ql-toolbar {
-		height: 5.5%;
-		border: none;
-		border-bottom: 5px solid #C34375;
-	}
+  .ql-toolbar {
+    height: 5.5%;
+    border: none;
+    border-bottom: 5px solid #c34375;
+  }
 
-	.ql-container {
-		height: 94.5%;
-		border: none;
-	}
+  .ql-container {
+    height: 94.5%;
+    border: none;
+  }
 }

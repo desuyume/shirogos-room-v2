@@ -6,21 +6,21 @@ import DangotekaSectionList from '@/components/Dangoteka/DangotekaSectionList'
 export type DangotekaItemType = 'manga' | 'story'
 
 const Dangoteka: FC = () => {
-	const { pathname } = useLocation()
+  const { pathname } = useLocation()
 
-	useEffect(() => {
-		window.scrollTo(0, 0)
-	}, [pathname])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
 
-	return (
-		<>
-			<Header withLine={true} isFixed={false} />
-			<div className='py-2'>
-				<DangotekaSectionList type='manga' className='mb-[1.1875rem]' />
-				<DangotekaSectionList type='story' />
-			</div>
-		</>
-	)
+  return (
+    <>
+      <Header withLine={true} isFixed={false} />
+      <div className='py-2'>
+        <DangotekaSectionList type='manga' className='mb-[1.1875rem]' />
+        <DangotekaSectionList type='story' />
+      </div>
+    </>
+  )
 }
 
 export default Dangoteka

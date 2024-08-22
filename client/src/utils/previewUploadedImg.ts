@@ -5,13 +5,13 @@ const previewUploadedImg = (
 ) => {
   if (inputRef.current) {
     inputRef.current.onchange = () => {
-      const file = inputRef.current?.files?.[0];
+      const file = inputRef.current?.files?.[0]
       if (file && imgRef.current) {
-        imgRef.current.src = URL.createObjectURL(file);
+        imgRef.current.src = URL.createObjectURL(file)
         setIsUploaded(true)
       }
-    };
+    }
   }
-};
+}
 
 export default previewUploadedImg

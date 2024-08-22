@@ -6,24 +6,22 @@ import { ITaskQueue } from '@/types/manual-task.interface'
 import { FC, useState } from 'react'
 
 const Tasks: FC = () => {
-	const [currentTaskQueue, setCurrentTaskQueue] = useState<ITaskQueue | null>(
-		null
-	)
+  const [currentTaskQueue, setCurrentTaskQueue] = useState<ITaskQueue | null>(null)
 
-	return (
-		<AdminWrapper>
-			<div className='px-[0.8rem] pt-[0.8rem] flex justify-between'>
-				<div>
-					<ManualTask />
-					<ManualTasksList
-						currentTaskQueue={currentTaskQueue}
-						setCurrentTaskQueue={setCurrentTaskQueue}
-					/>
-				</div>
-				{currentTaskQueue && <TaskQueue currentTaskQueue={currentTaskQueue} />}
-			</div>
-		</AdminWrapper>
-	)
+  return (
+    <AdminWrapper>
+      <div className='flex justify-between px-[0.8rem] pt-[0.8rem]'>
+        <div>
+          <ManualTask />
+          <ManualTasksList
+            currentTaskQueue={currentTaskQueue}
+            setCurrentTaskQueue={setCurrentTaskQueue}
+          />
+        </div>
+        {currentTaskQueue && <TaskQueue currentTaskQueue={currentTaskQueue} />}
+      </div>
+    </AdminWrapper>
+  )
 }
 
 export default Tasks

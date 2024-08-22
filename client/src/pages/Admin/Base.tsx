@@ -6,20 +6,20 @@ import AdminWrapper from '@/layout/Admin/AdminWrapper'
 import { FC } from 'react'
 
 const Base: FC = () => {
-	return (
-		<AdminWrapper>
-			<div className='w-full h-full flex flex-col justify-center items-center mt-[7.75rem]'>
-				<div className='w-[73.59375vw] h-full mb-[1.86rem]'>
-					<Chronicles />
-				</div>
-				<div className='w-[73.59375vw] h-[11.75rem] flex justify-between'>
-					<Notification />
-					<News />
-					<BirthdayAward />
-				</div>
-			</div>
-		</AdminWrapper>
-	)
+  return (
+    <AdminWrapper>
+      <div className='mt-[7.75rem] flex h-full w-full flex-col items-center justify-center'>
+        <div className='mb-[1.86rem] h-full w-[73.59375vw]'>
+          <Chronicles />
+        </div>
+        <div className='flex h-[11.75rem] w-[73.59375vw] justify-between'>
+          <Notification />
+          <News />
+          <BirthdayAward />
+        </div>
+      </div>
+    </AdminWrapper>
+  )
 }
 
 export default Base

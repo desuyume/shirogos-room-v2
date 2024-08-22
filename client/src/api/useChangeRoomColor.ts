@@ -4,15 +4,16 @@ import { IChangeRoomColor } from '@/types/room.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useChangeRoomColor = () => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation([ROOM_COLOR_KEY], (data: IChangeRoomColor) =>
-		roomService.changeRoomColor(data),
-		{
-			onSettled: () => {
-				queryClient.invalidateQueries([ROOM_COLOR_KEY])
-				queryClient.invalidateQueries([ROOM_APPEARANCE_KEY])
-			}
-		}
-	)
+  return useMutation(
+    [ROOM_COLOR_KEY],
+    (data: IChangeRoomColor) => roomService.changeRoomColor(data),
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries([ROOM_COLOR_KEY])
+        queryClient.invalidateQueries([ROOM_APPEARANCE_KEY])
+      }
+    }
+  )
 }

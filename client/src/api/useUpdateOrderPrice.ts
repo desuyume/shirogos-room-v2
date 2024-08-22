@@ -4,15 +4,15 @@ import { IUpdateOrderPrice } from '@/types/order.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useUpdateOrderPrice = (id: number) => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation(
-		[UPDATE_ORDER_PRICE_KEY],
-		(data: IUpdateOrderPrice) => orderService.updateOrderPrice(id, data),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries([ORDERS_KEY])
-			},
-		}
-	)
+  return useMutation(
+    [UPDATE_ORDER_PRICE_KEY],
+    (data: IUpdateOrderPrice) => orderService.updateOrderPrice(id, data),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([ORDERS_KEY])
+      }
+    }
+  )
 }

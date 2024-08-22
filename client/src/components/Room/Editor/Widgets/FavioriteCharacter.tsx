@@ -3,66 +3,53 @@ import { IFavoriteCharacter } from '@/types/room.interface'
 import { FC } from 'react'
 
 interface IFavioriteCharacter {
-	isGuide?: boolean
-	guideFavoriteCharacter?: IFavoriteCharacter
+  isGuide?: boolean
+  guideFavoriteCharacter?: IFavoriteCharacter
 }
 
-const FavioriteCharacter: FC<IFavioriteCharacter> = ({
-	isGuide,
-	guideFavoriteCharacter,
-}) => {
-	const {
-		data: favoriteCharacter,
-		isLoading,
-		isError,
-	} = useFavoriteCharacter(!isGuide)
+const FavioriteCharacter: FC<IFavioriteCharacter> = ({ isGuide, guideFavoriteCharacter }) => {
+  const { data: favoriteCharacter, isLoading, isError } = useFavoriteCharacter(!isGuide)
 
-	return (
-		<>
-			{isLoading && !isGuide ? (
-				<div className='w-full h-full flex justify-center items-center handle'>
-					<p className='text-primaryText text-center text-xl'>Загрузка...</p>
-				</div>
-			) : isError && !isGuide ? (
-				<div className='w-full h-full flex justify-center items-center handle'>
-					<p className='text-primaryText text-center text-xl'>Ошибка</p>
-				</div>
-			) : !favoriteCharacter && !guideFavoriteCharacter ? (
-				<div className='w-full h-full flex justify-center items-center handle'>
-					<p className='text-primaryText text-center text-[1vw] px-2'>
-						Не выбран любимый персонаж
-					</p>
-				</div>
-			) : (
-				<div className='w-[90%] h-full flex flex-col items-center relative handle'>
-					<div className='w-full aspect-[179/49] bg-tertiary rounded-[1.5625rem] flex justify-center items-center my-[3%]'>
-						<p className='text-primaryText text-[1vw] leading-[97.8%] px-2 text-center pointer-events-none'>
-							Любимый персонаж
-						</p>
-					</div>
-					<div className='w-full flex-1 flex flex-col items-center'>
-						<div className='w-full aspect-[179/240] bg-tertiary rounded-[1.25rem] border-2 border-primaryText'>
-							<img
-								className='w-full h-full rounded-[1.25rem] pointer-events-none'
-								src={`${import.meta.env.VITE_SERVER_URL}/${
-									isGuide
-										? guideFavoriteCharacter?.miniature_img
-										: favoriteCharacter?.miniature_img
-								}`}
-							/>
-						</div>
-						<div className='w-full flex-1 flex justify-center items-center overflow-hidden'>
-							<p className='text-white text-[0.7vw] text-center leading-[97.8%] max-h-full overflow-hidden pointer-events-none'>
-								{isGuide
-									? guideFavoriteCharacter?.name
-									: favoriteCharacter?.name}
-							</p>
-						</div>
-					</div>
-				</div>
-			)}
-		</>
-	)
+  return (
+    <>
+      {isLoading && !isGuide ? (
+        <div className='handle flex h-full w-full items-center justify-center'>
+          <p className='text-center text-xl text-primaryText'>Загрузка...</p>
+        </div>
+      ) : isError && !isGuide ? (
+        <div className='handle flex h-full w-full items-center justify-center'>
+          <p className='text-center text-xl text-primaryText'>Ошибка</p>
+        </div>
+      ) : !favoriteCharacter && !guideFavoriteCharacter ? (
+        <div className='handle flex h-full w-full items-center justify-center'>
+          <p className='px-2 text-center text-[1vw] text-primaryText'>Не выбран любимый персонаж</p>
+        </div>
+      ) : (
+        <div className='handle relative flex h-full w-[90%] flex-col items-center'>
+          <div className='my-[3%] flex aspect-[179/49] w-full items-center justify-center rounded-[1.5625rem] bg-tertiary'>
+            <p className='pointer-events-none px-2 text-center text-[1vw] leading-[97.8%] text-primaryText'>
+              Любимый персонаж
+            </p>
+          </div>
+          <div className='flex w-full flex-1 flex-col items-center'>
+            <div className='aspect-[179/240] w-full rounded-[1.25rem] border-2 border-primaryText bg-tertiary'>
+              <img
+                className='pointer-events-none h-full w-full rounded-[1.25rem]'
+                src={`${import.meta.env.VITE_SERVER_URL}/${
+                  isGuide ? guideFavoriteCharacter?.miniature_img : favoriteCharacter?.miniature_img
+                }`}
+              />
+            </div>
+            <div className='flex w-full flex-1 items-center justify-center overflow-hidden'>
+              <p className='pointer-events-none max-h-full overflow-hidden text-center text-[0.7vw] leading-[97.8%] text-white'>
+                {isGuide ? guideFavoriteCharacter?.name : favoriteCharacter?.name}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
 }
 
 export default FavioriteCharacter

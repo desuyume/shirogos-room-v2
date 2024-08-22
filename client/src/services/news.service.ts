@@ -2,19 +2,19 @@ import { INews, INewsCount } from '@/types/news.interface'
 import axios from 'axios'
 
 class NewsService {
-	private URL = `${import.meta.env.VITE_API_URL}/news`
+  private URL = `${import.meta.env.VITE_API_URL}/news`
 
-	async getOne(skip: number) {
-		return axios.get<INews>(`${this.URL}?skip=${skip}`)
-	}
+  async getOne(skip: number) {
+    return axios.get<INews>(`${this.URL}?skip=${skip}`)
+  }
 
-	async getCount() {
-		return axios.get<INewsCount>(`${this.URL}/count`)
-	}
+  async getCount() {
+    return axios.get<INewsCount>(`${this.URL}/count`)
+  }
 
-	async create(news: FormData) {
-		return axios.post(`${this.URL}`, news)
-	}
+  async create(news: FormData) {
+    return axios.post(`${this.URL}`, news)
+  }
 }
 
 export default new NewsService()

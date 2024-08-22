@@ -6,15 +6,15 @@ import SecondScreen from '@/components/Screens/SecondScreen'
 import ParticlesMain from '@/components/MainPage/ParticlesMain'
 
 const Main: FC = () => {
-	return (
-		<>
-			<ParticlesMain />
-			<FirstScreen />
-			<PagesLinks />
-			<DonatesMarquee />
-			<SecondScreen />
-		</>
-	)
+  return (
+    <>
+      <ParticlesMain />
+      <FirstScreen />
+      <PagesLinks />
+      <DonatesMarquee />
+      <SecondScreen />
+    </>
+  )
 }
 
 export default Main

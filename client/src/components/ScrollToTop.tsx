@@ -2,15 +2,15 @@ import { FC, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 const ScrollToTop: FC = () => {
-	const { pathname } = useLocation()
+  const { pathname } = useLocation()
 
-	useEffect(() => {
-		if (pathname.includes('/room')) return
+  useEffect(() => {
+    if (pathname.includes('/room')) return
 
-		window.scrollTo(0, 0)
-	}, [pathname])
+    window.scrollTo(0, 0)
+  }, [pathname])
 
-	return null
+  return null
 }
 
 export default ScrollToTop

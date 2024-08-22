@@ -3,15 +3,11 @@ import { PANOPTICONS_KEY } from '../consts/queryKeys'
 import panopticonService from '@/services/panopticon.service'
 
 export const useDeletePanopticon = (id: number | null) => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation(
-		[PANOPTICONS_KEY, id],
-		() => panopticonService.delete(id),
-		{
-			onSettled: () => {
-				queryClient.invalidateQueries([PANOPTICONS_KEY])
-			},
-		}
-	)
+  return useMutation([PANOPTICONS_KEY, id], () => panopticonService.delete(id), {
+    onSettled: () => {
+      queryClient.invalidateQueries([PANOPTICONS_KEY])
+    }
+  })
 }

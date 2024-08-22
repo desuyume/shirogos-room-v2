@@ -3,8 +3,8 @@ import newsService from '@/services/news.service'
 import { useQuery } from '@tanstack/react-query'
 
 export const useNewsCount = () => {
-	return useQuery([NEWS_COUNT_KEY], () => newsService.getCount(), {
-		select: ({ data }) => data,
-		refetchOnWindowFocus: false
-	})
+  return useQuery([NEWS_COUNT_KEY], () => newsService.getCount(), {
+    select: ({ data }) => data,
+    refetchOnWindowFocus: false
+  })
 }

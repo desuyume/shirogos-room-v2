@@ -8,102 +8,83 @@ import { colorVariants, colorVariantsHover } from '@/consts/roomColors'
 import LevelBar from './LevelBar'
 
 interface IUserInfoBar {
-	profile_img: string | null
-	username: string
-	past_usernames?: IPastUsername[]
-	level: number
-	exp: number
-	isGuide?: boolean
-	guideRoomAppearance?: IRoomAppearance
+  profile_img: string | null
+  username: string
+  past_usernames?: IPastUsername[]
+  level: number
+  exp: number
+  isGuide?: boolean
+  guideRoomAppearance?: IRoomAppearance
 }
 
 const UserInfoBar: FC<IUserInfoBar> = ({
-	profile_img,
-	username,
-	past_usernames,
-	level,
-	exp,
-	isGuide,
-	guideRoomAppearance,
+  profile_img,
+  username,
+  past_usernames,
+  level,
+  exp,
+  isGuide,
+  guideRoomAppearance
 }) => {
-	const [isPastUsernamesVisible, setIsPastUsernamesVisible] =
-		useState<boolean>(false)
-	const roomAppearance = useContext(RoomAppearanceContext)
+  const [isPastUsernamesVisible, setIsPastUsernamesVisible] = useState<boolean>(false)
+  const roomAppearance = useContext(RoomAppearanceContext)
 
-	return (
-		<div className='bg-primaryText h-[24.375rem] relative flex flex-col items-center rounded-[1.5625rem] mb-[0.5625rem]'>
-			<div className='w-full h-[80%] rounded-t-[1.5625rem] bg-primaryText z-30'>
-				{!!profile_img ? (
-					<img
-						className='rounded-[1.5rem] w-full h-full object-cover'
-						src={
-							isUrl(profile_img)
-								? profile_img
-								: `${import.meta.env.VITE_SERVER_URL}/${profile_img}`
-						}
-						alt='profile-img'
-					/>
-				) : (
-					<img
-						className='rounded-[1.5rem] w-full h-full object-cover'
-						src={noProfilePictureIcon}
-						alt='profile-img'
-					/>
-				)}
-			</div>
-			<div className='w-full h-[2.4375rem] flex justify-center items-center bg-primaryText rounded-b-[1.5625rem] z-20 relative'>
-				<p
-					className={
-						(isGuide
-							? `${
-									colorVariants.text[
-										guideRoomAppearance?.active_username_color ?? 'pink'
-									]
-							  } `
-							: `${
-									colorVariants.text[roomAppearance.active_username_color]
-							  } `) +
-						`text-xl leading-[97.795%] text-center max-w-[11.75rem] overflow-ellipsis whitespace-nowrap overflow-hidden`
-					}
-				>
-					{username}
-				</p>
-				<button
-					onClick={() => setIsPastUsernamesVisible(!isPastUsernamesVisible)}
-					className={
-						(isPastUsernamesVisible
-							? isGuide
-								? `${
-										colorVariants.border[
-											guideRoomAppearance?.active_room_color ?? 'pink'
-										]
-								  } `
-								: `${colorVariants.border[roomAppearance.active_room_color]} `
-							: 'border-t-tertiary ') +
-						`border-[0.4375rem] border-l-transparent border-r-transparent border-b-transparent border-t-[0.4375rem] ` +
-						(isGuide
-							? `${
-									colorVariantsHover.border[
-										guideRoomAppearance?.active_room_color ?? 'pink'
-									]
-							  }`
-							: `${
-									colorVariantsHover.border[roomAppearance.active_room_color]
-							  }`) +
-						` hover:border-l-transparent hover:border-r-transparent hover:border-b-transparent transition-all absolute right-[0.56rem] top-6`
-					}
-				/>
-				<PastUsernames
-					isVisible={isPastUsernamesVisible}
-					usernames={past_usernames}
-					className='top-8 right-[0.6rem]'
-					isGuide={isGuide}
-					guideRoomAppearance={guideRoomAppearance}
-				/>
-			</div>
-			<LevelBar level={level} exp={exp} />
-		</div>
-	)
+  return (
+    <div className='relative mb-[0.5625rem] flex h-[24.375rem] flex-col items-center rounded-[1.5625rem] bg-primaryText'>
+      <div className='z-30 h-[80%] w-full rounded-t-[1.5625rem] bg-primaryText'>
+        {!!profile_img ? (
+          <img
+            className='h-full w-full rounded-[1.5rem] object-cover'
+            src={
+              isUrl(profile_img) ? profile_img : `${import.meta.env.VITE_SERVER_URL}/${profile_img}`
+            }
+            alt='profile-img'
+          />
+        ) : (
+          <img
+            className='h-full w-full rounded-[1.5rem] object-cover'
+            src={noProfilePictureIcon}
+            alt='profile-img'
+          />
+        )}
+      </div>
+      <div className='relative z-20 flex h-[2.4375rem] w-full items-center justify-center rounded-b-[1.5625rem] bg-primaryText'>
+        <p
+          className={
+            (isGuide
+              ? `${colorVariants.text[guideRoomAppearance?.active_username_color ?? 'pink']} `
+              : `${colorVariants.text[roomAppearance.active_username_color]} `) +
+            `max-w-[11.75rem] overflow-hidden overflow-ellipsis whitespace-nowrap text-center text-xl leading-[97.795%]`
+          }
+        >
+          {username}
+        </p>
+        <button
+          onClick={() => setIsPastUsernamesVisible(!isPastUsernamesVisible)}
+          className={
+            (isPastUsernamesVisible
+              ? isGuide
+                ? `${colorVariants.border[guideRoomAppearance?.active_room_color ?? 'pink']} `
+                : `${colorVariants.border[roomAppearance.active_room_color]} `
+              : 'border-t-tertiary ') +
+            `border-[0.4375rem] border-t-[0.4375rem] border-b-transparent border-l-transparent border-r-transparent ` +
+            (isGuide
+              ? `${colorVariantsHover.border[guideRoomAppearance?.active_room_color ?? 'pink']}`
+              : `${colorVariantsHover.border[roomAppearance.active_room_color]}`) +
+            ` absolute right-[0.56rem] top-6 transition-all hover:border-b-transparent hover:border-l-transparent hover:border-r-transparent`
+          }
+        />
+        <PastUsernames
+          isVisible={isPastUsernamesVisible}
+          usernames={past_usernames}
+          className='right-[0.6rem] top-8'
+          isGuide={isGuide}
+          guideRoomAppearance={guideRoomAppearance}
+        />
+      </div>
+      <LevelBar level={level} exp={exp} />
+    </div>
+  )
 }
 
 export default UserInfoBar

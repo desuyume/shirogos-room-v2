@@ -4,14 +4,15 @@ import { ICreateChronicle } from '@/types/chronicle.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useCreateChronicle = () => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation([CREATE_CHRONICLE_KEY], (chronicle: ICreateChronicle) =>
-		chronicleService.create(chronicle),
-		{
-			onSettled: () => {
-				queryClient.invalidateQueries([CHRONICLES_KEY])
-			}
-		}
-	)
+  return useMutation(
+    [CREATE_CHRONICLE_KEY],
+    (chronicle: ICreateChronicle) => chronicleService.create(chronicle),
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries([CHRONICLES_KEY])
+      }
+    }
+  )
 }

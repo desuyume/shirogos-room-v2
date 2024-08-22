@@ -3,15 +3,11 @@ import newsService from '@/services/news.service'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useCreateNews = () => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation(
-		[CREATE_NEWS_KEY],
-		(news: FormData) => newsService.create(news),
-		{
-			onSettled: () => {
-				queryClient.invalidateQueries([CREATE_NEWS_KEY])
-			},
-		}
-	)
+  return useMutation([CREATE_NEWS_KEY], (news: FormData) => newsService.create(news), {
+    onSettled: () => {
+      queryClient.invalidateQueries([CREATE_NEWS_KEY])
+    }
+  })
 }

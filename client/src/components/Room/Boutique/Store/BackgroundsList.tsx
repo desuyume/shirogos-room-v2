@@ -5,44 +5,42 @@ import BackgroundItem from './BackgroundItem'
 import { RoomAppearanceContext } from '@/Context'
 
 interface IBackgroundsList {
-	backgrounds: IBackground[]
-	buyedBackgrounds: IBackground[]
-	activeBg: IBackground | null
-	setActiveBg: React.Dispatch<React.SetStateAction<IBackground | null>>
+  backgrounds: IBackground[]
+  buyedBackgrounds: IBackground[]
+  activeBg: IBackground | null
+  setActiveBg: React.Dispatch<React.SetStateAction<IBackground | null>>
 }
 
 const BackgroundsList: FC<IBackgroundsList> = ({
-	backgrounds,
-	buyedBackgrounds,
-	activeBg,
-	setActiveBg,
+  backgrounds,
+  buyedBackgrounds,
+  activeBg,
+  setActiveBg
 }) => {
-	const roomAppearance = useContext(RoomAppearanceContext)
+  const roomAppearance = useContext(RoomAppearanceContext)
 
-	return !backgrounds.length ? (
-		<div className='w-full h-full flex justify-center items-center'>
-			<p className='text-primaryText text-xl leading-[97.795%] text-center'>
-				Фонов нет
-			</p>
-		</div>
-	) : (
-		<Scrollbar
-			noDefaultStyles
-			className={`w-full flex-1 ${roomAppearance.active_room_color}-scrollbar`}
-		>
-			<div className='flex-1 flex flex-col items-center w-full'>
-				{backgrounds.map(bg => (
-					<BackgroundItem
-						key={bg.id}
-						background={bg}
-						buyedBackgrounds={buyedBackgrounds}
-						activeBg={activeBg}
-						setActiveBg={setActiveBg}
-					/>
-				))}
-			</div>
-		</Scrollbar>
-	)
+  return !backgrounds.length ? (
+    <div className='flex h-full w-full items-center justify-center'>
+      <p className='text-center text-xl leading-[97.795%] text-primaryText'>Фонов нет</p>
+    </div>
+  ) : (
+    <Scrollbar
+      noDefaultStyles
+      className={`w-full flex-1 ${roomAppearance.active_room_color}-scrollbar`}
+    >
+      <div className='flex w-full flex-1 flex-col items-center'>
+        {backgrounds.map((bg) => (
+          <BackgroundItem
+            key={bg.id}
+            background={bg}
+            buyedBackgrounds={buyedBackgrounds}
+            activeBg={activeBg}
+            setActiveBg={setActiveBg}
+          />
+        ))}
+      </div>
+    </Scrollbar>
+  )
 }
 
 export default BackgroundsList

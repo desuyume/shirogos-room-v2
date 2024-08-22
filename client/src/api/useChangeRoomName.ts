@@ -4,15 +4,12 @@ import { IChangeRoomName } from '@/types/room.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useChangeRoomName = () => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation([ROOM_NAME_KEY], (data: IChangeRoomName) =>
-		roomService.changeRoomName(data),
-		{
-			onSettled: () => {
-				queryClient.invalidateQueries([ROOM_KEY])
-				queryClient.invalidateQueries([USER_PROFILE_KEY])
-			}
-		}
-	)
+  return useMutation([ROOM_NAME_KEY], (data: IChangeRoomName) => roomService.changeRoomName(data), {
+    onSettled: () => {
+      queryClient.invalidateQueries([ROOM_KEY])
+      queryClient.invalidateQueries([USER_PROFILE_KEY])
+    }
+  })
 }

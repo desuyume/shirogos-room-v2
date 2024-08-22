@@ -4,15 +4,15 @@ import { ICreateOrderManually } from '@/types/order.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useCreateOrderManually = () => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation(
-		[CREATE_ORDER_MANUALLT_KEY],
-		(data: ICreateOrderManually) => orderService.createOrderManually(data),
-		{
-			onSettled: () => {
-				queryClient.invalidateQueries([PENDING_ORDERS_KEY])
-			},
-		}
-	)
+  return useMutation(
+    [CREATE_ORDER_MANUALLT_KEY],
+    (data: ICreateOrderManually) => orderService.createOrderManually(data),
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries([PENDING_ORDERS_KEY])
+      }
+    }
+  )
 }

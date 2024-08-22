@@ -4,15 +4,15 @@ import { IUpdateOrderRules } from '@/types/order.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useUpdateOrderRules = (type: string) => {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation(
-		[UPDATE_ORDER_RULES_KEY],
-		(data: IUpdateOrderRules) => orderService.updateOrderRules(type, data),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries([ORDER_RULES_KEY])
-			},
-		}
-	)
+  return useMutation(
+    [UPDATE_ORDER_RULES_KEY],
+    (data: IUpdateOrderRules) => orderService.updateOrderRules(type, data),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([ORDER_RULES_KEY])
+      }
+    }
+  )
 }
