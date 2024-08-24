@@ -6,7 +6,7 @@ import Room from '@/pages/Room'
 import Story from '@/pages/Story'
 import Wiki from '@/pages/Wiki'
 import WikiReader from '@/pages/WikiReader'
-import Youtubes from '@/pages/Youtubes'
+// import Youtubes from '@/pages/Youtubes'
 import Admin from '@/pages/Admin/Admin'
 import Streamer from '@/pages/Streamer'
 import Guide from '@/pages/Guide'
@@ -26,7 +26,7 @@ export const publicRouter: RouteObject[] = [
   { path: '/wiki', element: <Wiki /> },
   { path: '/dangoteka', element: <Dangoteka /> },
   { path: '/streamer', element: <Streamer /> },
-  { path: '/youtubes', element: <Youtubes /> },
+  // { path: '/youtubes', element: <Youtubes /> },
   { path: '/manga/:id/:chapter?', element: <Manga /> },
   { path: '/story/:id/:chapter?', element: <Story /> },
   { path: '/guide/:twitchLogin', element: <Guide /> }

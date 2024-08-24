@@ -12,10 +12,10 @@ import SocialItem from './SocialItem'
 const Socials: FC = () => {
   const socials = [
     { isPageLink: false, link: 'https://t.me/shironel', icon: telegramIcon },
-    { isPageLink: false, link: 'https://vk.com/godofdango', icon: vkIcon },
-    { isPageLink: true, link: '/youtubes', icon: youtubeIcon },
-    { isPageLink: false, link: 'https://www.instagram.com/evgendango/', icon: instagramIcon },
-    { isPageLink: false, link: 'https://www.tiktok.com/@evgendango', icon: tiktokIcon },
+    { isPageLink: false, link: 'https://vk.com/shiro_nel', icon: vkIcon },
+    { isPageLink: false, link: 'https://www.youtube.com/@shironel_', icon: youtubeIcon },
+    { isPageLink: false, link: 'https://www.instagram.com/godofdango', icon: instagramIcon },
+    { isPageLink: false, link: 'https://www.tiktok.com/@shironel', icon: tiktokIcon },
     { isPageLink: false, link: 'https://discord.gg/4Ha6EchcaP', icon: discordIcon },
     { isPageLink: false, link: 'https://www.twitch.tv/godofdango', icon: twitchIcon },
     { isPageLink: false, link: 'https://vkplay.live/godofdango', icon: vkplayIcon }

@@ -63,7 +63,7 @@ const OrderSection: FC<IOrderSection> = ({ orderType }) => {
     <div
       className={
         (orderType === 'game' ? 'rounded-[1.5625rem] bg-room-gameOrder-bg ' : '') +
-        'relative flex h-[21.75rem] w-full py-[0.94rem] pl-[0.69rem]'
+        'relative flex h-[21.75rem] w-full py-[0.9375rem] pl-[0.6875rem]'
       }
     >
       <div

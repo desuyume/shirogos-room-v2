@@ -21,7 +21,7 @@ const RoomNavBttn: FC<IRoomNavBttn> = ({ title, path, bgColor }) => {
         (isActive
           ? 'bg-secondary'
           : `${colorVariants.bg[bgColor]} ${colorVariantsHover.bg[bgColor]}`) +
-        ' flex h-[2.52rem] w-[15rem] min-w-[11.25rem] flex-1 items-center justify-center rounded-[2.3125rem] text-xl text-primaryText transition-all hover:text-white'
+        ' w-[15rem] h-[2.5rem] min-w-[11.25rem] flex flex-1 items-center justify-center rounded-[2.3125rem] text-xl text-primaryText transition-all hover:text-white pb-[0.0625rem]'
       }
       to={path}
     >
