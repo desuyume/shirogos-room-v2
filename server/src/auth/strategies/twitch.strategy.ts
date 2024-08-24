@@ -47,7 +47,6 @@ export class TwitchStrategy extends PassportStrategy(Strategy, 'twitch') {
       },
       update: {
         email: twitchProfile.email || null,
-        profile_img: twitchProfile.profile_img || null,
         twitchId: twitchProfile.id,
       },
       create: {
