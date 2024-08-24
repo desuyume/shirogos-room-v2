@@ -1,3 +1,4 @@
+import $api from '@/http'
 import { IAddUserStats, IUserStats } from '@/types/user.interface'
 import axios from 'axios'
 
@@ -11,7 +12,7 @@ class UserStatsService {
   async add(id: number | null, type: string, stats: IAddUserStats) {
     if (!id) return
 
-    return await axios.post(`${this.URL}/${id}?type=${type}`, stats)
+    return await $api.post(`${this.URL}/${id}?type=${type}`, stats)
   }
 }
 

@@ -1,6 +1,5 @@
 import $api from '@/http'
 import { IUserNotifications } from '@/types/notifications.interface'
-import axios from 'axios'
 
 class NotificationService {
   private URL = `${import.meta.env.VITE_API_URL}/notification`
@@ -10,7 +9,7 @@ class NotificationService {
   }
 
   async create(data: FormData) {
-    return axios.post(`${this.URL}`, data)
+    return $api.post(`${this.URL}`, data)
   }
 
   async read(notificationId: number) {

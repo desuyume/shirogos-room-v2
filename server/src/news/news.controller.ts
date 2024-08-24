@@ -5,12 +5,14 @@ import {
   Post,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config'
+import { AdminGuard } from 'src/auth/guards/admin.guard'
 
 @Controller('news')
 export class NewsController {
@@ -26,6 +28,7 @@ export class NewsController {
     return this.newsService.getNewsCount();
   }
 
+  @UseGuards(AdminGuard)
   @Post('')
   @UseInterceptors(
     FileInterceptor('img', multerOptions),

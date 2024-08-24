@@ -1,3 +1,4 @@
+import $api from '@/http'
 import { ICategory, ICharacter, ICharacterPreview, ICreateCategory } from '@/types/wiki.interface'
 import axios from 'axios'
 
@@ -5,7 +6,7 @@ class WikiService {
   private URL = `${import.meta.env.VITE_API_URL}/wiki`
 
   async createCharacter(character: FormData) {
-    return axios.post(`${this.URL}/character`, character)
+    return $api.post(`${this.URL}/character`, character)
   }
 
   async getAllCharacters() {
@@ -25,7 +26,7 @@ class WikiService {
       return
     }
 
-    return axios.put(`${this.URL}/character/${id}`, character)
+    return $api.put(`${this.URL}/character/${id}`, character)
   }
 
   async deleteCharacter(id: string | null) {
@@ -33,7 +34,7 @@ class WikiService {
       return
     }
 
-    return axios.delete(`${this.URL}/character/${id}`)
+    return $api.delete(`${this.URL}/character/${id}`)
   }
 
   async getCharacterCategories() {
@@ -41,11 +42,11 @@ class WikiService {
   }
 
   async createCharacterCategory(data: ICreateCategory) {
-    return axios.post(`${this.URL}/characterCategory`, data)
+    return $api.post(`${this.URL}/characterCategory`, data)
   }
 
   async deleteCharacterCategory(id: number) {
-    return axios.delete(`${this.URL}/characterCategory/${id}`)
+    return $api.delete(`${this.URL}/characterCategory/${id}`)
   }
 }
 

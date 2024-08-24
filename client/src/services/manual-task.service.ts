@@ -15,11 +15,11 @@ class ManualTaskService {
   }
 
   async create(task: ICreateManualTasK) {
-    return axios.post(`${this.URL}`, task)
+    return $api.post(`${this.URL}`, task)
   }
 
   async delete(id: number) {
-    return axios.delete(`${this.URL}/${id}`)
+    return $api.delete(`${this.URL}/${id}`)
   }
 
   async getTaskResponses(id: number) {

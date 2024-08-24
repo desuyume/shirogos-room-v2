@@ -1,3 +1,4 @@
+import $api from '@/http'
 import { INews, INewsCount } from '@/types/news.interface'
 import axios from 'axios'
 
@@ -13,7 +14,7 @@ class NewsService {
   }
 
   async create(news: FormData) {
-    return axios.post(`${this.URL}`, news)
+    return $api.post(`${this.URL}`, news)
   }
 }
 

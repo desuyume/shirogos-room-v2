@@ -16,6 +16,7 @@ import { CreateManualTaskDto } from './dto/create-manual-task.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config';
+import { AdminGuard } from 'src/auth/guards/admin.guard'
 
 @Controller('manual-task')
 export class ManualTaskController {
@@ -26,11 +27,13 @@ export class ManualTaskController {
     return await this.manualTaskService.getAll();
   }
 
+  @UseGuards(AdminGuard)
   @Post()
   async create(@Body() dto: CreateManualTaskDto) {
     return await this.manualTaskService.create(dto);
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async delete(@Param('id') id: number) {
     return await this.manualTaskService.delete(id);
@@ -64,13 +67,13 @@ export class ManualTaskController {
     );
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(AdminGuard)
   @Patch('response/accept/:id')
   async acceptResponse(@Param('id') responseId: number) {
     return await this.manualTaskService.acceptResponse(responseId);
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(AdminGuard)
   @Patch('response/reject/:id')
   async rejectResponse(@Param('id') responseId: number) {
     return await this.manualTaskService.rejectResponse(responseId);

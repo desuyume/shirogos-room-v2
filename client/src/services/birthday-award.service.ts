@@ -1,3 +1,4 @@
+import $api from '@/http'
 import { IBirthdayAward, IUpdateBirthadyAward } from '@/types/birthday-award.interface'
 import axios from 'axios'
 
@@ -9,7 +10,7 @@ class BirthdayAwardService {
   }
 
   async update({ award }: IUpdateBirthadyAward) {
-    return axios.patch(`${this.URL}`, {
+    return $api.patch(`${this.URL}`, {
       award
     })
   }

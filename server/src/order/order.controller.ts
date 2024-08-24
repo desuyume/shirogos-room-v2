@@ -8,6 +8,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderPriceDto } from './dto/create-order-price.dto';
@@ -17,6 +18,7 @@ import { UpdateOrderPriceDto } from './dto/update-order-price.dto';
 import { UpdateOrderRulesDto } from './dto/update-order-rules.dto';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { CreateOrderManuallyDto } from './dto/create-order-manually.dto'
+import { AdminGuard } from 'src/auth/guards/admin.guard'
 
 @Controller('order')
 export class OrderController {
@@ -47,16 +49,19 @@ export class OrderController {
     return await this.orderService.createOrder(dto);
   }
 
+  @UseGuards(AdminGuard)
   @Post('manually')
   async createOrderManually(@Body() dto: CreateOrderManuallyDto) {
     return await this.orderService.createOrderManually(dto);
   }
 
+  @UseGuards(AdminGuard)
   @Patch('complete/:id')
   async completeOrder(@Param('id') id: string) {
     return await this.orderService.completeOrder(+id);
   }
 
+  @UseGuards(AdminGuard)
   @Patch('reject/:id')
   async rejectOrder(@Param('id') id: string) {
     return await this.orderService.rejectOrder(+id);
@@ -67,6 +72,7 @@ export class OrderController {
     return await this.orderService.getOrderTypes();
   }
 
+  @UseGuards(AdminGuard)
   @Post('type')
   async createOrderType(@Body() dto: CreateOrderTypeDto) {
     try {
@@ -81,6 +87,7 @@ export class OrderController {
     }
   }
 
+  @UseGuards(AdminGuard)
   @Put('rules/:type')
   async updateOrderRules(
     @Param('type') type: string,
@@ -104,11 +111,13 @@ export class OrderController {
     return await this.orderService.getOrderRulesByType(type);
   }
 
+  @UseGuards(AdminGuard)
   @Post('price')
   async createOrderPrice(@Body() dto: CreateOrderPriceDto) {
     return await this.orderService.createOrderPrice(dto);
   }
 
+  @UseGuards(AdminGuard)
   @Put('price/:id')
   async updateOrderPrice(
     @Param('id') id: string,

@@ -6,12 +6,14 @@ import {
   Param,
   Post,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { PanopticonService } from './panopticon.service';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config';
 import { CreatePanopticonDto } from './dto/create-panopticon.dto';
+import { AdminGuard } from 'src/auth/guards/admin.guard'
 
 @Controller('panopticon')
 export class PanopticonController {
@@ -27,6 +29,7 @@ export class PanopticonController {
     return await this.panopticonService.getUnique();
   }
 
+  @UseGuards(AdminGuard)
   @Post()
   @UseInterceptors(
     FileFieldsInterceptor(
@@ -52,6 +55,7 @@ export class PanopticonController {
     );
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {

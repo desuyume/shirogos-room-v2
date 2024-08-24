@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { AchievementService } from './achievement.service';
@@ -14,6 +15,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config';
 import { CreateAchievementDto } from './dto/create-achievement.dto';
 import { UpdateAchievementDto } from './dto/update-achievement.dto';
+import { AdminGuard } from 'src/auth/guards/admin.guard'
 
 @Controller('achievement')
 export class AchievementController {
@@ -24,6 +26,7 @@ export class AchievementController {
     return await this.achievementService.getAll();
   }
 
+  @UseGuards(AdminGuard)
   @Post()
   @UseInterceptors(FileInterceptor('bgImg', multerOptions))
   async create(
@@ -33,6 +36,7 @@ export class AchievementController {
     return await this.achievementService.create(dto, bgImg);
   }
 
+  @UseGuards(AdminGuard)
   @Put(':id')
   @UseInterceptors(FileInterceptor('bgImg', multerOptions))
   async update(
@@ -43,6 +47,7 @@ export class AchievementController {
     return await this.achievementService.update(id, dto, bgImg);
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(@Param('id') id: number) {
     return await this.achievementService.remove(id);

@@ -16,6 +16,7 @@ import { CreateNotificationDto } from './dto/create-notification.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { AdminGuard } from 'src/auth/guards/admin.guard'
 
 @Controller('notification')
 export class NotificationController {
@@ -28,6 +29,7 @@ export class NotificationController {
     return await this.notificationService.getUserNotifications(userId);
   }
 
+  @UseGuards(AdminGuard)
   @Post()
   @UseInterceptors(FileInterceptor('img', multerOptions))
   async create(

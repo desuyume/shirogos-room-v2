@@ -1,3 +1,4 @@
+import $api from '@/http'
 import { IBackground } from '@/types/background.interface'
 import axios from 'axios'
 
@@ -13,7 +14,7 @@ class BackgroundService {
   }
 
   async create(data: FormData) {
-    return axios.post(`${this.URL}`, data)
+    return $api.post(`${this.URL}`, data)
   }
 
   async delete(id: number | null) {
@@ -21,7 +22,7 @@ class BackgroundService {
       return
     }
 
-    return axios.delete(`${this.URL}/${id}`)
+    return $api.delete(`${this.URL}/${id}`)
   }
 }
 

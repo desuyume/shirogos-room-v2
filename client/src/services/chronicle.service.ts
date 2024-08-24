@@ -1,3 +1,4 @@
+import $api from '@/http'
 import {
   IChronicle,
   IChronicleCount,
@@ -22,14 +23,14 @@ class DonateService {
   }
 
   async create({ year, month }: ICreateChronicle) {
-    return axios.post<any, any, ICreateChronicle>(this.URL, {
+    return $api.post<any, any, ICreateChronicle>(this.URL, {
       year,
       month
     })
   }
 
   async delete(id: number) {
-    return axios.delete(`${this.URL}/${id}`)
+    return $api.delete(`${this.URL}/${id}`)
   }
 
   async getEvents(id: number | null) {
@@ -37,11 +38,11 @@ class DonateService {
   }
 
   async createEvent(id: number, event: FormData) {
-    return axios.post(`${this.URL}/${id}`, event)
+    return $api.post(`${this.URL}/${id}`, event)
   }
 
   async deleteEvent(id: number) {
-    return axios.delete(`${this.URL}/event/${id}`)
+    return $api.delete(`${this.URL}/event/${id}`)
   }
 }
 

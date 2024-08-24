@@ -1,3 +1,4 @@
+import $api from '@/http'
 import {
   ICreateDonate,
   IDonate,
@@ -14,7 +15,7 @@ class DonateService {
   }
 
   async create({ username, amount, gifts }: ICreateDonate) {
-    return axios.post<any, any, ICreateDonate>(this.URL, {
+    return $api.post<any, any, ICreateDonate>(this.URL, {
       username,
       amount,
       gifts
@@ -22,19 +23,19 @@ class DonateService {
   }
 
   async updateAmount({ id, addAmount }: IUpdateDonateAmount) {
-    return axios.patch(`${this.URL}/updateAmount/${id}`, {
+    return $api.patch(`${this.URL}/updateAmount/${id}`, {
       addAmount
     })
   }
 
   async updateGifts({ id, gifts }: IUpdateDonateGifts) {
-    return axios.patch(`${this.URL}/updateGifts/${id}`, {
+    return $api.patch(`${this.URL}/updateGifts/${id}`, {
       gifts
     })
   }
 
   async delete(id: number) {
-    return axios.delete(`${this.URL}/${id}`)
+    return $api.delete(`${this.URL}/${id}`)
   }
 }
 

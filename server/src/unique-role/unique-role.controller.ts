@@ -8,10 +8,12 @@ import {
   Param,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { UniqueRoleService } from './unique-role.service';
 import { CreateUniqueRoleDto } from './dto/create-unique-role.dto';
 import { Prisma, UniqueRoleType } from '@prisma/client';
+import { AdminGuard } from 'src/auth/guards/admin.guard'
 
 @Controller('uniqueRole')
 export class UniqueRoleController {
@@ -43,6 +45,7 @@ export class UniqueRoleController {
     }
   }
 
+  @UseGuards(AdminGuard)
   @Post()
   async create(
     @Query('type') type: UniqueRoleType,
@@ -66,6 +69,7 @@ export class UniqueRoleController {
     }
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {

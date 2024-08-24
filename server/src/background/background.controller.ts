@@ -6,12 +6,14 @@ import {
   Param,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { BackgroundService } from './background.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config';
 import { CreateBgDto } from './dto/create-bg.dto';
+import { AdminGuard } from 'src/auth/guards/admin.guard'
 
 @Controller('background')
 export class BackgroundController {
@@ -31,6 +33,7 @@ export class BackgroundController {
     return await this.backgroundService.getUnique();
   }
 
+  @UseGuards(AdminGuard)
   @Post()
   @UseInterceptors(FileInterceptor('bgImg', multerOptions))
   async create(
@@ -40,6 +43,7 @@ export class BackgroundController {
     return await this.backgroundService.create(dto, img);
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {

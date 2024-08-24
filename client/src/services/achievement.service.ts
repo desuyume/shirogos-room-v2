@@ -1,3 +1,4 @@
+import $api from '@/http'
 import { IAchievementFetch, IAchievementFetchWithAward } from '@/types/achievements.interface'
 import axios from 'axios'
 
@@ -9,17 +10,17 @@ class AchievementService {
   }
 
   async create(achieve: FormData) {
-    return await axios.post(`${this.URL}`, achieve)
+    return await $api.post(`${this.URL}`, achieve)
   }
 
   async update(id: number | null, achieve: FormData) {
     if (!id) return
-    return await axios.put(`${this.URL}/${id}`, achieve)
+    return await $api.put(`${this.URL}/${id}`, achieve)
   }
 
   async remove(id: number | null) {
     if (!id) return
-    return await axios.delete(`${this.URL}/${id}`)
+    return await $api.delete(`${this.URL}/${id}`)
   }
 
   async getByTwitchLogin(twitchLogin: string) {

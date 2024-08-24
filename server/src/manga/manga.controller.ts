@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { MangaService } from './manga.service';
@@ -15,11 +16,13 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config';
 import { CreateMangaChapterDto } from './dto/create-manga-chapter.dto';
 import { UpdateMangaDto } from './dto/update-manga.dto'
+import { AdminGuard } from 'src/auth/guards/admin.guard'
 
 @Controller('manga')
 export class MangaController {
   constructor(private readonly mangaService: MangaService) {}
 
+  @UseGuards(AdminGuard)
   @Post()
   @UseInterceptors(
     FileFieldsInterceptor(
@@ -58,6 +61,7 @@ export class MangaController {
     return await this.mangaService.getAllWithChapters();
   }
 
+  @UseGuards(AdminGuard)
   @Post(':id/chapter')
   @UseInterceptors(FileFieldsInterceptor([{ name: 'pageImgs' }], multerOptions))
   async addChapter(
@@ -75,6 +79,7 @@ export class MangaController {
     );
   }
 
+  @UseGuards(AdminGuard)
   @Patch(':id')
   @UseInterceptors(
     FileFieldsInterceptor(
@@ -99,6 +104,7 @@ export class MangaController {
     );
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async delete(@Param('id') id: string) {
     return await this.mangaService.delete(+id);

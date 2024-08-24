@@ -1,3 +1,4 @@
+import $api from '@/http'
 import {
   ICreateOrderManually,
   IFetchedOrderPrice,
@@ -38,11 +39,11 @@ class OrderService {
   }
 
   async updateOrderPrice(id: number, dto: IUpdateOrderPrice) {
-    return await axios.put(`${this.URL}/price/${id}`, dto)
+    return await $api.put(`${this.URL}/price/${id}`, dto)
   }
 
   async updateOrderRules(type: string, dto: IUpdateOrderRules) {
-    return await axios.put(`${this.URL}/rules/${type}`, dto)
+    return await $api.put(`${this.URL}/rules/${type}`, dto)
   }
 
   async getOrderPrices() {
@@ -50,15 +51,15 @@ class OrderService {
   }
 
   async createOrderManually(dto: ICreateOrderManually) {
-    return await axios.post(`${this.URL}/manually`, dto)
+    return await $api.post(`${this.URL}/manually`, dto)
   }
 
   async completeOrder(id: number) {
-    return await axios.patch(`${this.URL}/complete/${id}`)
+    return await $api.patch(`${this.URL}/complete/${id}`)
   }
 
   async rejectOrder(id: number) {
-    return await axios.patch(`${this.URL}/reject/${id}`)
+    return await $api.patch(`${this.URL}/reject/${id}`)
   }
 }
 

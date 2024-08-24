@@ -6,12 +6,14 @@ import {
   Param,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FrameService } from './frame.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config';
 import { CreateFrameDto } from './dto/create-frame.dto';
+import { AdminGuard } from 'src/auth/guards/admin.guard'
 
 @Controller('frame')
 export class FrameController {
@@ -27,6 +29,7 @@ export class FrameController {
     return this.frameService.getUnique();
   }
 
+  @UseGuards(AdminGuard)
   @Post()
   @UseInterceptors(FileInterceptor('frameImg', multerOptions))
   async create(
@@ -36,6 +39,7 @@ export class FrameController {
     return this.frameService.create(dto, img);
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async delete(@Param('id') id: string) {
     return this.frameService.delete(+id);

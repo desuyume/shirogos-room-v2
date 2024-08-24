@@ -8,6 +8,7 @@ import {
   Post,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ChronicleService } from './chronicle.service';
@@ -17,6 +18,7 @@ import { CreateChronicleEventDto } from './dto/create-chronicle-event.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { isNumber } from 'src/utils/isNumber';
 import { multerOptions } from 'src/config/multer.config'
+import { AdminGuard } from 'src/auth/guards/admin.guard'
 
 @Controller('chronicle')
 export class ChronicleController {
@@ -37,6 +39,7 @@ export class ChronicleController {
     return this.chronicleService.getCount();
   }
 
+  @UseGuards(AdminGuard)
   @Post('')
   async create(@Body() dto: CreateChronicleDto) {
     if (!isMonth(dto.month)) {
@@ -46,6 +49,7 @@ export class ChronicleController {
     return await this.chronicleService.create(dto);
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async delete(@Param('id') id: string) {
     return await this.chronicleService.delete(+id);
@@ -56,6 +60,7 @@ export class ChronicleController {
     return await this.chronicleService.getChroincle(+id);
   }
 
+  @UseGuards(AdminGuard)
   @Post(':id')
   @UseInterceptors(
     FileInterceptor('img', multerOptions),
@@ -76,6 +81,7 @@ export class ChronicleController {
     return await this.chronicleService.createEvent(+id, dto, img);
   }
 
+  @UseGuards(AdminGuard)
   @Delete('/event/:id')
   async deleteEvent(@Param('id') id: string) {
     return await this.chronicleService.deleteEvent(+id);
