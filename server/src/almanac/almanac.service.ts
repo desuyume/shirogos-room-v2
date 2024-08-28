@@ -6,12 +6,13 @@ export class AlmanacService {
   constructor(private prisma: PrismaService) {}
 
   async getCurrentBirthdays(date: string) {
-    const currentDate = date.replace('.', '/');
+    const [month, day] = date.split('.');
+    const birthdayPattern = `${month}/${day}/`;
 
     const users = await this.prisma.user.findMany({
       where: {
         birthday: {
-          startsWith: currentDate,
+          startsWith: birthdayPattern,
         },
       },
       select: {

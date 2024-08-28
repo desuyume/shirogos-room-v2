@@ -37,11 +37,12 @@ export class BirthdayAwardService {
   async giveBirthdayAwards() {
     const currentDateStr = this.dateService.getCurrentDateInMoscow();
     const currentMonthAndDay = this.dateService.getCurrentMonthAndDayInMoscow();
+    const birthdayPattern = `${currentMonthAndDay}/`;
 
     const users = await this.prisma.user.findMany({
       where: {
         birthday: {
-          startsWith: currentMonthAndDay,
+          startsWith: birthdayPattern,
         },
       },
     });
@@ -79,6 +80,7 @@ export class BirthdayAwardService {
   async giveBirthdayAwardToUser(userId: number) {
     const currentDateStr = this.dateService.getCurrentDateInMoscow();
     const currentMonthAndDay = this.dateService.getCurrentMonthAndDayInMoscow();
+    const birthdayPattern = `${currentMonthAndDay}/`;
 
     const user = await this.prisma.user.findUnique({
       where: {
@@ -87,7 +89,7 @@ export class BirthdayAwardService {
     });
     if (!user) return;
 
-    if (!user.birthday.startsWith(currentMonthAndDay)) return;
+    if (!user.birthday.startsWith(birthdayPattern)) return;
 
     const birthdayAward = await this.prisma.birthdayAward.findFirst();
     if (!birthdayAward) return;

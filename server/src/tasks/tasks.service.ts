@@ -32,7 +32,7 @@ export class TasksService {
     await this.notificationService.removeExpiredNotifications();
   }
 
-  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, {
+  @Cron(CronExpression.EVERY_SECOND, {
     name: 'giveBirthdayAwards',
     timeZone: 'Europe/Moscow',
   })

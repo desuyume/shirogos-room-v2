@@ -5,6 +5,6 @@ import { PrismaService } from 'src/prisma.service'
 
 @Module({
   controllers: [AlmanacController],
-  providers: [AlmanacService, PrismaService],
+  providers: [AlmanacService, PrismaService]
 })
 export class AlmanacModule {}
