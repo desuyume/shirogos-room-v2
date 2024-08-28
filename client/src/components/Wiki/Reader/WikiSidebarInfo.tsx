@@ -12,18 +12,18 @@ const WikiSidebarInfo: FC<IWikiSidebarInfo> = ({ isSidebarOpen, type, value }) =
       <div
         className={
           (isSidebarOpen ? '' : 'translate-x-[-150%]') +
-          ' mt-[0.13rem] flex h-[4.3%] w-[9vw] items-center justify-center truncate bg-[#44B86B] transition-all duration-1000 ease-out'
+          ' mt-[0.13rem] flex min-h-[4.3%] w-[9vw] items-center justify-center bg-[#44B86B] transition-all duration-1000 ease-out'
         }
       >
-        <p className='font-secondary text-base font-bold text-primaryText'>{type}</p>
+        <p className='max-w-full font-secondary text-base font-bold text-primaryText break-words text-center px-1'>{type}</p>
       </div>
       <div
         className={
           (isSidebarOpen ? '' : 'translate-x-[-150%]') +
-          ' mt-[0.13rem] flex h-[5.4%] w-[9vw] items-center justify-center truncate bg-secondaryHover transition-all duration-1000 ease-out'
+          ' mt-[0.13rem] flex min-h-[5.4%] w-[9vw] items-center justify-center bg-secondaryHover transition-all duration-1000 ease-out'
         }
       >
-        <p className='text-center font-secondary text-[0.9375rem] font-normal text-primaryText'>
+        <p className='max-w-full font-secondary text-[0.9375rem] font-normal text-primaryText break-words text-center px-1'>
           {value || '???'}
         </p>
       </div>

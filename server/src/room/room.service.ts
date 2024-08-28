@@ -494,6 +494,9 @@ export class RoomService {
         id: true,
         name: true,
       },
+      orderBy: {
+        name: 'asc',
+      },
     });
 
     return {
@@ -763,7 +766,11 @@ export class RoomService {
   }
 
   async getRoomPanopticons(userId: number) {
-    const panopticons = await this.prisma.panopticon.findMany();
+    const panopticons = await this.prisma.panopticon.findMany({
+      orderBy: {
+        cost: 'asc',
+      },
+    });
     const buyedPanopticons = await this.prisma.room.findUnique({
       where: {
         userId,

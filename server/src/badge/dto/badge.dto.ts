@@ -6,3 +6,9 @@ export class CreateBadgeDto {
   type: BadgeType;
   isForSale: string;
 }
+
+export class UpdateBadgeDto {
+  cost: number;
+  title: string;
+  type: BadgeType;
+}

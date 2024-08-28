@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -12,8 +13,11 @@ import {
 import { PanopticonService } from './panopticon.service';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config';
-import { CreatePanopticonDto } from './dto/create-panopticon.dto';
-import { AdminGuard } from 'src/auth/guards/admin.guard'
+import {
+  CreatePanopticonDto,
+  UpdatePanopticonDto,
+} from './dto/create-panopticon.dto';
+import { AdminGuard } from 'src/auth/guards/admin.guard';
 
 @Controller('panopticon')
 export class PanopticonController {
@@ -49,6 +53,34 @@ export class PanopticonController {
     },
   ) {
     return await this.panopticonService.create(
+      dto,
+      !!files.img ? files.img[0] : null,
+      !!files.miniatureImg ? files.miniatureImg[0] : null,
+    );
+  }
+
+  @UseGuards(AdminGuard)
+  @Put(':id')
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        { name: 'img', maxCount: 1 },
+        { name: 'miniatureImg', maxCount: 1 },
+      ],
+      multerOptions,
+    ),
+  )
+  async update(
+    @Param('id') id: number,
+    @Body() dto: UpdatePanopticonDto,
+    @UploadedFiles()
+    files: {
+      img: Express.Multer.File[];
+      miniatureImg: Express.Multer.File[];
+    },
+  ) {
+    return await this.panopticonService.update(
+      id,
       dto,
       !!files.img ? files.img[0] : null,
       !!files.miniatureImg ? files.miniatureImg[0] : null,

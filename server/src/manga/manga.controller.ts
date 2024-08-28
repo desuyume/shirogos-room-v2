@@ -15,8 +15,8 @@ import { CreateMangaDto } from './dto/create-manga.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config';
 import { CreateMangaChapterDto } from './dto/create-manga-chapter.dto';
-import { UpdateMangaDto } from './dto/update-manga.dto'
-import { AdminGuard } from 'src/auth/guards/admin.guard'
+import { UpdateMangaDto } from './dto/update-manga.dto';
+import { AdminGuard } from 'src/auth/guards/admin.guard';
 
 @Controller('manga')
 export class MangaController {
@@ -53,7 +53,6 @@ export class MangaController {
   @Get(':id/:chapter')
   async getOne(@Param('id') id: string, @Param('chapter') chapter: string) {
     return await this.mangaService.getOne(id, +chapter);
-
   }
 
   @Get('chapters')

@@ -12,6 +12,8 @@ export interface ICreateUniqueRole {
   isForSale: boolean
 }
 
+export interface IUpdateUniqueRole extends Omit<ICreateUniqueRole, 'isForSale'> {}
+
 export enum UniqueRoleType {
   'ADJECTIVES' = 'ADJECTIVES',
   'NOUNS' = 'NOUNS'

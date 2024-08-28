@@ -1,5 +1,10 @@
 import $api from '@/http'
-import { ICreateUniqueRole, IUniqueRole, UniqueRoleType } from '@/types/unique-role.interface'
+import {
+  ICreateUniqueRole,
+  IUniqueRole,
+  IUpdateUniqueRole,
+  UniqueRoleType
+} from '@/types/unique-role.interface'
 import axios from 'axios'
 
 class UniqueRoleService {
@@ -17,7 +22,13 @@ class UniqueRoleService {
     return $api.post(`${this.URL}?type=${type}`, data)
   }
 
-  async delete(id: number) {
+  async update(id: number | null, data: IUpdateUniqueRole) {
+    if (!id) return
+    return $api.put(`${this.URL}/${id}`, data)
+  }
+
+  async delete(id: number | null) {
+    if (!id) return
     return $api.delete(`${this.URL}/${id}`)
   }
 }

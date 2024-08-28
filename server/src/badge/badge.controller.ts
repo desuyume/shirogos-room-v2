@@ -5,15 +5,16 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { BadgeService } from './badge.service';
-import { CreateBadgeDto } from './dto/create-badge.dto';
+import { CreateBadgeDto, UpdateBadgeDto } from './dto/badge.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config';
-import { AdminGuard } from 'src/auth/guards/admin.guard'
+import { AdminGuard } from 'src/auth/guards/admin.guard';
 
 @Controller('badge')
 export class BadgeController {
@@ -45,8 +46,19 @@ export class BadgeController {
   }
 
   @UseGuards(AdminGuard)
+  @Put(':id')
+  @UseInterceptors(FileInterceptor('badgeImg', multerOptions))
+  async update(
+    @Param('id') id: number,
+    @Body() dto: UpdateBadgeDto,
+    @UploadedFile() img: Express.Multer.File,
+  ) {
+    return await this.badgeService.update(id, dto, img);
+  }
+
+  @UseGuards(AdminGuard)
   @Delete(':id')
-  async delete(@Param('id') id: string) {
-    return await this.badgeService.delete(+id);
+  async delete(@Param('id') id: number) {
+    return await this.badgeService.delete(id);
   }
 }

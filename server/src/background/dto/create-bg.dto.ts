@@ -1,5 +1,10 @@
 export class CreateBgDto {
-	title: string;
+  title: string;
   cost: number;
   isForSale: string;
+}
+
+export class UpdateBgDto {
+  title: string;
+  cost: number;
 }

@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -12,8 +13,8 @@ import {
 import { FrameService } from './frame.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config';
-import { CreateFrameDto } from './dto/create-frame.dto';
-import { AdminGuard } from 'src/auth/guards/admin.guard'
+import { CreateFrameDto, UpdateFrameDto } from './dto/create-frame.dto';
+import { AdminGuard } from 'src/auth/guards/admin.guard';
 
 @Controller('frame')
 export class FrameController {
@@ -37,6 +38,17 @@ export class FrameController {
     @UploadedFile() img: Express.Multer.File,
   ) {
     return this.frameService.create(dto, img);
+  }
+
+  @UseGuards(AdminGuard)
+  @Put(':id')
+  @UseInterceptors(FileInterceptor('frameImg', multerOptions))
+  async update(
+    @Param('id') id: number,
+    @Body() dto: UpdateFrameDto,
+    @UploadedFile() img: Express.Multer.File,
+  ) {
+    return this.frameService.update(id, dto, img);
   }
 
   @UseGuards(AdminGuard)

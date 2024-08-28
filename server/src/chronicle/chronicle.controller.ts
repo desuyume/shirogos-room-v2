@@ -17,8 +17,8 @@ import { isMonth } from 'src/utils/isMonth';
 import { CreateChronicleEventDto } from './dto/create-chronicle-event.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { isNumber } from 'src/utils/isNumber';
-import { multerOptions } from 'src/config/multer.config'
-import { AdminGuard } from 'src/auth/guards/admin.guard'
+import { multerOptions } from 'src/config/multer.config';
+import { AdminGuard } from 'src/auth/guards/admin.guard';
 
 @Controller('chronicle')
 export class ChronicleController {
@@ -62,9 +62,7 @@ export class ChronicleController {
 
   @UseGuards(AdminGuard)
   @Post(':id')
-  @UseInterceptors(
-    FileInterceptor('img', multerOptions),
-  )
+  @UseInterceptors(FileInterceptor('img', multerOptions))
   async createEvent(
     @Body() dto: CreateChronicleEventDto,
     @UploadedFile() img: Express.Multer.File,

@@ -9,10 +9,11 @@ interface ICropModal {
   aspect: number
   img: string | null
   isVisible: boolean
-  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
+  setIsVisible: (value: boolean) => void
   saveToServerFn?: (file: File) => void
   canvas?: HTMLCanvasElement | null
-  setMiniature?: React.Dispatch<React.SetStateAction<File | null>>
+  setMiniature?: (value: File | null) => void
+  setInNew?: (value: boolean) => void
 }
 
 const CropModal: FC<ICropModal> = ({
@@ -22,7 +23,8 @@ const CropModal: FC<ICropModal> = ({
   setIsVisible,
   saveToServerFn,
   canvas,
-  setMiniature
+  setMiniature,
+  setInNew
 }) => {
   const [crop, setCrop] = useState<Crop>()
   const [completedCrop, setCompletedCrop] = useState<Crop | null>(null)
@@ -63,19 +65,26 @@ const CropModal: FC<ICropModal> = ({
   }
 
   const clickSave = async () => {
-    if (imgRef.current && completedCrop && saveToServerFn) {
-      saveCrop(imgRef.current, completedCrop, saveToServerFn)
+    if (!imgRef.current || !completedCrop) return
+
+    if (saveToServerFn) {
+      await saveCrop(imgRef.current, completedCrop, saveToServerFn)
     }
 
-    if (!!canvas && imgRef.current && completedCrop) {
+    console.log(canvas)
+
+
+    if (!!canvas) {
       setCanvasImage(imgRef.current, canvas, completedCrop)
-      setIsVisible(false)
-
-      if (setMiniature) {
-        const file = await saveCrop(imgRef.current, completedCrop)
-        setMiniature(file)
-      }
     }
+
+    if (setMiniature) {
+      const file = await saveCrop(imgRef.current, completedCrop)
+      setMiniature(file)
+    }
+
+    if (!!setInNew) setInNew(true)
+    setIsVisible(false)
   }
 
   useEffect(() => {
@@ -121,9 +130,8 @@ const CropModal: FC<ICropModal> = ({
           </button>
           <button
             onClick={clickSave}
-            className={`${colorVariants.bg[roomAppearance.active_room_color]} ${
-              colorVariantsHover.bg[roomAppearance.active_room_color]
-            } h-10 w-52 text-primaryText transition-all hover:text-white`}
+            className={`${colorVariants.bg[roomAppearance.active_room_color]} ${colorVariantsHover.bg[roomAppearance.active_room_color]
+              } h-10 w-52 text-primaryText transition-all hover:text-white`}
           >
             Сохранить
           </button>

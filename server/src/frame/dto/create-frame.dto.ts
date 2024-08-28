@@ -3,3 +3,8 @@ export class CreateFrameDto {
   cost: number;
   isForSale: string;
 }
+
+export class UpdateFrameDto {
+  title: string;
+  cost: number;
+}

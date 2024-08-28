@@ -21,6 +21,11 @@ class BadgeService {
     return $api.post(`${this.URL}`, data)
   }
 
+  async update(id: number | null, data: FormData) {
+    if (!id) return
+    return $api.put(`${this.URL}/${id}`, data)
+  }
+
   async delete(id: number | null) {
     if (!id) {
       return

@@ -15,7 +15,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config';
 import { CreateAchievementDto } from './dto/create-achievement.dto';
 import { UpdateAchievementDto } from './dto/update-achievement.dto';
-import { AdminGuard } from 'src/auth/guards/admin.guard'
+import { AdminGuard } from 'src/auth/guards/admin.guard';
 
 @Controller('achievement')
 export class AchievementController {

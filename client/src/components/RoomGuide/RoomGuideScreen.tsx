@@ -17,7 +17,7 @@ const RoomGuideScreen: FC<IRoomGuideScreen> = ({ isVisible, setIsVisible }) => {
       <div className='relative h-full w-full bg-room-guide-screen-gradient'>
         <button
           onClick={() => setIsVisible(false)}
-          className='absolute left-[2.5625rem] top-[1.9375rem] z-30 flex h-[5.625rem] w-[5.375rem] items-center justify-center rounded-[2.3125rem] bg-primary pb-3 pr-1 text-[5rem] leading-none text-[#FFF] transition-all hover:bg-primaryHover'
+          className='absolute left-[2.5625rem] top-[1.9375rem] z-50 flex h-[5.625rem] w-[5.375rem] items-center justify-center rounded-[2.3125rem] bg-primary pb-3 pr-1 text-[5rem] leading-none text-[#FFF] transition-all hover:bg-primaryHover'
         >{`
 			<`}</button>
         <RoomGuideScreenRoomList />

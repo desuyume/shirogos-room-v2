@@ -1,6 +1,10 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { CreateBgDto } from './dto/create-bg.dto';
+import { CreateBgDto, UpdateBgDto } from './dto/create-bg.dto';
 import { isNumber } from 'class-validator';
 import { removeFile } from 'src/utils/removeFile';
 
@@ -37,6 +41,40 @@ export class BackgroundService {
         cost: +dto.cost,
         img: img.filename,
         isForSale,
+      },
+    });
+  }
+
+  async update(id: number, dto: UpdateBgDto, img: Express.Multer.File) {
+    const bg = await this.prisma.background.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!bg) {
+      throw new NotFoundException('background not found');
+    }
+
+    if (!img) {
+      throw new BadRequestException('img is required');
+    }
+
+    if (!isNumber(+dto.cost)) {
+      throw new BadRequestException('cost must be number');
+    }
+
+    if (bg.img) {
+      removeFile(bg.img);
+    }
+
+    return await this.prisma.background.update({
+      where: {
+        id,
+      },
+      data: {
+        title: dto.title,
+        cost: +dto.cost,
+        img: img.filename,
       },
     });
   }

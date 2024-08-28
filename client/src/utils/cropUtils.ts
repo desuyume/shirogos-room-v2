@@ -87,6 +87,10 @@ export const clearCanvas = (canvas: HTMLCanvasElement) => {
   }
 
   ctx.restore()
+  // @ts-ignore
+  ctx.reset()
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  ctx.save()
 }
 
 const dataURLtoFile = (dataURL: string, filename: string) => {

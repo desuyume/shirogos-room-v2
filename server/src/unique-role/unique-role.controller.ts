@@ -7,13 +7,17 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
 import { UniqueRoleService } from './unique-role.service';
-import { CreateUniqueRoleDto } from './dto/create-unique-role.dto';
+import {
+  CreateUniqueRoleDto,
+  UpdateUniqueRoleDto,
+} from './dto/unique-role.dto';
 import { Prisma, UniqueRoleType } from '@prisma/client';
-import { AdminGuard } from 'src/auth/guards/admin.guard'
+import { AdminGuard } from 'src/auth/guards/admin.guard';
 
 @Controller('uniqueRole')
 export class UniqueRoleController {
@@ -67,6 +71,12 @@ export class UniqueRoleController {
       }
       Catch(e);
     }
+  }
+
+  @UseGuards(AdminGuard)
+  @Put(':id')
+  async update(@Body() dto: UpdateUniqueRoleDto, @Param('id') id: number) {
+    return await this.uniqueRoleService.update(id, dto);
   }
 
   @UseGuards(AdminGuard)

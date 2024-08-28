@@ -1,6 +1,10 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { CreateBadgeDto } from './dto/create-badge.dto';
+import { CreateBadgeDto, UpdateBadgeDto } from './dto/badge.dto';
 import { removeFile } from 'src/utils/removeFile';
 import { isNumber } from 'class-validator';
 
@@ -69,6 +73,52 @@ export class BadgeService {
         img: img.filename,
         typeId: badgeType.id,
         isForSale,
+      },
+    });
+  }
+
+  async update(id: number, dto: UpdateBadgeDto, img: Express.Multer.File) {
+    const badge = await this.prisma.badge.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!badge) {
+      throw new NotFoundException('badge not found');
+    }
+
+    if (!img) {
+      throw new BadRequestException('img is required');
+    }
+
+    const badgeType = await this.prisma.badgeType.findUnique({
+      where: {
+        type: dto.type,
+      },
+    });
+
+    if (!badgeType) {
+      throw new BadRequestException('badge type not found');
+    }
+
+    if (!isNumber(+dto.cost)) {
+      throw new BadRequestException('cost must be a number');
+    }
+
+    if (badge.img) {
+      removeFile(badge.img);
+    }
+
+    return await this.prisma.badge.update({
+      where: {
+        id,
+      },
+      data: {
+        cost: +dto.cost,
+        title: dto.title,
+        img: img.filename,
+        typeId: badgeType.id,
       },
     });
   }

@@ -1,19 +1,19 @@
 import CropModal from '@/components/CropModal'
 import { cn } from '@/utils/cn'
-import { clearCanvas } from '@/utils/cropUtils'
 import previewUploadedImg from '@/utils/previewUploadedImg'
 import { FC, useEffect, useRef, useState } from 'react'
 
 interface ICustomizationImgUpload {
   imgSrc: string | null
   img: File | null
-  setImg: React.Dispatch<React.SetStateAction<File | null>>
+  setImg: ((value: File | null) => void) | null
   isHasMiniature?: boolean
   miniatureProps?: {
     isVisible: boolean
-    setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
-    setMiniature: React.Dispatch<React.SetStateAction<File | null>>
+    setIsVisible: (value: boolean) => void
+    setMiniature: (value: File | null) => void
     canvas: HTMLCanvasElement | null
+    setInNew?: (value: boolean) => void
   }
   isFrame?: boolean
 }
@@ -35,7 +35,7 @@ const CustomizationImgUpload: FC<ICustomizationImgUpload> = ({
   }, [])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
+    if (e.target.files && setImg) {
       setImg(e.target.files[0])
     }
   }
@@ -46,12 +46,6 @@ const CustomizationImgUpload: FC<ICustomizationImgUpload> = ({
       imgRef.current?.setAttribute('src', '')
     } else {
       setIsImgUploaded(true)
-    }
-
-    if (miniatureProps?.canvas) {
-      console.log('gsdfg')
-
-      clearCanvas(miniatureProps?.canvas)
     }
   }, [imgSrc, img])
 
@@ -101,6 +95,7 @@ const CustomizationImgUpload: FC<ICustomizationImgUpload> = ({
           setIsVisible={miniatureProps.setIsVisible}
           setMiniature={miniatureProps.setMiniature}
           canvas={miniatureProps.canvas}
+          setInNew={miniatureProps.setInNew}
         />
       )}
     </div>

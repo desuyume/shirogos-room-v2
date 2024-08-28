@@ -6,11 +6,11 @@
 
 .room-guide-preview-list.inView {
   .room-guide-preview-item {
-    animation: fadeIn 1s forwards;
-    -webkit-animation: fadeIn 1s forwards;
-    -moz-animation: fadeIn 1s forwards;
-    -o-animation: fadeIn 1s forwards;
-    -ms-animation: fadeIn 1s forwards;
+    animation: fadeIn 0.5s forwards;
+    -webkit-animation: fadeIn 0.5s forwards;
+    -moz-animation: fadeIn 0.5s forwards;
+    -o-animation: fadeIn 0.5s forwards;
+    -ms-animation: fadeIn 0.5s forwards;
 
     &.anim-order-1 {
       animation-delay: 0s;
@@ -21,6 +21,14 @@
     }
 
     &.anim-order-2 {
+      animation-delay: 0.25s;
+      -webkit-animation-delay: 0.25s;
+      -moz-animation-delay: 0.25s;
+      -o-animation-delay: 0.25s;
+      -ms-animation-delay: 0.25s;
+    }
+
+    &.anim-order-3 {
       animation-delay: 0.5s;
       -webkit-animation-delay: 0.5s;
       -moz-animation-delay: 0.5s;
@@ -28,7 +36,15 @@
       -ms-animation-delay: 0.5s;
     }
 
-    &.anim-order-3 {
+    &.anim-order-4 {
+      animation-delay: 0.75s;
+      -webkit-animation-delay: 0.75s;
+      -moz-animation-delay: 0.75s;
+      -o-animation-delay: 0.75s;
+      -ms-animation-delay: 0.75s;
+    }
+
+    &.anim-order-5 {
       animation-delay: 1s;
       -webkit-animation-delay: 1s;
       -moz-animation-delay: 1s;
@@ -36,7 +52,15 @@
       -ms-animation-delay: 1s;
     }
 
-    &.anim-order-4 {
+    &.anim-order-6 {
+      animation-delay: 1.25s;
+      -webkit-animation-delay: 1.25s;
+      -moz-animation-delay: 1.25s;
+      -o-animation-delay: 1.25s;
+      -ms-animation-delay: 1.25s;
+    }
+
+    &.anim-order-7 {
       animation-delay: 1.5s;
       -webkit-animation-delay: 1.5s;
       -moz-animation-delay: 1.5s;
@@ -44,36 +68,12 @@
       -ms-animation-delay: 1.5s;
     }
 
-    &.anim-order-5 {
-      animation-delay: 2s;
-      -webkit-animation-delay: 2s;
-      -moz-animation-delay: 2s;
-      -o-animation-delay: 2s;
-      -ms-animation-delay: 2s;
-    }
-
-    &.anim-order-6 {
-      animation-delay: 2.5s;
-      -webkit-animation-delay: 2.5s;
-      -moz-animation-delay: 2.5s;
-      -o-animation-delay: 2.5s;
-      -ms-animation-delay: 2.5s;
-    }
-
-    &.anim-order-7 {
-      animation-delay: 3s;
-      -webkit-animation-delay: 3s;
-      -moz-animation-delay: 3s;
-      -o-animation-delay: 3s;
-      -ms-animation-delay: 3s;
-    }
-
     &.anim-order-8 {
-      animation-delay: 3.5s;
-      -webkit-animation-delay: 3.5s;
-      -moz-animation-delay: 3.5s;
-      -o-animation-delay: 3.5s;
-      -ms-animation-delay: 3.5s;
+      animation-delay: 1.75s;
+      -webkit-animation-delay: 1.75s;
+      -moz-animation-delay: 1.75s;
+      -o-animation-delay: 1.75s;
+      -ms-animation-delay: 1.75s;
     }
   }
 }

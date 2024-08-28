@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -12,8 +13,8 @@ import {
 import { BackgroundService } from './background.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/config/multer.config';
-import { CreateBgDto } from './dto/create-bg.dto';
-import { AdminGuard } from 'src/auth/guards/admin.guard'
+import { CreateBgDto, UpdateBgDto } from './dto/create-bg.dto';
+import { AdminGuard } from 'src/auth/guards/admin.guard';
 
 @Controller('background')
 export class BackgroundController {
@@ -41,6 +42,17 @@ export class BackgroundController {
     @UploadedFile() img: Express.Multer.File,
   ) {
     return await this.backgroundService.create(dto, img);
+  }
+
+  @UseGuards(AdminGuard)
+  @Put(':id')
+  @UseInterceptors(FileInterceptor('bgImg', multerOptions))
+  async update(
+    @Param('id') id: number,
+    @Body() dto: UpdateBgDto,
+    @UploadedFile() img: Express.Multer.File,
+  ) {
+    return await this.backgroundService.update(id, dto, img);
   }
 
   @UseGuards(AdminGuard)

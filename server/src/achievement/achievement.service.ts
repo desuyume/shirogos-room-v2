@@ -7,7 +7,7 @@ import { UpdateAchievementDto } from './dto/update-achievement.dto';
 import getArrayDifferences from 'src/utils/getArrayDifferences';
 import { removeFile } from 'src/utils/removeFile';
 import { UserStatsService } from 'src/user_stats/user_stats.service';
-import { PrismaService } from 'src/prisma.service'
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class AchievementService {

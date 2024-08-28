@@ -1,8 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UniqueRoleType } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { getRandomInt } from 'src/utils/getRandomInt';
-import { CreateUniqueRoleDto } from './dto/create-unique-role.dto';
+import {
+  CreateUniqueRoleDto,
+  UpdateUniqueRoleDto,
+} from './dto/unique-role.dto';
 
 @Injectable()
 export class UniqueRoleService {
@@ -35,6 +38,27 @@ export class UniqueRoleService {
             ? UniqueRoleType.ADJECTIVES
             : UniqueRoleType.NOUNS,
         isForSale: dto.isForSale,
+      },
+    });
+  }
+
+  async update(id: number, dto: UpdateUniqueRoleDto) {
+    const role = await this.prisma.uniqueRole.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!role) {
+      throw new NotFoundException('role not found');
+    }
+
+    return await this.prisma.uniqueRole.update({
+      where: {
+        id,
+      },
+      data: {
+        title: dto.title,
+        cost: dto.cost,
       },
     });
   }

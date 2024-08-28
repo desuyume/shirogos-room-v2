@@ -12,6 +12,11 @@ async function bootstrap() {
   const httpAdapter = app.get(HttpAdapterHost);
   process.env.TZ = 'Europe/Moscow';
 
+  app.enableCors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  });
+  app.use(cookieParser());
   app.useStaticAssets(join(__dirname, '..', '..', 'static'));
   app.setGlobalPrefix('api');
   app.useGlobalPipes(
@@ -20,11 +25,6 @@ async function bootstrap() {
     }),
   );
   app.useGlobalFilters(new DeleteFileOnErrorFilter(httpAdapter));
-  app.enableCors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-  });
-  app.use(cookieParser());
 
   await app.listen(PORT);
 }
