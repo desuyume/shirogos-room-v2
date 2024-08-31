@@ -38,7 +38,7 @@ const RoomGuideScreenRoomList: FC = () => {
           <div key={room.id} className='w-full h-[14.75rem] mb-[1.9375rem] last-of-type:mb-0'>
             <RoomGuideScreenRoomItem index={index + 1} room={room} />
 
-            {index % 9 === 0 && index !== 0 && <span
+            {index % 8 === 0 && index !== 0 && <span
               ref={ref}
               className={'absolute bottom-0 h-[14.75rem] w-full ' + (isFetched ? 'block' : 'hidden')}
             />}
