@@ -34,7 +34,7 @@ const BackgroundItem: FC<IBackgroundItem> = ({ id, img, title, selectedBg, setSe
       <img
         className={
           (selectedBg === id ? 'border-2 border-[#F8FEFA] ' : '') +
-          'pointer-events-none mb-2 max-h-[11rem] min-w-[18.375rem] rounded-[1.5625rem]'
+          'pointer-events-none mb-2 max-h-[11rem] min-w-[18.375rem] rounded-[1.5625rem] object-cover'
         }
         src={`${import.meta.env.VITE_SERVER_URL}/${img}`}
         alt='bg-img'
