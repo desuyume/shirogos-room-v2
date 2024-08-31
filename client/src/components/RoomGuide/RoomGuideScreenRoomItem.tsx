@@ -10,7 +10,7 @@ interface IRoomGuideScreenRoomItem {
 
 const RoomGuideScreenRoomItem: FC<IRoomGuideScreenRoomItem> = ({ index, room }) => {
   return (
-    <div className='mb-[1.9375rem] flex h-[14.75rem] w-full items-center justify-between last-of-type:mb-0 '>
+    <div className='flex w-full h-full items-center justify-between'>
       <p className='z-40 min-w-[8.2%] max-w-[8.2%] break-words text-right text-[3.125rem] leading-[97.8%] text-primaryText'>
         #{index}
       </p>

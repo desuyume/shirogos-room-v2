@@ -35,7 +35,7 @@ const RoomGuideScreenRoomList: FC = () => {
     <Scrollbar className='relative flex h-full w-full flex-col' noDefaultStyles>
       <div className='relative my-[1.9375rem] flex h-full w-full flex-col items-center pr-[5.5rem]'>
         {rooms.map((room, index) => (
-          <div key={room.id}>
+          <div key={room.id} className='w-full h-[14.75rem] mb-[1.9375rem] last-of-type:mb-0'>
             <RoomGuideScreenRoomItem key={room.id} index={index + 1} room={room} />
 
             {index % 9 === 0 && index !== 0 && <span
