@@ -11,7 +11,7 @@ const RoomGuideScreenRoomList: FC = () => {
   const [page, setPage] = useState<number>(1)
   const [totalPages, setTotalPages] = useState<number | null>(null)
   const { ref, inView } = useInView({
-    threshold: 0.2
+    threshold: 0.5
   })
 
   const { data: roomsData, isLoading, isError, isSuccess, isFetched } = useRoomsByLevel(limit, page)
@@ -35,12 +35,16 @@ const RoomGuideScreenRoomList: FC = () => {
     <Scrollbar className='relative flex h-full w-full flex-col' noDefaultStyles>
       <div className='relative my-[1.9375rem] flex h-full w-full flex-col items-center pr-[5.5rem]'>
         {rooms.map((room, index) => (
-          <RoomGuideScreenRoomItem key={room.id} index={index + 1} room={room} />
+          <div key={room.id}>
+            <RoomGuideScreenRoomItem key={room.id} index={index + 1} room={room} />
+
+            {index % 9 === 0 && index !== 0 && <span
+              ref={ref}
+              className={'absolute bottom-0 h-[14.75rem] w-full ' + (isFetched ? 'block' : 'hidden')}
+            />}
+          </div>
         ))}
-        <span
-          ref={ref}
-          className={'absolute bottom-0 h-[14.75rem] w-full ' + (isFetched ? 'block' : 'hidden')}
-        />
+
       </div>
       {isLoading ? (
         <div

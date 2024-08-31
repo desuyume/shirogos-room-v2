@@ -32,7 +32,7 @@ const RoomGuidePreviewRoomItem: FC<IRoomGuidePreviewRoomItem> = ({ room, order }
       <p className='order-1 max-w-full truncate px-2 font-secondary text-[0.625rem] font-bold text-[#EBE984] transition-all peer-hover:text-primary'>
         {room.user.username}
       </p>
-      <p className='order-2 mb-1 max-h-12 max-w-full overflow-hidden break-words text-center font-secondary text-xs font-bold leading-4 text-primaryText'>
+      <p className='order-2 mb-1 max-h-12 max-w-full overflow-hidden break-all text-center font-secondary text-xs font-bold leading-4 text-primaryText'>
         Комната «{room.name}»
       </p>
     </div>
